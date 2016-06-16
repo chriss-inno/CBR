@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class HomeController extends Controller
+class RegionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,6 @@ class HomeController extends Controller
     public function index()
     {
         //
-        return view('location.countries.index');
     }
 
     /**
