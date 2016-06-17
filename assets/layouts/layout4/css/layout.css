@@ -33,6 +33,7 @@
 /***
 Page Header
 ***/
+
 .page-header.navbar {
   width: 100%;
   padding: 0 20px 0 20px;
@@ -50,6 +51,7 @@ Page Header
   /* Search box */
   /* Menu Toggler */
   /* Top menu */ }
+ .page-header.navbar.navbar-fixed-top  a {color: #d4dadf}
   .page-header.navbar.navbar-fixed-top {
     z-index: 9995; }
   .page-header.navbar.navbar-static-top {

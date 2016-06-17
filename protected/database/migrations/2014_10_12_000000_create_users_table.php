@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
             $table->string('user_name')->unique();
             $table->string('password', 100);
             $table->dateTime('last_login')->nullable();
+            $table->dateTime('last_logout')->nullable();
+            $table->dateTime('last_success_login')->nullable();
             $table->string('profile_image')->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -8,7 +8,7 @@
 @stop
 @section('menu-sidebar')
     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-        <li class="nav-item start ">
+        <li class="nav-item start active open">
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">Dashboard</span>
@@ -27,17 +27,17 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
-                    <a href="{{url('clients/create')}}" class="nav-link ">
+                    <a href="ui_colors.html" class="nav-link ">
                         <span class="title">Registration</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('clients')}}" class="nav-link ">
+                    <a href="ui_general.html" class="nav-link ">
                         <span class="title">Management</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('clients')}}" class="nav-link ">
+                    <a href="ui_buttons.html" class="nav-link ">
                         <span class="title">Reports</span>
                     </a>
                 </li>
@@ -56,29 +56,29 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
-                    <a href="{{url('setting/organization')}}" class="nav-link ">
+                    <a href="ui_colors.html" class="nav-link ">
                         <span class="title">Organization</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('camps')}}" class="nav-link ">
+                    <a href="ui_general.html" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('centres')}}" class="nav-link ">
+                    <a href="ui_buttons.html" class="nav-link ">
                         <span class="title">Centres</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('departments')}}" class="nav-link ">
+                    <a href="ui_buttons.html" class="nav-link ">
                         <span class="title">Departments</span>
                     </a>
                 </li>
 
             </ul>
         </li>
-        <li class="nav-item  active open">
+        <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-bulb"></i>
                 <span class="title"> Location</span>
@@ -86,17 +86,17 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
-                    <a href="{{url('countries')}}" class="nav-link ">
+                    <a href="ui_colors.html" class="nav-link ">
                         <span class="title">Countries</span>
                     </a>
                 </li>
-                <li class="nav-item active">
-                    <a href="{{url('regions')}}" class="nav-link ">
+                <li class="nav-item  ">
+                    <a href="ui_general.html" class="nav-link ">
                         <span class="title">Regions</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('districts')}}" class="nav-link ">
+                    <a href="ui_buttons.html" class="nav-link ">
                         <span class="title">Districts</span>
                     </a>
                 </li>
@@ -114,18 +114,18 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
-                    <a href="{{url('users/create')}}" class="nav-link ">
+                    <a href="ui_colors.html" class="nav-link ">
                         <span class="title">New User</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('users')}}" class="nav-link ">
+                    <a href="ui_general.html" class="nav-link ">
                         <span class="title">Manage</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('roles')}}l" class="nav-link ">
-                        <span class="title">Permissions setup</span>
+                    <a href="ui_buttons.html" class="nav-link ">
+                        <span class="title">Reports</span>
                     </a>
                 </li>
 
@@ -143,33 +143,6 @@
     {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
 
 @stop
-@section('custom-scripts')
-    <script>
-        $("#addRegion").click(function(){
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="h2 modal-title text-center text-info" style="text-align: center">Add Region</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("regions/create") ?>");
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-    </script>
-    @stop
 @section('breadcrumb')
     <ul class="page-breadcrumb breadcrumb">
         <li>
@@ -177,11 +150,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="#">Location</a>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span class="active">Region</span>
+            <span class="active">Countries</span>
         </li>
     </ul>
 @stop
@@ -193,13 +162,13 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Manage Regions</span>
+                        <span class="caption-subject bold uppercase">Manage Countries</span>
                     </div>
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-6 pull-right">
                                 <div class="btn-group pull-right">
-                                    <button id="addRegion" class="btn sbold green"> Add New
+                                    <button id="sample_editable_1_new" class="btn sbold green"> Add New
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
@@ -214,30 +183,86 @@
                         <thead>
                         <tr>
                             <th> SNO </th>
-                            <th> Region name </th>
-                            <th> Districts </th>
+                            <th> Country Code </th>
+                            <th> Country Name </th>
                             <th> Actions </th>
                         </tr>
                         </thead>
                         <tbody>
-
-                        @if(count($regions)>0)
-                            @foreach($regions as $reg)
-                            <tr class="odd gradeX">
-                                <td> {{$count++}} </td>
-                                <td>
-                                   {{$reg->region_name}}
-                                </td>
-                                <td>
-                                    <span class="label label-sm label-success"> View/add </span>
-                                </td>
-                                <td>
-
-                                </td>
-                            </tr>
-                        @endforeach
-                            @endif
-
+                        <tr class="odd gradeX">
+                            <td> looper </td>
+                            <td>
+                                <a href="mailto:looper90@gmail.com"> looper90@gmail.com </a>
+                            </td>
+                            <td>
+                                <span class="label label-sm label-warning"> Suspended </span>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                        <i class="fa fa-angle-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="javascript:;">
+                                                <i class="icon-docs"></i> New Post </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <i class="icon-tag"></i> New Comment </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <i class="icon-user"></i> New User </a>
+                                        </li>
+                                        <li class="divider"> </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <i class="icon-flag"></i> Comments
+                                                <span class="badge badge-success">4</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="odd gradeX">
+                            <td> userwow </td>
+                            <td>
+                                <a href="mailto:userwow@yahoo.com"> userwow@yahoo.com </a>
+                            </td>
+                            <td>
+                                <span class="label label-sm label-success"> Approved </span>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
+                                        <i class="fa fa-angle-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="javascript:;">
+                                                <i class="icon-docs"></i> New Post </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <i class="icon-tag"></i> New Comment </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <i class="icon-user"></i> New User </a>
+                                        </li>
+                                        <li class="divider"> </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                <i class="icon-flag"></i> Comments
+                                                <span class="badge badge-success">4</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
 
                         </tbody>
                     </table>

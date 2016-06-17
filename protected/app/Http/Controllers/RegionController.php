@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Region;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
 class RegionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +21,8 @@ class RegionController extends Controller
     public function index()
     {
         //
+        $regions=Region::all();
+        return view('location.regions.index',compact('regions'));
     }
 
     /**
@@ -26,6 +33,7 @@ class RegionController extends Controller
     public function create()
     {
         //
+        return view('location.regions.create');
     }
 
     /**
@@ -37,6 +45,9 @@ class RegionController extends Controller
     public function store(Request $request)
     {
         //
+        $region=new Region;
+        $region->region_name=$request->region_name;
+        $region->save();
     }
 
     /**
@@ -48,6 +59,8 @@ class RegionController extends Controller
     public function show($id)
     {
         //
+        $region=Region::find($id);
+        return view('location.regions.show',compact('region'));
     }
 
     /**
@@ -59,6 +72,8 @@ class RegionController extends Controller
     public function edit($id)
     {
         //
+        $region=Region::find($id);
+        return view('location.regions.edit',compact('region'));
     }
 
     /**
@@ -71,6 +86,10 @@ class RegionController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $region=Region::find($id);
+        $region->region_name=$request->region_name;
+        $region->save();
+        
     }
 
     /**
@@ -82,5 +101,11 @@ class RegionController extends Controller
     public function destroy($id)
     {
         //
+        $region=Region::find($id);
+        foreach ($region->districts as $d)
+        {
+            $d->delete();
+        }
+        $region->delete();
     }
 }

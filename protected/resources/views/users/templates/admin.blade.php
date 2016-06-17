@@ -29,17 +29,17 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
-                    <a href="ui_colors.html" class="nav-link ">
+                    <a href="{{url('clients/create')}}" class="nav-link ">
                         <span class="title">Registration</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="ui_general.html" class="nav-link ">
+                    <a href="{{url('clients')}}" class="nav-link ">
                         <span class="title">Management</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="ui_buttons.html" class="nav-link ">
+                    <a href="{{url('clients')}}" class="nav-link ">
                         <span class="title">Reports</span>
                     </a>
                 </li>
@@ -58,22 +58,22 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
-                    <a href="ui_colors.html" class="nav-link ">
+                    <a href="{{url('setting/organization')}}" class="nav-link ">
                         <span class="title">Organization</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="ui_general.html" class="nav-link ">
+                    <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="ui_buttons.html" class="nav-link ">
+                    <a href="{{url('centres')}}" class="nav-link ">
                         <span class="title">Centres</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="ui_buttons.html" class="nav-link ">
+                    <a href="{{url('departments')}}" class="nav-link ">
                         <span class="title">Departments</span>
                     </a>
                 </li>
@@ -88,17 +88,17 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
-                    <a href="ui_colors.html" class="nav-link ">
+                    <a href="{{url('countries')}}" class="nav-link ">
                         <span class="title">Countries</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="ui_general.html" class="nav-link ">
+                    <a href="{{url('regions')}}" class="nav-link ">
                         <span class="title">Regions</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="ui_buttons.html" class="nav-link ">
+                    <a href="{{url('districts')}}" class="nav-link ">
                         <span class="title">Districts</span>
                     </a>
                 </li>
@@ -116,18 +116,18 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
-                    <a href="ui_colors.html" class="nav-link ">
+                    <a href="{{url('users/create')}}" class="nav-link ">
                         <span class="title">New User</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="ui_general.html" class="nav-link ">
+                    <a href="{{url('users')}}" class="nav-link ">
                         <span class="title">Manage</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="ui_buttons.html" class="nav-link ">
-                        <span class="title">Reports</span>
+                    <a href="{{url('roles')}}l" class="nav-link ">
+                        <span class="title">Permissions setup</span>
                     </a>
                 </li>
 
@@ -170,6 +170,27 @@
     @stop
 @section('page-scripts-level2')
     {!! Html::script("assets/pages/scripts/dashboard.min.js" ) !!}
+    @stop
+@section('page-head-bar')
+    <div class="page-head">
+        <!-- BEGIN PAGE TITLE -->
+        <div class="page-title">
+            <h1>Welcome
+                <small>dashboard & statistics</small>
+            </h1>
+        </div>
+        <!-- END PAGE TITLE -->
+        <!-- BEGIN PAGE TOOLBAR -->
+        <div class="page-toolbar">
+            <div  class="pull-right tooltips btn btn-fit-height green">
+                <i class="icon-calendar"></i>&nbsp;
+                <span class="thin uppercase hidden-xs">{{date("F d, Y")}}</span>&nbsp;
+
+            </div>
+
+        </div>
+        <!-- END PAGE TOOLBAR -->
+    </div>
     @stop
 @section('breadcrumb')
     <ul class="page-breadcrumb breadcrumb">

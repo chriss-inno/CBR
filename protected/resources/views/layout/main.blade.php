@@ -70,7 +70,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- DOC: Remove "hide" class to enable the page header actions -->
         <!-- END PAGE ACTIONS -->
         <!-- BEGIN PAGE TOP -->
-       <div class="page-actions"> <a href="#" style=" font-size: larger; font-weight: bold;" class="text-center">COMMUNITY BASED REHABILITATION PROGRAMME (CBR)</a></div>
+       <div class="page-actions"> <a href="#" style=" font-size: larger; font-weight: bold; color: #fff" class="text-center">CBR DATA BANK V 1.001</a></div>
 
         <div class="page-top">
             <!-- BEGIN HEADER SEARCH BOX -->
@@ -95,7 +95,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                     <li class="dropdown dropdown-user dropdown-dark">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                            <span class="username username-hide-on-mobile"> User </span>
+                            <span class="username username-hide-on-mobile"> {{Auth::user()->first_name." ". Auth::user()->last_name}} </span>
                             <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                             <img alt="" class="img-circle" src="{{asset("assets/layouts/layout4/img/avatar.png")}}" /> </a>
                         <ul class="dropdown-menu dropdown-menu-default">
@@ -108,12 +108,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <i class="icon-calendar"></i> My Calendar </a>
                             </li>
                             <li>
-                                <a href="app_inbox.html">
-                                    <i class="icon-envelope-open"></i> My Inbox
-                                    <span class="badge badge-danger"> 3 </span>
-                                </a>
-                            </li>
-                            <li>
                                 <a href="app_todo_2.html">
                                     <i class="icon-rocket"></i> My Tasks
                                     <span class="badge badge-success"> 7 </span>
@@ -121,11 +115,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </li>
                             <li class="divider"> </li>
                             <li>
-                                <a href="page_user_lock_1.html">
-                                    <i class="icon-lock"></i> Lock Screen </a>
-                            </li>
-                            <li>
-                                <a href="page_user_login_1.html">
+                                <a href="{{url('logout')}}">
                                     <i class="icon-key"></i> Log Out </a>
                             </li>
                         </ul>
@@ -170,25 +160,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
             <!-- BEGIN PAGE HEAD-->
-            <div class="page-head">
-                <!-- BEGIN PAGE TITLE -->
-                <div class="page-title">
-                    <h1>Welcome
-                        <small>dashboard & statistics</small>
-                    </h1>
-                </div>
-                <!-- END PAGE TITLE -->
-                <!-- BEGIN PAGE TOOLBAR -->
-                <div class="page-toolbar">
-                    <div  class="pull-right tooltips btn btn-fit-height green">
-                        <i class="icon-calendar"></i>&nbsp;
-                        <span class="thin uppercase hidden-xs">{{date("F d, Y")}}</span>&nbsp;
+            @yield('page-head-bar')
 
-                    </div>
-
-                </div>
-                <!-- END PAGE TOOLBAR -->
-            </div>
             <!-- END PAGE HEAD-->
             <!-- BEGIN PAGE BREADCRUMB -->
             @yield('breadcrumb')
@@ -767,7 +740,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
-    <div class="page-footer-inner"> {{date("Y")}} &copy; .CBR collection tool
+    <div class="page-footer-inner"> {{date("Y")}} &copy; .Community Based Rehabilitation Programme (CBR)
 
     </div>
     <div class="scroll-to-top">
@@ -804,6 +777,7 @@ License: You must have a valid license purchased only from themeforest(the above
 {!! Html::script("assets/layouts/layout4/scripts/demo.min.js" ) !!}
 {!! Html::script("assets/layouts/global/scripts/quick-sidebar.min.js" ) !!}
 <!-- END THEME LAYOUT SCRIPTS -->
+@yield('custom-scripts')
 </body>
 
 </html>

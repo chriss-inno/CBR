@@ -25,7 +25,34 @@
 Route::group(['middleware' => ['web']], function () {
     //
 
+    //Users
     Route::get('/','HomeController@index');
     Route::get('home','HomeController@index');
+    Route::get('login','UserController@login');
+    Route::post('login','UserController@postLogin');
+    Route::post('forgetPassword','UserController@forgotPassword');
+    Route::get('logout','UserController@logout');
+    Route::resource('users','UserController');
+
+    //Countries
+    Route::resource('countries','CountryController');
+
+    //Region
+    Route::resource('regions','RegionController');
+
+    //Districts
+    Route::resource('districts','DistrictController');
+
+    //Departments
+    Route::resource('departments','DepartmentsController');
+
+    //Centres
+    Route::resource('centres','CentreController');
+
+    //Camps
+    Route::resource('camps','CampController');
+
+    //Clients
+    Route::resource('clients','ClientController');
 
 });
