@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Countries
+    Regions
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -151,7 +151,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="h2 modal-title text-center text-info" style="text-align: center">Add Region</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Region: Region details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -220,7 +220,7 @@
                         </tr>
                         </thead>
                         <tbody>
-
+                       <?php $count=1;?>
                         @if(count($regions)>0)
                             @foreach($regions as $reg)
                             <tr class="odd gradeX">
