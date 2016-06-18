@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Country;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -20,6 +21,8 @@ class CountryController extends Controller
     public function index()
     {
         //
+        $countries=Country::all();
+        return view('location.countries.index',compact('countries'));
     }
 
     /**
@@ -30,6 +33,7 @@ class CountryController extends Controller
     public function create()
     {
         //
+        return view('location.countries.create');
     }
 
     /**
@@ -41,6 +45,10 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         //
+        $country=new Country;
+        $country->country_name=$request->country_name;
+        $country->country_code=$request->country_code;
+        $country->save();
     }
 
     /**
@@ -52,6 +60,8 @@ class CountryController extends Controller
     public function show($id)
     {
         //
+        $country=Country::find($id);
+        return view('location.countries.show',compact('country'));
     }
 
     /**
@@ -63,6 +73,8 @@ class CountryController extends Controller
     public function edit($id)
     {
         //
+        $country=Country::find($id);
+        return view('location.countries.edit',compact('country'));
     }
 
     /**
@@ -75,6 +87,10 @@ class CountryController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $country=Country::find($id);
+        $country->country_name=$request->country_name;
+        $country->country_code=$request->country_code;
+        $country->save();
     }
 
     /**
@@ -86,5 +102,7 @@ class CountryController extends Controller
     public function destroy($id)
     {
         //
+        $country=Country::find($id);
+        $country->delete();
     }
 }

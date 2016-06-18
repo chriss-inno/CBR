@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\District;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -20,6 +21,8 @@ class DistrictController extends Controller
     public function index()
     {
         //
+        $districts= District::all();
+        return view('location.districts.index',compact('districts'));
     }
 
     /**
@@ -30,6 +33,7 @@ class DistrictController extends Controller
     public function create()
     {
         //
+        return view('location.districts.create');
     }
 
     /**
@@ -41,6 +45,10 @@ class DistrictController extends Controller
     public function store(Request $request)
     {
         //
+        $district= new District;
+        $district->district_name =$request->district_name;
+        $district->region_id=$request->region_id;
+        $district->save();
     }
 
     /**
@@ -52,6 +60,8 @@ class DistrictController extends Controller
     public function show($id)
     {
         //
+        $district= District::find($id);
+        return view('location.districts.show',compact('district'));
     }
 
     /**
@@ -63,6 +73,8 @@ class DistrictController extends Controller
     public function edit($id)
     {
         //
+        $district= District::find($id);
+        return view('location.districts.edit',compact('district'));
     }
 
     /**
@@ -75,6 +87,10 @@ class DistrictController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $district= District::find($id);
+        $district->district_name =$request->district_name;
+        $district->region_id=$request->region_id;
+        $district->save();
     }
 
     /**
@@ -86,5 +102,7 @@ class DistrictController extends Controller
     public function destroy($id)
     {
         //
+        $district= District::find($id);
+        $district->delete();
     }
 }

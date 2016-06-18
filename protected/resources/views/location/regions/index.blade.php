@@ -138,9 +138,11 @@
     {!! Html::script("assets/global/scripts/datatable.js" ) !!}
     {!! Html::script("assets/global/plugins/datatables/datatables.min.js" ) !!}
     {!! Html::script("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js") !!}
-@stop
-@section('page-scripts-level2')
-    {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" ) !!}
+ @stop
+ @section('page-scripts-level2')
+     {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
+    {!! Html::script("assets/pages/scripts/ui-confirmations.min.js" ) !!}
 
 @stop
 @section('custom-scripts')
@@ -167,6 +169,48 @@
                 $("#myModal").remove();
             })
 
+        });
+
+        $(".editRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
+            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Region: Region details</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow','hidden');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("regions") ?>/"+id1+"/edit");
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
+
+        $(".deleteRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
+            $(".deleteModule").show("slow").parent().parent().find("span").remove();
+            var btn = $(this).parent().parent();
+            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
+            $("#no").click(function(){
+                $(this).parent().parent().find(".deleteRecord").show("slow");
+                $(this).parent().parent().find("span").remove();
+            });
+            $("#yes").click(function(){
+                $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
+                $.get("<?php echo url('regions') ?>/"+id1,function(data){
+                    btn.hide("slow").next("hr").hide("slow");
+                });
+            });
         });
     </script>
     @stop
@@ -216,7 +260,7 @@
                             <th> SNO </th>
                             <th> Region name </th>
                             <th> Districts </th>
-                            <th> Actions </th>
+                            <th class="text-center"> Action </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -231,8 +275,9 @@
                                 <td>
                                     <span class="label label-sm label-success"> View/add </span>
                                 </td>
-                                <td>
-
+                                <td class="text-center" id="{{$reg->id}}">
+                                    <a href="#"  class="btn btn-icon-only blue editRecord"> <i class="fa fa-edit"></i> </a>
+                                    <a href="#" class="btn btn-icon-only red deleteRecord"> <i class="fa fa-trash"></i> </a>
                                 </td>
                             </tr>
                         @endforeach
