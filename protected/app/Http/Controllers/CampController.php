@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Camp;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class CampController extends Controller
 {
@@ -20,6 +22,8 @@ class CampController extends Controller
     public function index()
     {
         //
+        $camps=Camp::all();
+        return view('general.camps.index',compact('camps'));
     }
 
     /**
@@ -30,6 +34,7 @@ class CampController extends Controller
     public function create()
     {
         //
+        return view('general.camps.create');
     }
 
     /**
@@ -41,6 +46,20 @@ class CampController extends Controller
     public function store(Request $request)
     {
         //
+        $camp=new Camp;
+        $camp->camp_name=$request->camp_name;
+        $camp->reg_no=$request->reg_no;
+        $camp->description=$request->description;
+        $camp->address=$request->address;
+        $camp->tel=$request->tel;
+        $camp->zone=$request->zone;
+        $camp->region_id=$request->region_id;
+        $camp->district_id=$request->district_id;
+        $camp->status=$request->status;
+        $camp->input_by=Auth::user()->user_name;
+        $camp->save();
+
+
     }
 
     /**
@@ -52,6 +71,8 @@ class CampController extends Controller
     public function show($id)
     {
         //
+        $camp=Camp::find($id);
+        return view('general.camps.show',compact('camp'));
     }
 
     /**
@@ -63,6 +84,8 @@ class CampController extends Controller
     public function edit($id)
     {
         //
+        $camp=Camp::find($id);
+        return view('general.camps.edit',compact('camp'));
     }
 
     /**
@@ -75,6 +98,18 @@ class CampController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $camp=Camp::find($id);
+        $camp->camp_name=$request->camp_name;
+        $camp->reg_no=$request->reg_no;
+        $camp->description=$request->description;
+        $camp->address=$request->address;
+        $camp->tel=$request->tel;
+        $camp->zone=$request->zone;
+        $camp->region_id=$request->region_id;
+        $camp->district_id=$request->district_id;
+        $camp->status=$request->status;
+        $camp->input_by=Auth::user()->user_name;
+        $camp->save();
     }
 
     /**
@@ -86,5 +121,21 @@ class CampController extends Controller
     public function destroy($id)
     {
         //
+        $camp=Camp::find($id);
+        $camp->delete();
     }
+    public function getCentresById($id)
+    {
+        $camp=Camp::find($id);
+        echo "<option value=''>----</option>";
+        if($camp->centres != null)
+        {
+            foreach ($camp->centres as $cen)
+            {
+                echo "<option value='".$cen->id."'>".$cen->centre_name."</option>";
+            }
+        }
+
+    }
+
 }

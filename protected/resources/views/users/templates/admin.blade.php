@@ -18,29 +18,32 @@
             </a>
 
         </li>
-        <li class="heading">
-            <h3 class="uppercase">CLIENT MANAGEMENT</h3>
-        </li>
+
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-user"></i>
-                <span class="title"> Admission</span>
+                <i class="icon-users"></i>
+                <span class="title"> CLIENT/PATIENT</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
                     <a href="{{url('clients/create')}}" class="nav-link ">
-                        <span class="title">Registration</span>
+                        <span class="title">New client</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
                     <a href="{{url('clients')}}" class="nav-link ">
-                        <span class="title">Management</span>
+                        <span class="title">Clients</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
                     <a href="{{url('clients')}}" class="nav-link ">
-                        <span class="title">Reports</span>
+                        <span class="title">Progress Monitoring</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('clients')}}" class="nav-link ">
+                        <span class="title">Clients Referral</span>
                     </a>
                 </li>
 

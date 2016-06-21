@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Departments;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class DepartmentsController extends Controller
+class ClientReferralController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -21,8 +16,6 @@ class DepartmentsController extends Controller
     public function index()
     {
         //
-        $departments=Departments::all();
-        return view('general.departments.index',compact('departments'));
     }
 
     /**
@@ -33,7 +26,6 @@ class DepartmentsController extends Controller
     public function create()
     {
         //
-        return view('general.departments.create');
     }
 
     /**
@@ -45,11 +37,6 @@ class DepartmentsController extends Controller
     public function store(Request $request)
     {
         //
-        $department=new Departments;
-        $department->department_name=$request->department_name;
-        $department->department_description=$request->department_description;
-        $department->status=$request->status;
-        $department->save();
     }
 
     /**
@@ -61,8 +48,6 @@ class DepartmentsController extends Controller
     public function show($id)
     {
         //
-        $department= Departments::find($id);
-        return view('general.departments.show',compact('department'));
     }
 
     /**
@@ -74,8 +59,6 @@ class DepartmentsController extends Controller
     public function edit($id)
     {
         //
-        $department= Departments::find($id);
-        return view('general.departments.edit',compact('department'));
     }
 
     /**
@@ -88,11 +71,6 @@ class DepartmentsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $department= Departments::find($id);
-        $department->department_name=$request->department_name;
-        $department->department_description=$request->department_description;
-        $department->status=$request->status;
-        $department->save();
     }
 
     /**
@@ -104,7 +82,5 @@ class DepartmentsController extends Controller
     public function destroy($id)
     {
         //
-        $department= Departments::find($id);
-        $department->delete();
     }
 }

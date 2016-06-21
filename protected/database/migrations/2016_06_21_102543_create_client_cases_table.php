@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClientDisabilitiesTable extends Migration
+class CreateClientCasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,14 @@ class CreateClientDisabilitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_disabilities', function (Blueprint $table) {
+        Schema::create('client_cases', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('client_id');
-            $table->string('category_id');
-            $table->string('disability_diagnosis');
-            $table->text('remarks')->nullable();
+            $table->string('case_name');
+            $table->string('file_no');
+            $table->date('opened_date')->nullable();
+            $table->text('diagnosis')->nullable();
+            $table->text('causes')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateClientDisabilitiesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('client_disabilities');
+        Schema::drop('client_cases');
     }
 }

@@ -32,6 +32,7 @@ class CreateClientsTable extends Migration
             $table->string('ward')->nullable();
             $table->string('street')->nullable();
             $table->string('status')->nullable();
+            $table->string('is_disabled')->nullable();
             $table->string('input_by')->nullable();
             $table->timestamps();
         });

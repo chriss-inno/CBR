@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Centre;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class CentreController extends Controller
 {
@@ -20,6 +22,8 @@ class CentreController extends Controller
     public function index()
     {
         //
+        $centres=Centre::all();
+        return view('general.centres.index',compact('centres'));
     }
 
     /**
@@ -30,6 +34,7 @@ class CentreController extends Controller
     public function create()
     {
         //
+        return view('general.centres.create');
     }
 
     /**
@@ -41,6 +46,14 @@ class CentreController extends Controller
     public function store(Request $request)
     {
         //
+        $centre=new Centre;
+        $centre->centre_name=$request->centre_name;
+        $centre->description=$request->description;
+        $centre->camp_id=$request->camp_id;
+        $centre->status=$request->status;
+        $centre->input_by=Auth::user()->user_name;
+        $centre->save();
+
     }
 
     /**
@@ -52,6 +65,8 @@ class CentreController extends Controller
     public function show($id)
     {
         //
+        $centre= Centre::find($id);
+        return view('general.centres.show',compact('centre'));
     }
 
     /**
@@ -63,6 +78,8 @@ class CentreController extends Controller
     public function edit($id)
     {
         //
+        $centre= Centre::find($id);
+        return view('general.centres.edit',compact('centre'));
     }
 
     /**
@@ -75,6 +92,13 @@ class CentreController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $centre= Centre::find($id);
+        $centre->centre_name=$request->centre_name;
+        $centre->description=$request->description;
+        $centre->camp_id=$request->camp_id;
+        $centre->status=$request->status;
+        $centre->input_by=Auth::user()->user_name;
+        $centre->save();
     }
 
     /**
@@ -86,5 +110,7 @@ class CentreController extends Controller
     public function destroy($id)
     {
         //
+        $centre= Centre::find($id);
+        $centre->delete();
     }
 }

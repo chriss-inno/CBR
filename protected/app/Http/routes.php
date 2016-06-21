@@ -39,20 +39,44 @@ Route::group(['middleware' => ['web']], function () {
 
     //Region
     Route::resource('regions','RegionController');
+    Route::get('fetch/districts/{id}','RegionController@getDistrictsById');
+    Route::get('remove/regions/{id}','RegionController@destroy');
 
     //Districts
     Route::resource('districts','DistrictController');
+    Route::get('remove/districts/{id}','DistrictController@destroy');
 
     //Departments
     Route::resource('departments','DepartmentsController');
+    Route::get('remove/departments/{id}','DepartmentsController@destroy');
 
     //Centres
     Route::resource('centres','CentreController');
+    Route::get('remove/centres/{id}','CentreController@destroy');
 
     //Camps
     Route::resource('camps','CampController');
+    Route::get('remove/camps/{id}','CampController@destroy');
+    Route::get('fetch/centres/{id}','CampController@getCentresById');
 
     //Clients
     Route::resource('clients','ClientController');
+    Route::get('remove/clients/{id}','ClientController@destroy');
+    Route::get('progress/monitoring','ClientController@index');
+    Route::get('progress/assessment','ClientController@index');
+
+
+    //Assessments
+    Route::get('assessment/client/{id}','ClientAssessmentController@create');
+    Route::post('assessment/create','ClientAssessmentController@store');
+    Route::get('assessment/edit/{id}','ClientAssessmentController@edit');
+    Route::post('assessment/edit','ClientAssessmentController@update');
+    Route::get('assessment/remove/{id}','ClientAssessmentController@destroy');
+    
+
+
+
+
+
 
 });

@@ -108,4 +108,16 @@ class RegionController extends Controller
         }
         $region->delete();
     }
+
+    //Get district by id
+
+    public function getDistrictsById($id)
+    {
+        $regions=Region::find($id);
+        echo "<option value=''>----</option>";
+        foreach ($regions->districts as $dis)
+        {
+            echo "<option value='".$dis->id."'>".$dis->district_name."</option>";
+        }
+    }
 }

@@ -49,7 +49,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link rel="shortcut icon" href=" {{ asset("favicon.ico") }}" /> </head>
 <!-- END HEAD -->
 
-<body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
+<body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo page-footer-fixed page-sidebar-fixed">
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
     <!-- BEGIN HEADER INNER -->
@@ -740,7 +740,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
-    <div class="page-footer-inner"> {{date("Y")}} &copy; .Community Based Rehabilitation Programme (CBR)
+    <div class="page-footer-inner"> {{date("Y")}} &copy; Community Based Rehabilitation Programme (CBR)
 
     </div>
     <div class="scroll-to-top">
