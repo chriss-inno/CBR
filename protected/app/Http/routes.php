@@ -72,8 +72,65 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('assessment/edit/{id}','ClientAssessmentController@edit');
     Route::post('assessment/edit','ClientAssessmentController@update');
     Route::get('assessment/remove/{id}','ClientAssessmentController@destroy');
-    
 
+
+    ///Clients referrals
+    Route::get('referrals','ClientReferralController@index');
+    Route::get('referrals/request','ClientReferralController@referralRequest');
+    Route::get('referrals/create','ClientReferralController@create');
+    Route::post('referrals/create/','ClientReferralController@store');
+    Route::get('referrals/edit/{id}','ClientReferralController@edit');
+    Route::post('referrals/edit','ClientReferralController@update');
+    Route::post('referrals/reports','ClientReferralController@reports');
+    Route::post('referrals/remove/{id}','ClientReferralController@destroy');
+    Route::post('referrals/Search','ClientReferralController@GetClientList');
+
+    //Disabilities 
+    Route::get('disabilities','ClientReferralController@index');
+    Route::get('disabilities/create','ClientReferralController@create');
+    Route::post('disabilities/create/','ClientReferralController@store');
+    Route::get('disabilities/edit/{id}','ClientReferralController@edit');
+    Route::post('disabilities/edit','ClientReferralController@update');
+    Route::post('disabilities/reports','ClientReferralController@reports');
+    Route::post('disabilities/remove/{id}','ClientReferralController@destroy');
+    Route::get('disabilities/clients','ClientReferralController@index');
+
+
+    //Cases
+    Route::get('attendance','ClientReferralController@index');
+    Route::get('attendance/create','ClientReferralController@create');
+    Route::post('attendance/create/','ClientReferralController@store');
+    Route::get('attendance/edit/{id}','ClientReferralController@edit');
+    Route::post('attendance/edit','ClientReferralController@update');
+    Route::post('attendance/reports','ClientReferralController@reports');
+    Route::post('attendance/remove/{id}','ClientReferralController@destroy');
+    Route::get('attendance/clients','ClientReferralController@index');
+
+    //Physiotherapy
+    Route::get('physiotherapy','ClientReferralController@index');
+    Route::get('physiotherapy/create','ClientReferralController@create');
+    Route::post('physiotherapy/create/','ClientReferralController@store');
+    Route::get('physiotherapy/edit/{id}','ClientReferralController@edit');
+    Route::post('physiotherapy/edit','ClientReferralController@update');
+    Route::post('physiotherapy/reports','ClientReferralController@reports');
+    Route::post('physiotherapy/remove/{id}','ClientReferralController@destroy');
+    Route::get('physiotherapy/clients','ClientReferralController@index');
+
+    //orthopedic
+    Route::get('orthopedic','ClientReferralController@index');
+    Route::get('orthopedic/create','ClientReferralController@create');
+    Route::post('orthopedic/create/','ClientReferralController@store');
+    Route::get('orthopedic/edit/{id}','ClientReferralController@edit');
+    Route::post('orthopedic/edit','ClientReferralController@update');
+    Route::post('orthopedic/reports','ClientReferralController@reports');
+    Route::post('orthopedic/remove/{id}','ClientReferralController@destroy');
+    Route::get('orthopedic/clients','ClientReferralController@index');
+    
+    //Reports 
+    Route::get('reports/medical_rehabilitation','ReportsController@medicalRehabilitation');
+    Route::get('reports/medical_rehabilitation','ReportsController@medicalRehabilitation');
+    
+    
 
 
 

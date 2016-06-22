@@ -12,7 +12,7 @@ class CampController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth',['except' => ['fooAction', 'barAction']]);
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.

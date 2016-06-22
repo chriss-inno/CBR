@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
 class ClientReferralController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +21,12 @@ class ClientReferralController extends Controller
     public function index()
     {
         //
+    }
+    
+    public function referralRequest()
+    {
+        $clients=Client::all();
+        return view('clients.referral.request',compact('clients')); 
     }
 
     /**
@@ -26,6 +37,9 @@ class ClientReferralController extends Controller
     public function create()
     {
         //
+
+        $clients=Client::all();
+        return view('clients.referral.index',compact('clients'));
     }
 
     /**
@@ -82,5 +96,11 @@ class ClientReferralController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    public function GetClientList(Request $request)
+    {
+       $clients=Client::where('first_name','like',$request->searchKeyword)->get();
+        return view('clients.referral.list',compact('clients'));
     }
 }

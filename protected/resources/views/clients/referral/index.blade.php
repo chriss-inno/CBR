@@ -1,16 +1,14 @@
 @extends('layout.main')
 @section('page-title')
-    Welcome
-    @stop
+   Clients Referral
+@stop
 @section('page-style')
-    {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/morris/morris.css" ) !!}
-    {!! Html::style("assets/global/plugins/fullcalendar/fullcalendar.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/jqvmap/jqvmap/jqvmap.css" ) !!}
-    @stop
+    {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" ) !!}
+@stop
 @section('menu-sidebar')
     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-        <li class="nav-item start active open">
+        <li class="nav-item start">
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">Dashboard</span>
@@ -44,14 +42,14 @@
 
             </ul>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item  active open">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-direction"></i>
                 <span class="title"> Referral</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('referrals/request')}}" class="nav-link ">
                         <span class="title">New request</span>
                     </a>
@@ -230,131 +228,182 @@
         </li>
 
     </ul>
-    @stop
+@stop
 @section('page-scripts-level1')
-    {!! Html::script("assets/global/plugins/moment.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/morris/morris.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/morris/raphael-min.js" ) !!}
-    {!! Html::script("assets/global/plugins/counterup/jquery.waypoints.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/counterup/jquery.counterup.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/amcharts/amcharts/amcharts.js" ) !!}
-    {!! Html::script("assets/global/plugins/amcharts/amcharts/serial.js" ) !!}
-    {!! Html::script("assets/global/plugins/amcharts/amcharts/pie.js" ) !!}
-    {!! Html::script("assets/global/plugins/amcharts/amcharts/radar.js" ) !!}
-    {!! Html::script("assets/global/plugins/amcharts/amcharts/themes/light.js" ) !!}
-    {!! Html::script("assets/global/plugins/amcharts/amcharts/themes/patterns.js" ) !!}
-    {!! Html::script("assets/global/plugins/amcharts/amcharts/themes/chalk.js" ) !!}
-    {!! Html::script("assets/global/plugins/amcharts/ammap/ammap.js" ) !!}
-    {!! Html::script("assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" ) !!}
-    {!! Html::script("assets/global/plugins/amcharts/amstockcharts/amstock.js" ) !!}
-    {!! Html::script("assets/global/plugins/fullcalendar/fullcalendar.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/horizontal-timeline/horozontal-timeline.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/flot/jquery.flot.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/flot/jquery.flot.resize.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/flot/jquery.flot.categories.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/jquery.sparkline.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" ) !!}
-    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" ) !!}
-    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" ) !!}
-    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" ) !!}
-    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" ) !!}
-    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" ) !!}
-    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" ) !!}
-    @stop
+    {!! Html::script("assets/global/scripts/datatable.js" ) !!}
+    {!! Html::script("assets/global/plugins/datatables/datatables.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js") !!}
+    {!! Html::script("assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" ) !!}
+@stop
 @section('page-scripts-level2')
-    {!! Html::script("assets/pages/scripts/dashboard.min.js" ) !!}
-    @stop
-@section('page-head-bar')
-    <div class="page-head">
-        <!-- BEGIN PAGE TITLE -->
-        <div class="page-title">
-            <h1>Welcome
-                <small>dashboard & statistics</small>
-            </h1>
-        </div>
-        <!-- END PAGE TITLE -->
-        <!-- BEGIN PAGE TOOLBAR -->
-        <div class="page-toolbar">
-            <div  class="pull-right tooltips btn btn-fit-height green">
-                <i class="icon-calendar"></i>&nbsp;
-                <span class="thin uppercase hidden-xs">{{date("F d, Y")}}</span>&nbsp;
+    {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
+    {!! Html::script("assets/pages/scripts/ui-confirmations.min.js" ) !!}
 
-            </div>
+@stop
+@section('custom-scripts')
+    <script>
+        $("#addRegion").click(function(){
+            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Camps: Camps details</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow','hidden');
 
-        </div>
-        <!-- END PAGE TOOLBAR -->
-    </div>
-    @stop
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("clients/create") ?>");
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
+
+        $(".editRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
+            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Camps: Camps details</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow','hidden');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("clients") ?>/"+id1+"/edit");
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
+
+        $(".deleteRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
+            $(".deleteModule").show("slow").parent().parent().find("span").remove();
+            var btn = $(this).parent().parent();
+            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
+            $("#no").click(function(){
+                $(this).parent().parent().find(".deleteRecord").show("slow");
+                $(this).parent().parent().find("span").remove();
+            });
+            $("#yes").click(function(){
+                $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
+                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
+                    btn.hide("slow").next("hr").hide("slow");
+                });
+            });
+        });
+    </script>
+@stop
 @section('breadcrumb')
     <ul class="page-breadcrumb breadcrumb">
         <li>
-            <a href="index.html">Home</a>
+            <a href="{{url('home')}}">Home</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span class="active">Dashboard</span>
+            <a href="#">Clients</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span class="active">Process referral</span>
         </li>
     </ul>
-    @stop
+@stop
 @section('contents')
-    <div class="row widget-row">
-        <div class="col-md-3">
-            <!-- BEGIN WIDGET THUMB -->
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">Registered Clients</h4>
-                <div class="widget-thumb-wrap">
-                    <i class="widget-thumb-icon bg-green icon-bulb"></i>
-                    <div class="widget-thumb-body">
-
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">0</span>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
+                        <i class="icon-users font-dark"></i>
+                        <span class="caption-subject bold uppercase"> Search</span>
                     </div>
                 </div>
-            </div>
-            <!-- END WIDGET THUMB -->
-        </div>
-        <div class="col-md-3">
-            <!-- BEGIN WIDGET THUMB -->
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">Clients with disabilities</h4>
-                <div class="widget-thumb-wrap">
-                    <i class="widget-thumb-icon bg-red icon-layers"></i>
-                    <div class="widget-thumb-body">
+                <div class="portlet-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="1,293">0</span>
-                    </div>
                 </div>
             </div>
-            <!-- END WIDGET THUMB -->
-        </div>
-        <div class="col-md-3">
-            <!-- BEGIN WIDGET THUMB -->
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">People with Special Needs</h4>
-                <div class="widget-thumb-wrap">
-                    <i class="widget-thumb-icon bg-purple icon-screen-desktop"></i>
-                    <div class="widget-thumb-body">
-
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="815">0</span>
+            <!-- END EXAMPLE TABLE PORTLET-->
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
+                        <i class="icon-users font-dark"></i>
+                        <span class="caption-subject bold uppercase">Client/Patient list</span>
                     </div>
                 </div>
-            </div>
-            <!-- END WIDGET THUMB -->
-        </div>
-        <div class="col-md-3">
-            <!-- BEGIN WIDGET THUMB -->
-            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">Average Monthly</h4>
-                <div class="widget-thumb-wrap">
-                    <i class="widget-thumb-icon bg-blue icon-bar-chart"></i>
-                    <div class="widget-thumb-body">
+                <div class="portlet-body" id="clientsSearchResults">
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
+                        <thead>
+                        <tr>
+                            <th> SNO </th>
+                            <th> First Name </th>
+                            <th> Last Name </th>
+                            <th> Other Name </th>
+                            <th> Sex </th>
+                            <th> Age </th>
+                            <th> Status </th>
+                            <th> Profile </th>
+                            <th class="text-center"> Referral </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php $count=1;?>
+                        @if(count($clients )>0)
+                            @foreach($clients as $client)
+                                <tr class="odd gradeX">
+                                    <td> {{$count++}} </td>
+                                    <td>
+                                        {{$client->first_name	}}
+                                    </td>
+                                    <td>
+                                        {{$client->last_name}}
+                                    </td>
+                                    <td>
+                                        {{$client->middle_name}}
+                                    </td>
+                                    <td>
+                                        {{$client->sex}}
+                                    </td>
+                                    <td>
+                                        {{$client->age}}
+                                    </td>
+                                    <td>
+                                        {{$client->status}}
+                                    </td>
+                                    <td class="text-center" id="{{$client->id}}">
+                                        <a href="{{url('clients')}}/{{$client->id}}"  class="btn btn-icon-only blue"> <i class="fa fa-eye"></i> </a>
+                                    </td>
+                                    <td class="text-center" id="{{$client->id}}">
+                                        <a href="#"  class="btn btn-icon-only blue "> <i class="fa fa-edit"></i> </a>
+                                        <a href="#" class="btn btn-icon-only red deleteRecord"> <i class="fa fa-trash"></i> </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="5,071">0</span>
-                    </div>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <!-- END WIDGET THUMB -->
+            <!-- END EXAMPLE TABLE PORTLET-->
         </div>
     </div>
-    @stop
+@stop

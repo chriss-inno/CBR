@@ -618,7 +618,7 @@
                             <input type="text" class="form-control" name="ward" id="ward" >
                         </div>
                         <div class="form-group">
-                            <label for="ward">Is disabiled?</label>
+                            <label for="ward">Is disabled?</label>
                             <select  class="form-control" name="is_disabled" id="is_disabled">
                                 <option value="">------</option>
                                 <option value="Yes">Yes</option>
