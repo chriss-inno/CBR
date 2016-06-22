@@ -296,7 +296,7 @@
                                         <a href="{{url('clients')}}/{{$client->id}}"  class="btn btn-icon-only blue"> <i class="fa fa-eye"></i> </a>
                                     </td>
                                     <td class="text-center" id="{{$client->id}}">
-                                        <a href="#"  class="btn btn-icon-only blue "> <i class="fa fa-edit"></i> </a>
+                                        <a href="{{url('clients')}}/{{$client->id}}/edit"  class="btn btn-icon-only blue "> <i class="fa fa-edit"></i> </a>
                                         <a href="#" class="btn btn-icon-only red deleteRecord"> <i class="fa fa-trash"></i> </a>
                                     </td>
                                 </tr>

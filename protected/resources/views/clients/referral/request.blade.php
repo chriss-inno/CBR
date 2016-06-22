@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Clients Referral
+    Clients Referral request
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -357,38 +357,6 @@
 @section('contents')
     <div class="row">
         <div class="col-md-12">
-            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-            <div class="portlet light bordered">
-                <div class="portlet-title">
-                    <div class="caption font-dark">
-                        <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase"> Search</span>
-                    </div>
-                </div>
-                <div class="portlet-body form">
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12">
-                            {!! Form::open(array('url'=>'referrals/Search','role'=>'form','id'=>'SearchForm')) !!}
-                                <div class="form-body">
-                                    <fieldset class="scheduler-border">
-                                        <div class="form-group">
-                                            <label>Search Keyword</label>
-                                            <input type="text" class="form-control" name="searchKeyword" id="searchKeyword" placeholder="">
-                                        </div>
-
-                                    </fieldset>
-                                </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn green col-md-2 col-sm-2 pull-right"><i class="fa fa-search"></i> Search </button>
-                                <button type="reset" class="btn defaultcol-md-2 col-sm-2 pull-right">Reset</button>
-                            </div>
-                            {!! Form::close() !!}
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet light bordered">
                 <div class="portlet-title">
