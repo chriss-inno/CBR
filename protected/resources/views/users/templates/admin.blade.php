@@ -267,13 +267,10 @@
     {!! Html::script("assets/pages/scripts/dashboard.min.js" ) !!}
     @stop
 @section('page-head-bar')
-    <div class="page-head">
         <!-- BEGIN PAGE TITLE -->
-        <div class="page-title">
-            <h1>Welcome
+            <h3>Welcome
                 <small>dashboard & statistics</small>
-            </h1>
-        </div>
+            </h3>
         <!-- END PAGE TITLE -->
         <!-- BEGIN PAGE TOOLBAR -->
         <div class="page-toolbar">
@@ -285,13 +282,12 @@
 
         </div>
         <!-- END PAGE TOOLBAR -->
-    </div>
     @stop
 @section('breadcrumb')
-    <ul class="page-breadcrumb breadcrumb">
+    <ul class="page-breadcrumb">
         <li>
-            <a href="index.html">Home</a>
-            <i class="fa fa-circle"></i>
+            <a href="{{url('home')}}">Home</a>
+            <i class="fa fa-angle-right"></i>
         </li>
         <li>
             <span class="active">Dashboard</span>

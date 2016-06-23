@@ -399,17 +399,20 @@
                                         {{$client->sex}}
                                     </td>
                                     <td>
-                                        {{$client->age}}
+                                        @if(is_object($client->camp)&& $client->camp_id !="" && $client->camp !="" && $client->camp !=null )
+                                            {{$client->camp->camp_name}}
+                                        @endif
                                     </td>
                                     <td>
-                                        {{$client->status}}
+                                        @if(is_object($client->centre)&& $client->center_id !="" && $client->centre !="" && $client->centre !=null )
+                                        {{$client->centre->centre_name}}
+                                        @endif
                                     </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('clients')}}/{{$client->id}}"  class="btn btn-icon-only blue"> <i class="fa fa-eye"></i> </a>
+                                    <td >
+
                                     </td>
                                     <td class="text-center" id="{{$client->id}}">
                                         <a href="#"  class="btn btn-icon-only blue "> <i class="fa fa-edit"></i> </a>
-                                        <a href="#" class="btn btn-icon-only red deleteRecord"> <i class="fa fa-trash"></i> </a>
                                     </td>
                                 </tr>
                             @endforeach

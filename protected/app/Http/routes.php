@@ -67,8 +67,10 @@ Route::group(['middleware' => ['web']], function () {
 
 
     //Assessments
-    Route::get('assessment/client/{id}','ClientAssessmentController@create');
+    Route::get('assessment/client/{id}','ClientAssessmentController@newUserCreate');
+    Route::post('assessment/client/','ClientAssessmentController@postNewUserCreate');
     Route::post('assessment/create','ClientAssessmentController@store');
+    Route::get('assessment/create/{id}','ClientAssessmentController@create');
     Route::get('assessment/edit/{id}','ClientAssessmentController@edit');
     Route::post('assessment/edit','ClientAssessmentController@update');
     Route::get('assessment/remove/{id}','ClientAssessmentController@destroy');

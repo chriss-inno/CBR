@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Camps
+    Client Registration
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css") !!}
@@ -356,14 +356,14 @@
     </script>
 @stop
 @section('breadcrumb')
-    <ul class="page-breadcrumb breadcrumb">
+    <ul class="page-breadcrumb">
         <li>
             <a href="{{url('home')}}">Home</a>
-            <i class="fa fa-circle"></i>
+            <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#">Clients/Patient</a>
-            <i class="fa fa-circle"></i>
+            <a href="{{url('clients')}}">Clients/Patient</a>
+            <i class="fa fa-angle-right"></i>
         </li>
         <li>
             <span class="active">New Client registration</span>

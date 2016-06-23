@@ -1,4 +1,7 @@
 /* cyrillic-ext */
+.error{
+  color: #e7505a;
+}
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;

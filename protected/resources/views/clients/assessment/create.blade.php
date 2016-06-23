@@ -234,23 +234,23 @@
     </ul>
 @stop
 @section('page-scripts-level1')
-   {!! Html::script("assets/global/plugins/moment.min.js"  ) !!}
-   {!! Html::script("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js"  ) !!}
-   {!! Html::script("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"  ) !!}
-   {!! Html::script("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"  ) !!}
-   {!! Html::script("assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"  ) !!}
-   {!! Html::script("assets/global/plugins/clockface/js/clockface.js"  ) !!}
-   {!! Html::script("assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" ) !!}
-   {!! Html::script("assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"  ) !!}
-   {!! Html::script("assets/global/plugins/ckeditor/ckeditor.js" ) !!}
+    {!! Html::script("assets/global/plugins/moment.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/clockface/js/clockface.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"  ) !!}
+    {!! Html::script("assets/global/plugins/ckeditor/ckeditor.js" ) !!}
 @stop
 @section('page-scripts-level2')
-   {!! Html::script("assets/pages/scripts/components-date-time-pickers.min.js" ) !!}
-   {!! Html::script("assets/pages/scripts/components-editors.min.js"  ) !!}
+    {!! Html::script("assets/pages/scripts/components-date-time-pickers.min.js" ) !!}
+    {!! Html::script("assets/pages/scripts/components-editors.min.js"  ) !!}
 
 @stop
 @section('custom-scripts')
-   {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
+    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
         $("#DepartmentFormUN").validate({
             rules: {
@@ -400,147 +400,147 @@
                 <div class="portlet-body form">
                     {!! Form::open(array('url'=>'assessment/create','role'=>'form','id'=>'DepartmentFormUN')) !!}
                     <div class="form-body">
-                    <fieldset class="scheduler-border">
-                        <legend class="scheduler-border">Personal Details</legend>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4 col-sm-4">
-                                    <label for="first_name">First Name</label>
-                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First name" value="{{$client->first_name}}" disabled>
-                                </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <label for="last_name">Last Name</label>
-                                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last name"value="{{$client->last_name}}" disabled>
-                                </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <label for="middle_name">Other Name</label>
-                                    <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name" value="{{$client->middle_name}}"  disabled>
-                                </div>
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">Personal Details</legend>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-4">
+                                        <label for="first_name">First Name</label>
+                                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First name" value="{{$client->first_name}}" disabled>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <label for="last_name">Last Name</label>
+                                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last name"value="{{$client->last_name}}" disabled>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <label for="middle_name">Other Name</label>
+                                        <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name" value="{{$client->middle_name}}"  disabled>
+                                    </div>
 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4 col-sm-4">
-                                    <label for="dob">Date of birth</label>
-                                    <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name"  value="{{$client->dob}}"  disabled>
                                 </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <label for="sex">Sex</label>
-                                    <select class="form-control" name="sex" id="sex" disabled>
-                                        @if($client->sex != "")
-                                        <option value="{{$client->sex}}" selected>{{$client->sex}}</option>
-                                        @else
-                                            <option value="">---Select--</option>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-4">
+                                        <label for="dob">Date of birth</label>
+                                        <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name"  value="{{$client->dob}}"  disabled>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <label for="sex">Sex</label>
+                                        <select class="form-control" name="sex" id="sex" disabled>
+                                            @if($client->sex != "")
+                                                <option value="{{$client->sex}}" selected>{{$client->sex}}</option>
+                                            @else
+                                                <option value="">---Select--</option>
                                             @endif
-                                        <option value="Female">Female</option>
-                                        <option value="Male">Male</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <label for="marital_status">Marital Status</label>
-                                    <select class="form-control" name="marital_status" id="marital_status" disabled>
-                                        @if($client->marital_status != "")
-                                            <option value="{{$client->marital_status}}" selected>{{$client->marital_status}}</option>
-                                        @else
-                                            <option value="">---Select--</option>
-                                        @endif
-                                        <option value="Single">Single</option>
-                                        <option value="Married">Married</option>
-                                        <option value="Divorced">Divorced</option>
-                                        <option value="Widow">Widow</option>
-                                    </select>
+                                            <option value="Female">Female</option>
+                                            <option value="Male">Male</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <label for="marital_status">Marital Status</label>
+                                        <select class="form-control" name="marital_status" id="marital_status" disabled>
+                                            @if($client->marital_status != "")
+                                                <option value="{{$client->marital_status}}" selected>{{$client->marital_status}}</option>
+                                            @else
+                                                <option value="">---Select--</option>
+                                            @endif
+                                            <option value="Single">Single</option>
+                                            <option value="Married">Married</option>
+                                            <option value="Divorced">Divorced</option>
+                                            <option value="Widow">Widow</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </fieldset>
-                    <fieldset class="scheduler-border">
-                        <legend class="scheduler-border">Assessment details</legend>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6">
-                                    <label for="dob">Date of first consultation</label>
-                                    <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
-                                        <input type="text" class="form-control" name="consultation_date" id="consultation_date" readonly>
+                        </fieldset>
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">Assessment details</legend>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label for="dob">Date of first consultation</label>
+                                        <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                            <input type="text" class="form-control" name="consultation_date" id="consultation_date" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
                                                                 <i class="fa fa-calendar"></i>
                                                             </button>
                                                         </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <label for="sex">Consultation No</label>
+                                        <input type="text" class="form-control" name="consultation_no" id="consultation_no">
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <label for="sex">Consultation No</label>
-                                    <input type="text" class="form-control" name="consultation_no" id="consultation_no">
+                            </div>
+                            <div class="form-group>">
+                                <label for="diagnosis">Diagnosis</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="diagnosis" id="diagnosis" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="medical_history">Medical History</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="medical_history" id="medical_history" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="social_history">Social History</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="social_history" id="social_history" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="employment">School/employment</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="employment" id="employment" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="diagnosis">Diagnosis</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="diagnosis" id="diagnosis" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="skin_condition">Skin condition</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="skin_condition" id="skin_condition" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="daily_activities">Activities of daily living</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="daily_activities" id="daily_activities" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="joint_assessment">Joint assessment</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="joint_assessment" id="joint_assessment" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="muscle_assessment">Muscle assessment</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="muscle_assessment" id="muscle_assessment" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="functional_assessment">Functional assessment</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="functional_assessment" id="functional_assessment" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="problem_list">Problem list</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="problem_list" id="problem_list" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="treatment">Treatment</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="treatment" id="treatment" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="remarks">Remarks</label>
+                                <input type="text" class="form-control" name="remarks" id="remarks">
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label for="examiner_name">Examiner Name</label>
+                                        <input type="text" class="form-control" name="examiner_name" id="examiner_name">
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <label for="examiner_title">Examiner Title</label>
+                                        <input type="text" class="form-control" name="examiner_title" id="examiner_title">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                         <div class="form-group>">
-                             <label for="diagnosis">Diagnosis</label>
-                             <textarea class="wysihtml5 form-control" rows="6" name="diagnosis" id="diagnosis" ></textarea>
-                         </div>
-                        <div class="form-group>">
-                            <label for="medical_history">Medical History</label>
-                            <textarea class="wysihtml5 form-control" rows="6" name="medical_history" id="medical_history" ></textarea>
-                        </div>
-                        <div class="form-group>">
-                            <label for="social_history">Social History</label>
-                            <textarea class="wysihtml5 form-control" rows="6" name="social_history" id="social_history" ></textarea>
-                        </div>
-                        <div class="form-group>">
-                            <label for="employment">School/employment</label>
-                            <textarea class="wysihtml5 form-control" rows="6" name="employment" id="employment" ></textarea>
-                        </div>
-                        <div class="form-group>">
-                            <label for="diagnosis">Diagnosis</label>
-                            <textarea class="wysihtml5 form-control" rows="6" name="diagnosis" id="diagnosis" ></textarea>
-                        </div>
-                        <div class="form-group>">
-                            <label for="skin_condition">Skin condition</label>
-                            <textarea class="wysihtml5 form-control" rows="6" name="skin_condition" id="skin_condition" ></textarea>
-                        </div>
-                        <div class="form-group>">
-                            <label for="daily_activities">Activities of daily living</label>
-                            <textarea class="wysihtml5 form-control" rows="6" name="daily_activities" id="daily_activities" ></textarea>
-                        </div>
-                        <div class="form-group>">
-                            <label for="joint_assessment">Joint assessment</label>
-                            <textarea class="wysihtml5 form-control" rows="6" name="joint_assessment" id="joint_assessment" ></textarea>
-                        </div>
-                        <div class="form-group>">
-                            <label for="muscle_assessment">Muscle assessment</label>
-                            <textarea class="wysihtml5 form-control" rows="6" name="muscle_assessment" id="muscle_assessment" ></textarea>
-                        </div>
-                        <div class="form-group>">
-                            <label for="functional_assessment">Functional assessment</label>
-                            <textarea class="wysihtml5 form-control" rows="6" name="functional_assessment" id="functional_assessment" ></textarea>
-                        </div>
-                        <div class="form-group>">
-                            <label for="problem_list">Problem list</label>
-                            <textarea class="wysihtml5 form-control" rows="6" name="problem_list" id="problem_list" ></textarea>
-                        </div>
-                        <div class="form-group>">
-                            <label for="treatment">Treatment</label>
-                            <textarea class="wysihtml5 form-control" rows="6" name="treatment" id="treatment" ></textarea>
-                        </div>
-                        <div class="form-group>">
-                            <label for="remarks">Remarks</label>
-                            <input type="text" class="form-control" name="remarks" id="remarks">
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6">
-                                    <label for="examiner_name">Examiner Name</label>
-                                    <input type="text" class="form-control" name="examiner_name" id="examiner_name">
-                                </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <label for="examiner_title">Examiner Title</label>
-                                    <input type="text" class="form-control" name="examiner_title" id="examiner_title">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
+                        </fieldset>
                     </div>
                     <div class="form-actions right">
                         <div class="col-md-3 col-sm-3 pull-right">
