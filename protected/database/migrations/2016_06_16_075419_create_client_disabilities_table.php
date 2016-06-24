@@ -15,8 +15,8 @@ class CreateClientDisabilitiesTable extends Migration
         Schema::create('client_disabilities', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('client_id');
-            $table->string('category_id');
-            $table->string('disability_diagnosis');
+            $table->integer('category_id');
+            $table->text('disability_diagnosis');
             $table->text('remarks')->nullable();
             $table->timestamps();
         });

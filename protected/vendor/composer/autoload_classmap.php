@@ -33,6 +33,7 @@ return array(
     'CreateDistrictsTable' => $baseDir . '/database/migrations/2016_06_16_070602_create_districts_table.php',
     'CreateOrthopedicRegistersTable' => $baseDir . '/database/migrations/2016_06_21_104236_create_orthopedic_registers_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreatePhysiotherapyRegistersTable' => $baseDir . '/database/migrations/2016_06_24_092433_create_physiotherapy_registers_table.php',
     'CreateRegionsTable' => $baseDir . '/database/migrations/2016_06_16_070550_create_regions_table.php',
     'CreateSiteSetupsTable' => $baseDir . '/database/migrations/2016_06_16_080559_create_site_setups_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',

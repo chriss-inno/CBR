@@ -19,4 +19,9 @@ class Client extends Model
     {
         return $this::hasOne('\App\ClientAssessment','client_id','id');
     }
+
+    public function disabilities()
+    {
+        return $this::hasMany('\App\ClientDisability','client_id','id');
+    }
 }

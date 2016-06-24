@@ -400,9 +400,15 @@
                                     <td>
                                         {{$client->age}}
                                     </td>
-                                    <td>
-                                        {{$client->is_disabled}}
+                                    <td class="text-center" id="{{$client->id}}">
+                                        @if(strtolower($client->is_disabled) =="yes")
+                                            <a href="{{url('disabilities/clients/show')}}/{{$client->id}}"> <i class="fa fa-eye"></i> View</a>
+                                            @else
+                                            {{$client->is_disabled}}
+                                            @endif
+
                                     </td>
+
                                     <td class="text-center" id="{{$client->id}}">
                                         <a href="{{url('assessment/create')}}/{{$client->id}}"> <i class="fa fa-edit text-primary"></i> Add/Update </a>
                                         <a href="#" class=" deleteRecordAssessment"> <i class="fa fa-trash text-danger"></i> Delete</a>

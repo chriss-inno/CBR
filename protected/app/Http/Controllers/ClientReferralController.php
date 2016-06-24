@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\ClientReferral;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -21,6 +22,8 @@ class ClientReferralController extends Controller
     public function index()
     {
         //
+        $referrals= ClientReferral::all();
+        return view('clients.referral.index',compact('referrals'));
     }
     
     public function referralRequest()
@@ -34,12 +37,12 @@ class ClientReferralController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
 
-        $clients=Client::all();
-        return view('clients.referral.index',compact('clients'));
+        $client=Client::find($id);
+        return view('clients.referral.create',compact('client'));
     }
 
     /**
@@ -51,6 +54,22 @@ class ClientReferralController extends Controller
     public function store(Request $request)
     {
         //
+        $referral=new ClientReferral;
+        $referral->client_id=$request->client_id;
+        $referral->referral_to=$request->referral_to;
+        $referral->referral_date=$request->referral_date;
+        $referral->history=$request->history;
+        $referral->examination=$request->examination;
+        $referral->referral_reason=$request->referral_reason;
+        $referral->referred_by_name=$request->referred_by_name;
+        $referral->referred_by_title=$request->referred_by_title;
+        $referral->referred_by_date=$request->referred_by_date;
+        $referral->findings=$request->findings;
+        $referral->findings_name=$request->findings_name;
+        $referral->findings_title=$request->findings_title;
+        $referral->save();
+
+       return  redirect('referrals');
     }
 
     /**
@@ -62,6 +81,8 @@ class ClientReferralController extends Controller
     public function show($id)
     {
         //
+        $referral= ClientReferral::find($id);
+        return view('clients.referral.show',compact('referral'));
     }
 
     /**
@@ -73,6 +94,8 @@ class ClientReferralController extends Controller
     public function edit($id)
     {
         //
+        $referral= ClientReferral::find($id);
+        return view('clients.referral.edit',compact('referral'));
     }
 
     /**
@@ -82,9 +105,25 @@ class ClientReferralController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $referral= ClientReferral::find($request->id);
+        $referral->client_id=$request->client_id;
+        $referral->referral_to=$request->referral_to;
+        $referral->referral_date=$request->referral_date;
+        $referral->history=$request->history;
+        $referral->examination=$request->examination;
+        $referral->referral_reason=$request->referral_reason;
+        $referral->referred_by_name=$request->referred_by_name;
+        $referral->referred_by_title=$request->referred_by_title;
+        $referral->referred_by_date=$request->referred_by_date;
+        $referral->findings=$request->findings;
+        $referral->findings_name=$request->findings_name;
+        $referral->findings_title=$request->findings_title;
+        $referral->save();
+
+        return  redirect('referrals');
     }
 
     /**
@@ -96,6 +135,8 @@ class ClientReferralController extends Controller
     public function destroy($id)
     {
         //
+        $referral= ClientReferral::find($id);
+        $referral->delete();
     }
     
     public function GetClientList(Request $request)

@@ -16,6 +16,7 @@ class CreateDisabilitiesTable extends Migration
             $table->increments('id');
             $table->string('category');
             $table->string('descriptions')->nullable();
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }

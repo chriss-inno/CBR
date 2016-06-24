@@ -1,40 +1,19 @@
 <!-- BEGIN SAMPLE FORM PORTLET-->
 <div class="portlet light bordered">
     <div class="portlet-body form">
-        {!! Form::model($centre, array('route' => array('centres.update', $centre->id), 'method' => 'PUT','role'=>'form','id'=>'DepartmentFormUN')) !!}
+        {!! Form::open(array('url'=>'disabilities/edit','role'=>'form','id'=>'DepartmentFormUN')) !!}
         <div class="form-body">
             <div class="form-group">
-                <label>Centre Name</label>
-                <input type="text" class="form-control" name="centre_name" id="centre_name" value="{{$centre->centre_name}}">
+                <label>Category Name</label>
+                <input type="text" class="form-control" name="category" id="category" value="{{$disability->category}}">
             </div>
             <div class="form-group">
                 <label>Centre Description</label>
-                <textarea class="form-control" name="description" id="description">{{$centre->description}}</textarea>
+                <textarea class="form-control" name="descriptions" id="descriptions">{{$disability->descriptions}}</textarea>
             </div>
             <div class="form-group">
-                <label>Camp Name</label>
-                <select class="form-control" name="camp_id" id="camp_id">
-                    @if($centre->camp_id !="")
-                        <option value="{{$centre->camp->id}}">{{$centre->camp->camp_name}}</option>
-                    @else
-                        <option value="">---Select--</option>
-                    @endif
-                    @foreach(\App\Camp::orderBy('camp_name','ASC')->get() as $camp)
-                        <option value="{{$camp->id}}">{{$camp->camp_name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Center Status</label>
-                <select class="form-control" name="status" id="status">
-                    @if($centre->status !="")
-                        <option value="{{$centre->status}}">{{$centre->status}}</option>
-                    @else
-                        <option value="">---Select--</option>
-                    @endif
-                    <option value="Opened">Opened</option>
-                    <option value="Closed">Closed</option>
-                </select>
+                <label>Remarks</label>
+                <input type="text" class="form-control" name="remarks" id="remarks" value="{{$disability->remarks}}">
             </div>
             <hr/>
             <div class="row">
@@ -42,6 +21,7 @@
 
                 </div>
                 <div class="col-md-4 col-sm-4 pull-right text-right">
+                    <input type="hidden" name="id" id="id" value="{{$disability->id}}">
                     <button type="button" class="btn btn-danger "  data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save </button>
                 </div>
@@ -68,14 +48,10 @@
     });
     $("#DepartmentFormUN").validate({
         rules: {
-            centre_name: "required",
-            status: "required",
-            camp_id: "required"
+            category: "required"
         },
         messages: {
-            centre_name: "Please enter centre name",
-            status: "Please select centre status",
-            camp_id: "Please select camp"
+            category: "Please enter category name"
         },
         submitHandler: function(form) {
             $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");

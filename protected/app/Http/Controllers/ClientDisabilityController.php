@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
+use App\ClientDisability;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -20,6 +22,8 @@ class ClientDisabilityController extends Controller
     public function index()
     {
         //
+        $clients=Client::where('is_disabled','=','Yes')->get();
+        return view('general.disabilities.clients.index',compact('clients'));
     }
 
     /**
@@ -27,9 +31,11 @@ class ClientDisabilityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
+        $client=Client::find($id);
+        return view('general.disabilities.clients.create',compact('client'));
     }
 
     /**
@@ -41,6 +47,12 @@ class ClientDisabilityController extends Controller
     public function store(Request $request)
     {
         //
+        $clds=new ClientDisability;
+        $clds->client_id=$request->client_id;
+        $clds->category_id=$request->category_id;
+        $clds->disability_diagnosis=$request->disability_diagnosis;
+        $clds->remarks=$request->remarks;
+        $clds->save();
     }
 
     /**
@@ -52,6 +64,8 @@ class ClientDisabilityController extends Controller
     public function show($id)
     {
         //
+        $client=Client::find($id);
+        return view('general.disabilities.clients.show',compact('client'));
     }
 
     /**
@@ -63,6 +77,8 @@ class ClientDisabilityController extends Controller
     public function edit($id)
     {
         //
+        $clds= ClientDisability::find($id);
+        return view('general.disabilities.clients.edit',compact('clds'));
     }
 
     /**
@@ -72,9 +88,16 @@ class ClientDisabilityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $clds= ClientDisability::find($request->id);
+        $clds->category_id=$request->category_id;
+        $clds->disability_diagnosis=$request->disability_diagnosis;
+        $clds->remarks=$request->remarks;
+        $clds->save();
+
+        return "data saved";
     }
 
     /**
@@ -86,5 +109,7 @@ class ClientDisabilityController extends Controller
     public function destroy($id)
     {
         //
+        $clds= ClientDisability::find($id);
+        $clds->delete();
     }
 }

@@ -1,32 +1,19 @@
 <!-- BEGIN SAMPLE FORM PORTLET-->
 <div class="portlet light bordered">
     <div class="portlet-body form">
-        {!! Form::open(array('url'=>'centres','role'=>'form','id'=>'DepartmentFormUN')) !!}
+        {!! Form::open(array('url'=>'disabilities/create','role'=>'form','id'=>'DepartmentFormUN')) !!}
         <div class="form-body">
             <div class="form-group">
-                <label>Centre Name</label>
-                <input type="text" class="form-control" name="centre_name" id="centre_name">
+                <label>Category Name</label>
+                <input type="text" class="form-control" name="category" id="category">
             </div>
             <div class="form-group">
                 <label>Centre Description</label>
-                <textarea class="form-control" name="description" id="description"></textarea>
+                <textarea class="form-control" name="descriptions" id="descriptions"></textarea>
             </div>
             <div class="form-group">
-                        <label>Camp Name</label>
-                        <select class="form-control" name="camp_id" id="camp_id">
-                            <option value="">---Select--</option>
-                            @foreach(\App\Camp::orderBy('camp_name','ASC')->get() as $camp)
-                                <option value="{{$camp->id}}">{{$camp->camp_name}}</option>
-                            @endforeach
-                        </select>
-            </div>
-            <div class="form-group">
-                   <label>Center Status</label>
-                        <select class="form-control" name="status" id="status">
-                            <option value="">---Select--</option>
-                            <option value="Opened">Opened</option>
-                            <option value="Closed">Closed</option>
-                        </select>
+                <label>Remarks</label>
+                <input type="text" class="form-control" name="remarks" id="remarks">
             </div>
             <hr/>
             <div class="row">
@@ -60,14 +47,10 @@
     });
     $("#DepartmentFormUN").validate({
         rules: {
-            centre_name: "required",
-            status: "required",
-            camp_id: "required"
+            category: "required"
         },
         messages: {
-            centre_name: "Please enter centre name",
-            status: "Please select centre status",
-            camp_id: "Please select camp"
+            category: "Please enter category name"
         },
         submitHandler: function(form) {
             $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");

@@ -355,18 +355,18 @@
     </script>
 @stop
 @section('breadcrumb')
-    <ul class="page-breadcrumb breadcrumb">
+    <ul class="page-breadcrumb ">
         <li>
             <a href="{{url('home')}}">Home</a>
-            <i class="fa fa-circle"></i>
+            <i class="fa fa-angle-right"></i>
         </li>
         <li>
             <a href="#">Clients/Patient</a>
-            <i class="fa fa-circle"></i>
+            <i class="fa fa-angle-right"></i>
         </li>
         <li>
             <a href="#">Progress Monitoring</a>
-            <i class="fa fa-circle"></i>
+            <i class="fa fa-angle-right"></i>
         </li>
         <li>
             <span class="active">Assessment</span>

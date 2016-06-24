@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
+use App\Disability;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -20,6 +22,8 @@ class DisabilityController extends Controller
     public function index()
     {
         //
+        $disabilities=Disability::all();
+        return view('general.disabilities.index',compact('disabilities'));
     }
 
     /**
@@ -30,6 +34,7 @@ class DisabilityController extends Controller
     public function create()
     {
         //
+        return view('general.disabilities.create');
     }
 
     /**
@@ -41,6 +46,11 @@ class DisabilityController extends Controller
     public function store(Request $request)
     {
         //
+        $disability=new Disability;
+        $disability->category=$request->category;
+        $disability->descriptions=$request->descriptions;
+        $disability->remarks=$request->remarks;
+        $disability->save();
     }
 
     /**
@@ -52,6 +62,8 @@ class DisabilityController extends Controller
     public function show($id)
     {
         //
+        $disability= Disability::find($id);
+        return view('general.disabilities.show',compact('disability'));
     }
 
     /**
@@ -63,6 +75,8 @@ class DisabilityController extends Controller
     public function edit($id)
     {
         //
+        $disability= Disability::find($id);
+        return view('general.disabilities.edit',compact('disability'));
     }
 
     /**
@@ -72,9 +86,14 @@ class DisabilityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $disability= Disability::find($request->id);
+        $disability->category=$request->category;
+        $disability->descriptions=$request->descriptions;
+        $disability->remarks=$request->remarks;
+        $disability->save();
     }
 
     /**
@@ -86,5 +105,13 @@ class DisabilityController extends Controller
     public function destroy($id)
     {
         //
+        $disability= Disability::find($id);
+        $disability->delete();
     }
+    
+    
+    
+    
+    
+    
 }

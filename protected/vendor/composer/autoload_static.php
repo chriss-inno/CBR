@@ -379,6 +379,7 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'CreateDistrictsTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_16_070602_create_districts_table.php',
         'CreateOrthopedicRegistersTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_21_104236_create_orthopedic_registers_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+        'CreatePhysiotherapyRegistersTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_24_092433_create_physiotherapy_registers_table.php',
         'CreateRegionsTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_16_070550_create_regions_table.php',
         'CreateSiteSetupsTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_16_080559_create_site_setups_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',

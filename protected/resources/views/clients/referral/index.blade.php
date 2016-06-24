@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-   Clients Referral
+    Clients Referral request
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -241,7 +241,37 @@
 
 @stop
 @section('custom-scripts')
+    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
+        $("#SearchForm").validate({
+            rules: {
+                searchKeyword: "required"
+            },
+            messages: {
+                searchKeyword: "Please enter search keyword "
+            },
+            submitHandler: function(form) {
+                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");
+                var postData = $('#SearchForm').serializeArray();
+                var formURL = $('#SearchForm').attr("action");
+                $.ajax(
+                        {
+                            url : formURL,
+                            type: "POST",
+                            data : postData,
+                            success:function(data)
+                            {
+                                console.log(data);
+                                //data: return data from server
+                                $("#clientsSearchResults").html(data);
+                            },
+                            error: function(data)
+                            {
+                                console.log(data.responseJSON);
+                            }
+                        });
+            }
+        });
         $("#addRegion").click(function(){
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
@@ -302,7 +332,7 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
+                $.get("<?php echo url('referrals/remove') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
@@ -310,14 +340,14 @@
     </script>
 @stop
 @section('breadcrumb')
-    <ul class="page-breadcrumb breadcrumb">
+    <ul class="page-breadcrumb ">
         <li>
             <a href="{{url('home')}}">Home</a>
-            <i class="fa fa-circle"></i>
+            <i class="fa fa-angle-right"></i>
         </li>
         <li>
             <a href="#">Clients</a>
-            <i class="fa fa-circle"></i>
+            <i class="fa fa-angle-right"></i>
         </li>
         <li>
             <span class="active">Process referral</span>
@@ -332,78 +362,74 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase"> Search</span>
+                        <span class="caption-subject bold uppercase">Client/Patient referrals</span>
                     </div>
                 </div>
-                <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="row">
+                        <div class="col-md-8 pull-right">
+                            <div class="btn-group pull-right">
+                                <a href="{{url('referrals/request')}}" class="btn blue-madison"><i class="fa fa-file"></i> Referral Request</a>
+                                <a href="{{url('referrals')}}" class="btn blue-madison"><i class="fa fa-refresh"></i> All referrals</a>
+                                <a href="{{url('clients')}}" class="btn blue-madison"><i class="fa fa-bars"></i> Client List</a>
+                            </div>
+                        </div>
 
-                </div>
-            </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
-            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-            <div class="portlet light bordered">
-                <div class="portlet-title">
-                    <div class="caption font-dark">
-                        <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Client/Patient list</span>
                     </div>
                 </div>
-                <div class="portlet-body" id="clientsSearchResults">
-                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
-                        <thead>
-                        <tr>
-                            <th> SNO </th>
-                            <th> First Name </th>
-                            <th> Last Name </th>
-                            <th> Other Name </th>
-                            <th> Sex </th>
-                            <th> Age </th>
-                            <th> Status </th>
-                            <th> Profile </th>
-                            <th class="text-center"> Referral </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php $count=1;?>
-                        @if(count($clients )>0)
-                            @foreach($clients as $client)
-                                <tr class="odd gradeX">
-                                    <td> {{$count++}} </td>
-                                    <td>
-                                        {{$client->first_name	}}
-                                    </td>
-                                    <td>
-                                        {{$client->last_name}}
-                                    </td>
-                                    <td>
-                                        {{$client->middle_name}}
-                                    </td>
-                                    <td>
-                                        {{$client->sex}}
-                                    </td>
-                                    <td>
-                                        {{$client->age}}
-                                    </td>
-                                    <td>
-                                        {{$client->status}}
-                                    </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('clients')}}/{{$client->id}}"  class="btn btn-icon-only blue"> <i class="fa fa-eye"></i> </a>
-                                    </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="#"  class="btn btn-icon-only blue "> <i class="fa fa-edit"></i> </a>
-                                        <a href="#" class="btn btn-icon-only red deleteRecord"> <i class="fa fa-trash"></i> </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
-
-
-                        </tbody>
-                    </table>
-                </div>
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
+            <div class="portlet-body" >
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
+                    <thead>
+                    <tr>
+                        <th> SNO </th>
+                        <th> Client Reg No</th>
+                        <th> Client Name </th>
+                        <th> Referral date </th>
+                        <th> Referred To </th>
+                        <th> Referred by </th>
+                        <th class="text-center"> Action </th>
+                    </tr>
+                    </thead>
+                    <tbody id="clientsSearchResults">
+                    <?php $count=1;?>
+                    @if(count($referrals )>0)
+                        @foreach($referrals as $referral)
+                            <tr class="odd gradeX">
+                                <td> {{$count++}} </td>
+                                <td>
+                                    @if(is_object($referral->client) && $referral->client != null && $referral->client !="")
+                                    {{$referral->client->reg_no}}
+                                        @endif
+                                </td>
+                                <td>
+                                    @if(is_object($referral->client) && $referral->client != null && $referral->client !="")
+                                    {{$referral->client->first_name ." ".$referral->client->last_name	}}
+                                    @endif
+                                </td>
+                                <td>
+                                    {{$referral->referral_date}}
+                                </td>
+                                <td>
+                                    {{$referral->referral_to}}
+                                </td>
+                                <td>
+                                    {{$referral->referred_by_name ." ".$referral->referred_by_title	}}
+                                </td>
+                                <td class="text-center" id="{{$referral->id}}">
+                                    <a href="{{url('referrals/edit')}}/{{$referral->id}}" title="Update referral form"  class="btn btn-info"> <i class="fa fa-pencil"></i> </a>
+                                    <a href="#" title="Update referral form"  class="deleteRecord btn btn-danger"> <i class="fa fa-trash"></i> </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+
+
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
     </div>
 @stop
