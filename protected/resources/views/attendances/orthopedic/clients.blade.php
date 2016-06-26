@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Clients Referral request
+    Clients Attendance register
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -279,7 +279,7 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('physiotherapy/remove') ?>/"+id1,function(data){
+                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
@@ -293,11 +293,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#">Attendance register</a>
+            <a href="#">Clients</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Physiotherapy unit</span>
+            <span class="active">Attendance register</span>
         </li>
     </ul>
 @stop
@@ -309,16 +309,16 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Attendance register: Physiotherapy unit</span>
+                        <span class="caption-subject bold uppercase">Attendance register: Orthopedic unity</span>
                     </div>
                 </div>
                 <div class="table-toolbar">
                     <div class="row">
                         <div class="col-md-8 pull-right">
                             <div class="btn-group pull-right">
-                                <a href="{{url('physiotherapy/clients')}}" class="btn blue-madison"><i class="fa fa-file"></i> Register New Case</a>
-                                <a href="{{url('physiotherapy')}}" class="btn blue-madison"><i class="fa fa-server"></i> Case history</a>
-                                <a href="{{url('excel/import/apu')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import attendence data</a>
+                                <a href="{{url('orthopedic/clients')}}" class="btn blue-madison"><i class="fa fa-file"></i> Register New Case</a>
+                                <a href="{{url('orthopedic')}}" class="btn blue-madison"><i class="fa fa-server"></i> Case history</a>
+                                <a href="{{url('excel/import/opu')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import attendence data</a>
                             </div>
                         </div>
 
@@ -330,52 +330,53 @@
                     <thead>
                     <tr>
                         <th> SNO </th>
-                        <th> File Number</th>
-                        <th> Full Name </th>
+                        <th> Reg No</th>
+                        <th> First Name </th>
+                        <th> Last Name </th>
+                        <th> Other Name </th>
                         <th> Sex </th>
                         <th> Age </th>
-                        <th> Diagnosis </th>
-                        <th> Causes </th>
-                        <th> Date </th>
-                        <th class="text-center"> Action </th>
+                        <th> Camp </th>
+                        <th> Centre </th>
+                        <th class="text-center"> Case Management </th>
                     </tr>
                     </thead>
                     <tbody id="clientsSearchResults">
                     <?php $count=1;?>
-                    @if(count($attendances )>0)
-                        @foreach($attendances as $att)
+                    @if(count($clients )>0)
+                        @foreach($clients as $client)
                             <tr class="odd gradeX">
                                 <td> {{$count++}} </td>
                                 <td>
-                                    {{$att->file_no}}
+                                    {{$client->reg_no}}
                                 </td>
                                 <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                      {{$att->client->first_name ." ".$att->client->last_name	}}
-                                        @endif
+                                    {{$client->first_name	}}
                                 </td>
                                 <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->sex	}}
+                                    {{$client->last_name}}
+                                </td>
+                                <td>
+                                    {{$client->middle_name}}
+                                </td>
+                                <td>
+                                    {{$client->sex}}
+                                </td>
+                                <td>
+                                    {{$client->age}}
+                                </td>
+                                <td>
+                                    @if(is_object($client->camp)&& $client->camp_id !="" && $client->camp !="" && $client->camp !=null )
+                                        {{$client->camp->camp_name}}
                                     @endif
                                 </td>
                                 <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->age	}}
+                                    @if(is_object($client->centre)&& $client->center_id !="" && $client->centre !="" && $client->centre !=null )
+                                        {{$client->centre->centre_name}}
                                     @endif
                                 </td>
-                                <td>
-                                    <?php echo $att->diagnosis; ?>
-                                </td>
-                                <td>
-                                    <?php echo $att->causes; ?>
-                                </td>
-                                <td>
-                                    <?php echo $att->attendance_date; ?>
-                                </td>
-                                <td class="text-center" id="{{$att->id}}">
-                                    <a href="{{url('physiotherapy/edit')}}/{{$att->id}}" class="btn btn-icon-only blue"> <i class="fa fa-edit"></i> </a>
-                                    <a href="#" class=" deleteRecord btn btn-icon-only red"> <i class="fa fa-trash"></i> </a>
+                                <td class="text-center" id="{{$client->id}}">
+                                    <a href="{{url('orthopedic/create')}}/{{$client->id}}" > <i class="fa fa-file"></i> Open</a>
                                 </td>
                             </tr>
                         @endforeach

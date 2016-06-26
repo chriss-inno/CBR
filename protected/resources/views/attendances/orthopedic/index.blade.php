@@ -41,12 +41,12 @@
                 <span class="selected"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('physiotherapy')}}" class="nav-link ">
                         <span class="title">Physiotherapy register </span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item  active">
                     <a href="{{url('orthopedic')}}" class="nav-link ">
                         <span class="title">Orthopedic register </span>
                     </a>
@@ -243,6 +243,32 @@
 
         });
 
+
+        $(".showClientDetails").click(function(){
+            var id1 = $(this).parent().attr('id');
+            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-user font-blue-sharp"></i> Client  summary details</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow','hidden');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("details/summary/clients") ?>/"+id1);
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
+
         $(".editRecord").click(function(){
             var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
@@ -309,16 +335,16 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Attendance register: Physiotherapy unit</span>
+                        <span class="caption-subject bold uppercase">Attendance register: Orthopedic unity</span>
                     </div>
                 </div>
                 <div class="table-toolbar">
                     <div class="row">
                         <div class="col-md-8 pull-right">
                             <div class="btn-group pull-right">
-                                <a href="{{url('physiotherapy/clients')}}" class="btn blue-madison"><i class="fa fa-file"></i> Register New Case</a>
-                                <a href="{{url('physiotherapy')}}" class="btn blue-madison"><i class="fa fa-server"></i> Case history</a>
-                                <a href="{{url('excel/import/apu')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import attendence data</a>
+                                <a href="{{url('orthopedic/clients')}}" class="btn blue-madison"><i class="fa fa-file"></i> Register New Case</a>
+                                <a href="{{url('orthopedic')}}" class="btn blue-madison"><i class="fa fa-server"></i> Case history</a>
+                                <a href="{{url('excel/import/opu')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import attendence data</a>
                             </div>
                         </div>
 
@@ -330,13 +356,12 @@
                     <thead>
                     <tr>
                         <th> SNO </th>
-                        <th> File Number</th>
-                        <th> Full Name </th>
-                        <th> Sex </th>
-                        <th> Age </th>
+                        <th> Client Number </th>
                         <th> Diagnosis </th>
-                        <th> Causes </th>
-                        <th> Date </th>
+                        <th> Type of appliance provided </th>
+                        <th> Date of measurement  </th>
+                        <th> Delivery date </th>
+                        <th> Remarks </th>
                         <th class="text-center"> Action </th>
                     </tr>
                     </thead>
@@ -346,36 +371,33 @@
                         @foreach($attendances as $att)
                             <tr class="odd gradeX">
                                 <td> {{$count++}} </td>
-                                <td>
-                                    {{$att->file_no}}
+                                @if(is_object($att->client) && $att->client != null)
+                                <td id="{{$att->client->id}}">
+                                     <a href="#" class="showClientDetails">{{$att->client->reg_no}}</a>
                                 </td>
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                      {{$att->client->first_name ." ".$att->client->last_name	}}
-                                        @endif
-                                </td>
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->sex	}}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->age	}}
-                                    @endif
-                                </td>
+                                    @else
+                                    <td>
+
+                                    </td>
+                                @endif
                                 <td>
                                     <?php echo $att->diagnosis; ?>
                                 </td>
                                 <td>
-                                    <?php echo $att->causes; ?>
+                                    <?php echo $att->appliance_provided; ?>
                                 </td>
                                 <td>
-                                    <?php echo $att->attendance_date; ?>
+                                    <?php echo $att->measurement_date; ?>
+                                </td>
+                                <td>
+                                    <?php echo $att->delivery_date; ?>
+                                </td>
+                                <td>
+                                    <?php echo $att->remarks; ?>
                                 </td>
                                 <td class="text-center" id="{{$att->id}}">
-                                    <a href="{{url('physiotherapy/edit')}}/{{$att->id}}" class="btn btn-icon-only blue"> <i class="fa fa-edit"></i> </a>
-                                    <a href="#" class=" deleteRecord btn btn-icon-only red"> <i class="fa fa-trash"></i> </a>
+                                    <a href="{{url('orthopedic/edit')}}/{{$att->id}}" > <i class="fa fa-edit text-info"></i> </a>
+                                    <a href="#" class=" deleteRecord "> <i class="fa fa-trash text-danger"></i> </a>
                                 </td>
                             </tr>
                         @endforeach

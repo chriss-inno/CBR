@@ -44,6 +44,15 @@ class PhysiotherapyRegisterController extends Controller
     public function store(Request $request)
     {
         //
+        $phyr=new PhysiotherapyRegister;
+        $phyr->client_id=$request->client_id;
+        $phyr->attendance_date=$request->attendance_date;
+        $phyr->file_no=$request->file_no;
+        $phyr->diagnosis=$request->diagnosis;
+        $phyr->causes=$request->causes;
+        $phyr->save();
+
+        return redirect('physiotherapy');
     }
 
     /**
@@ -66,6 +75,9 @@ class PhysiotherapyRegisterController extends Controller
     public function edit($id)
     {
         //
+        $attendance= PhysiotherapyRegister::find($id);
+        $client=Client::find($attendance->client_id);
+        return view('attendances.physiotherapy.edit',compact('attendance','client'));
     }
 
     /**
@@ -75,9 +87,16 @@ class PhysiotherapyRegisterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $phyr= PhysiotherapyRegister::find($request->id);
+        $phyr->attendance_date=$request->attendance_date;
+        $phyr->file_no=$request->file_no;
+        $phyr->diagnosis=$request->diagnosis;
+        $phyr->causes=$request->causes;
+        $phyr->save();
+        return redirect('physiotherapy');
     }
 
     /**
@@ -89,6 +108,8 @@ class PhysiotherapyRegisterController extends Controller
     public function destroy($id)
     {
         //
+        $attendance= PhysiotherapyRegister::find($id);
+        $attendance->delete();
     }
 
     public function getClients()

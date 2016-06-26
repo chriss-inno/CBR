@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Clients Referral request
+    Clients attendance register
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -8,89 +8,137 @@
 @stop
 @section('menu-sidebar')
     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-        <li class="nav-item ">
+        <li class="nav-item start">
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">Dashboard</span>
-
-            </a>
-
-        </li>
-        <li class="nav-item ">
-            <a href="{{url('registration/desk')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Registration Desk</span>
-
-            </a>
-        </li>
-        <li class="heading">
-            <h3 class="uppercase">Medical rehabilitation </h3>
-        </li>
-        <li class="nav-item ">
-            <a href="{{url('referrals')}}" class="nav-link nav-toggle">
-                <i class="icon-direction"></i>
-                <span class="title">Patient Referrals</span>
-
-            </a>
-        </li>
-        <li class="nav-item  start active open">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-puzzle"></i>
-                <span class="title"> Progress Monitoring</span>
-                <span class="arrow"></span>
                 <span class="selected"></span>
+            </a>
+
+        </li>
+
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-users"></i>
+                <span class="title"> Clients/Patients</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('clients/create')}}" class="nav-link ">
+                        <span class="title">New client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('clients')}}" class="nav-link ">
+                        <span class="title">View/Search</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('clients')}}" class="nav-link ">
+                        <span class="title">Progress Monitoring</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="nav-item  active open">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-direction"></i>
+                <span class="title"> Referral</span>
+                <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
                 <li class="nav-item active ">
+                    <a href="{{url('referrals/request')}}" class="nav-link ">
+                        <span class="title">New request</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('referrals')}}" class="nav-link ">
+                        <span class="title">View all</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-puzzle"></i>
+                <span class="title"> Disabilities</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('disabilities')}}" class="nav-link ">
+                        <span class="title">Categories</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('disabilities/clients')}}" class="nav-link ">
+                        <span class="title">Client with disabilities</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-puzzle"></i>
+                <span class="title"> Client Visit</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
                     <a href="{{url('physiotherapy')}}" class="nav-link ">
-                        <span class="title">Physiotherapy register </span>
+                        <span class="title">Physiotherapy</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
                     <a href="{{url('orthopedic')}}" class="nav-link ">
-                        <span class="title">Orthopedic register </span>
+                        <span class="title">Orthopedic </span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-puzzle"></i>
+                <span class="title"> Social rehabilitation</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('physiotherapy')}}" class="nav-link ">
+                        <span class="title">Physiotherapy</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('orthopedic')}}" class="nav-link ">
+                        <span class="title">Orthopedic </span>
                     </a>
                 </li>
             </ul>
         </li>
         <li class="heading">
-            <h3 class="uppercase">Social rehabilitation</h3>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('social/rehabilitation/clients')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">People with Special Need</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('sr/cases')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Case monitoring</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Material distribution</span>
-            </a>
-        </li>
-        <li class="heading">
             <h3 class="uppercase">GENERAL REPORTS</h3>
         </li>
         <li class="nav-item  ">
-            <a href="{{url('mr/reports')}}" class="nav-link ">
-                <span class="title">Medical rehabilitation Reports </span>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-list"></i>
+                <span class="title">Reports </span>
+                <span class="arrow"></span>
             </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('sr/reports')}}" class="nav-link ">
-                <span class="title">Social rehabilitation Reports</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('general/reports')}}" class="nav-link ">
-                <span class="title">General Reports</span>
-            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('reports/medical_rehabilitation')}}" class="nav-link ">
+                        <span class="title">Medical rehabilitation  </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url('physiotherapy')}}" class="nav-link ">
+                        <span class="title">Social rehabilitation</span>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
@@ -108,11 +156,6 @@
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('disabilities')}}" class="nav-link ">
-                        <span class="title">Disabilities</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
@@ -127,6 +170,16 @@
                         <span class="title">Departments</span>
                     </a>
                 </li>
+
+            </ul>
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-bulb"></i>
+                <span class="title"> Location</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
                 <li class="nav-item  ">
                     <a href="{{url('countries')}}" class="nav-link ">
                         <span class="title">Countries</span>
@@ -188,8 +241,8 @@
 
 @stop
 @section('custom-scripts')
-    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
-    <script>
+        {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
+        <script>
         $("#SearchForm").validate({
             rules: {
                 searchKeyword: "required"
@@ -279,7 +332,7 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('physiotherapy/remove') ?>/"+id1,function(data){
+                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
@@ -293,11 +346,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#">Attendance register</a>
+            <a href="#">Clients</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Physiotherapy unit</span>
+            <span class="active">Process referral</span>
         </li>
     </ul>
 @stop
@@ -309,84 +362,85 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Attendance register: Physiotherapy unit</span>
+                        <span class="caption-subject bold uppercase">Client/Patient list</span>
                     </div>
                 </div>
                 <div class="table-toolbar">
                     <div class="row">
                         <div class="col-md-8 pull-right">
                             <div class="btn-group pull-right">
-                                <a href="{{url('physiotherapy/clients')}}" class="btn blue-madison"><i class="fa fa-file"></i> Register New Case</a>
-                                <a href="{{url('physiotherapy')}}" class="btn blue-madison"><i class="fa fa-server"></i> Case history</a>
-                                <a href="{{url('excel/import/apu')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import attendence data</a>
+                                <a href="{{url('orthopedic/clients')}}" class="btn blue-madison"><i class="fa fa-file"></i> Register New Case</a>
+                                <a href="{{url('orthopedic')}}" class="btn blue-madison"><i class="fa fa-server"></i> Case history</a>
+                                <a href="{{url('excel/import/opu')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import attendence data</a>
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
-            <div class="portlet-body" >
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
-                    <thead>
-                    <tr>
-                        <th> SNO </th>
-                        <th> File Number</th>
-                        <th> Full Name </th>
-                        <th> Sex </th>
-                        <th> Age </th>
-                        <th> Diagnosis </th>
-                        <th> Causes </th>
-                        <th> Date </th>
-                        <th class="text-center"> Action </th>
-                    </tr>
-                    </thead>
-                    <tbody id="clientsSearchResults">
-                    <?php $count=1;?>
-                    @if(count($attendances )>0)
-                        @foreach($attendances as $att)
-                            <tr class="odd gradeX">
-                                <td> {{$count++}} </td>
-                                <td>
-                                    {{$att->file_no}}
-                                </td>
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                      {{$att->client->first_name ." ".$att->client->last_name	}}
+                <div class="portlet-body" >
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
+                        <thead>
+                        <tr>
+                            <th> SNO </th>
+                            <th> Reg No</th>
+                            <th> First Name </th>
+                            <th> Last Name </th>
+                            <th> Other Name </th>
+                            <th> Sex </th>
+                            <th> Age </th>
+                            <th> Camp </th>
+                            <th> Centre </th>
+                            <th class="text-center"> Referral form </th>
+                        </tr>
+                        </thead>
+                        <tbody id="clientsSearchResults">
+                        <?php $count=1;?>
+                        @if(count($clients )>0)
+                            @foreach($clients as $client)
+                                <tr class="odd gradeX">
+                                    <td> {{$count++}} </td>
+                                    <td>
+                                        {{$client->reg_no}}
+                                    </td>
+                                    <td>
+                                        {{$client->first_name	}}
+                                    </td>
+                                    <td>
+                                        {{$client->last_name}}
+                                    </td>
+                                    <td>
+                                        {{$client->middle_name}}
+                                    </td>
+                                    <td>
+                                        {{$client->sex}}
+                                    </td>
+                                    <td>
+                                        {{$client->age}}
+                                    </td>
+                                    <td>
+                                        @if(is_object($client->camp)&& $client->camp_id !="" && $client->camp !="" && $client->camp !=null )
+                                            {{$client->camp->camp_name}}
                                         @endif
-                                </td>
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->sex	}}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->age	}}
-                                    @endif
-                                </td>
-                                <td>
-                                    <?php echo $att->diagnosis; ?>
-                                </td>
-                                <td>
-                                    <?php echo $att->causes; ?>
-                                </td>
-                                <td>
-                                    <?php echo $att->attendance_date; ?>
-                                </td>
-                                <td class="text-center" id="{{$att->id}}">
-                                    <a href="{{url('physiotherapy/edit')}}/{{$att->id}}" class="btn btn-icon-only blue"> <i class="fa fa-edit"></i> </a>
-                                    <a href="#" class=" deleteRecord btn btn-icon-only red"> <i class="fa fa-trash"></i> </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
+                                    </td>
+                                    <td>
+                                        @if(is_object($client->centre)&& $client->center_id !="" && $client->centre !="" && $client->centre !=null )
+                                        {{$client->centre->centre_name}}
+                                        @endif
+                                    </td>
+                                    <td class="text-center" id="{{$client->id}}">
+                                        <a href="{{url('referrals/create')}}/{{$client->id}}" > <i class="fa fa-file"></i> </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
 
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
         </div>
-        <!-- END EXAMPLE TABLE PORTLET-->
-    </div>
     </div>
 @stop

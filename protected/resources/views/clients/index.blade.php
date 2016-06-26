@@ -8,137 +8,87 @@
 @stop
 @section('menu-sidebar')
     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-        <li class="nav-item start">
+        <li class="nav-item ">
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">Dashboard</span>
+
+            </a>
+
+        </li>
+        <li class="nav-item start active open">
+            <a href="{{url('registration/desk')}}" class="nav-link nav-toggle">
+                <i class="icon-users"></i>
+                <span class="title">Registration Desk</span>
                 <span class="selected"></span>
             </a>
-
         </li>
-
-        <li class="nav-item  active open">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title"> Clients/Patients</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="{{url('clients/create')}}" class="nav-link ">
-                        <span class="title">New client</span>
-                    </a>
-                </li>
-                <li class="nav-item active ">
-                    <a href="{{url('clients')}}" class="nav-link ">
-                        <span class="title">View/Search</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('clients')}}" class="nav-link ">
-                        <span class="title">Progress Monitoring</span>
-                    </a>
-                </li>
-
-            </ul>
+        <li class="heading">
+            <h3 class="uppercase">Medical rehabilitation </h3>
         </li>
-        <li class="nav-item ">
-            <a href="javascript:;" class="nav-link nav-toggle">
+        <li class="nav-item">
+            <a href="{{url('referrals')}}" class="nav-link nav-toggle">
                 <i class="icon-direction"></i>
-                <span class="title"> Referral</span>
-                <span class="arrow"></span>
+                <span class="title">Patient Referrals</span>
             </a>
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="{{url('referrals/request')}}" class="nav-link ">
-                        <span class="title">New request</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('referrals')}}" class="nav-link ">
-                        <span class="title">View all</span>
-                    </a>
-                </li>
-            </ul>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-puzzle"></i>
-                <span class="title"> Disabilities</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="{{url('disabilities')}}" class="nav-link ">
-                        <span class="title">Categories</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('disabilities/clients')}}" class="nav-link ">
-                        <span class="title">Client with disabilities</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item  ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-puzzle"></i>
-                <span class="title"> Client Visit</span>
+                <span class="title"> Progress Monitoring</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
                     <a href="{{url('physiotherapy')}}" class="nav-link ">
-                        <span class="title">Physiotherapy</span>
+                        <span class="title">Physiotherapy register </span>
                     </a>
                 </li>
                 <li class="nav-item  ">
                     <a href="{{url('orthopedic')}}" class="nav-link ">
-                        <span class="title">Orthopedic </span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item  ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-puzzle"></i>
-                <span class="title"> Social rehabilitation</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="{{url('physiotherapy')}}" class="nav-link ">
-                        <span class="title">Physiotherapy</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('orthopedic')}}" class="nav-link ">
-                        <span class="title">Orthopedic </span>
+                        <span class="title">Orthopedic register </span>
                     </a>
                 </li>
             </ul>
         </li>
         <li class="heading">
+            <h3 class="uppercase">Social rehabilitation</h3>
+        </li>
+        <li class="nav-item">
+            <a href="{{url('social/rehabilitation/clients')}}" class="nav-link nav-toggle">
+                <i class="icon-users"></i>
+                <span class="title">People with Special Need</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url('sr/cases')}}" class="nav-link nav-toggle">
+                <i class="icon-users"></i>
+                <span class="title">Case monitoring</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
+                <i class="icon-users"></i>
+                <span class="title">Material distribution</span>
+            </a>
+        </li>
+        <li class="heading">
             <h3 class="uppercase">GENERAL REPORTS</h3>
         </li>
         <li class="nav-item  ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-list"></i>
-                <span class="title">Reports </span>
-                <span class="arrow"></span>
+            <a href="{{url('mr/reports')}}" class="nav-link ">
+                <span class="title">Medical rehabilitation Reports </span>
             </a>
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="{{url('reports/medical_rehabilitation')}}" class="nav-link ">
-                        <span class="title">Medical rehabilitation  </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{url('physiotherapy')}}" class="nav-link ">
-                        <span class="title">Social rehabilitation</span>
-                    </a>
-                </li>
-            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="{{url('sr/reports')}}" class="nav-link ">
+                <span class="title">Social rehabilitation Reports</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url('general/reports')}}" class="nav-link ">
+                <span class="title">General Reports</span>
+            </a>
         </li>
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
@@ -156,6 +106,11 @@
                     </a>
                 </li>
                 <li class="nav-item  ">
+                    <a href="{{url('disabilities')}}" class="nav-link ">
+                        <span class="title">Disabilities</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
@@ -170,16 +125,6 @@
                         <span class="title">Departments</span>
                     </a>
                 </li>
-
-            </ul>
-        </li>
-        <li class="nav-item  ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-bulb"></i>
-                <span class="title"> Location</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
                 <li class="nav-item  ">
                     <a href="{{url('countries')}}" class="nav-link ">
                         <span class="title">Countries</span>
@@ -353,15 +298,15 @@
                         <i class="icon-users font-dark"></i>
                         <span class="caption-subject bold uppercase">Client/Patient Search</span>
                     </div>
+                </div>
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-8 pull-right">
                                 <div class="btn-group pull-right">
                                     <a href="{{url('clients/create')}}" class="btn blue-madison"><i class="fa fa-file"></i> New Client</a>
                                     <a href="{{url('clients')}}" class="btn blue-madison"><i class="fa fa-bars"></i> Client List</a>
-                                    <a href="{{url('progress/monitoring')}}" class="btn blue-madison"><i class="fa fa-refresh"></i> Client Progress</a>
-                                    <a href="{{url('progress/assessment')}}" class="btn blue-madison"><i class="fa fa-plus-square"></i> Clients Assessment</a>
-                                </div>
+                                    <a href="{{url('excel/import/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import Clients</a>
+
                             </div>
 
                         </div>
@@ -414,11 +359,11 @@
                                         <a href="#" class=" deleteRecordAssessment"> <i class="fa fa-trash text-danger"></i> Delete</a>
                                     </td>
                                     <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('clients')}}/{{$client->id}}"> <i class="fa fa-eye"></i> View</a>
+                                        <a href="{{url('clients')}}/{{$client->id}}" > <i class="fa fa-eye"></i> View</a>
                                     </td>
                                     <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('clients')}}/{{$client->id}}/edit"> <i class="fa fa-edit text-primary"></i> </a>
-                                        <a href="#" class=" deleteRecord"> <i class="fa fa-trash text-danger"></i> </a>
+                                        <a href="{{url('clients')}}/{{$client->id}}/edit" > <i class="fa fa-edit green"></i> </a>
+                                        <a href="#" class=" deleteRecord d"> <i class="fa fa-trash text-danger"></i> </a>
                                     </td>
                                 </tr>
                             @endforeach

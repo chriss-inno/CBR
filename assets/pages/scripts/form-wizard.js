@@ -35,71 +35,30 @@ var FormWizard = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 rules: {
                     //account
-                    username: {
-                        minlength: 5,
-                        required: true
-                    },
-                    password: {
-                        minlength: 5,
-                        required: true
-                    },
-                    rpassword: {
-                        minlength: 5,
-                        required: true,
-                        equalTo: "#submit_form_password"
-                    },
+                    first_name: "required",
+					last_name: "required",
+					marital_status: "required",
+					nationality: "required",
+					sex: "required",
+					 examiner_name: "required",
+                     examiner_title: "required",
+					 is_disabled: "required"
+				
                     //profile
-                    fullname: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    phone: {
-                        required: true
-                    },
-                    gender: {
-                        required: true
-                    },
-                    address: {
-                        required: true
-                    },
-                    city: {
-                        required: true
-                    },
-                    country: {
-                        required: true
-                    },
+                   
                     //payment
-                    card_name: {
-                        required: true
-                    },
-                    card_number: {
-                        minlength: 16,
-                        maxlength: 16,
-                        required: true
-                    },
-                    card_cvc: {
-                        digits: true,
-                        required: true,
-                        minlength: 3,
-                        maxlength: 4
-                    },
-                    card_expiry_date: {
-                        required: true
-                    },
-                    'payment[]': {
-                        required: true,
-                        minlength: 1
-                    }
+                   
                 },
 
                 messages: { // custom messages for radio buttons and checkboxes
-                    'payment[]': {
-                        required: "Please select at least one option",
-                        minlength: jQuery.validator.format("Please select at least one option")
-                    }
+                     first_name: "Please enter first name",
+					last_name: "Please enter last status",
+					marital_status: "Please select marital status",
+					nationality: "Please select nationality",
+					sex: "Please select sex",
+					 examiner_name: "Please enter examiner name",
+                     examiner_title: "Please enter examiner status",
+					 is_disabled: "Please select this field",
                 },
 
                 errorPlacement: function (error, element) { // render error placement for each input type
@@ -129,6 +88,7 @@ var FormWizard = function () {
                 },
 
                 success: function (label) {
+				
                     if (label.attr("for") == "gender" || label.attr("for") == "payment[]") { // for checkboxes and radio buttons, no need to show OK icon
                         label
                             .closest('.form-group').removeClass('has-error').addClass('has-success');
@@ -143,6 +103,7 @@ var FormWizard = function () {
                 submitHandler: function (form) {
                     success.show();
                     error.hide();
+					form.submit();
                     //add here some ajax code to submit your form or just call form.submit() if you want to submit the form without ajax
                 }
 
@@ -242,7 +203,7 @@ var FormWizard = function () {
 
             $('#form_wizard_1').find('.button-previous').hide();
             $('#form_wizard_1 .button-submit').click(function () {
-                alert('Finished! Hope you like it :)');
+                $('#form_wizard_1').submit();
             }).hide();
 
             //apply validation on select2 dropdown value change, this only needed for chosen dropdown integration.

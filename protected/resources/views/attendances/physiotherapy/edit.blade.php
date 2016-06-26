@@ -1,10 +1,15 @@
+<!-- BEGIN SAMPLE FORM PORTLET-->
 @extends('layout.main')
 @section('page-title')
-    Clients Referral request
+    Clients  Attendance register  Physiotherapy unit
 @stop
 @section('page-style')
-    {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css") !!}
+    {!! Html::style("assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css") !!}
+    {!! Html::style("assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css") !!}
+    {!! Html::style("assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css") !!}
+    {!! Html::style("assets/global/plugins/clockface/css/clockface.css") !!}
+    {!! Html::style("assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" ) !!}
 @stop
 @section('menu-sidebar')
     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
@@ -177,112 +182,33 @@
     </ul>
 @stop
 @section('page-scripts-level1')
-    {!! Html::script("assets/global/scripts/datatable.js" ) !!}
-    {!! Html::script("assets/global/plugins/datatables/datatables.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js") !!}
-    {!! Html::script("assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/moment.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/clockface/js/clockface.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"  ) !!}
+    {!! Html::script("assets/global/plugins/ckeditor/ckeditor.js" ) !!}
 @stop
 @section('page-scripts-level2')
-    {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
-    {!! Html::script("assets/pages/scripts/ui-confirmations.min.js" ) !!}
+    {!! Html::script("assets/pages/scripts/components-date-time-pickers.min.js" ) !!}
+    {!! Html::script("assets/pages/scripts/components-editors.min.js"  ) !!}
 
 @stop
 @section('custom-scripts')
     {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
-        $("#SearchForm").validate({
+        $("#DepartmentFormUN").validate({
             rules: {
-                searchKeyword: "required"
+                attendance_date: "required",
+                file_no:"required"
             },
             messages: {
-                searchKeyword: "Please enter search keyword "
-            },
-            submitHandler: function(form) {
-                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");
-                var postData = $('#SearchForm').serializeArray();
-                var formURL = $('#SearchForm').attr("action");
-                $.ajax(
-                        {
-                            url : formURL,
-                            type: "POST",
-                            data : postData,
-                            success:function(data)
-                            {
-                                console.log(data);
-                                //data: return data from server
-                                $("#clientsSearchResults").html(data);
-                            },
-                            error: function(data)
-                            {
-                                console.log(data.responseJSON);
-                            }
-                        });
+                attendance_date: "Please enter attendance_date",
+                file_no: "Please enter File Number"
             }
-        });
-        $("#addRegion").click(function(){
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Camps: Camps details</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("clients/create") ?>");
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-
-        $(".editRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Camps: Camps details</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("clients") ?>/"+id1+"/edit");
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-
-        $(".deleteRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-            var btn = $(this).parent().parent();
-            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-            $("#no").click(function(){
-                $(this).parent().parent().find(".deleteRecord").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-            $("#yes").click(function(){
-                $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('physiotherapy/remove') ?>/"+id1,function(data){
-                    btn.hide("slow").next("hr").hide("slow");
-                });
-            });
         });
     </script>
 @stop
@@ -293,11 +219,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#">Attendance register</a>
+            <a href="{{url('clients')}}">Clients</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Physiotherapy unit</span>
+            <span class="active">Attendance Register</span>
         </li>
     </ul>
 @stop
@@ -325,68 +251,109 @@
                     </div>
                 </div>
             </div>
-            <div class="portlet-body" >
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
-                    <thead>
-                    <tr>
-                        <th> SNO </th>
-                        <th> File Number</th>
-                        <th> Full Name </th>
-                        <th> Sex </th>
-                        <th> Age </th>
-                        <th> Diagnosis </th>
-                        <th> Causes </th>
-                        <th> Date </th>
-                        <th class="text-center"> Action </th>
-                    </tr>
-                    </thead>
-                    <tbody id="clientsSearchResults">
-                    <?php $count=1;?>
-                    @if(count($attendances )>0)
-                        @foreach($attendances as $att)
-                            <tr class="odd gradeX">
-                                <td> {{$count++}} </td>
-                                <td>
-                                    {{$att->file_no}}
-                                </td>
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                      {{$att->client->first_name ." ".$att->client->last_name	}}
+            <div class="portlet-body form">
+                {!! Form::open(array('url'=>'physiotherapy/edit','role'=>'form','id'=>'DepartmentFormUN')) !!}
+
+                <div class="form-body">
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Personal Details</legend>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="first_name">First Name</label>
+                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First name" value="{{$client->first_name}}" disabled>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="last_name">Last Name</label>
+                                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last name"value="{{$client->last_name}}" disabled>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="middle_name">Other Name</label>
+                                    <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name" value="{{$client->middle_name}}"  disabled>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="dob">Date of birth</label>
+                                    <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name"  value="{{$client->dob}}"  disabled>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="sex">Sex</label>
+                                    <select class="form-control" name="sex" id="sex" disabled>
+                                        @if($client->sex != "")
+                                            <option value="{{$client->sex}}" selected>{{$client->sex}}</option>
+                                        @else
+                                            <option value="">---Select--</option>
                                         @endif
-                                </td>
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->sex	}}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->age	}}
-                                    @endif
-                                </td>
-                                <td>
-                                    <?php echo $att->diagnosis; ?>
-                                </td>
-                                <td>
-                                    <?php echo $att->causes; ?>
-                                </td>
-                                <td>
-                                    <?php echo $att->attendance_date; ?>
-                                </td>
-                                <td class="text-center" id="{{$att->id}}">
-                                    <a href="{{url('physiotherapy/edit')}}/{{$att->id}}" class="btn btn-icon-only blue"> <i class="fa fa-edit"></i> </a>
-                                    <a href="#" class=" deleteRecord btn btn-icon-only red"> <i class="fa fa-trash"></i> </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
+                                        <option value="Female">Female</option>
+                                        <option value="Male">Male</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="marital_status">Marital Status</label>
+                                    <select class="form-control" name="marital_status" id="marital_status" disabled>
+                                        @if($client->marital_status != "")
+                                            <option value="{{$client->marital_status}}" selected>{{$client->marital_status}}</option>
+                                        @else
+                                            <option value="">---Select--</option>
+                                        @endif
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Divorced">Divorced</option>
+                                        <option value="Widow">Widow</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
+                    </fieldset>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Physiotherapy attendance details</legend>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5">
+                                    <label>Date</label>
+                                    <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                        <input type="text" class="form-control" name="attendance_date" id="attendance_date" readonly value="{{$attendance->attendance_date}}">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-sm-7 col-xs-7 col-lg-7">
+                                    <label>File Number</label>
+                                    <input type="text" class="form-control" name="file_no" id="file_no" value="{{$attendance->file_no}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Diagnosis</label>
+                            <textarea class="wysihtml5 form-control" rows="10" name="diagnosis" id="diagnosis">{{$attendance->diagnosis}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Conditions/ causes</label>
+                            <textarea class="wysihtml5 form-control" rows="10" name="causes" id="causes">{{$attendance->causes}}</textarea>
+                        </div>
+                    </fieldset>
 
-                    </tbody>
-                </table>
+                    <div class="form-actions right">
+                        <div class="col-md-3 col-sm-3 pull-right">
+                            <input type="hidden" name="id" id="id" value="{{$attendance->id}}">
+                            <button type="submit" class="btn blue btn-block"><i class="fa fa-save"></i> Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                {!! Form::close() !!}
             </div>
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
     </div>
 @stop
+

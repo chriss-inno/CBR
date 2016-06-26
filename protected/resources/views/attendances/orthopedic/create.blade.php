@@ -1,7 +1,7 @@
 <!-- BEGIN SAMPLE FORM PORTLET-->
 @extends('layout.main')
 @section('page-title')
-    Clients Referral request
+    Clients  Attendance register  Physiotherapy unit
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css") !!}
@@ -31,21 +31,22 @@
         <li class="heading">
             <h3 class="uppercase">Medical rehabilitation </h3>
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item ">
             <a href="{{url('referrals')}}" class="nav-link nav-toggle">
                 <i class="icon-direction"></i>
                 <span class="title">Patient Referrals</span>
-                <span class="selected"></span>
+
             </a>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item  start active open">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-puzzle"></i>
                 <span class="title"> Progress Monitoring</span>
                 <span class="arrow"></span>
+                <span class="selected"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('physiotherapy')}}" class="nav-link ">
                         <span class="title">Physiotherapy register </span>
                     </a>
@@ -201,16 +202,16 @@
     <script>
         $("#DepartmentFormUN").validate({
             rules: {
-                referral_date: "required",
-                referral_to:"required",
-                referred_by_name:"required",
-                referred_by_title:"required"
+                date_attended: "required",
+                measurement_date: "required",
+                delivery_date: "required",
+                appliance_provided:"required"
             },
             messages: {
-                referral_date: "Please enter referral_date",
-                referral_to: "Please enter referral_to",
-                referred_by_name: "Please enter referred_by_name",
-                referred_by_title: "Please enter referred_by_title"
+                date_attended: "Please enter date_attended",
+                measurement_date: "Please enter measurement_date",
+                delivery_date: "Please enter delivery_date",
+                appliance_provided: "Please enter appliance_provided"
             }
         });
     </script>
@@ -226,7 +227,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Process referral</span>
+            <span class="active">Attendance Register</span>
         </li>
     </ul>
 @stop
@@ -237,24 +238,25 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <i class="icon-user font-dark"></i>
-                        <span class="caption-subject bold uppercase">Client Referral Request</span>
-                    </div>
-                    <div class="table-toolbar">
-                        <div class="row">
-                            <div class="col-md-8 pull-right">
-                                <div class="btn-group pull-right">
-                                    <a href="{{url('referrals/request')}}" class="btn blue-madison"><i class="fa fa-file"></i> Referral Request</a>
-                                    <a href="{{url('referrals')}}" class="btn blue-madison"><i class="fa fa-refresh"></i> All referrals</a>
-                                    <a href="{{url('excel/import/referrals')}}" class="btn blue-madison"><i class="fa fa-bars"></i> Import referral data</a>
-                                </div>
-                            </div>
-
-                        </div>
+                        <i class="icon-users font-dark"></i>
+                        <span class="caption-subject bold uppercase">Attendance register: Orthopedic unit</span>
                     </div>
                 </div>
+                <div class="table-toolbar">
+                    <div class="row">
+                        <div class="col-md-8 pull-right">
+                            <div class="btn-group pull-right">
+                                <a href="{{url('orthopedic/clients')}}" class="btn blue-madison"><i class="fa fa-file"></i> Register New Case</a>
+                                <a href="{{url('orthopedic')}}" class="btn blue-madison"><i class="fa fa-server"></i> Case history</a>
+                                <a href="{{url('excel/import/opu')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import attendence data</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
                 <div class="portlet-body form">
-                    {!! Form::open(array('url'=>'referrals/edit','role'=>'form','id'=>'DepartmentFormUN')) !!}
+                    {!! Form::open(array('url'=>'orthopedic/create','role'=>'form','id'=>'DepartmentFormUN')) !!}
                     <div class="form-body">
                         <fieldset class="scheduler-border">
                             <legend class="scheduler-border">Personal Details</legend>
@@ -262,15 +264,15 @@
                                 <div class="row">
                                     <div class="col-md-4 col-sm-4">
                                         <label for="first_name">First Name</label>
-                                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First name" value="{{$referral->client->first_name}}" disabled>
+                                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First name" value="{{$client->first_name}}" disabled>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <label for="last_name">Last Name</label>
-                                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last name"value="{{$referral->client->last_name}}" disabled>
+                                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last name"value="{{$client->last_name}}" disabled>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <label for="middle_name">Other Name</label>
-                                        <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name" value="{{$referral->client->middle_name}}"  disabled>
+                                        <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name" value="{{$client->middle_name}}"  disabled>
                                     </div>
 
                                 </div>
@@ -279,13 +281,13 @@
                                 <div class="row">
                                     <div class="col-md-4 col-sm-4">
                                         <label for="dob">Date of birth</label>
-                                        <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name"  value="{{$referral->client->dob}}"  disabled>
+                                        <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name"  value="{{$client->dob}}"  disabled>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <label for="sex">Sex</label>
                                         <select class="form-control" name="sex" id="sex" disabled>
-                                            @if($referral->client->sex != "")
-                                                <option value="{{$referral->client->sex}}" selected>{{$referral->client->sex}}</option>
+                                            @if($client->sex != "")
+                                                <option value="{{$client->sex}}" selected>{{$client->sex}}</option>
                                             @else
                                                 <option value="">---Select--</option>
                                             @endif
@@ -296,8 +298,8 @@
                                     <div class="col-md-4 col-sm-4">
                                         <label for="marital_status">Marital Status</label>
                                         <select class="form-control" name="marital_status" id="marital_status" disabled>
-                                            @if($referral->client->marital_status != "")
-                                                <option value="{{$referral->client->marital_status}}" selected>{{$referral->client->marital_status}}</option>
+                                            @if($client->marital_status != "")
+                                                <option value="{{$client->marital_status}}" selected>{{$client->marital_status}}</option>
                                             @else
                                                 <option value="">---Select--</option>
                                             @endif
@@ -312,13 +314,13 @@
 
                         </fieldset>
                         <fieldset class="scheduler-border">
-                            <legend class="scheduler-border">Referral details</legend>
+                                <legend class="scheduler-border">Orthopedic  attendance details</legend>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5">
-                                        <label>Date</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                                        <label>Date of attending</label>
                                         <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
-                                            <input type="text" class="form-control" name="referral_date" id="referral_date" readonly value="{{$referral->referral_date}}">
+                                            <input type="text" class="form-control" name="date_attended" id="date_attended" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
                                                                 <i class="fa fa-calendar"></i>
@@ -326,64 +328,52 @@
                                                         </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-7 col-sm-7 col-xs-7 col-lg-7">
-                                        <label>Referred To</label>
-                                        <input type="text" class="form-control" name="referral_to" id="referral_to" value="{{$referral->referral_to}}">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                                        <label>Delivery date</label>
+                                        <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                            <input type="text" class="form-control" name="delivery_date" id="delivery_date" readonly>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Reason for referral</label>
-                                <textarea class="wysihtml5 form-control" rows="10" name="referral_reason" id="referral_reason">{{$referral->referral_reason}}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>History</label>
-                                <textarea class="wysihtml5 form-control" rows="10" name="history" id="history">{{$referral->history}}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Examination</label>
-                                <textarea class="wysihtml5 form-control" rows="8" name="examination" id="examination">{{$referral->examination}}</textarea>
-                            </div>
-                            <fieldset class="scheduler-border">
-                                <legend class="scheduler-border">Findings</legend>
-                                <div class="form-group">
-                                    <label>Findings and Feedback on the plans</label>
-                                    <textarea class="wysihtml5 form-control" rows="8" name="findings" id="findings">{{$referral->findings}}</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-                                            <label>Findings Name</label>
-                                            <input type="text" class="form-control" name="findings_name" id="findings_name" value="{{$referral->findings_name}}">
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-                                            <label>Findings Title</label>
-                                            <input type="text" class="form-control" name="findings_title" id="findings_title" value="{{$referral->findings_title}}">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                                        <label>Type of appliance provided</label>
+                                        <input type="text" class=" form-control"  name="appliance_provided" id="appliance_provided">
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                                        <label>Date of measurement </label>
+                                        <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                            <input type="text" class="form-control" name="measurement_date" id="measurement_date" readonly>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
                                         </div>
                                     </div>
                                 </div>
-                            </fieldset>
-                            <fieldset class="scheduler-border">
-                                <legend class="scheduler-border">Referred by</legend>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-                                            <label> Name</label>
-                                            <input type="text" class="form-control" name="referred_by_name" id="referred_by_name" value="{{$referral->referred_by_name}}">
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-                                            <label>Title</label>
-                                            <input type="text" class="form-control" name="referred_by_title" id="referred_by_title" value="{{$referral->referred_by_title}}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
+                            </div>
+                            <div class="form-group">
+                                <label>Diagnosis</label>
+                                <textarea class="wysihtml5 form-control" rows="10" name="diagnosis" id="diagnosis"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Remarks</label>
+                                <input type="text" class=" form-control" rows="10" name="remarks" id="remarks">
+                            </div>
+
                         </fieldset>
 
                         <div class="form-actions right">
                             <div class="col-md-3 col-sm-3 pull-right">
-                                <input type="hidden" name="id" id="id" value="{{$referral->id}}->id}}">
-                                <input type="hidden" name="client_id" id="client_id" value="{{$referral->client_id}}">
+                                <input type="hidden" name="client_id" id="client_id" value="{{$client->id}}">
                                 <button type="submit" class="btn blue btn-block"><i class="fa fa-save"></i> Submit</button>
                             </div>
                         </div>

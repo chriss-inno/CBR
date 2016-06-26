@@ -202,12 +202,16 @@
     <script>
         $("#DepartmentFormUN").validate({
             rules: {
-                attendance_date: "required",
-                file_no:"required"
+                date_attended: "required",
+                measurement_date: "required",
+                delivery_date: "required",
+                appliance_provided:"required"
             },
             messages: {
-                attendance_date: "Please enter attendance_date",
-                file_no: "Please enter File Number"
+                date_attended: "Please enter date_attended",
+                measurement_date: "Please enter measurement_date",
+                delivery_date: "Please enter delivery_date",
+                appliance_provided: "Please enter appliance_provided"
             }
         });
     </script>
@@ -235,124 +239,151 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Attendance register: Physiotherapy unit</span>
+                        <span class="caption-subject bold uppercase">Attendance register: Orthopedic unit</span>
                     </div>
                 </div>
                 <div class="table-toolbar">
                     <div class="row">
                         <div class="col-md-8 pull-right">
                             <div class="btn-group pull-right">
-                                <a href="{{url('physiotherapy/clients')}}" class="btn blue-madison"><i class="fa fa-file"></i> Register New Case</a>
-                                <a href="{{url('physiotherapy')}}" class="btn blue-madison"><i class="fa fa-server"></i> Case history</a>
-                                <a href="{{url('excel/import/apu')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import attendence data</a>
+                                <a href="{{url('orthopedic/clients')}}" class="btn blue-madison"><i class="fa fa-file"></i> Register New Case</a>
+                                <a href="{{url('orthopedic')}}" class="btn blue-madison"><i class="fa fa-server"></i> Case history</a>
+                                <a href="{{url('excel/import/opu')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import attendence data</a>
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
-                <div class="portlet-body form">
-                    {!! Form::open(array('url'=>'physiotherapy/create','role'=>'form','id'=>'DepartmentFormUN')) !!}
-                    <div class="form-body">
-                        <fieldset class="scheduler-border">
-                            <legend class="scheduler-border">Personal Details</legend>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-4">
-                                        <label for="first_name">First Name</label>
-                                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First name" value="{{$client->first_name}}" disabled>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <label for="last_name">Last Name</label>
-                                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last name"value="{{$client->last_name}}" disabled>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <label for="middle_name">Other Name</label>
-                                        <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name" value="{{$client->middle_name}}"  disabled>
-                                    </div>
+            <div class="portlet-body form">
+                {!! Form::open(array('url'=>'orthopedic/edit','role'=>'form','id'=>'DepartmentFormUN')) !!}
+                <div class="form-body">
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Personal Details</legend>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="first_name">First Name</label>
+                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First name" value="{{$client->first_name}}" disabled>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="last_name">Last Name</label>
+                                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last name"value="{{$client->last_name}}" disabled>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="middle_name">Other Name</label>
+                                    <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name" value="{{$client->middle_name}}"  disabled>
+                                </div>
 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="dob">Date of birth</label>
+                                    <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name"  value="{{$client->dob}}"  disabled>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="sex">Sex</label>
+                                    <select class="form-control" name="sex" id="sex" disabled>
+                                        @if($client->sex != "")
+                                            <option value="{{$client->sex}}" selected>{{$client->sex}}</option>
+                                        @else
+                                            <option value="">---Select--</option>
+                                        @endif
+                                        <option value="Female">Female</option>
+                                        <option value="Male">Male</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <label for="marital_status">Marital Status</label>
+                                    <select class="form-control" name="marital_status" id="marital_status" disabled>
+                                        @if($client->marital_status != "")
+                                            <option value="{{$client->marital_status}}" selected>{{$client->marital_status}}</option>
+                                        @else
+                                            <option value="">---Select--</option>
+                                        @endif
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Divorced">Divorced</option>
+                                        <option value="Widow">Widow</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-4">
-                                        <label for="dob">Date of birth</label>
-                                        <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name"  value="{{$client->dob}}"  disabled>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <label for="sex">Sex</label>
-                                        <select class="form-control" name="sex" id="sex" disabled>
-                                            @if($client->sex != "")
-                                                <option value="{{$client->sex}}" selected>{{$client->sex}}</option>
-                                            @else
-                                                <option value="">---Select--</option>
-                                            @endif
-                                            <option value="Female">Female</option>
-                                            <option value="Male">Male</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <label for="marital_status">Marital Status</label>
-                                        <select class="form-control" name="marital_status" id="marital_status" disabled>
-                                            @if($client->marital_status != "")
-                                                <option value="{{$client->marital_status}}" selected>{{$client->marital_status}}</option>
-                                            @else
-                                                <option value="">---Select--</option>
-                                            @endif
-                                            <option value="Single">Single</option>
-                                            <option value="Married">Married</option>
-                                            <option value="Divorced">Divorced</option>
-                                            <option value="Widow">Widow</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
 
-                        </fieldset>
-                        <fieldset class="scheduler-border">
-                                <legend class="scheduler-border">Physiotherapy attendance details</legend>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5">
-                                        <label>Date</label>
-                                        <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
-                                            <input type="text" class="form-control" name="attendance_date" id="attendance_date" readonly>
+                    </fieldset>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Orthopedic  attendance details</legend>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                                    <label>Date of attending</label>
+                                    <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                        <input type="text" class="form-control" name="date_attended" id="date_attended" readonly value="{{$attendances->date_attended}}">
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
                                                                 <i class="fa fa-calendar"></i>
                                                             </button>
                                                         </span>
-                                        </div>
                                     </div>
-                                    <div class="col-md-7 col-sm-7 col-xs-7 col-lg-7">
-                                        <label>File Number</label>
-                                        <input type="text" class="form-control" name="file_no" id="file_no">
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                                    <label>Delivery date</label>
+                                    <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                        <input type="text" class="form-control" name="delivery_date" id="delivery_date" readonly value="{{$attendances->delivery_date}}">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>Diagnosis</label>
-                                <textarea class="wysihtml5 form-control" rows="10" name="diagnosis" id="diagnosis"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Conditions/ causes</label>
-                                <textarea class="wysihtml5 form-control" rows="10" name="causes" id="causes"></textarea>
-                            </div>
-                        </fieldset>
-
-                        <div class="form-actions right">
-                            <div class="col-md-3 col-sm-3 pull-right">
-                                <input type="hidden" name="client_id" id="client_id" value="{{$client->id}}">
-                                <button type="submit" class="btn blue btn-block"><i class="fa fa-save"></i> Submit</button>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                                    <label>Type of appliance provided</label>
+                                    <input type="text" class=" form-control"  name="appliance_provided" id="appliance_provided" value="{{$attendances->appliance_provided}}">
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                                    <label>Date of measurement </label>
+                                    <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                        <input type="text" class="form-control" name="measurement_date" id="measurement_date" readonly value="{{$attendances->measurement_date}}">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label>Diagnosis</label>
+                            <textarea class="wysihtml5 form-control" rows="10" name="diagnosis" id="diagnosis">{{$attendances->diagnosis}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Remarks</label>
+                            <input type="text" class=" form-control" rows="10" name="remarks" id="remarks" value="{{$attendances->remarks}}">
+                        </div>
 
-                    {!! Form::close() !!}
+                    </fieldset>
+
+                    <div class="form-actions right">
+                        <div class="col-md-3 col-sm-3 pull-right">
+                            <input type="hidden" name="id" id="id" value="{{$attendances->id}}">
+                            <button type="submit" class="btn blue btn-block"><i class="fa fa-save"></i> Submit</button>
+                        </div>
+                    </div>
                 </div>
+
+                {!! Form::close() !!}
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
         </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
     </div>
 @stop
 

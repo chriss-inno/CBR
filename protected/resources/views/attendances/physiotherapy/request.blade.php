@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Clients Referral request
+    Clients attendance register
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -369,10 +369,9 @@
                     <div class="row">
                         <div class="col-md-8 pull-right">
                             <div class="btn-group pull-right">
-                                <a href="{{url('clients/create')}}" class="btn blue-madison"><i class="fa fa-file"></i> New Client</a>
-                                <a href="{{url('clients')}}" class="btn blue-madison"><i class="fa fa-bars"></i> Client List</a>
-                                <a href="{{url('referrals')}}" class="btn blue-madison"><i class="fa fa-refresh"></i> All referrals</a>
-                                <a href="{{url('progress/assessment')}}" class="btn blue-madison"><i class="fa fa-plus-square"></i> Import data</a>
+                                <a href="{{url('physiotherapy/clients')}}" class="btn blue-madison"><i class="fa fa-file"></i> Register New Case</a>
+                                <a href="{{url('physiotherapy')}}" class="btn blue-madison"><i class="fa fa-server"></i> Case history</a>
+                                <a href="{{url('excel/import/apu')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import attendence data</a>
                             </div>
                         </div>
 

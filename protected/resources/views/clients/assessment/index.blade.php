@@ -246,7 +246,6 @@
                                     <a href="{{url('clients/create')}}" class="btn blue-madison"><i class="fa fa-file"></i> New Client</a>
                                     <a href="{{url('clients')}}" class="btn blue-madison"><i class="fa fa-bars"></i> Client List</a>
                                     <a href="{{url('progress/monitoring')}}" class="btn blue-madison"><i class="fa fa-refresh"></i> Client Progress</a>
-                                    <a href="{{url('progress/assessment')}}" class="btn blue-madison"><i class="fa fa-plus-square"></i> Clients Assessment</a>
                                 </div>
                             </div>
 

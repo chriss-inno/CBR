@@ -24,4 +24,12 @@ class Client extends Model
     {
         return $this::hasMany('\App\ClientDisability','client_id','id');
     }
+    public function region()
+    {
+        return $this::belongsTo('\App\Region','region_id');
+    }
+    public function district()
+    {
+        return $this::belongsTo('\App\District','district_id');
+    }
 }

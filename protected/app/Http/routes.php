@@ -28,6 +28,7 @@ Route::group(['middleware' => ['web']], function () {
     //Users
     Route::get('/','HomeController@index');
     Route::get('home','HomeController@index');
+    Route::get('registration/desk','HomeController@registrationDesk');
     Route::get('login','UserController@login');
     Route::post('login','UserController@postLogin');
     Route::post('forgetPassword','UserController@forgotPassword');
@@ -62,6 +63,7 @@ Route::group(['middleware' => ['web']], function () {
     //Clients
     Route::resource('clients','ClientController');
     Route::get('remove/clients/{id}','ClientController@destroy');
+    Route::get('details/summary/clients/{id}','ClientController@showSummary');
     Route::get('progress/monitoring','ClientController@index');
     Route::get('progress/assessment','ClientController@index');
 
@@ -119,31 +121,68 @@ Route::group(['middleware' => ['web']], function () {
     //Physiotherapy
     Route::get('physiotherapy','PhysiotherapyRegisterController@index');
     Route::get('physiotherapy/create/{id}','PhysiotherapyRegisterController@create');
-    Route::post('physiotherapy/create/','PhysiotherapyRegisterController@store');
+    Route::post('physiotherapy/create','PhysiotherapyRegisterController@store');
     Route::get('physiotherapy/edit/{id}','PhysiotherapyRegisterController@edit');
     Route::post('physiotherapy/edit','PhysiotherapyRegisterController@update');
     Route::post('physiotherapy/reports','PhysiotherapyRegisterController@reports');
-    Route::post('physiotherapy/remove/{id}','PhysiotherapyRegisterController@destroy');
+    Route::get('physiotherapy/remove/{id}','PhysiotherapyRegisterController@destroy');
     Route::get('physiotherapy/clients','PhysiotherapyRegisterController@getClients');
 
     //orthopedic
     Route::get('orthopedic','OrthopedicRegisterController@index');
-    Route::get('orthopedic/create','OrthopedicRegisterController@create');
+    Route::get('orthopedic/create/{id}','OrthopedicRegisterController@create');
     Route::post('orthopedic/create/','OrthopedicRegisterController@store');
     Route::get('orthopedic/edit/{id}','OrthopedicRegisterController@edit');
     Route::post('orthopedic/edit','OrthopedicRegisterController@update');
     Route::post('orthopedic/reports','OrthopedicRegisterController@reports');
     Route::post('orthopedic/remove/{id}','OrthopedicRegisterController@destroy');
-    Route::get('orthopedic/clients','OrthopedicRegisterController@index');
+    Route::get('orthopedic/clients','OrthopedicRegisterController@getClients');
+
+    //social rehabilitation
+    Route::get('social/rehabilitation','OrthopedicRegisterController@index');
+    Route::get('social/rehabilitation/create','OrthopedicRegisterController@create');
+    Route::post('social/rehabilitation/create/','OrthopedicRegisterController@store');
+    Route::get('social/rehabilitation/edit/{id}','OrthopedicRegisterController@edit');
+    Route::post('social/rehabilitation/edit','OrthopedicRegisterController@update');
+    Route::post('social/rehabilitation/reports','OrthopedicRegisterController@reports');
+    Route::post('social/rehabilitation/remove/{id}','OrthopedicRegisterController@destroy');
+    Route::get('social/rehabilitation/clients','OrthopedicRegisterController@index');
     
+    //Cases
+    Route::get('sr/cases','OrthopedicRegisterController@index');
+    Route::get('sr/cases/create','OrthopedicRegisterController@create');
+    Route::post('sr/cases/create/','OrthopedicRegisterController@store');
+    Route::get('sr/cases/edit/{id}','OrthopedicRegisterController@edit');
+    Route::post('sr/cases/edit','OrthopedicRegisterController@update');
+    Route::post('sr/cases/reports','OrthopedicRegisterController@reports');
+    Route::post('sr/cases/remove/{id}','OrthopedicRegisterController@destroy');
+    Route::get('sr/cases/clients','OrthopedicRegisterController@index');
+
+    //Material monitoring
+    Route::get('sr/materials','OrthopedicRegisterController@index');
+    Route::get('sr/materials/create','OrthopedicRegisterController@create');
+    Route::post('sr/materials/create/','OrthopedicRegisterController@store');
+    Route::get('sr/materials/edit/{id}','OrthopedicRegisterController@edit');
+    Route::post('sr/materials/edit','OrthopedicRegisterController@update');
+    Route::post('sr/materials/reports','OrthopedicRegisterController@reports');
+    Route::post('sr/materials/remove/{id}','OrthopedicRegisterController@destroy');
+    Route::get('sr/cases/clients','OrthopedicRegisterController@index');
+    
+    
+    //Data imports
+    Route::get('excel/import/clients','DataImportController@index');
+    Route::get('excel/import/referrals','DataImportController@index');
+    Route::get('excel/import/apu','DataImportController@index');
+
+
+    //Site setup 
+
+    Route::post('setting/organization/create','SiteSetupController@store');
+    Route::post('setting/organization/edit','SiteSetupController@update');
+    Route::get('setting/organization','SiteSetupController@index');
     //Reports 
-    Route::get('reports/medical_rehabilitation','ReportsController@medicalRehabilitation');
-    Route::get('reports/medical_rehabilitation','ReportsController@medicalRehabilitation');
-    
-    
-
-
-
-
+    Route::get('mr/reports','ReportsController@getMrReports');
+    Route::get('sr/reports','ReportsController@getSrReports');
+    Route::get('general/reports','ReportsController@generalReports');
 
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\SiteSetup;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -20,6 +21,8 @@ class SiteSetupController extends Controller
     public function index()
     {
         //
+        $sitesetup =SiteSetup::all()->first();
+        return view('organization.index',compact('sitesetup'));
     }
 
     /**
@@ -41,6 +44,20 @@ class SiteSetupController extends Controller
     public function store(Request $request)
     {
         //
+        $setup=new SiteSetup;
+       $setup->organization_name=$request->organization_name;
+        $setup->app_name=$request->app_name;
+       $setup->phone=$request->phone;
+       $setup->tel=$request->tel;
+       $setup->fax=$request->fax;
+       $setup->email=$request->email;
+       $setup->address=$request->address;
+       $setup->contact_person=$request->contact_person;
+       $setup->website=$request->website;
+        $setup->profile=$request->profile;
+        $setup->save();
+
+       return  redirect('setting/organization');
     }
 
     /**
@@ -72,9 +89,22 @@ class SiteSetupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $setup= SiteSetup::find($request->id);
+        $setup->organization_name=$request->organization_name;
+        $setup->app_name=$request->app_name;
+        $setup->phone=$request->phone;
+        $setup->tel=$request->tel;
+        $setup->fax=$request->fax;
+        $setup->email=$request->email;
+        $setup->address=$request->address;
+        $setup->contact_person=$request->contact_person;
+        $setup->website=$request->website;
+        $setup->profile=$request->profile;
+        $setup->save();
+        return  redirect('setting/organization');
     }
 
     /**

@@ -123,48 +123,7 @@ var AppCalendar = function() {
                         $(this).remove();
                     }
                 },
-                events: [{
-                    title: 'All Day Event',
-                    start: new Date(y, m, 1),
-                    backgroundColor: App.getBrandColor('yellow')
-                }, {
-                    title: 'Long Event',
-                    start: new Date(y, m, d - 5),
-                    end: new Date(y, m, d - 2),
-                    backgroundColor: App.getBrandColor('green')
-                }, {
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d - 3, 16, 0),
-                    allDay: false,
-                    backgroundColor: App.getBrandColor('red')
-                }, {
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d + 4, 16, 0),
-                    allDay: false,
-                    backgroundColor: App.getBrandColor('green')
-                }, {
-                    title: 'Meeting',
-                    start: new Date(y, m, d, 10, 30),
-                    allDay: false,
-                }, {
-                    title: 'Lunch',
-                    start: new Date(y, m, d, 12, 0),
-                    end: new Date(y, m, d, 14, 0),
-                    backgroundColor: App.getBrandColor('grey'),
-                    allDay: false,
-                }, {
-                    title: 'Birthday Party',
-                    start: new Date(y, m, d + 1, 19, 0),
-                    end: new Date(y, m, d + 1, 22, 30),
-                    backgroundColor: App.getBrandColor('purple'),
-                    allDay: false,
-                }, {
-                    title: 'Click for Google',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    backgroundColor: App.getBrandColor('yellow'),
-                    url: 'http://google.com/',
-                }]
+                events: []
             });
 
         }

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\ClientAssessment;
+use App\ClientDisability;
+use App\Disability;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -75,7 +78,40 @@ class ClientController extends Controller
         $client->reg_no="CBR".date("Y")."CL".$client->id;
         $client->save();
 
-        return redirect('assessment/client/'.$client->id);
+        //Process disability
+        if(strtolower($client->is_disabled) =="yes" )
+        {
+            $clds=new ClientDisability;
+            $clds->client_id=$client->id;
+            $clds->category_id=$request->category_id;
+            $clds->disability_diagnosis=$request->disability_diagnosis;
+            $clds->remarks=$request->remarks;
+            $clds->save();
+        }
+
+        //Assessments details
+        $assessment=new ClientAssessment;
+        $assessment->consultation_no=$request->consultation_no;
+        $assessment->consultation_date=$request->consultation_date;
+        $assessment->diagnosis=$request->diagnosis;
+        $assessment->medical_history=$request->medical_history;
+        $assessment->social_history=$request->social_history;
+        $assessment->employment=$request->employment;
+        $assessment->skin_condition=$request->skin_condition;
+        $assessment->daily_activities=$request->daily_activities;
+        $assessment->remarks=$request->remarks;
+        $assessment->joint_assessment=$request->joint_assessment;
+        $assessment->muscle_assessment=$request->muscle_assessment;
+        $assessment->functional_assessment=$request->functional_assessment;
+        $assessment->problem_list=$request->problem_list;
+        $assessment->treatment=$request->treatment;
+        $assessment->examiner_name=$request->examiner_name;
+        $assessment->examiner_title=$request->examiner_title;
+        $assessment->client_id=$client->id;
+        $assessment->save();
+
+
+        return redirect('clients');
 
     }
 
@@ -139,6 +175,78 @@ class ClientController extends Controller
         $client->is_disabled=$request->is_disabled;
         $client->input_by=Auth::user()->user_name;
         $client->save();
+
+        //Process disability
+        if(strtolower($client->is_disabled) =="yes" )
+        {
+           
+           if($request->clds_id !="")
+           {
+               $clds= ClientDisability::find($request->clds_id);
+               $clds->client_id=$client->id;
+               $clds->category_id=$request->category_id;
+               $clds->disability_diagnosis=$request->disability_diagnosis;
+               $clds->remarks=$request->remarks;
+               $clds->save();
+           }
+            else
+            {
+                $clds=new ClientDisability;
+                $clds->client_id=$client->id;
+                $clds->category_id=$request->category_id;
+                $clds->disability_diagnosis=$request->disability_diagnosis;
+                $clds->remarks=$request->remarks;
+                $clds->save();
+            }
+          
+        }
+
+        //Assessments details
+        if($request->assessment_id !="") {
+            $assessment = ClientAssessment::find($request->assessment_id);
+            $assessment->consultation_no = $request->consultation_no;
+            $assessment->consultation_date = $request->consultation_date;
+            $assessment->diagnosis = $request->diagnosis;
+            $assessment->medical_history = $request->medical_history;
+            $assessment->social_history = $request->social_history;
+            $assessment->employment = $request->employment;
+            $assessment->skin_condition = $request->skin_condition;
+            $assessment->daily_activities = $request->daily_activities;
+            $assessment->remarks = $request->remarks;
+            $assessment->joint_assessment = $request->joint_assessment;
+            $assessment->muscle_assessment = $request->muscle_assessment;
+            $assessment->functional_assessment = $request->functional_assessment;
+            $assessment->problem_list = $request->problem_list;
+            $assessment->treatment = $request->treatment;
+            $assessment->examiner_name = $request->examiner_name;
+            $assessment->examiner_title = $request->examiner_title;
+            $assessment->client_id = $client->id;
+            $assessment->save();
+        }
+        else
+        {
+            $assessment= new ClientAssessment;
+            $assessment->consultation_no=$request->consultation_no;
+            $assessment->consultation_date=$request->consultation_date;
+            $assessment->diagnosis=$request->diagnosis;
+            $assessment->medical_history=$request->medical_history;
+            $assessment->social_history=$request->social_history;
+            $assessment->employment=$request->employment;
+            $assessment->skin_condition=$request->skin_condition;
+            $assessment->daily_activities=$request->daily_activities;
+            $assessment->remarks=$request->remarks;
+            $assessment->joint_assessment=$request->joint_assessment;
+            $assessment->muscle_assessment=$request->muscle_assessment;
+            $assessment->functional_assessment=$request->functional_assessment;
+            $assessment->problem_list=$request->problem_list;
+            $assessment->treatment=$request->treatment;
+            $assessment->examiner_name=$request->examiner_name;
+            $assessment->examiner_title=$request->examiner_title;
+            $assessment->client_id=$client->id;
+            $assessment->save();
+        }
+
+        return redirect('clients');
     }
 
     /**
@@ -151,9 +259,29 @@ class ClientController extends Controller
     {
         //
         $client= Client::find($id);
+        if(is_object($client->disabilities) && count($client->disabilities) >0)
+        {
+            foreach ($client->disabilities as $dis)
+            {
+                $dis->delete(); 
+            }
+        }
+        if(is_object($client->disabilities) && count($client->disabilities) >0)
+        {
+            foreach ($client->disabilities as $dis)
+            {
+                $dis->delete();
+            }
+        }
         $client->delete();
 
         //Need safe delete
 
+    }
+    
+    public function showSummary($id)
+    {
+        $client=Client::find($id);
+        return view('clients.summary',compact('client'));
     }
 }
