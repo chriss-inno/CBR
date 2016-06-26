@@ -657,6 +657,14 @@
                                                 <label for="address">Address</label>
                                                 <textarea class="wysihtml5 form-control" name="address" id="address"></textarea>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="ward">Is client require special needs?</label>
+                                                <select  class="form-control" name="is_psn" id="is_psn">
+                                                    <option value="">------</option>
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                </select>
+                                            </div>
                                         </fieldset>
                                     </div>
                                     <div class="tab-pane" id="tab2">

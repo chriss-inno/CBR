@@ -139,24 +139,24 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('orthopedic/clients','OrthopedicRegisterController@getClients');
 
     //social rehabilitation
-    Route::get('social/rehabilitation','OrthopedicRegisterController@index');
-    Route::get('social/rehabilitation/create','OrthopedicRegisterController@create');
-    Route::post('social/rehabilitation/create/','OrthopedicRegisterController@store');
-    Route::get('social/rehabilitation/edit/{id}','OrthopedicRegisterController@edit');
-    Route::post('social/rehabilitation/edit','OrthopedicRegisterController@update');
-    Route::post('social/rehabilitation/reports','OrthopedicRegisterController@reports');
-    Route::post('social/rehabilitation/remove/{id}','OrthopedicRegisterController@destroy');
-    Route::get('social/rehabilitation/clients','OrthopedicRegisterController@index');
+    Route::get('psn/assessment','PSNController@index');
+    Route::get('psn/assessment/create/{id}','PSNController@create');
+    Route::post('psn/assessment/create','PSNController@store');
+    Route::get('psn/assessment/edit/{id}','PSNController@edit');
+    Route::post('psn/assessment/edit','PSNController@update');
+    Route::post('psn/assessment/reports','PSNController@reports');
+    Route::get('psn/assessment/remove/{id}','PSNController@destroy');
+    Route::get('social/rehabilitation/clients','PSNController@getClients');
     
     //Cases
-    Route::get('sr/cases','OrthopedicRegisterController@index');
-    Route::get('sr/cases/create','OrthopedicRegisterController@create');
-    Route::post('sr/cases/create/','OrthopedicRegisterController@store');
-    Route::get('sr/cases/edit/{id}','OrthopedicRegisterController@edit');
-    Route::post('sr/cases/edit','OrthopedicRegisterController@update');
-    Route::post('sr/cases/reports','OrthopedicRegisterController@reports');
-    Route::post('sr/cases/remove/{id}','OrthopedicRegisterController@destroy');
-    Route::get('sr/cases/clients','OrthopedicRegisterController@index');
+    Route::get('sr/cases','PSNController@index');
+    Route::get('sr/cases/create/{id}','PSNCaseReview@create');
+    Route::post('sr/cases/create/','PSNCaseReview@store');
+    Route::get('sr/cases/edit/{id}','PSNCaseReview@edit');
+    Route::post('sr/cases/edit','PSNCaseReview@update');
+    Route::post('sr/cases/reports','PSNCaseReview@reports');
+    Route::post('sr/cases/remove/{id}','PSNCaseReview@destroy');
+    Route::get('sr/cases/clients','PSNCaseReview@index');
 
     //Material monitoring
     Route::get('sr/materials','OrthopedicRegisterController@index');
@@ -173,6 +173,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('excel/import/clients','DataImportController@index');
     Route::get('excel/import/referrals','DataImportController@index');
     Route::get('excel/import/apu','DataImportController@index');
+    Route::get('excel/import/opu','DataImportController@index');
+
 
 
     //Site setup 

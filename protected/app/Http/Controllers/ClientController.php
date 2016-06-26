@@ -71,6 +71,7 @@ class ClientController extends Controller
         $client->age=$age;
         $client->status="Active";
         $client->is_disabled=$request->is_disabled;
+        $client->is_psn=$request->is_psn;
         $client->input_by=Auth::user()->user_name;
         $client->save();
 
@@ -173,6 +174,7 @@ class ClientController extends Controller
         $client->age=$age;
         $client->status="Active";
         $client->is_disabled=$request->is_disabled;
+        $client->is_psn=$request->is_psn;
         $client->input_by=Auth::user()->user_name;
         $client->save();
 
