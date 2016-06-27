@@ -11,6 +11,10 @@ class PSNAssessment extends Model
     {
         return $this::hasMany('\App\PSNAssistanceServices','psn_id','id');
     }
+    public function cReview()
+    {
+        return $this::hasOne('\App\PSNCases','psn_id','id');
+    }
 
     public function client()
     {

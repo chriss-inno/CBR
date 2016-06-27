@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-   Inventory
+    Inventory
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/fullcalendar/fullcalendar.css" ) !!}
@@ -15,7 +15,7 @@
             </a>
 
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item ">
             <a href="{{url('registration/desk')}}" class="nav-link nav-toggle">
                 <i class="icon-users"></i>
                 <span class="title">Registration Desk</span>
@@ -65,7 +65,7 @@
                 <span class="title">Case monitoring</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item start active open">
             <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
                 <i class="icon-users"></i>
                 <span class="title">Material distribution</span>
@@ -181,17 +181,6 @@
 @section('page-scripts-level2')
     {!! Html::script("assets/apps/scripts/calendar.js" ) !!}
 @stop
-@section('page-head-bar')
-    <!-- BEGIN PAGE TITLE -->
-    <h3>Welcome
-        <small>Registration desk</small>
-    </h3>
-    <!-- END PAGE TITLE -->
-    <!-- BEGIN PAGE TOOLBAR -->
-    <div class="page-toolbar">
-    </div>
-    <!-- END PAGE TOOLBAR -->
-@stop
 @section('breadcrumb')
     <ul class="page-breadcrumb">
         <li>
@@ -199,25 +188,31 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Dashboard</span>
+            <span class="active">Inventory</span>
         </li>
+
     </ul>
 @stop
 @section('contents')
     <div class="row widget-row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
-               <a href="{{url('clients/create')}}" class="btn btn blue btn-block " style="padding-bottom: 30px; padding-top: 30px"><i class="fa fa-user fa-2x"></i> New Client</a>
+            <a href="{{url('inventory')}}" class="btn btn blue btn-block" style="padding-bottom: 30px; padding-top: 30px"><i class="fa fa-database fa-2x"></i> Material inventory</a>
             <!-- END WIDGET THUMB -->
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
-            <a href="{{url('clients')}}" class="btn btn blue btn-block" style="padding-bottom: 30px; padding-top: 30px"><i class="fa fa-search fa-2x"></i> Search Client</a>
+            <a href="{{url('inventory/disbursement')}}" class="btn btn blue btn-block" style="padding-bottom: 30px; padding-top: 30px"><i class="fa fa-users fa-2x"></i> Material Disbursement</a>
             <!-- END WIDGET THUMB -->
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
-            <a href="{{url('clients')}}" class="btn btn blue btn-block" style="padding-bottom: 30px; padding-top: 30px"><i class="fa fa-users fa-2x"></i> View all Client</a>
+            <a href="{{url('inventory/received')}}" class="btn btn blue btn-block" style="padding-bottom: 30px; padding-top: 30px"><i class="fa fa-users fa-2x"></i> Received Items</a>
+            <!-- END WIDGET THUMB -->
+        </div>
+        <div class="col-md-3">
+            <!-- BEGIN WIDGET THUMB -->
+            <a href="{{url('inventory/reports')}}" class="btn btn blue btn-block" style="padding-bottom: 30px; padding-top: 30px"><i class="fa fa-line-chart fa-2x"></i> Inventory reports</a>
             <!-- END WIDGET THUMB -->
         </div>
     </div>

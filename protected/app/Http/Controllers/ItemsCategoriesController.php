@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
-use App\PSNAssessment;
-use App\PSNCases;
+use App\ItemsCategories;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
-class PSNCaseReview extends Controller
+class ItemsCategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,6 +17,8 @@ class PSNCaseReview extends Controller
     public function index()
     {
         //
+        $categories=ItemsCategories::all();
+        return view('inventory.categories.index',compact('categories'));
     }
 
     /**
@@ -27,23 +26,10 @@ class PSNCaseReview extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
         //
-        $assessment=PSNAssessment::find($id);
-        if(is_object($assessment->cReview) && $assessment->cReview !="" && $assessment->cReview != null && count($assessment->cReview)>0)
-        {
-          
-            $client=Client::find($assessment->client_id);
-            return view('psn.cases.edit',compact('assessment','client'));
-        }
-        else
-        {
-            $client=Client::find($assessment->client_id);
-            return view('psn.cases.create',compact('assessment','client'));
-        }
-
-        
+        return view('inventory.categories.create');
     }
 
     /**
@@ -55,12 +41,11 @@ class PSNCaseReview extends Controller
     public function store(Request $request)
     {
         //
-        $case=new PSNCases;
-        $case->psn_id=$request->psn_id;
-        $case->needs_status=$request->needs_status;
-        $case->comments=$request->comments;
-        $case->remarks=$request->remarks;
-        $case->save();
+        $categories=new ItemsCategories;
+        $categories->category_name=$request->category_name;
+        $categories->status=$request->status;
+        $categories->description=$request->description;
+        $categories->save();
     }
 
     /**
@@ -72,6 +57,8 @@ class PSNCaseReview extends Controller
     public function show($id)
     {
         //
+        $categories=ItemsCategories::find($id);
+        return view('inventory.categories.show',compact('categories'));
     }
 
     /**
@@ -83,6 +70,8 @@ class PSNCaseReview extends Controller
     public function edit($id)
     {
         //
+        $categories=ItemsCategories::find($id);
+        return view('inventory.categories.edit',compact('categories'));
     }
 
     /**
@@ -95,11 +84,11 @@ class PSNCaseReview extends Controller
     public function update(Request $request)
     {
         //
-        $case= PSNCases::find($request->id);
-        $case->needs_status=$request->needs_status;
-        $case->comments=$request->comments;
-        $case->remarks=$request->remarks;
-        $case->save();
+        $categories=ItemsCategories::find($request->id);
+        $categories->category_name=$request->category_name;
+        $categories->description=$request->description;
+        $categories->status=$request->status;
+        $categories->save();
     }
 
     /**
@@ -111,7 +100,7 @@ class PSNCaseReview extends Controller
     public function destroy($id)
     {
         //
-        $case= PSNCases::find($id);
-        $case->delete();
+        $categories=ItemsCategories::find($id);
+        $categories->delete();
     }
 }

@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
-use App\PSNAssessment;
-use App\PSNCases;
+use App\ItemsDisbursement;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
-class PSNCaseReview extends Controller
+class ItemsDisbursementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,6 +17,8 @@ class PSNCaseReview extends Controller
     public function index()
     {
         //
+        $disbursements=ItemsDisbursement::all();
+        return view('inventory.disbursement.index',compact('disbursements'));
     }
 
     /**
@@ -27,23 +26,10 @@ class PSNCaseReview extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
         //
-        $assessment=PSNAssessment::find($id);
-        if(is_object($assessment->cReview) && $assessment->cReview !="" && $assessment->cReview != null && count($assessment->cReview)>0)
-        {
-          
-            $client=Client::find($assessment->client_id);
-            return view('psn.cases.edit',compact('assessment','client'));
-        }
-        else
-        {
-            $client=Client::find($assessment->client_id);
-            return view('psn.cases.create',compact('assessment','client'));
-        }
-
-        
+        return view('inventory.disbursement.create');
     }
 
     /**
@@ -55,12 +41,13 @@ class PSNCaseReview extends Controller
     public function store(Request $request)
     {
         //
-        $case=new PSNCases;
-        $case->psn_id=$request->psn_id;
-        $case->needs_status=$request->needs_status;
-        $case->comments=$request->comments;
-        $case->remarks=$request->remarks;
-        $case->save();
+        $disbursement=new ItemsDisbursement;
+        $disbursement->client_id=$request->client_id;
+        $disbursement->item_id=$request->item_id;
+        $disbursement->quantity=$request->quantity;
+        $disbursement->disbursements_date=$request->disbursements_date;
+        $disbursement->disbursements_by=$request->disbursements_by;
+        $disbursement->save();
     }
 
     /**
@@ -83,6 +70,8 @@ class PSNCaseReview extends Controller
     public function edit($id)
     {
         //
+        $disbursement=ItemsDisbursement::find($id);
+        return view('inventory.disbursement.edit',compact('disbursement'));
     }
 
     /**
@@ -95,11 +84,13 @@ class PSNCaseReview extends Controller
     public function update(Request $request)
     {
         //
-        $case= PSNCases::find($request->id);
-        $case->needs_status=$request->needs_status;
-        $case->comments=$request->comments;
-        $case->remarks=$request->remarks;
-        $case->save();
+        $disbursement=ItemsDisbursement::find($request->id);
+        $disbursement->client_id=$request->client_id;
+        $disbursement->item_id=$request->item_id;
+        $disbursement->quantity=$request->quantity;
+        $disbursement->disbursements_date=$request->disbursements_date;
+        $disbursement->disbursements_by=$request->disbursements_by;
+        $disbursement->save();
     }
 
     /**
@@ -111,7 +102,7 @@ class PSNCaseReview extends Controller
     public function destroy($id)
     {
         //
-        $case= PSNCases::find($id);
-        $case->delete();
+        $disbursement=ItemsDisbursement::find($id);
+        $disbursement->delete();
     }
 }

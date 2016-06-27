@@ -151,22 +151,59 @@ Route::group(['middleware' => ['web']], function () {
     //Cases
     Route::get('sr/cases','PSNController@index');
     Route::get('sr/cases/create/{id}','PSNCaseReview@create');
-    Route::post('sr/cases/create/','PSNCaseReview@store');
+    Route::post('sr/cases/create','PSNCaseReview@store');
     Route::get('sr/cases/edit/{id}','PSNCaseReview@edit');
     Route::post('sr/cases/edit','PSNCaseReview@update');
     Route::post('sr/cases/reports','PSNCaseReview@reports');
-    Route::post('sr/cases/remove/{id}','PSNCaseReview@destroy');
+    Route::get('sr/cases/remove/{id}','PSNCaseReview@destroy');
     Route::get('sr/cases/clients','PSNCaseReview@index');
 
     //Material monitoring
-    Route::get('sr/materials','OrthopedicRegisterController@index');
-    Route::get('sr/materials/create','OrthopedicRegisterController@create');
-    Route::post('sr/materials/create/','OrthopedicRegisterController@store');
-    Route::get('sr/materials/edit/{id}','OrthopedicRegisterController@edit');
-    Route::post('sr/materials/edit','OrthopedicRegisterController@update');
-    Route::post('sr/materials/reports','OrthopedicRegisterController@reports');
-    Route::post('sr/materials/remove/{id}','OrthopedicRegisterController@destroy');
-    Route::get('sr/cases/clients','OrthopedicRegisterController@index');
+    Route::get('sr/materials','ItemInventoryController@dashboard');
+    Route::get('inventory','ItemInventoryController@index');
+    Route::get('inventory/create','ItemInventoryController@create');
+    Route::post('inventory/create','ItemInventoryController@store');
+    Route::get('inventory/edit/{id}','ItemInventoryController@edit');
+    Route::post('inventory/edit','ItemInventoryController@update');
+    Route::get('inventory/show/{id}','ItemInventoryController@show');
+    Route::get('inventory/remove/{id}','ItemInventoryController@destroy');
+    Route::get('inventory/received','ItemInventoryController@index');
+    Route::get('inventory/reports','ItemInventoryController@reports');
+    
+    //Import
+    Route::get('inventory/import','ItemInventoryController@showImport');
+    Route::post('inventory/import','ItemInventoryController@postImport');
+    
+    //Inventory categories
+    Route::get('inventory/categories','ItemsCategoriesController@index');
+    Route::get('inventory/categories/create','ItemsCategoriesController@create');
+    Route::post('inventory/categories/create','ItemsCategoriesController@store');
+    Route::get('inventory/categories/edit/{id}','ItemsCategoriesController@edit');
+    Route::post('inventory/categories/edit','ItemsCategoriesController@update');
+    Route::get('inventory/categories/show/{id}','ItemsCategoriesController@show');
+    Route::get('inventory/categories/remove/{id}','ItemsCategoriesController@destroy');
+    
+    //ItemsDisbursementController
+    Route::get('inventory/disbursement','ItemsDisbursementController@index');
+    Route::get('inventory/disbursement/create','ItemsDisbursementController@create');
+    Route::post('inventory/disbursement/create','ItemsDisbursementController@store');
+    Route::get('inventory/disbursement/edit/{id}','ItemsDisbursementController@edit');
+    Route::post('inventory/disbursement/edit','ItemsDisbursementController@update');
+    Route::get('inventory/disbursement/show/{id}','ItemsDisbursementController@show');
+    Route::get('inventory/disbursement/remove/{id}','ItemsDisbursementController@destroy');
+    Route::get('inventory/disbursement/reports','ItemsDisbursementController@reports');
+    
+    //ItemsReceivingController
+    Route::get('inventory/receiving/create','ItemsReceivingController@create');
+    Route::post('inventory/receiving/create','ItemsReceivingController@store');
+    Route::get('inventory/receiving/edit/{id}','ItemsReceivingController@edit');
+    Route::post('inventory/receiving/edit','ItemsReceivingController@update');
+    Route::get('inventory/receiving/show/{id}','ItemsReceivingController@show');
+    Route::get('inventory/receiving/remove/{id}','ItemsReceivingController@destroy');
+    
+    
+    
+
     
     
     //Data imports

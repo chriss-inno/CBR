@@ -209,7 +209,77 @@
     @stop
 @section('page-scripts-level2')
     {!! Html::script("assets/pages/scripts/dashboard.min.js" ) !!}
+    {!! Html::script("assets/highcharts/js/highcharts.js") !!}
+    {!! Html::script("assets/highcharts/js/modules/exporting.js") !!}
     @stop
+@section('custom-scripts')
+    <script>
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Monthly Average Clients Registration for {{date("Y")}}'
+            },
+            credits: {
+                enabled: false
+            },
+
+            xAxis: {
+                categories: [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of clients'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Disabled',
+                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+
+            }, {
+                name: 'PSN',
+                data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+
+            },
+                {
+                    name: 'Disabled and PSN',
+                    data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+
+                }]
+        });
+
+    </script>
+@stop
 @section('page-head-bar')
         <!-- BEGIN PAGE TITLE -->
             <h3>Welcome
@@ -248,7 +318,7 @@
                     <i class="widget-thumb-icon bg-green icon-bulb"></i>
                     <div class="widget-thumb-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">0</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::all())}}">0</span>
                     </div>
                 </div>
             </div>
@@ -262,7 +332,7 @@
                     <i class="widget-thumb-icon bg-red icon-layers"></i>
                     <div class="widget-thumb-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="1,293">0</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::where('is_disabled','=','Yes')->get())}}">0</span>
                     </div>
                 </div>
             </div>
@@ -276,7 +346,7 @@
                     <i class="widget-thumb-icon bg-purple icon-screen-desktop"></i>
                     <div class="widget-thumb-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="815">0</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::where('is_psn','=','Yes')->get())}}">0</span>
                     </div>
                 </div>
             </div>
@@ -285,16 +355,19 @@
         <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">Average Monthly</h4>
+                <h4 class="widget-thumb-heading">Available Items/Materials</h4>
                 <div class="widget-thumb-wrap">
                     <i class="widget-thumb-icon bg-blue icon-bar-chart"></i>
                     <div class="widget-thumb-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="5,071">0</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\ItemsInventory::all())}}">0</span>
                     </div>
                 </div>
             </div>
             <!-- END WIDGET THUMB -->
         </div>
+    </div>
+    <div class="row widget-row">
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
     </div>
     @stop

@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
-use App\PSNAssessment;
-use App\PSNCases;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
-class PSNCaseReview extends Controller
+class ItemsReceivingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,23 +23,9 @@ class PSNCaseReview extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
         //
-        $assessment=PSNAssessment::find($id);
-        if(is_object($assessment->cReview) && $assessment->cReview !="" && $assessment->cReview != null && count($assessment->cReview)>0)
-        {
-          
-            $client=Client::find($assessment->client_id);
-            return view('psn.cases.edit',compact('assessment','client'));
-        }
-        else
-        {
-            $client=Client::find($assessment->client_id);
-            return view('psn.cases.create',compact('assessment','client'));
-        }
-
-        
     }
 
     /**
@@ -55,12 +37,6 @@ class PSNCaseReview extends Controller
     public function store(Request $request)
     {
         //
-        $case=new PSNCases;
-        $case->psn_id=$request->psn_id;
-        $case->needs_status=$request->needs_status;
-        $case->comments=$request->comments;
-        $case->remarks=$request->remarks;
-        $case->save();
     }
 
     /**
@@ -92,14 +68,9 @@ class PSNCaseReview extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         //
-        $case= PSNCases::find($request->id);
-        $case->needs_status=$request->needs_status;
-        $case->comments=$request->comments;
-        $case->remarks=$request->remarks;
-        $case->save();
     }
 
     /**
@@ -111,7 +82,5 @@ class PSNCaseReview extends Controller
     public function destroy($id)
     {
         //
-        $case= PSNCases::find($id);
-        $case->delete();
     }
 }
