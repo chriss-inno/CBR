@@ -167,7 +167,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('inventory/edit','ItemInventoryController@update');
     Route::get('inventory/show/{id}','ItemInventoryController@show');
     Route::get('inventory/remove/{id}','ItemInventoryController@destroy');
-    Route::get('inventory/received','ItemInventoryController@index');
     Route::get('inventory/reports','ItemInventoryController@reports');
     
     //Import
@@ -194,6 +193,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('inventory/disbursement/reports','ItemsDisbursementController@reports');
     
     //ItemsReceivingController
+    Route::get('inventory/received','ItemsReceivingController@index');
     Route::get('inventory/receiving/create','ItemsReceivingController@create');
     Route::post('inventory/receiving/create','ItemsReceivingController@store');
     Route::get('inventory/receiving/edit/{id}','ItemsReceivingController@edit');

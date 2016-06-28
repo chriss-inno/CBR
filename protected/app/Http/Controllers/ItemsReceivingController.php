@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\InventoryReceived;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -20,6 +21,8 @@ class ItemsReceivingController extends Controller
     public function index()
     {
         //
+        $items=InventoryReceived::all();
+        return view('inventory.received.index',compact('items'));
     }
 
     /**
@@ -30,6 +33,7 @@ class ItemsReceivingController extends Controller
     public function create()
     {
         //
+        return view('inventory.received.create');
     }
 
     /**
@@ -52,6 +56,8 @@ class ItemsReceivingController extends Controller
     public function show($id)
     {
         //
+        $item=InventoryReceived::find($id);
+        return view('inventory.received.show',compact('item'));
     }
 
     /**
@@ -63,6 +69,8 @@ class ItemsReceivingController extends Controller
     public function edit($id)
     {
         //
+        $item=InventoryReceived::find($id);
+        return view('inventory.received.edit',compact('item'));
     }
 
     /**
@@ -75,6 +83,8 @@ class ItemsReceivingController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $item=InventoryReceived::find($id);
+        
     }
 
     /**
@@ -86,5 +96,7 @@ class ItemsReceivingController extends Controller
     public function destroy($id)
     {
         //
+        $item=InventoryReceived::find($id);
+        $item->delete();
     }
 }
