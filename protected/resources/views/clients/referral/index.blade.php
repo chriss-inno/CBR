@@ -329,7 +329,6 @@
                     <thead>
                     <tr>
                         <th> SNO </th>
-                        <th> Client Reg No</th>
                         <th> Client Name </th>
                         <th> Referral date </th>
                         <th> Referred To </th>
@@ -345,11 +344,6 @@
                                 <td> {{$count++}} </td>
                                 <td>
                                     @if(is_object($referral->client) && $referral->client != null && $referral->client !="")
-                                    {{$referral->client->reg_no}}
-                                        @endif
-                                </td>
-                                <td>
-                                    @if(is_object($referral->client) && $referral->client != null && $referral->client !="")
                                     {{$referral->client->first_name ." ".$referral->client->last_name	}}
                                     @endif
                                 </td>
@@ -363,8 +357,8 @@
                                     {{$referral->referred_by_name ." ".$referral->referred_by_title	}}
                                 </td>
                                 <td class="text-center" id="{{$referral->id}}">
-                                    <a href="{{url('referrals/edit')}}/{{$referral->id}}" title="Update referral form"  class="btn btn-info"> <i class="fa fa-pencil"></i> </a>
-                                    <a href="#" title="Update referral form"  class="deleteRecord btn btn-danger"> <i class="fa fa-trash"></i> </a>
+                                    <a href="{{url('referrals/edit')}}/{{$referral->id}}" title="Update referral form"  > <i class="fa fa-pencil"></i> </a>
+                                    <a href="#" title="Update referral form"  class="deleteRecord "> <i class="fa fa-trash text-danger"></i> </a>
                                 </td>
                             </tr>
                         @endforeach

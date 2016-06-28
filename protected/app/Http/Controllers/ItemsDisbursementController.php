@@ -9,6 +9,10 @@ use App\Http\Requests;
 
 class ItemsDisbursementController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,13 +45,22 @@ class ItemsDisbursementController extends Controller
     public function store(Request $request)
     {
         //
-        $disbursement=new ItemsDisbursement;
-        $disbursement->client_id=$request->client_id;
-        $disbursement->item_id=$request->item_id;
-        $disbursement->quantity=$request->quantity;
-        $disbursement->disbursements_date=$request->disbursements_date;
-        $disbursement->disbursements_by=$request->disbursements_by;
-        $disbursement->save();
+        if(count($request->item_id) >0 && $request->item_id != null)
+        {
+            $qcount=0;
+            foreach ($request->item_id as $items)
+            {
+                $disbursement=new ItemsDisbursement;
+                $disbursement->client_id=$request->client_id;
+                $disbursement->item_id=$items;
+                $disbursement->quantity=$request->quantity[$qcount];
+                $disbursement->disbursements_date=$request->disbursements_date;
+                $disbursement->disbursements_by=$request->disbursements_by;
+                $disbursement->save();
+            }
+
+        }
+
     }
 
     /**

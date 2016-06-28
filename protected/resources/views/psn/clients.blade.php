@@ -330,10 +330,7 @@
                     <thead>
                     <tr>
                         <th> SNO </th>
-                        <th> Reg No</th>
-                        <th> First Name </th>
-                        <th> Last Name </th>
-                        <th> Other Name </th>
+                        <th> Client Name</th>
                         <th> Sex </th>
                         <th> Age Group </th>
                         <th> Camp </th>
@@ -348,16 +345,7 @@
                             <tr class="odd gradeX">
                                 <td> {{$count++}} </td>
                                 <td>
-                                    {{$client->reg_no}}
-                                </td>
-                                <td>
-                                    {{$client->first_name	}}
-                                </td>
-                                <td>
-                                    {{$client->last_name}}
-                                </td>
-                                <td>
-                                    {{$client->middle_name}}
+                                    {{$client->first_name." ".$client->last_name	}}
                                 </td>
                                 <td>
                                     {{$client->sex}}

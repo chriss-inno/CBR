@@ -8,38 +8,46 @@
 <div class="portlet light bordered">
     <div class="portlet-body form">
         {!! Form::open(array('url'=>'inventory/disbursement/create','role'=>'form','id'=>'DepartmentFormUN')) !!}
-        <div class="form-body">
-            <div class="form-group">
-                <label>Client full name</label>
-                <select name="client_id" class="form-control" id="client_id">
-                    <option value="">--Select--</option>
-                    @foreach(\App\Client::all() as $client)
-                        <option value="{{$client->id}}">{{$client->first_name." ".$client->last_name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label> Item/Material Name</label>
-                <select name="item_id" class="form-control" id="item_id">
-                    <option value="">--Select--</option>
-                    @foreach(\App\ItemsInventory::all() as $item)
-                        <option value="{{$item->id}}">{{$item->item_name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-                        <label>Date</label>
-                        <input type="text" class="form-control input-medium date-picker" readonly name="disbursements_date" id="disbursements_date" data-date-format="yyyy-mm-dd">
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-                        <label>Quantity</label>
-                        <input type="text" class="form-control" name="quantity" id="quantity">
-                    </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                    <label>Date</label>
+                    <input type="text" class="form-control input-medium date-picker" readonly name="disbursements_date" id="disbursements_date" data-date-format="yyyy-mm-dd">
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
+                    <label>Client full name</label>
+                    <select name="client_id" class="form-control" id="client_id">
+                        <option value="">--Select--</option>
+                        @foreach(\App\Client::all() as $client)
+                            <option value="{{$client->id}}">{{$client->first_name." ".$client->last_name}}</option>
+                        @endforeach
+                    </select>
+                </div>
 
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group" id="itemsdispatch">
+                <div class="row">
+                 <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                    <label> Item/Material Name</label>
+                    <select name="item_id[]" class="form-control" id="item_id">
+                        <option value="">--Select--</option>
+                        @foreach(\App\ItemsInventory::all() as $item)
+                            <option value="{{$item->id}}">{{$item->item_name}}</option>
+                        @endforeach
+                    </select>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5">
+                        <label>Quantity</label>
+                        <input type="text" class="form-control" name="quantity[]" id="quantity">
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1">
+                       <a href="#" class="addRow"><i class="fa fa-plus"></i> Add </a>
+                    </div>
                 </div>
             </div>
+
             <div class="form-group">
                 <label>Distributed By</label>
                 <input type="text" class="form-control" name="disbursements_by" id="disbursements_by">
@@ -130,5 +138,34 @@
                     });
         }
     });
+    $(".addRow").click(function(){
 
+        var div = document.createElement('div');
+
+        div.className = 'row';
+
+        div.innerHTML = '<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">\
+                <label> Item/Material Name</label>\
+        <select name="item_id[]" class="form-control" id="item_id">\
+                <option value="">--Select--</option>\
+                @foreach(\App\ItemsInventory::all() as $item)
+                <option value="{{$item->id}}">{{$item->item_name}}</option>\
+                @endforeach
+                </select>\
+                </div>\
+                <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5">\
+                <label>Quantity</label>\
+                <input type="text" class="form-control" name="quantity[]" id="quantity">\
+                </div>\
+                <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1">\
+                </div>\
+                </div>';
+
+        document.getElementById('itemsdispatch').appendChild(div);
+    });
+    $(".removeRow").click(function(){
+
+        alert('hhh');
+       // document.getElementById('itemsdispatch').removeChild( this.parent().parent() );
+    });
 </script>

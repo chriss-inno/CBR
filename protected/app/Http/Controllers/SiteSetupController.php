@@ -9,6 +9,7 @@ use App\Http\Requests;
 
 class SiteSetupController extends Controller
 {
+   
     public function __construct()
     {
         $this->middleware('auth');

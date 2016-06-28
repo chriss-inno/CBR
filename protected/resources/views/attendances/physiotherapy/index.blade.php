@@ -374,8 +374,8 @@
                                     <?php echo $att->attendance_date; ?>
                                 </td>
                                 <td class="text-center" id="{{$att->id}}">
-                                    <a href="{{url('physiotherapy/edit')}}/{{$att->id}}" class="btn btn-icon-only blue"> <i class="fa fa-edit"></i> </a>
-                                    <a href="#" class=" deleteRecord btn btn-icon-only red"> <i class="fa fa-trash"></i> </a>
+                                    <a href="{{url('physiotherapy/edit')}}/{{$att->id}}"> <i class="fa fa-edit"></i> </a>
+                                    <a href="#" class=" deleteRecord"> <i class="fa fa-trash text-danger"></i> </a>
                                 </td>
                             </tr>
                         @endforeach

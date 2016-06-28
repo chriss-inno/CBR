@@ -8,6 +8,11 @@ use App\Http\Requests;
 
 class DataImportController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +21,7 @@ class DataImportController extends Controller
     public function index()
     {
         //
+        
     }
 
     /**

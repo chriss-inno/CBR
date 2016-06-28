@@ -11,7 +11,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ItemInventoryController extends Controller
 {
-    /**
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    } /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -105,8 +109,15 @@ class ItemInventoryController extends Controller
     public function create()
     {
         //
-        return view('inventory.items.create',compact('items'));
+        return view('inventory.items.create');
     }
+    public function reports()
+    {
+        //
+        return view('inventory.reports');
+    }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -117,6 +128,7 @@ class ItemInventoryController extends Controller
     public function store(Request $request)
     {
         //
+       
         $item=new ItemsInventory;
         $item->item_name=$request->item_name;
         $item->description=$request->description;

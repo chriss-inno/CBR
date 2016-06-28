@@ -214,6 +214,7 @@
     @stop
 @section('custom-scripts')
     <script>
+
         $('#container').highcharts({
             chart: {
                 type: 'column'
@@ -251,7 +252,7 @@
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true
@@ -262,18 +263,45 @@
                     borderWidth: 0
                 }
             },
+            <?php
+                    $MonthCount="";
+                    $monthData="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('is_disabled','=','Yes')->get()).",";
+                    }
+                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                    ?>
+                    <?php
+                    $MonthCount2="";
+                    $monthData2="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('is_psn','=','Yes')->get()).",";
+                    }
+                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
+                    ?>
+                    <?php
+                    $MonthCount3="";
+                    $monthData3="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
+                    }
+                    $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
+                    ?>
             series: [{
                 name: 'Disabled',
-                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+                data:[<?php echo $monthData;?>]
 
             }, {
                 name: 'PSN',
-                data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+                data: [<?php echo $monthData2;?>]
 
             },
                 {
                     name: 'Disabled and PSN',
-                    data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+                    data: [<?php echo $monthData3;?>]
 
                 }]
         });

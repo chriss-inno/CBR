@@ -252,7 +252,7 @@
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true
@@ -263,18 +263,9 @@
                     borderWidth: 0
                 }
             },
-            <?php
-                    $MonthCount="";
-                    $monthData="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount.=count(\App\ItemsDisbursement::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
-                    }
-                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
-                    ?>
             series: [{
-                name: 'Items',
-                data: [<?php echo $monthData;?>]
+                name: 'Disabled',
+                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
 
             }]
         });

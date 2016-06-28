@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    PSN Clients assessment
+    Regions
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -41,7 +41,7 @@
                 <span class="selected"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item active ">
+                <li class="nav-item ">
                     <a href="{{url('physiotherapy')}}" class="nav-link ">
                         <span class="title">Physiotherapy register </span>
                     </a>
@@ -56,7 +56,7 @@
         <li class="heading">
             <h3 class="uppercase">Social rehabilitation</h3>
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item">
             <a href="{{url('social/rehabilitation/clients')}}" class="nav-link nav-toggle">
                 <i class="icon-users"></i>
                 <span class="title">People with Special Need</span>
@@ -95,14 +95,14 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item start active open ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('setting/organization')}}" class="nav-link ">
                         <span class="title">Organization</span>
                     </a>
@@ -188,44 +188,14 @@
 
 @stop
 @section('custom-scripts')
-    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
-        $("#SearchForm").validate({
-            rules: {
-                searchKeyword: "required"
-            },
-            messages: {
-                searchKeyword: "Please enter search keyword "
-            },
-            submitHandler: function(form) {
-                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");
-                var postData = $('#SearchForm').serializeArray();
-                var formURL = $('#SearchForm').attr("action");
-                $.ajax(
-                        {
-                            url : formURL,
-                            type: "POST",
-                            data : postData,
-                            success:function(data)
-                            {
-                                console.log(data);
-                                //data: return data from server
-                                $("#clientsSearchResults").html(data);
-                            },
-                            error: function(data)
-                            {
-                                console.log(data.responseJSON);
-                            }
-                        });
-            }
-        });
         $("#addRegion").click(function(){
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
+            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Camps: Camps details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Districts: Districts details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -236,7 +206,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("clients/create") ?>");
+            $(".modal-body").load("<?php echo url("users/create") ?>");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -250,7 +220,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Camps: Camps details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Districts: Districts details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -261,7 +231,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("clients") ?>/"+id1+"/edit");
+            $(".modal-body").load("<?php echo url("users") ?>/"+id1+"/edit");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -279,70 +249,25 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('psn/assessment/remove') ?>/"+id1,function(data){
+                $.get("<?php echo url('users') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
         });
-        $(".caseReviewDelete").click(function(){
-            var id1 = $(this).parent().attr('id');
-            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-            var btn = $(this).parent().parent();
-            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-            $("#no").click(function(){
-                $(this).parent().parent().find(".caseReviewDelete").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-            $("#yes").click(function(){
-                $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('sr/cases/remove') ?>/"+id1,function(data){
-                    $(this).parent().parent().find(".caseReviewDelete").show("slow");
-                    $(this).parent().parent().find("span").remove();
-                });
-                $(this).parent().parent().find(".caseReviewDelete").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-        });
-
-        $(".caseReview").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Case Review Form </span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("sr/cases/create") ?>/"+id1);
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-
     </script>
 @stop
 @section('breadcrumb')
-    <ul class="page-breadcrumb ">
+    <ul class="page-breadcrumb">
         <li>
             <a href="{{url('home')}}">Home</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#">Clients</a>
+            <a href="#">Settings</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">PSN Assessments</span>
+            <span class="active">users</span>
         </li>
     </ul>
 @stop
@@ -353,119 +278,79 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">PSN cases management</span>
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">Manage users</span>
                     </div>
-                </div>
-                <div class="table-toolbar">
-                    <div class="row">
-                        <div class="col-md-8 pull-right">
-                            <div class="btn-group pull-right">
-                                <a href="{{url('social/rehabilitation/clients')}}" class="btn blue-madison"><i class="fa fa-file"></i> New Case</a>
-                                <a href="{{url('psn/assessment')}}" class="btn blue-madison"><i class="fa fa-server"></i> All Cases </a>
-                                <a href="{{url('excel/import/opu')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-6 pull-right">
+                                <div class="btn-group pull-right">
+                                    <button id="addRegion" class="btn sbold green"> Add New
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="portlet-body" >
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
-                    <thead>
-                    <tr>
-                        <th> SNO </th>
-                        <th> Progress number</th>
-                        <th> Client Name </th>
-                        <th> Sex </th>
-                        <th> Age  </th>
-                        <th> Ration card </th>
-                        <th> Family size </th>
-                        <th class="text-center"> Case review </th>
-                        <th class="text-center"> PSN Assessment form </th>
-                    </tr>
-                    </thead>
-                    <tbody id="clientsSearchResults">
-                    <?php $count=1;?>
-                    @if(count($assessment )>0)
-                        @foreach($assessment as $asm)
-                            @if(is_object($asm->client) && $asm->client != null  )
-                            <tr class="odd gradeX">
-                                <td> {{$count++}} </td>
-                                <td>
-                                    {{$asm->progress_number}}
-                                </td>
-                                <td>
-                                    {{$asm->client->first_name." ".$asm->client->last_name	}}
-                                </td>
-                                <td>
-                                    {{$asm->client->sex}}
-                                </td>
-                                <td>
-                                    {{$asm->client->age}}
-                                </td>
-                                <td>
-                                 {{$asm->ration_card}}
-                                </td>
-                                <td>
-                                    {{$asm->family_size}}
-                                </td>
-                                <td class="text-center" id="{{$asm->id}}">
-                                    <a href="#" class="caseReview"> <i class="fa fa-eye text-info"></i> view</a>
-                                    <a href="#" class="caseReviewDelete"> <i class="fa fa-trash text-info"></i> delete</a>
-                                </td>
-                                <td class="text-center" id="{{$asm->id}}">
-                                    <a href="{{url('psn/assessment/edit')}}/{{$asm->id}}" > <i class="fa fa-pencil"></i> Edit</a>
-                                    <a href="#" class="deleteRecord"> <i class="fa fa-trash text-danger"></i> delete</a>
-                                </td>
-                            </tr>
-                            @else
+                <div class="portlet-body">
+
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
+                        <thead>
+                        <tr>
+                            <th> SNO </th>
+                            <th> First Name </th>
+                            <th> Last Name </th>
+                            <th> Username </th>
+                            <th> Email </th>
+                            <th> User Level </th>
+                            <th> Status </th>
+                            <th> Profile </th>
+                            <th class="text-center"> Action </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php $count=1;?>
+                        @if(count($users)>0)
+                            @foreach($users as $user)
                                 <tr class="odd gradeX">
                                     <td> {{$count++}} </td>
                                     <td>
-                                        {{$asm->reg_no}}
+                                        {{$user->first_name}}
                                     </td>
                                     <td>
-                                        {{$asm->first_name	}}
+                                        {{$user->last_name}}
                                     </td>
                                     <td>
-                                        {{$asm->last_name}}
+                                        {{$user->username}}
                                     </td>
                                     <td>
-                                        {{$asm->middle_name}}
+                                        {{$user->email}}
                                     </td>
                                     <td>
-                                        {{$asm->sex}}
+                                        {{$user->level}}
                                     </td>
                                     <td>
-                                        {{$asm->age}}
+                                        {{$user->status}}
                                     </td>
                                     <td>
-                                        @if(is_object($asm->camp)&& $asm->camp_id !="" && $asm->camp !="" && $asm->camp !=null )
-                                            {{$asm->camp->camp_name}}
-                                        @endif
+                                        <a href="#"  class="btn btn-icon-only blue editRecord"> <i class="fa fa-eye"></i> </a>
                                     </td>
-                                    <td>
-                                        @if(is_object($asm->centre)&& $asm->center_id !="" && $asm->centre !="" && $asm->centre !=null )
-                                            {{$asm->centre->centre_name}}
-                                        @endif
-                                    </td>
-                                    <td class="text-center" id="{{$asm->id}}">
-                                        <a href="{{url('psn/assessment/create')}}/{{$asm->id}}" > <i class="fa fa-download text-primary"></i> Download</a>
-                                        <a href="{{url('psn/assessment/edit')}}/{{$asm->id}}" > <i class="fa fa-pencil"></i> Edit</a>
-                                        <a href="#" class="deleteRecord"> <i class="fa fa-trash text-danger"></i> delete</a>
+                                    <td class="text-center" id="{{$user->id}}">
+                                        <a href="#"  class="btn btn-icon-only blue editRecord"> <i class="fa fa-edit"></i> </a>
+                                        <a href="#" class="btn btn-icon-only red deleteRecord"> <i class="fa fa-trash"></i> </a>
                                     </td>
                                 </tr>
-                                @endif
-                        @endforeach
-                    @endif
+                            @endforeach
+                        @endif
 
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
         </div>
-        <!-- END EXAMPLE TABLE PORTLET-->
-    </div>
     </div>
 @stop
