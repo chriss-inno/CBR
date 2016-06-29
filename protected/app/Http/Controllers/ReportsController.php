@@ -14,8 +14,17 @@ class ReportsController extends Controller
         $this->middleware('auth');
     }
     
-    public function medicalRehabilitation()
+    public function getSrReports()
     {
-        
+        return view('reports.sr');
     }
+    public function getMrReports()
+    {
+        return view('reports.mr');
+    }
+    public function generalReports()
+    {
+       return view('reports.general');
+    }
+
 }
