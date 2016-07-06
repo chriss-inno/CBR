@@ -29,6 +29,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/','HomeController@index');
     Route::get('home','HomeController@index');
     Route::get('registration/desk','HomeController@registrationDesk');
+    Route::get('assessment/roam','HomeController@registrationDesk');
     Route::get('login','UserController@login');
     Route::post('login','UserController@postLogin');
     Route::post('forgetPassword','UserController@forgotPassword');
