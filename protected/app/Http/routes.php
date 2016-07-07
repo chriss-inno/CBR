@@ -29,13 +29,39 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/','HomeController@index');
     Route::get('home','HomeController@index');
     Route::get('registration/desk','HomeController@registrationDesk');
-    Route::get('assessment/roam','HomeController@registrationDesk');
     Route::get('login','UserController@login');
     Route::post('login','UserController@postLogin');
     Route::post('forgetPassword','UserController@forgotPassword');
     Route::get('logout','UserController@logout');
     Route::resource('users','UserController');
 
+    
+    //Assessment roam
+    Route::get('assessment/roam','ClientController@index');
+
+    //rehabilitation services progress
+    Route::get('rehabilitation/services/progress','RehabilitationProgressController@index');
+    Route::get('rehabilitation/services/progress/create','RehabilitationProgressController@create');
+    Route::post('rehabilitation/services/progress/create','RehabilitationProgressController@store');
+    Route::get('rehabilitation/services/progress/edit/{id}','RehabilitationProgressController@edit');
+    Route::post('rehabilitation/services/progress/edit','RehabilitationProgressController@update');
+    Route::get('rehabilitation/services/progress/remove/{id}','RehabilitationProgressController@destroy');
+
+    //rehabilitation services
+    Route::get('rehabilitation/services','RehabilitationServicesController@index');
+    Route::get('rehabilitation/services/create','RehabilitationServicesController@create');
+    Route::post('rehabilitation/services/create','RehabilitationServicesController@store');
+    Route::get('rehabilitation/services/edit/{id}','RehabilitationServicesController@edit');
+    Route::post('rehabilitation/services/edit','RehabilitationServicesController@update');
+    Route::get('rehabilitation/services/remove/{id}','RehabilitationServicesController@destroy');
+    
+    //Import
+    Route::get('excel/rehabilitation/services','RehabilitationServicesController@showRSImport');
+    Route::get('excel/rehabilitation/services/errors','RehabilitationServicesController@showRSImportError');
+    Route::post('excel/rehabilitation/services','RehabilitationServicesController@postRSImport');
+    Route::get('excel/rehabilitation/progress/errors','RehabilitationServicesController@showProgressImporterrors');
+    Route::post('excel/rehabilitation/progress','RehabilitationServicesController@postProgressImport');
+    
     //Countries
     Route::resource('countries','CountryController');
 
@@ -130,6 +156,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('physiotherapy/clients','PhysiotherapyRegisterController@getClients');
 
     //orthopedic
+    Route::get('orthopedic/services','OrthopedicRegisterController@index');
     Route::get('orthopedic','OrthopedicRegisterController@index');
     Route::get('orthopedic/create/{id}','OrthopedicRegisterController@create');
     Route::post('orthopedic/create/','OrthopedicRegisterController@store');
@@ -208,7 +235,11 @@ Route::group(['middleware' => ['web']], function () {
     
     
     //Data imports
-    Route::get('excel/import/clients','DataImportController@index');
+    Route::get('excel/import/clients','ClientController@showImport');
+    Route::post('excel/import/clients','ClientController@postImport');
+    Route::post('excel/import/disabilities','ClientController@postDisabilityImport');
+    Route::get('excel/import/disabilities','ClientController@showDisabilityImportError');
+    Route::get('excel/import/clients/errors','ClientController@showClientImportError');
     Route::get('excel/import/referrals','DataImportController@index');
     Route::get('excel/import/apu','DataImportController@index');
     Route::get('excel/import/opu','DataImportController@index');

@@ -17,84 +17,99 @@
         <li class="nav-item ">
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
-                <span class="title">Dashboard</span>
+                <span class="title">Home</span>
 
             </a>
 
         </li>
+
         <li class="nav-item start active open">
-            <a href="{{url('registration/desk')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Registration Desk</span>
+            <a href="{{url('assessment/roam')}}" class="nav-link nav-toggle">
+                <i class="fa fa-building-o fa-2x"></i>
+                <span class="title">Assessment roam</span>
                 <span class="selected"></span>
             </a>
         </li>
-        <li class="heading">
-            <h3 class="uppercase">Medical rehabilitation </h3>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('referrals')}}" class="nav-link nav-toggle">
-                <i class="icon-direction"></i>
-                <span class="title">Patient Referrals</span>
+        <li class="nav-item ">
+            <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Rehabilitation services</span>
             </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('orthopedic/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Orthopedic services</span>
+
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('beneficiaries')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Beneficiaries</span>
+
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('social/needs')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Social needs/Support</span>
+
+            </a>
+
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-puzzle"></i>
-                <span class="title"> Progress Monitoring</span>
+                <i class="fa fa-line-chart fa-2x"></i>
+                <span class="title"> Reports</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
-                    <a href="{{url('physiotherapy')}}" class="nav-link ">
-                        <span class="title">Physiotherapy register </span>
+                    <a href="{{url('reports/assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment roam</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('orthopedic')}}" class="nav-link ">
-                        <span class="title">Orthopedic register </span>
+                    <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
+                        <span class="title">Rehabilitation services</span>
                     </a>
                 </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/orthopedic/services')}}" class="nav-link ">
+                        <span class="title">Orthopedic services</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/material/support')}}" class="nav-link ">
+                        <span class="title">Material support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/beneficiaries')}}" class="nav-link ">
+                        <span class="title">Beneficiaries  Identification/Registration</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/social/needs')}}" class="nav-link ">
+                        <span class="title">Social needs/Support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('regions')}}" class="nav-link ">
+                        <span class="title">Regions</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('districts')}}" class="nav-link ">
+                        <span class="title">Districts</span>
+                    </a>
+                </li>
+
             </ul>
-        </li>
-        <li class="heading">
-            <h3 class="uppercase">Social rehabilitation</h3>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('social/rehabilitation/clients')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">People with Special Need</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('sr/cases')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Case monitoring</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Material distribution</span>
-            </a>
-        </li>
-        <li class="heading">
-            <h3 class="uppercase">GENERAL REPORTS</h3>
-        </li>
-        <li class="nav-item  ">
-            <a href="{{url('mr/reports')}}" class="nav-link ">
-                <span class="title">Medical rehabilitation Reports </span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('sr/reports')}}" class="nav-link ">
-                <span class="title">Social rehabilitation Reports</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('general/reports')}}" class="nav-link ">
-                <span class="title">General Reports</span>
-            </a>
         </li>
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
@@ -154,7 +169,7 @@
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-user"></i>
+                <i class="icon-users"></i>
                 <span class="title"> Users</span>
                 <span class="arrow"></span>
             </a>
@@ -335,22 +350,25 @@
             <div class="portlet light bordered" id="form_wizard_1">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <i class="icon-user font-dark"></i>
-                        <span class="caption-subject bold uppercase">Client registration </span>
+                        <i class="icon-users font-dark"></i>
+                        <span class="caption-subject bold uppercase">Client Assessment</span>
                     </div>
-                    <div class="table-toolbar">
-                        <div class="row">
-                            <div class="col-md-8 pull-right">
-                                <div class="btn-group pull-right">
-                                    <a href="{{url('clients/create')}}" class="btn blue-madison"><i class="fa fa-file"></i> New Client</a>
-                                    <a href="{{url('clients')}}" class="btn blue-madison"><i class="fa fa-bars"></i> Client List</a>
-                                    <a href="{{url('excel/import/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import Clients</a>
-                                </div>
+                </div>
+                <div class="table-toolbar">
+                    <div class="row">
+                        <div class="col-md-12 pull-right">
+                            <div class="btn-group pull-right">
+                                <a href="{{url('clients/create')}}" class="btn blue-madison"><i class="fa fa-file"></i> New Client</a>
+                                <a href="{{url('clients')}}" class="btn blue-madison"><i class="fa fa-users"></i> View All Client</a>
+                                <a href="{{url('excel/import/clients')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import Clients</a>
+                                <a href="{{url('excel/export/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Export Clients</a>
+                                <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
                             </div>
 
                         </div>
                     </div>
                 </div>
+                <hr/>
                 <div class="portlet-body form">
                     {!! Form::model($client, array('route' => array('clients.update', $client->id), 'method' => 'PUT','role'=>'form','id'=>'submit_form')) !!}
                     <div class="form-wizard">
@@ -360,28 +378,14 @@
                                     <a href="#tab1" data-toggle="tab" class="step">
                                         <span class="number"> 1 </span>
                                                             <span class="desc">
-                                                                <i class="fa fa-check"></i> Personal Details </span>
+                                                                <i class="fa fa-check"></i> Client Details </span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#tab2" data-toggle="tab" class="step">
                                         <span class="number"> 2 </span>
                                                             <span class="desc">
-                                                                <i class="fa fa-check"></i> Location/Settlement </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#tab3" data-toggle="tab" class="step active">
-                                        <span class="number"> 3 </span>
-                                                            <span class="desc">
-                                                                <i class="fa fa-check"></i> Disability  </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#tab4" data-toggle="tab" class="step">
-                                        <span class="number"> 4 </span>
-                                                            <span class="desc">
-                                                                <i class="fa fa-check"></i> assessment </span>
+                                                                <i class="fa fa-check"></i> Assessment </span>
                                     </a>
                                 </li>
                             </ul>
@@ -395,7 +399,11 @@
                                     <button class="close" data-dismiss="alert"></button> Your form validation is successful! </div>
                                 <div class="tab-pane active" id="tab1">
                                     <fieldset class="scheduler-border">
-                                        <legend class="scheduler-border">Personal Details</legend>
+                                        <legend class="scheduler-border">Clients Details</legend>
+                                        <div class="form-group">
+                                            <label for="first_name">File Number</label>
+                                            <input type="text" class="form-control" name="file_number" id="file_number" placeholder="Enter file number" value="{{$client->file_number}}">
+                                        </div>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-4 col-sm-4">
@@ -665,26 +673,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="address">Address</label>
-                                            <textarea class="wysihtml5 form-control" name="address" id="address">{{$client->address}}</textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="ward">Is client require special needs?</label>
-                                            <select  class="form-control" name="is_psn" id="is_psn">
-                                                @if($client->is_psn != "" )
-                                                    <option value="{{$client->is_psn}}">{{$client->is_psn}}</option>
-                                                @else
-                                                    <option value="">--Select--</option>
-                                                @endif
-                                                <option value="Yes">Yes</option>
-                                                <option value="No">No</option>
-                                            </select>
-                                        </div>
                                     </fieldset>
-                                </div>
-                                <div class="tab-pane" id="tab2">
                                     <fieldset class="scheduler-border">
                                         <legend class="scheduler-border">Location/Settlement Details</legend>
                                         <div class="form-group">
@@ -724,7 +713,7 @@
                                                             <option value="{{$client->region->id}}">{{$client->region->region_name}}</option>
                                                         @else
                                                             <option value="">--Select--</option>
-                                                            @endif
+                                                        @endif
                                                         @foreach(\App\Region::orderBy('region_name','ASC')->get() as $region)
                                                             <option value="{{$region->id}}">{{$region->region_name}}</option>
                                                         @endforeach
@@ -751,66 +740,13 @@
                                             <label for="ward">Ward</label>
                                             <input type="text" class="form-control" name="ward" id="ward" value="{{$client->ward}}" >
                                         </div>
+                                        <div class="form-group">
+                                            <label for="address">Address</label>
+                                            <textarea class="wysihtml5 form-control" name="address" rows="4" id="address">{{$client->address}}</textarea>
+                                        </div>
                                     </fieldset>
                                 </div>
-                                <div class="tab-pane" id="tab3">
-                                    <div class="form-group">
-                                        <label for="ward">Is disabled?</label>
-                                        <select  class="form-control" name="is_disabled" id="is_disabled">
-                                            @if($client->is_disabled != "" )
-                                                <option value="{{$client->is_disabled}}">{{$client->is_disabled}}</option>
-                                            @else
-                                                <option value="">--Select--</option>
-                                            @endif
-                                            <option value="Yes">Yes</option>
-                                            <option value="No">No</option>
-                                        </select>
-                                    </div>
-                                    <?php $clds=\App\ClientDisability::where('client_id','=',$client->id)->first();?>
-                                    @if($clds != null && count($clds)>0 )
-                                        <input type="hidden" name="clds_id" value="{{$clds->id}}">
-                                    <div class="form-group">
-                                        <label>Disability Category</label>
-                                        <select class="form-control" name="category_id" id="category_id">
-                                            @if( is_object($clds->disability) && $clds->disability != null)
-                                                <option value="{{$clds->id}}">{{$clds->disability->category}}</option>
-                                            @else
-                                                <option value="">--Select--</option>
-                                            @endif
-                                            @foreach(\App\Disability::all() as $dis)
-                                                <option value="{{$dis->id}}">{{$dis->category}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Disability/Diagnosis</label>
-                                        <textarea class="wysihtml5 form-control" name="disability_diagnosis" rows="6" id="disability_diagnosis">{{$clds->disability_diagnosis}}</textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Remarks</label>
-                                        <textarea class="wysihtml5 form-control" name="remarks" rows="6" id="remarks">{{$clds->remarks}}</textarea>
-                                    </div>
-                                        @else
-                                        <input type="hidden" name="clds_id" value="">
-                                        <div class="form-group">
-                                            <label>Disability Category</label>
-                                            <select class="form-control" name="category_id" id="category_id">
-                                                @foreach(\App\Disability::all() as $dis)
-                                                    <option value="{{$dis->id}}">{{$dis->category}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Disability/Diagnosis</label>
-                                            <textarea class="wysihtml5 form-control" name="disability_diagnosis" rows="6" id="disability_diagnosis"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Remarks</label>
-                                            <textarea class="wysihtml5 form-control" name="remarks" rows="6" id="remarks"></textarea>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="tab-pane" id="tab4">
+                                <div class="tab-pane" id="tab2">
                                     @if(is_object($client->assessment) && $client->assessment !=null )
                                         <input type="hidden" name="assessment_id" value="{{$client->assessment->id}}">
                                     <fieldset class="scheduler-border">
@@ -851,10 +787,6 @@
                                             <textarea class="wysihtml5 form-control" rows="6" name="employment" id="employment" >{{$client->assessment->diagnosis}}</textarea>
                                         </div>
                                         <div class="form-group>">
-                                            <label for="diagnosis">Diagnosis</label>
-                                            <textarea class="wysihtml5 form-control" rows="6" name="diagnosis" id="diagnosis" >{{$client->assessment->diagnosis}}</textarea>
-                                        </div>
-                                        <div class="form-group>">
                                             <label for="skin_condition">Skin condition</label>
                                             <textarea class="wysihtml5 form-control" rows="6" name="skin_condition" id="skin_condition" >{{$client->assessment->skin_condition}}</textarea>
                                         </div>
@@ -885,6 +817,18 @@
                                         <div class="form-group>">
                                             <label for="remarks">Remarks</label>
                                             <input type="text" class="form-control" name="remarks" id="remarks" value="{{$client->assessment->remarks}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="status">Client Assessment Status</label>
+                                            <select  class="form-control" name="status" id="status">
+                                                @if($client->status != "")
+                                                    <option value="{{$client->status}}">{{$client->status}}</option>
+                                                @else
+                                                    <option value="">--Select--</option>
+                                                @endif
+                                                <option value="Disabled">Disabled</option>
+                                                <option value="Soft injury">Soft injury</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
@@ -972,6 +916,14 @@
                                             <div class="form-group>">
                                                 <label for="remarks">Remarks</label>
                                                 <input type="text" class="form-control" name="remarks" id="remarks">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="status">Client Assessment Status</label>
+                                                <select  class="form-control" name="status" id="status">
+                                                    <option value="">------</option>
+                                                    <option value="Disabled">Disabled</option>
+                                                    <option value="Soft injury">Soft injury</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">

@@ -2,20 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Camp;
+use App\Centre;
 use App\Client;
 use App\ClientAssessment;
 use App\ClientDisability;
 use App\Disability;
+use App\District;
+use App\DumpAssessment;
+use App\DumpDisability;
+use App\Region;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\ClientRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClientController extends Controller
 {
+    protected  $error_found;
     public function __construct()
     {
         $this->middleware('auth');
+        $this->error_found="";
     }
     /**
      * Display a listing of the resource.
@@ -25,9 +36,268 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $clients=Client::all();
+        $clients=Client::orderBy('first_name','ASC')->get();
         return view('clients.index',compact('clients'));
     }
+    public function showDisabilityImportError()
+    {
+        //
+        $dump_errors=DumpDisability::all();
+        return view('clients.disabilityerror',compact('dump_errors'));
+    }
+
+    public function showClientImportError()
+    {
+        //
+        $dump_errors=DumpAssessment::all();
+        return view('clients.clientimporterror',compact('dump_errors'));
+    }
+    
+    //Import
+    public function showImport()
+    {
+        //
+        return view('clients.import');
+    }
+
+    public function postDisabilityImport(Request $request)
+    {
+        //
+        try {
+            $this->validate($request, [
+                'clients_file' => 'required|mimes:xls,xlsx',
+            ]);
+
+            $file= $request->file('clients_file');
+            $destinationPath = public_path() .'/uploads/temp/';
+            $filename   = str_replace(' ', '_', $file->getClientOriginalName());
+
+            $file->move($destinationPath, $filename);
+
+            Excel::load($destinationPath . $filename, function ($reader) {
+
+                $results = $reader->get();
+
+                \DB::table('dump_disabilities')->truncate();
+                $results->each(function($row) {
+
+                    if(count(Client::where('file_number','=',$row->file_number)->get()) >0 && Client::where('file_number','=',$row->file_number)->get() != null)
+                    {
+
+                        $category_id="";
+                        $client= Client::where('file_number','=',$row->file_number)->get()->first();
+                        if(count(Disability::where('','=',$row->file_number)->get()) > 0 )
+                        {
+                            $dis=Disability::where('','=',$row->file_number)->get()->first();
+                            $category_id=$dis->id;
+                        }
+                        else
+                        {
+                            $dis=new Disability;
+                            $dis->category=$row->disability_category;
+                            $dis->save();
+                            $category_id= $dis->id;
+                        }
+
+                        $clds=new ClientDisability;
+                        $clds->client_id=$client->id;
+                        $clds->category_id=$category_id;
+                        $clds->disability_diagnosis=$row->disability_diagnosis;
+                        $clds->remarks=$row->remarks;
+                        $clds->save();
+
+                    }
+                    else
+                    {
+                        //Save in dump
+
+
+                        $dump_disability=new DumpDisability;
+                        $dump_disability->file_number=$row->file_number;
+                        $dump_disability->disability_category=$row->disability_category;
+                        $dump_disability->disability_diagnosis=$row->disability_diagnosis;
+                         $dump_disability->remarks=$row->remarks;
+                        $dump_disability->error_descriptions="Client not exist";
+                        $dump_disability->save();
+
+                        $this->error_found="Client not exist";
+                    }
+
+                });
+
+            });
+
+            File::delete($destinationPath . $filename); //Delete after upload
+            if($this->error_found != "")
+            {
+                return  redirect('excel/import/disabilities'); 
+            }
+            else
+            {
+                return  redirect('clients');
+            }
+
+        } catch (\Exception $e) {
+
+            //echo $e->getMessage();
+            return  redirect()->back()->with('error',$e->getMessage());
+        }
+    }
+
+    public function postImport(Request $request)
+    {
+        //
+        try {
+            $this->validate($request, [
+                'clients_file' => 'required|mimes:xls,xlsx',
+            ]);
+
+            $file= $request->file('clients_file');
+            $destinationPath = public_path() .'/uploads/temp/';
+            $filename   = str_replace(' ', '_', $file->getClientOriginalName());
+
+            $file->move($destinationPath, $filename);
+
+            Excel::load($destinationPath . $filename, function ($reader) {
+
+                $results = $reader->get();
+                \DB::table('dump_assessments')->truncate();
+                $results->each(function($row) {
+
+                    $age=date("Y")-date("Y",strtotime($row->date_of_birth));
+                    if(count(Client::where('file_number','=',$row->file_number)->get()) >0 && Client::where('file_number','=',$row->file_number)->get() != null)
+                    {
+                       //Save in dump
+                    }
+                    else
+                    {
+                        $region_id="";
+                        $regi=Region::where('region_name','=',$row->region_name)->get()->first();
+                        if(count($regi) >0 && $regi != null)
+                        {
+                            $region_id=$regi->id;
+                        }
+                        else
+                        {
+                            $regi= new Region;
+                            $regi->region_name=$row->region_name;
+                            $regi->save();
+                            $region_id=$regi->id;
+                        }
+
+                        //Districts
+                        $district_id="";
+                        $distr=District::where('district_name','=',$row->district)->get()->first();
+                        if(count($distr) >0 && $distr != null)
+                        {
+                            $district_id=$distr->id;
+                        }
+                        else
+                        {
+                            $distr= new District;
+                            $distr->district_name=$row->district;
+                            $distr->region_id=$region_id;
+                            $distr->save();
+                            $district_id=$distr->id;
+                        }
+
+                        $camp_id="";
+                        $camp=Camp::where('camp_name','=',$row->camp_name)->get()->first();
+                        if(count($camp) >0 && $camp != null)
+                        {
+                            $camp_id=$camp->id;
+                        }
+                        else
+                        {
+                            $camp= new Camp;
+                            $camp->camp_name=$row->camp_name;
+                            $camp->region_id=$region_id;
+                            $camp->district_id=$district_id;
+                            $camp->save();
+                            $camp_id=$camp->id;
+                        }
+
+                        //Centres
+                        $center_id="";
+                        $centre=Centre::where('centre_name','=',$row->service_center)->get()->first();
+                        if(count($centre) >0 && $centre != null)
+                        {
+                            $center_id=$centre->id;
+                        }
+                        else
+                        {
+                            $centre= new Centre;
+                            $centre->centre_name=$row->service_center;
+                            $centre->camp_id=$camp_id;
+                            $centre->save();
+                            $center_id=$centre->id;
+                        }
+
+
+                        $client=new Client;
+                        $client->file_number=$row->file_number;
+                        $client->first_name=$row->first_name;
+                        $client->middle_name=$row->middle_name;
+                        $client->last_name=$row->last_name;
+                        $client->sex=$row->sex;
+                        $client->dob=date("Y-m-d",strtotime($row->date_of_birth));
+                        $client->marital_status=$row->marital_status;
+                        $client->address=$row->address;
+                        $client->phone=$row->phone;
+                        $client->nationality=$row->nationality;
+                        $client->camp_id=$camp_id;
+                        $client->center_id=$center_id;
+                        $client->region_id=$region_id;
+                        $client->district_id=$district_id;
+                        $client->ward=$row->ward;
+                        $client->street=$row->street;
+                        $client->status=$row->client_assessment_status;
+                        $client->age=$age;
+                        $client->input_by=Auth::user()->user_name;
+                        $client->save();
+
+                        $assessment=new ClientAssessment;
+                        $assessment->consultation_no=$row->consultation_no;
+                        $assessment->consultation_date=$row->date_of_first_consultation;
+                        $assessment->diagnosis=$row->diagnosis;
+                        $assessment->medical_history=$row->medical_history;
+                        $assessment->social_history=$row->social_history;
+                        $assessment->employment=$row->school_or_employment;
+                        $assessment->skin_condition=$row->skin_condition;
+                        $assessment->daily_activities=$row->activities_of_daily_living;
+                        $assessment->remarks=$row->remarks;
+                        $assessment->joint_assessment=$row->joint_assessment;
+                        $assessment->muscle_assessment=$row->muscle_assessment;
+                        $assessment->functional_assessment=$row->functional_assessment;
+                        $assessment->problem_list=$row->problem_list;
+                        $assessment->treatment=$row->treatment;
+                        $assessment->examiner_name=$row->examiner_name;
+                        $assessment->examiner_title=$row->examiner_title;
+                        $assessment->client_id=$client->id;
+                        $assessment->save();
+                    }
+
+                });
+
+            });
+
+            File::delete($destinationPath . $filename); //Delete after upload
+
+            if($this->error_found != "")
+            {
+                return  redirect('excel/import/disabilities');
+            }
+            else
+            {
+                return  redirect('clients');
+            }
+        } catch (\Exception $e) {
+
+            echo $e->getMessage();
+            return  redirect()->back()->with('error',$e->getMessage());
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -46,7 +316,7 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientRequest $request)
     {
         //
         $age=date("Y")-date("Y",strtotime($request->dob));
@@ -69,26 +339,13 @@ class ClientController extends Controller
         $client->street=$request->street;
         $client->status=$request->status;
         $client->age=$age;
-        $client->status="Active";
-        $client->is_disabled=$request->is_disabled;
-        $client->is_psn=$request->is_psn;
         $client->input_by=Auth::user()->user_name;
+        $client->file_number=$request->file_number;
         $client->save();
 
         //Create registration no
-        $client->reg_no="CBR".date("Y")."CL".$client->id;
-        $client->save();
-
-        //Process disability
-        if(strtolower($client->is_disabled) =="yes" )
-        {
-            $clds=new ClientDisability;
-            $clds->client_id=$client->id;
-            $clds->category_id=$request->category_id;
-            $clds->disability_diagnosis=$request->disability_diagnosis;
-            $clds->remarks=$request->remarks;
-            $clds->save();
-        }
+        //$client->file_number="CBR".date("Y")."CL".$client->id;
+       // $client->save();
 
         //Assessments details
         $assessment=new ClientAssessment;
@@ -111,8 +368,15 @@ class ClientController extends Controller
         $assessment->client_id=$client->id;
         $assessment->save();
 
-
-        return redirect('clients');
+        //Process disability
+        if(strtolower($client->status) =="disabled")
+        {
+            return redirect('disabilities/clients/show/'.$client->id);
+        }
+        else
+        {
+            return redirect('clients');
+        }
 
     }
 
@@ -172,36 +436,10 @@ class ClientController extends Controller
         $client->street=$request->street;
         $client->status=$request->status;
         $client->age=$age;
-        $client->status="Active";
-        $client->is_disabled=$request->is_disabled;
-        $client->is_psn=$request->is_psn;
         $client->input_by=Auth::user()->user_name;
         $client->save();
 
         //Process disability
-        if(strtolower($client->is_disabled) =="yes" )
-        {
-           
-           if($request->clds_id !="")
-           {
-               $clds= ClientDisability::find($request->clds_id);
-               $clds->client_id=$client->id;
-               $clds->category_id=$request->category_id;
-               $clds->disability_diagnosis=$request->disability_diagnosis;
-               $clds->remarks=$request->remarks;
-               $clds->save();
-           }
-            else
-            {
-                $clds=new ClientDisability;
-                $clds->client_id=$client->id;
-                $clds->category_id=$request->category_id;
-                $clds->disability_diagnosis=$request->disability_diagnosis;
-                $clds->remarks=$request->remarks;
-                $clds->save();
-            }
-          
-        }
 
         //Assessments details
         if($request->assessment_id !="") {
@@ -248,7 +486,14 @@ class ClientController extends Controller
             $assessment->save();
         }
 
-        return redirect('clients');
+        if(strtolower($client->status) =="disabled")
+        {
+            return redirect('disabilities/clients/show/'.$client->id);
+        }
+        else
+        {
+            return redirect('clients');
+        }
     }
 
     /**

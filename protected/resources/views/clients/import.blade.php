@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Clients Managements
+    Clients Imports
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -202,14 +202,13 @@
 @stop
 @section('custom-scripts')
     <script>
-        $(".assessmentForm").click(function(){
-            var id1 = $(this).parent().attr('id');
+        $(".addRegion").click(function(){
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:80%;margin-right: 10% ;margin-left: 10%">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Client assessment details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Item</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -220,7 +219,30 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("assessment/create") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("inventory/create") ?>");
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
+        $(".showImport").click(function(){
+            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Item</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow','hidden');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("inventory/import") ?>");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -234,7 +256,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Camps: Camps details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -245,7 +267,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("clients") ?>/"+id1+"/edit");
+            $(".modal-body").load("<?php echo url("inventory/edit") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -263,43 +285,55 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
+                $.get("<?php echo url('inventory/remove') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
         });
-        $(".deleteRecordAssessment").click(function(){
-            var id1 = $(this).parent().attr('id');
-            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-            var btn = $(this).parent().parent();
-            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-            $("#no").click(function(){
-                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-            $("#yes").click(function(){
-                $.get("<?php echo url('assessment/remove') ?>/"+id1,function(data){
-                    $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                    $(this).parent().parent().find("span").remove();
-                });
-                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
+    </script>
+    <!-- END SAMPLE FORM PORTLET-->
+    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
+    <script>
+
+        $("#DepartmentFormUN").validate({
+            rules: {
+                clients_file: "required",
+                status: "required",
+                quantity: "required"
+            },
+            messages: {
+                clients_file: "Please Select file to upload",
+                status: "Please select status",
+                quantity: "Please enter quantity"
+            }
         });
+        $("#DepartmentFormUN1").validate({
+            rules: {
+                clients_file: "required",
+                status: "required",
+                quantity: "required"
+            },
+            messages: {
+                clients_file: "Please Select file to upload",
+                status: "Please select status",
+                quantity: "Please enter quantity"
+            }
+        });
+
     </script>
 @stop
 @section('breadcrumb')
-    <ul class="page-breadcrumb">
+    <ul class="page-breadcrumb ">
         <li>
             <a href="{{url('home')}}">Home</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('clients')}}">Clients/Patient</a>
+            <a href="#">Data Import</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Search Client</span>
+            <span class="active">Clients</span>
         </li>
     </ul>
 @stop
@@ -310,10 +344,9 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Client Assessment</span>
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">Clients Imports</span>
                     </div>
-                </div>
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-12 pull-right">
@@ -323,72 +356,59 @@
                                     <a href="{{url('excel/import/clients')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import Clients</a>
                                     <a href="{{url('excel/export/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Export Clients</a>
                                     <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
-                                 </div>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="portlet-body">
-                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
-                        <thead>
-                        <tr>
-                            <th> SNO </th>
-                            <th> File number  </th>
-                            <th> Client Name </th>
-                            <th> Sex </th>
-                            <th> Date of  Birth </th>
-                            <th>Disability </th>
-                            <th>Assessment Form </th>
-                            <th> Client Profile </th>
-                            <th class="text-center"> Action </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php $count=1;?>
-                        @if(count($clients )>0)
-                            @foreach($clients as $client)
-                                <tr class="odd gradeX">
-                                    <td> {{$count++}} </td>
-                                    <td>
-                                        {{$client->file_number}}
-                                    </td>
-                                    <td>
-                                        {{$client->first_name ." ".$client->last_name}}
-                                    </td>
-                                    <td>
-                                        {{$client->sex}}
-                                    </td>
-                                    <td>
-                                        {{$client->dob}}
-                                    </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        @if(strtolower($client->status) =="disabled")
-                                            <a href="{{url('disabilities/clients/show')}}/{{$client->id}}"> <i class="fa fa-eye"></i> View form</a>
-                                            @else
-                                            {{$client->status}}
-                                            @endif
+                    <!-- BEGIN SAMPLE FORM PORTLET-->
+                    <div class="portlet light bordered">
+                        <div class="portlet-body form">
+                            {!! Form::open(array('url'=>'excel/import/clients','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label>Import clients assessment details from MS Excel <a href={{asset("assets/templates/client_import_template.xls")}}>Download template here</a> </label>
+                                    <input TYPE="file" class="form-control" name="clients_file" id="clients_file">
+                                    @if($errors->first('clients_file') !="")
+                                        <span class=" error">{{ $errors->first('clients_file') }}</span>
+                                    @endif
+                                </div>
+                                <hr/>
+                                <div class="row text-center">
+                                    <div class="col-md-4 col-sm-4">
+                                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Import Assessment details </button>
+                                    </div>
 
-                                    </td>
+                                </div>
 
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('assessment/create')}}/{{$client->id}}"> <i class="fa fa-edit text-primary"></i> Edit </a>
-                                        <a href="#" class=" deleteRecordAssessment"> <i class="fa fa-trash text-danger"></i> Delete</a>
-                                    </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('clients')}}/{{$client->id}}" > <i class="fa fa-eye"></i> View</a>
-                                    </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('clients')}}/{{$client->id}}/edit" > <i class="fa fa-edit green fa-2x"></i> </a>
-                                        <a href="#" class=" deleteRecord d"> <i class="fa fa-trash text-danger fa-2x"></i> </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
+                            </div>
 
+                            {!! Form::close() !!}
 
-                        </tbody>
-                    </table>
+                            {!! Form::open(array('url'=>'excel/import/disabilities','role'=>'form','id'=>'DepartmentFormUN1','files'=>true)) !!}
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label>Import clients disability details from MS Excel <a href={{asset("assets/templates/disability_import_template.xls")}}>Download template here</a> </label>
+                                    <input TYPE="file" class="form-control" name="clients_file" id="clients_file">
+                                    @if($errors->first('clients_file') !="")
+                                        <span class=" error">{{ $errors->first('clients_file') }}</span>
+                                    @endif
+                                </div>
+                                <hr/>
+                                <div class="row text-center">
+                                    <div class="col-md-4 col-sm-4">
+                                        <button type="submit" class="btn btn-success btn-block"><i class="fa fa-save"></i> Import disability details</button>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->
