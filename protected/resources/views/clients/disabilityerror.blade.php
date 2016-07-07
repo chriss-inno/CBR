@@ -55,6 +55,12 @@
             </a>
 
         </li>
+        <li class="nav-item ">
+            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
+                <i class="icon-list"></i>
+                <span class="title">Material support</span>
+            </a>
+        </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-line-chart fa-2x"></i>

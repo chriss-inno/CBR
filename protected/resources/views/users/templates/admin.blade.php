@@ -56,6 +56,12 @@
             </a>
 
         </li>
+        <li class="nav-item ">
+            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
+                <i class="icon-list"></i>
+                <span class="title">Material support</span>
+            </a>
+        </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-line-chart fa-2x"></i>
@@ -235,7 +241,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Monthly Average Clients Registration for {{date("Y")}}'
+                text: 'Monthly  Clients Registration for {{date("Y")}}'
             },
             credits: {
                 enabled: false
@@ -283,7 +289,7 @@
                     $monthData="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('is_disabled','=','Yes')->get()).",";
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Disabled')->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
@@ -292,7 +298,7 @@
                     $monthData2="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('is_psn','=','Yes')->get()).",";
+                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Soft injury')->get()).",";
                     }
                     $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
                     ?>
@@ -306,19 +312,14 @@
                     $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
                     ?>
             series: [{
-                name: 'Disabled',
+                name: 'Total disability cases ',
                 data:[<?php echo $monthData;?>]
 
             }, {
-                name: 'PSN',
+                name: 'Total soft injury cases',
                 data: [<?php echo $monthData2;?>]
 
-            },
-                {
-                    name: 'Disabled and PSN',
-                    data: [<?php echo $monthData3;?>]
-
-                }]
+            }]
         });
 
     </script>
@@ -370,12 +371,12 @@
         <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">Clients with disabilities</h4>
+                <h4 class="widget-thumb-heading">Total disability cases </h4>
                 <div class="widget-thumb-wrap">
                     <i class="widget-thumb-icon bg-red icon-layers"></i>
                     <div class="widget-thumb-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::where('is_disabled','=','Yes')->get())}}">0</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::where('status','=','Disabled')->get())}}">0</span>
                     </div>
                 </div>
             </div>
@@ -384,12 +385,12 @@
         <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">People with Special Needs</h4>
+                <h4 class="widget-thumb-heading">Total soft injury cases</h4>
                 <div class="widget-thumb-wrap">
                     <i class="widget-thumb-icon bg-purple icon-screen-desktop"></i>
                     <div class="widget-thumb-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::where('is_psn','=','Yes')->get())}}">0</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::where('status','=','Soft injury')->get())}}">0</span>
                     </div>
                 </div>
             </div>

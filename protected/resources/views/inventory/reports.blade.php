@@ -68,10 +68,10 @@
                 <span class="title">Case monitoring</span>
             </a>
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item active">
             <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Material distribution</span>
+                <i class="icon-list"></i>
+                <span class="title">Material support</span>
             </a>
         </li>
         <li class="heading">

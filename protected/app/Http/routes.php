@@ -33,6 +33,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('login','UserController@postLogin');
     Route::post('forgetPassword','UserController@forgotPassword');
     Route::get('logout','UserController@logout');
+    
     Route::resource('users','UserController');
 
     
@@ -74,7 +75,33 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('excel/orthopedic/services/errors','OrthopedicServicesController@showImportErrors');
     Route::post('excel/orthopedic/services','OrthopedicServicesController@postImport');
 
-    
+    //beneficiaries
+    Route::get('beneficiaries','BeneficiaryController@index');
+    Route::get('beneficiaries/create','BeneficiaryController@create');
+    Route::post('beneficiaries/create','BeneficiaryController@store');
+    Route::get('beneficiaries/edit/{id}','BeneficiaryController@edit');
+    Route::post('beneficiaries/edit','BeneficiaryController@update');
+    Route::get('beneficiaries/remove/{id}','BeneficiaryController@destroy');
+   
+    //Import 
+    Route::get('excel/beneficiaries/errors','BeneficiaryController@showImportErrors');
+    Route::get('excel/beneficiaries','BeneficiaryController@showImport');
+    Route::post('excel/beneficiaries','BeneficiaryController@postImport');
+
+
+    //social/needs
+    Route::get('social/needs','SocialNeedController@index');
+    Route::get('social/needs/create','SocialNeedController@create');
+    Route::post('social/needs/create','SocialNeedController@store');
+    Route::get('social/needs/edit/{id}','SocialNeedController@edit');
+    Route::post('social/needs/edit','SocialNeedController@update');
+    Route::get('social/needs/remove/{id}','SocialNeedController@destroy');
+
+    //Import
+    Route::get('excel/social/needs/errors','SocialNeedController@showImportErrors');
+    Route::get('excel/social/needs','SocialNeedController@showImport');
+    Route::post('excel/social/needs','SocialNeedController@postImport');
+
     //Countries
     Route::resource('countries','CountryController');
 

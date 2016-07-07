@@ -134,6 +134,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $user=new User;
+        $user->first_name=$request->first_name;
+        $user->last_name=$request->last_name;
+        $user->user_name=$request->user_name;
+        $user->password=bcrypt($request->pass);
+        $user->email=$request->email;
+        $user->status=$request->status;
+        $user->save();
     }
 
     /**
@@ -156,6 +164,8 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        $user= User::find($id);
+        return view('users.edit',compact('user'));
     }
 
     /**
@@ -168,6 +178,14 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user= User::find($id);;
+        $user->first_name=$request->first_name;
+        $user->last_name=$request->last_name;
+        $user->user_name=$request->user_name;
+        $user->password=bcrypt($request->pass);
+        $user->email=$request->email;
+        $user->status=$request->status;
+        $user->save();
     }
 
     /**
@@ -179,5 +197,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+        $user= User::find($id);
+        $user->delete();
     }
 }
