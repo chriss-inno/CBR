@@ -35,6 +35,7 @@ var FormWizard = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 rules: {
                     //account
+                    file_number: "required",
                     first_name: "required",
 					last_name: "required",
 					marital_status: "required",
@@ -51,6 +52,7 @@ var FormWizard = function () {
                 },
 
                 messages: { // custom messages for radio buttons and checkboxes
+                    file_number: "Please enter client file number",
                      first_name: "Please enter first name",
 					last_name: "Please enter last status",
 					marital_status: "Please select marital status",
