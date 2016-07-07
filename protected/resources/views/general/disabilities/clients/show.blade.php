@@ -17,7 +17,7 @@
 
         </li>
 
-        <li class="nav-item start active open">
+        <li class="nav-item ">
             <a href="{{url('assessment/roam')}}" class="nav-link nav-toggle">
                 <i class="fa fa-building-o fa-2x"></i>
                 <span class="title">Assessment roam</span>
@@ -25,13 +25,26 @@
             </a>
         </li>
         <li class="nav-item ">
-            <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
-                <i class="fa fa-cogs fa-2x"></i>
-                <span class="title">Rehabilitation services</span>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-puzzle"></i>
+                <span class="title"> Rehabilitation services </span>
+                <span class="arrow"></span>
+                <span class="selected"></span>
             </a>
-
+            <ul class="sub-menu">
+                <li class="nav-item active ">
+                    <a href="{{url('rehabilitation/services')}}" class="nav-link ">
+                        <span class="title">Rehabilitation register </span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('rehabilitation/services/progress')}}" class="nav-link ">
+                        <span class="title">Progress monitoring  </span>
+                    </a>
+                </li>
+            </ul>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item  ">
             <a href="{{url('orthopedic/services')}}" class="nav-link nav-toggle">
                 <i class="fa fa-cogs fa-2x"></i>
                 <span class="title">Orthopedic services</span>
@@ -108,7 +121,7 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item start active open ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
@@ -120,7 +133,7 @@
                         <span class="title">Organization</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item  active">
                     <a href="{{url('disabilities')}}" class="nav-link ">
                         <span class="title">Disabilities</span>
                     </a>

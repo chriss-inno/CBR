@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-   Item inventories
+    Import
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -24,7 +24,7 @@
                 <span class="selected"></span>
             </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-puzzle"></i>
                 <span class="title"> Rehabilitation services </span>
@@ -44,7 +44,7 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item start active open">
             <a href="{{url('orthopedic/services')}}" class="nav-link nav-toggle">
                 <i class="fa fa-cogs fa-2x"></i>
                 <span class="title">Orthopedic services</span>
@@ -100,7 +100,7 @@
                         <span class="title">Beneficiaries  Identification/Registration</span>
                     </a>
                 </li>
-                <li class="nav-item start active open  ">
+                <li class="nav-item  ">
                     <a href="{{url('reports/social/needs')}}" class="nav-link ">
                         <span class="title">Social needs/Support</span>
                     </a>
@@ -121,7 +121,7 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
@@ -138,7 +138,7 @@
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
@@ -215,13 +215,14 @@
 @stop
 @section('custom-scripts')
     <script>
-        $(".addRegion").click(function(){
+        $(".assessmentForm").click(function(){
+            var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
+            modaldis+= '<div class="modal-dialog" style="width:80%;margin-right: 10% ;margin-left: 10%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Item</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Client assessment details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -232,30 +233,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/create") ?>");
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-        $(".showImport").click(function(){
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Item</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/import") ?>");
+            $(".modal-body").load("<?php echo url("assessment/create") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -269,7 +247,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Camps: Camps details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -280,7 +258,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/edit") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("clients") ?>/"+id1+"/edit");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -298,25 +276,43 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('inventory/remove') ?>/"+id1,function(data){
+                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
+            });
+        });
+        $(".deleteRecordAssessment").click(function(){
+            var id1 = $(this).parent().attr('id');
+            $(".deleteModule").show("slow").parent().parent().find("span").remove();
+            var btn = $(this).parent().parent();
+            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
+            $("#no").click(function(){
+                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
+                $(this).parent().parent().find("span").remove();
+            });
+            $("#yes").click(function(){
+                $.get("<?php echo url('assessment/remove') ?>/"+id1,function(data){
+                    $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
+                    $(this).parent().parent().find("span").remove();
+                });
+                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
+                $(this).parent().parent().find("span").remove();
             });
         });
     </script>
 @stop
 @section('breadcrumb')
-    <ul class="page-breadcrumb ">
+    <ul class="page-breadcrumb">
         <li>
             <a href="{{url('home')}}">Home</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#">Inventory</a>
+            <a href="{{url('clients')}}">Clients/Patient</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Items</span>
+            <span class="active">Search Client</span>
         </li>
     </ul>
 @stop
@@ -327,63 +323,62 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Manage Inventory</span>
+                        <i class="icon-users font-dark"></i>
+                        <span class="caption-subject bold uppercase">Import errors </span>
                     </div>
-                    <div class="table-toolbar">
-                        <div class="row">
-                            <div class="col-md-8 pull-right">
-                                <div class="btn-group pull-right">
-                                    <a href="#" class="addRegion btn blue-madison"> <i class="fa fa-plus"></i> Add New Item</a>
-                                    <a href="{{url('inventory')}}" class="btn blue-madison"><i class="fa fa-server"></i> Item list</a>
-                                    <a href="{{url('inventory/categories')}}" class="btn blue-madison"><i class="fa fa-server"></i> Inventory Categories</a>
-                                    <a href="{{url('inventory/import')}}" class=" btn blue-madison"><i class="fa fa-download"></i> Import Items</a>
-                                </div>
+                </div>
+                <div class="table-toolbar">
+                    <div class="row">
+                        <div class="col-md-12 pull-right">
+                            <div class="btn-group pull-right">
+                                <a href="{{url('orthopedic/services')}}" class="btn blue-madison"><i class="fa fa-server"></i> Registration history</a>
+                                <a href="{{url('excel/orthopedic/services')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <div class="portlet-body">
 
+                <div class="portlet-body">
                     <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
                         <thead>
                         <tr>
                             <th> SNO </th>
-                            <th> Item Name </th>
-                            <th> Quantity received </th>
-                            <th> Date received </th>
-                            <th> Remarks </th>
-                            <th> Received By </th>
-                            <th class="text-center"> Action </th>
+                            <th> File number  </th>
+                            <th> Attending date </th>
+                            <th> Diagnosis </th>
+                            <th> Service Received </th>
+                            <th> Item Serviced </th>
+                            <th> Quantity of items </th>
+                            <th> Error Descriptions </th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php $count=1;?>
-                        @if(count($items)>0)
-                            @foreach($items as $item)
+                        @if(count($dump_errors )>0)
+                            @foreach($dump_errors as $de)
                                 <tr class="odd gradeX">
                                     <td> {{$count++}} </td>
-                                    <td>
-                                        @if(is_object($items->item) && $items->item != null && $items->item !="")
-                                            {{$items->item->item_name}}
-                                        @endif
+                                    <td class="text-danger">
+                                        {{$de->file_no}}
                                     </td>
                                     <td>
-                                        {{$item->quantity}}
+                                        {{$de->attendance_date}}
                                     </td>
                                     <td>
-                                        {{$item->received_date}}
+                                        {{$de->diagnosis}}
                                     </td>
                                     <td>
-                                        {{$item->remarks}}
+                                        {{$de->service_received}}
                                     </td>
                                     <td>
-                                        {{$item->received_by}}
+                                        {{$de->item_serviced}}
                                     </td>
-                                    <td class="text-center" id="{{$item->id}}">
-                                        <a href="#"  class="btn btn-icon-only blue editRecord"> <i class="fa fa-edit"></i> </a>
-                                        <a href="#" class="btn btn-icon-only red deleteRecord"> <i class="fa fa-trash"></i> </a>
+                                    <td>
+                                        {{$de->quantity}}
+                                    </td>
+                                    <td>
+                                       <span class="text-danger">{{$de->error_descriptions}}</span>
                                     </td>
                                 </tr>
                             @endforeach

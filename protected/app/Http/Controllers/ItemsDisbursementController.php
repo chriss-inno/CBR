@@ -57,6 +57,7 @@ class ItemsDisbursementController extends Controller
                 $disbursement->disbursements_date=$request->disbursements_date;
                 $disbursement->disbursements_by=$request->disbursements_by;
                 $disbursement->save();
+                $qcount++;
             }
 
         }

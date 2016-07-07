@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-   Item inventories
+   Orthopedic services
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -32,7 +32,7 @@
                 <span class="selected"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('rehabilitation/services')}}" class="nav-link ">
                         <span class="title">Rehabilitation register </span>
                     </a>
@@ -44,7 +44,7 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item start active open ">
             <a href="{{url('orthopedic/services')}}" class="nav-link nav-toggle">
                 <i class="fa fa-cogs fa-2x"></i>
                 <span class="title">Orthopedic services</span>
@@ -100,7 +100,7 @@
                         <span class="title">Beneficiaries  Identification/Registration</span>
                     </a>
                 </li>
-                <li class="nav-item start active open  ">
+                <li class="nav-item  ">
                     <a href="{{url('reports/social/needs')}}" class="nav-link ">
                         <span class="title">Social needs/Support</span>
                     </a>
@@ -121,7 +121,7 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
@@ -138,7 +138,7 @@
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
@@ -214,37 +214,44 @@
 
 @stop
 @section('custom-scripts')
+    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
-        $(".addRegion").click(function(){
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Item</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/create") ?>");
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
+        $("#SearchForm").validate({
+            rules: {
+                searchKeyword: "required"
+            },
+            messages: {
+                searchKeyword: "Please enter search keyword "
+            },
+            submitHandler: function(form) {
+                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");
+                var postData = $('#SearchForm').serializeArray();
+                var formURL = $('#SearchForm').attr("action");
+                $.ajax(
+                        {
+                            url : formURL,
+                            type: "POST",
+                            data : postData,
+                            success:function(data)
+                            {
+                                console.log(data);
+                                //data: return data from server
+                                $("#clientsSearchResults").html(data);
+                            },
+                            error: function(data)
+                            {
+                                console.log(data.responseJSON);
+                            }
+                        });
+            }
         });
-        $(".showImport").click(function(){
+        $(".addRecord").click(function(){
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Item</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Rehabilitation register</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -255,7 +262,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/import") ?>");
+            $(".modal-body").load("<?php echo url("orthopedic/services/create") ?>");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -269,7 +276,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -280,7 +287,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/edit") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("orthopedic/services/edit") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -298,7 +305,7 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('inventory/remove') ?>/"+id1,function(data){
+                $.get("<?php echo url('orthopedic/services/remove') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
@@ -312,11 +319,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#">Inventory</a>
+            <a href="{{url('rehabilitation/services')}}"> Orthopedic services </a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Items</span>
+            <span class="active"> Orthopedic services register</span>
         </li>
     </ul>
 @stop
@@ -327,74 +334,94 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Manage Inventory</span>
+                        <i class="icon-users font-dark"></i>
+                        <span class="caption-subject bold uppercase"> Orthopedic services register </span>
                     </div>
-                    <div class="table-toolbar">
-                        <div class="row">
-                            <div class="col-md-8 pull-right">
-                                <div class="btn-group pull-right">
-                                    <a href="#" class="addRegion btn blue-madison"> <i class="fa fa-plus"></i> Add New Item</a>
-                                    <a href="{{url('inventory')}}" class="btn blue-madison"><i class="fa fa-server"></i> Item list</a>
-                                    <a href="{{url('inventory/categories')}}" class="btn blue-madison"><i class="fa fa-server"></i> Inventory Categories</a>
-                                    <a href="{{url('inventory/import')}}" class=" btn blue-madison"><i class="fa fa-download"></i> Import Items</a>
-                                </div>
+                <div class="table-toolbar">
+                    <div class="row">
+                        <div class="col-md-8 pull-right">
+                            <div class="btn-group pull-right">
+                                <a href="#" class="addRecord btn blue-madison"><i class="fa fa-file"></i> Register New</a>
+                                <a href="{{url('orthopedic/services')}}" class="btn blue-madison"><i class="fa fa-server"></i> Registration history</a>
+                                <a href="{{url('excel/orthopedic/services')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
                             </div>
-
                         </div>
+
                     </div>
-                </div>
-                <div class="portlet-body">
-
-                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
-                        <thead>
-                        <tr>
-                            <th> SNO </th>
-                            <th> Item Name </th>
-                            <th> Quantity received </th>
-                            <th> Date received </th>
-                            <th> Remarks </th>
-                            <th> Received By </th>
-                            <th class="text-center"> Action </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php $count=1;?>
-                        @if(count($items)>0)
-                            @foreach($items as $item)
-                                <tr class="odd gradeX">
-                                    <td> {{$count++}} </td>
-                                    <td>
-                                        @if(is_object($items->item) && $items->item != null && $items->item !="")
-                                            {{$items->item->item_name}}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{$item->quantity}}
-                                    </td>
-                                    <td>
-                                        {{$item->received_date}}
-                                    </td>
-                                    <td>
-                                        {{$item->remarks}}
-                                    </td>
-                                    <td>
-                                        {{$item->received_by}}
-                                    </td>
-                                    <td class="text-center" id="{{$item->id}}">
-                                        <a href="#"  class="btn btn-icon-only blue editRecord"> <i class="fa fa-edit"></i> </a>
-                                        <a href="#" class="btn btn-icon-only red deleteRecord"> <i class="fa fa-trash"></i> </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
-
-
-                        </tbody>
-                    </table>
                 </div>
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
+            <div class="portlet-body" >
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
+                    <thead>
+                    <tr>
+                        <th> SNO </th>
+                        <th> Date of attending</th>
+                        <th> File Number </th>
+                        <th> Client Full Name </th>
+                        <th> Sex </th>
+                        <th> Age </th>
+                        <th> Diagnosis </th>
+                        <th> Service received </th>
+                        <th> Item serviced </th>
+                        <th> Quantity </th>
+                        <th class="text-center"> Action </th>
+                    </tr>
+                    </thead>
+                    <tbody id="clientsSearchResults">
+                    <?php $count=1;?>
+                    @if(count($attendances )>0)
+                        @foreach($attendances as $att)
+                            <tr class="odd gradeX">
+                                <td> {{$count++}} </td>
+                                <td>
+                                    <?php echo $att->attendance_date; ?>
+                                </td>
+                                <td>
+                                    @if(is_object($att->client) && $att->client != null)
+                                        {{$att->client->file_number}}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(is_object($att->client) && $att->client != null)
+                                        {{$att->client->first_name ." ". $att->client->last_name}}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(is_object($att->client) && $att->client != null)
+                                        {{$att->client->sex}}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(is_object($att->client) && $att->client != null)
+                                        {{$att->client->age	}}
+                                    @endif
+                                </td>
+                                <td>
+                                    <?php echo $att->diagnosis; ?>
+                                </td>
+                                <td>
+                                    <?php echo $att->service_received; ?>
+                                </td>
+                                <td>
+                                    <?php echo $att->item_serviced; ?>
+                                </td>
+                                <td>
+                                    <?php echo $att->quantity; ?>
+                                </td>
+                                <td class="text-center" id="{{$att->id}}">
+                                    <a href="#" class="editRecord"> <i class="fa fa-edit "></i> Edit </a>
+                                    <a href="#" class="deleteRecord"> <i class="fa fa-trash text-danger "></i> Delete</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+
+
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
     </div>
 @stop

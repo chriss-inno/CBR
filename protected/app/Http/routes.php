@@ -54,13 +54,26 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('rehabilitation/services/edit/{id}','RehabilitationServicesController@edit');
     Route::post('rehabilitation/services/edit','RehabilitationServicesController@update');
     Route::get('rehabilitation/services/remove/{id}','RehabilitationServicesController@destroy');
-    
+
+
+    Route::get('orthopedic/services','OrthopedicServicesController@index');
+    Route::get('orthopedic/services/create','OrthopedicServicesController@create');
+    Route::post('orthopedic/services/create','OrthopedicServicesController@store');
+    Route::get('orthopedic/services/edit/{id}','OrthopedicServicesController@edit');
+    Route::post('orthopedic/services/edit','OrthopedicServicesController@update');
+    Route::get('orthopedic/services/remove/{id}','OrthopedicServicesController@destroy');
+
     //Import
     Route::get('excel/rehabilitation/services','RehabilitationServicesController@showRSImport');
     Route::get('excel/rehabilitation/services/errors','RehabilitationServicesController@showRSImportError');
     Route::post('excel/rehabilitation/services','RehabilitationServicesController@postRSImport');
     Route::get('excel/rehabilitation/progress/errors','RehabilitationServicesController@showProgressImporterrors');
     Route::post('excel/rehabilitation/progress','RehabilitationServicesController@postProgressImport');
+
+    Route::get('excel/orthopedic/services','OrthopedicServicesController@showImport');
+    Route::get('excel/orthopedic/services/errors','OrthopedicServicesController@showImportErrors');
+    Route::post('excel/orthopedic/services','OrthopedicServicesController@postImport');
+
     
     //Countries
     Route::resource('countries','CountryController');
@@ -156,7 +169,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('physiotherapy/clients','PhysiotherapyRegisterController@getClients');
 
     //orthopedic
-    Route::get('orthopedic/services','OrthopedicRegisterController@index');
+
     Route::get('orthopedic','OrthopedicRegisterController@index');
     Route::get('orthopedic/create/{id}','OrthopedicRegisterController@create');
     Route::post('orthopedic/create/','OrthopedicRegisterController@store');
