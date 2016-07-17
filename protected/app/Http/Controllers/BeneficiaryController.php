@@ -156,6 +156,12 @@ class BeneficiaryController extends Controller
     {
         //
         if(count(Beneficiary::where('progress_number','=',$request->progress_number)->get()) > 0) {
+
+            return "<span class='text-danger'><i class='fa-info'></i>Save failed: Progress number [".$request->progress_number."] was already used </span>";
+
+        }
+        else
+        {
             $beneficiary = new Beneficiary;
             $beneficiary->progress_number = $request->progress_number;
             $beneficiary->full_name = $request->full_name;
@@ -169,10 +175,6 @@ class BeneficiaryController extends Controller
             $beneficiary->number_male = $request->number_male;
             $beneficiary->save();
             return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
-        }
-        else
-        {
-            return "<span class='text-danger'><i class='fa-info'></i>Save failed: Progress number [".$request->progress_number."] was already used </span>";
         }
     }
 
