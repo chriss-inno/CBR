@@ -312,16 +312,16 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Manage Inventory disbursements</span>
+                        <span class="caption-subject bold uppercase">Material support disbursements</span>
                     </div>
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-8 pull-right">
                                 <div class="btn-group pull-right">
                                     <a href="#" class="addRegion btn blue-madison"> <i class="fa fa-plus"></i> Distribute Item</a>
-                                    <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> Disbursements list</a>
-                                    <a href="{{url('inventory')}}" class="btn blue-madison"><i class="fa fa-server"></i> Item list</a>
-                                    <a href="{{url('inventory')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import list</a>
+                                    <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> View All</a>
+                                    <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-server"></i> View beneficiaries</a>
+                                    <a href="{{url('inventory/disbursement/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
                                 </div>
                             </div>
 
@@ -350,27 +350,26 @@
                                 <tr class="odd gradeX">
                                     <td> {{$count++}} </td>
                                     <td>
-                                        @if(is_object($disbursement->client) && $disbursement->client != null && $disbursement->client !="")
-                                            {{$disbursement->client->first_name ." " .$disbursement->client->last_name}}
-                                        @endif
+                                        {{$disbursement->progress_number}}
                                     </td>
                                     <td>
-                                        @if(is_object($disbursement->item) && $disbursement->item != null && $disbursement->item !="")
-                                            {{$disbursement->item->item_name}}
-                                        @endif
+                                        {{$disbursement->donor_type}}
+                                    </td>
+                                    <td>
+                                        {{$disbursement->address}}
+                                    </td>
+                                    <td>
+                                        {{$disbursement->item}}
                                     </td>
                                     <td>
                                         {{$disbursement->quantity}}
                                     </td>
                                     <td>
-                                        {{$disbursement->disbursements_date}}
-                                    </td>
-                                    <td>
-                                        {{$disbursement->disbursements_by}}
+                                        {{$disbursement->distributed_date}}
                                     </td>
                                     <td class="text-center" id="{{$disbursement->id}}">
-                                        <a href="#"  class="btn btn-icon-only blue editRecord"> <i class="fa fa-edit"></i> </a>
-                                        <a href="#" class="btn btn-icon-only red deleteRecord"> <i class="fa fa-trash"></i> </a>
+                                        <a href="#"  class="editRecord"> <i class="fa fa-edit"></i> </a>
+                                        <a href="#" class="deleteRecord"> <i class="fa fa-trash text-danger"></i> </a>
                                     </td>
                                 </tr>
                             @endforeach

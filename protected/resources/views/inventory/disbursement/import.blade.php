@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Beneficiaries Import
+    Social needs/Support  Import
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -32,7 +32,7 @@
                 <span class="selected"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('rehabilitation/services')}}" class="nav-link ">
                         <span class="title">Rehabilitation register </span>
                     </a>
@@ -52,7 +52,7 @@
             </a>
 
         </li>
-        <li class="nav-item start active open ">
+        <li class="nav-item ">
             <a href="{{url('beneficiaries')}}" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Beneficiaries</span>
@@ -68,7 +68,7 @@
             </a>
 
         </li>
-        <li class="nav-item ">
+        <li class="nav-item active">
             <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
                 <i class="icon-list"></i>
                 <span class="title">Material support</span>
@@ -106,7 +106,7 @@
                         <span class="title">Beneficiaries  Identification/Registration</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item start active open  ">
                     <a href="{{url('reports/social/needs')}}" class="nav-link ">
                         <span class="title">Social needs/Support</span>
                     </a>
@@ -127,7 +127,7 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
@@ -144,7 +144,7 @@
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
@@ -354,11 +354,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('beneficiaries')}}"> Beneficiaries </a>
+            <a href="{{url('inventory/disbursement')}}"> Material Support  </a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active"> List all</span>
+            <span class="active">Import</span>
         </li>
     </ul>
 @stop
@@ -370,15 +370,18 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Beneficiaries Management : Import</span>
+                        <span class="caption-subject bold uppercase">Material support  : Import</span>
                     </div>
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-12 pull-right">
-                                <div class="btn-group pull-right">
-                                    <a href="{{url('beneficiaries')}}" class=" btn blue-madison"><i class="fa fa-file"></i> Register New</a>
-                                    <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-server"></i> View all</a>
-                                    <a href="{{url('excel/beneficiaries')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
+                                <div class="col-md-8 pull-right">
+                                    <div class="btn-group pull-right">
+                                        <a href="#" class="addRegion btn blue-madison"> <i class="fa fa-plus"></i> Distribute Item</a>
+                                        <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> View All</a>
+                                        <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-server"></i> View beneficiaries</a>
+                                        <a href="{{url('inventory/disbursement/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
+                                    </div>
                                 </div>
 
                             </div>
@@ -389,10 +392,10 @@
                     <!-- BEGIN SAMPLE FORM PORTLET-->
                     <div class="portlet light bordered">
                         <div class="portlet-body form">
-                            {!! Form::open(array('url'=>'excel/beneficiaries','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
+                            {!! Form::open(array('url'=>'inventory/disbursement/import','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
                             <div class="form-body">
                                 <div class="form-group">
-                                    <label>Import beneficiaries details from MS Excel <a href={{asset("assets/templates/beneficiaries_template.xls")}}> Download template here</a> </label>
+                                    <label>Import material support distribution details from MS Excel <a href={{asset("assets/templates/material_support_template.xls")}}> Download template here</a> </label>
                                     <input TYPE="file" class="form-control" name="clients_file" id="clients_file">
                                     @if($errors->first('clients_file') !="")
                                         <span class=" error">{{ $errors->first('clients_file') }}</span>
@@ -401,7 +404,7 @@
                                 <hr/>
                                 <div class="row text-center">
                                     <div class="col-md-4 col-sm-4">
-                                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Import beneficiaries details </button>
+                                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Import </button>
                                     </div>
 
                                 </div>

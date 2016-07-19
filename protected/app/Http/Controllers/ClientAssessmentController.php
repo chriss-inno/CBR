@@ -105,6 +105,10 @@ class ClientAssessmentController extends Controller
         $assessment->client_id=$request->client_id;
         $assessment->save();
 
+        $client=Client::find($request->client_id);
+        $client->status=$request->status;
+        $client->save();
+
         return  redirect('clients');
     }
 
@@ -159,6 +163,10 @@ class ClientAssessmentController extends Controller
         $assessment->examiner_title=$request->examiner_title;
         $assessment->client_id=$request->client_id;
         $assessment->save();
+
+        $client=Client::find($request->client_id);
+        $client->status=$request->status;
+        $client->save();
 
         return  redirect('clients');
     }

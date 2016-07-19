@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Beneficiaries Import
+    Import Errors
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -32,7 +32,7 @@
                 <span class="selected"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('rehabilitation/services')}}" class="nav-link ">
                         <span class="title">Rehabilitation register </span>
                     </a>
@@ -52,7 +52,7 @@
             </a>
 
         </li>
-        <li class="nav-item start active open ">
+        <li class="nav-item ">
             <a href="{{url('beneficiaries')}}" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Beneficiaries</span>
@@ -68,7 +68,7 @@
             </a>
 
         </li>
-        <li class="nav-item ">
+        <li class="nav-item active">
             <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
                 <i class="icon-list"></i>
                 <span class="title">Material support</span>
@@ -106,7 +106,7 @@
                         <span class="title">Beneficiaries  Identification/Registration</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item start active open  ">
                     <a href="{{url('reports/social/needs')}}" class="nav-link ">
                         <span class="title">Social needs/Support</span>
                     </a>
@@ -127,7 +127,7 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
@@ -144,7 +144,7 @@
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
@@ -220,44 +220,15 @@
 
 @stop
 @section('custom-scripts')
-    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
-        $("#SearchForm").validate({
-            rules: {
-                searchKeyword: "required"
-            },
-            messages: {
-                searchKeyword: "Please enter search keyword "
-            },
-            submitHandler: function(form) {
-                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");
-                var postData = $('#SearchForm').serializeArray();
-                var formURL = $('#SearchForm').attr("action");
-                $.ajax(
-                        {
-                            url : formURL,
-                            type: "POST",
-                            data : postData,
-                            success:function(data)
-                            {
-                                console.log(data);
-                                //data: return data from server
-                                $("#clientsSearchResults").html(data);
-                            },
-                            error: function(data)
-                            {
-                                console.log(data.responseJSON);
-                            }
-                        });
-            }
-        });
-        $(".addRecord").click(function(){
+        $(".assessmentForm").click(function(){
+            var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
+            modaldis+= '<div class="modal-dialog" style="width:80%;margin-right: 10% ;margin-left: 10%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Rehabilitation register</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Client assessment details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -268,7 +239,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("rehabilitation/services/create") ?>");
+            $(".modal-body").load("<?php echo url("assessment/create") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -282,7 +253,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Camps: Camps details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -293,7 +264,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("rehabilitation/services/edit") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("clients") ?>/"+id1+"/edit");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -311,40 +282,29 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('rehabilitation/services/remove') ?>/"+id1,function(data){
+                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
         });
-    </script>
-    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
-    <script>
-
-        $("#DepartmentFormUN").validate({
-            rules: {
-                clients_file: "required",
-                status: "required",
-                quantity: "required"
-            },
-            messages: {
-                clients_file: "Please Select file to upload",
-                status: "Please select status",
-                quantity: "Please enter quantity"
-            }
+        $(".deleteRecordAssessment").click(function(){
+            var id1 = $(this).parent().attr('id');
+            $(".deleteModule").show("slow").parent().parent().find("span").remove();
+            var btn = $(this).parent().parent();
+            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
+            $("#no").click(function(){
+                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
+                $(this).parent().parent().find("span").remove();
+            });
+            $("#yes").click(function(){
+                $.get("<?php echo url('assessment/remove') ?>/"+id1,function(data){
+                    $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
+                    $(this).parent().parent().find("span").remove();
+                });
+                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
+                $(this).parent().parent().find("span").remove();
+            });
         });
-        $("#DepartmentFormUN1").validate({
-            rules: {
-                clients_file: "required",
-                status: "required",
-                quantity: "required"
-            },
-            messages: {
-                clients_file: "Please Select file to upload",
-                status: "Please select status",
-                quantity: "Please enter quantity"
-            }
-        });
-
     </script>
 @stop
 @section('breadcrumb')
@@ -354,11 +314,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('beneficiaries')}}"> Beneficiaries </a>
+            <a href="{{url('inventory/disbursement')}}"> Material Support  </a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active"> List all</span>
+            <span class="active">Import</span>
         </li>
     </ul>
 @stop
@@ -370,15 +330,16 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Beneficiaries Management : Import</span>
+                        <span class="caption-subject bold uppercase">Material support   : Import</span>
                     </div>
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-12 pull-right">
                                 <div class="btn-group pull-right">
-                                    <a href="{{url('beneficiaries')}}" class=" btn blue-madison"><i class="fa fa-file"></i> Register New</a>
-                                    <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-server"></i> View all</a>
-                                    <a href="{{url('excel/beneficiaries')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
+                                    <a href="#" class="addRegion btn blue-madison"> <i class="fa fa-plus"></i> Distribute Item</a>
+                                    <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> View All</a>
+                                    <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-server"></i> View beneficiaries</a>
+                                    <a href="{{url('inventory/disbursement/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
                                 </div>
 
                             </div>
@@ -386,32 +347,55 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <!-- BEGIN SAMPLE FORM PORTLET-->
-                    <div class="portlet light bordered">
-                        <div class="portlet-body form">
-                            {!! Form::open(array('url'=>'excel/beneficiaries','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <label>Import beneficiaries details from MS Excel <a href={{asset("assets/templates/beneficiaries_template.xls")}}> Download template here</a> </label>
-                                    <input TYPE="file" class="form-control" name="clients_file" id="clients_file">
-                                    @if($errors->first('clients_file') !="")
-                                        <span class=" error">{{ $errors->first('clients_file') }}</span>
-                                    @endif
-                                </div>
-                                <hr/>
-                                <div class="row text-center">
-                                    <div class="col-md-4 col-sm-4">
-                                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Import beneficiaries details </button>
-                                    </div>
 
-                                </div>
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column text-danger" id="sample_1">
+                        <thead>
+                        <tr>
+                            <th> SNO </th>
+                            <th> Progress number </th>
+                            <th> Donor type </th>
+                            <th> Address</th>
+                            <th> Item/materials  </th>
+                            <th> Quantity</th>
+                            <th> Date</th>
+                            <th> Error description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php $count=1;?>
+                        @if(count($disbursements)>0)
+                            @foreach($disbursements as $disbursement)
+                                <tr class="odd gradeX">
+                                    <td> {{$count++}} </td>
+                                    <td>
+                                        {{$disbursement->progress_number}}
+                                    </td>
+                                    <td>
+                                        {{$disbursement->donor_type}}
+                                    </td>
+                                    <td>
+                                        {{$disbursement->address}}
+                                    </td>
+                                    <td>
+                                        {{$disbursement->item}}
+                                    </td>
+                                    <td>
+                                        {{$disbursement->quantity}}
+                                    </td>
+                                    <td>
+                                        {{$disbursement->distributed_date}}
+                                    </td>
+                                    <td>
+                                        {{$disbursement->error_descriptions}}
+                                    </td>
 
-                            </div>
+                                </tr>
+                            @endforeach
+                        @endif
 
-                            {!! Form::close() !!}
 
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->

@@ -229,7 +229,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('sr/cases/clients','PSNCaseReview@index');
 
     //Material monitoring
-    Route::get('sr/materials','ItemInventoryController@dashboard');
+    Route::get('sr/materials','ItemsDisbursementController@index');
     Route::post('sr/materials','ItemInventoryController@dashboard');
 
     Route::get('inventory','ItemInventoryController@index');
@@ -263,6 +263,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('inventory/disbursement/show/{id}','ItemsDisbursementController@show');
     Route::get('inventory/disbursement/remove/{id}','ItemsDisbursementController@destroy');
     Route::get('inventory/disbursement/reports','ItemsDisbursementController@reports');
+    Route::get('inventory/disbursement/import','ItemsDisbursementController@showImport');
+    Route::post('inventory/disbursement/import','ItemsDisbursementController@postImport');
+    Route::get('inventory/disbursement/import/errors','ItemsDisbursementController@showImportErrors');
+
+
     
     //ItemsReceivingController
     Route::get('inventory/received','ItemsReceivingController@index');
@@ -299,5 +304,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('mr/reports','ReportsController@getMrReports');
     Route::get('sr/reports','ReportsController@getSrReports');
     Route::get('general/reports','ReportsController@generalReports');
+
+
+    //Reports
+    Route::get('reports/assessment/roam','AssessmentRoamReportsController@index');
+
 
 });

@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Material Support
+   Reports
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" ) !!}
@@ -14,39 +14,25 @@
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">Home</span>
-
+                <span class="selected"></span>
             </a>
 
         </li>
 
-        <li class="nav-item ">
+        <li class="nav-item">
             <a href="{{url('assessment/roam')}}" class="nav-link nav-toggle">
                 <i class="fa fa-building-o fa-2x"></i>
                 <span class="title">Assessment roam</span>
-                <span class="selected"></span>
             </a>
         </li>
         <li class="nav-item ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-puzzle"></i>
-                <span class="title"> Rehabilitation services </span>
-                <span class="arrow"></span>
-                <span class="selected"></span>
+            <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Rehabilitation services</span>
             </a>
-            <ul class="sub-menu">
-                <li class="nav-item active ">
-                    <a href="{{url('rehabilitation/services')}}" class="nav-link ">
-                        <span class="title">Rehabilitation register </span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('rehabilitation/services/progress')}}" class="nav-link ">
-                        <span class="title">Progress monitoring  </span>
-                    </a>
-                </li>
-            </ul>
+
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="{{url('orthopedic/services')}}" class="nav-link nav-toggle">
                 <i class="fa fa-cogs fa-2x"></i>
                 <span class="title">Orthopedic services</span>
@@ -54,7 +40,7 @@
             </a>
 
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="{{url('beneficiaries')}}" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Beneficiaries</span>
@@ -62,7 +48,7 @@
             </a>
 
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="{{url('social/needs')}}" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Social needs/Support</span>
@@ -70,20 +56,20 @@
             </a>
 
         </li>
-        <li class="nav-item active">
+        <li class="nav-item ">
             <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
                 <i class="icon-list"></i>
                 <span class="title">Material support</span>
             </a>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item  start active open">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-line-chart fa-2x"></i>
                 <span class="title"> Reports</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  ">
+                <li class="nav-item  active">
                     <a href="{{url('reports/assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment roam</span>
                     </a>
@@ -98,7 +84,7 @@
                         <span class="title">Orthopedic services</span>
                     </a>
                 </li>
-                <li class="nav-item start active open ">
+                <li class="nav-item  ">
                     <a href="{{url('reports/material/support')}}" class="nav-link ">
                         <span class="title">Material support</span>
                     </a>
@@ -249,12 +235,13 @@
 @stop
 @section('custom-scripts')
     <script>
+
         $('#container').highcharts({
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Monthly Average Item disbursements for {{date("Y")}}'
+                text: 'Monthly  Clients Registration for {{date("Y")}}'
             },
             credits: {
                 enabled: false
@@ -280,13 +267,13 @@
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Items'
+                    text: 'Number of clients'
                 }
             },
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true
@@ -302,13 +289,35 @@
                     $monthData="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount.=count(\App\ItemsDisbursement::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Disabled')->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
+                    <?php
+                    $MonthCount2="";
+                    $monthData2="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Soft injury')->get()).",";
+                    }
+                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
+                    ?>
+                    <?php
+                    $MonthCount3="";
+                    $monthData3="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
+                    }
+                    $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
+                    ?>
             series: [{
-                name: 'Items',
-                data: [<?php echo $monthData;?>]
+                name: 'Total disability cases ',
+                data:[<?php echo $monthData;?>]
+
+            }, {
+                name: 'Total soft injury cases',
+                data: [<?php echo $monthData2;?>]
 
             }]
         });
@@ -322,14 +331,74 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Inventory</span>
+            <a href="{{url('assessment/roam')}}">Assessment Roam</a>
+            <i class="fa fa-angle-right"></i>
         </li>
         <li>
             <span class="active">Reports</span>
         </li>
-
     </ul>
 @stop
 @section('contents')
+    <div class="row widget-row">
+        <div class="col-md-3">
+            <!-- BEGIN WIDGET THUMB -->
+            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                <h4 class="widget-thumb-heading">Registered Clients</h4>
+                <div class="widget-thumb-wrap">
+                    <i class="widget-thumb-icon bg-green icon-bulb"></i>
+                    <div class="widget-thumb-body">
 
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::all())}}">0</span>
+                    </div>
+                </div>
+            </div>
+            <!-- END WIDGET THUMB -->
+        </div>
+        <div class="col-md-3">
+            <!-- BEGIN WIDGET THUMB -->
+            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                <h4 class="widget-thumb-heading">Total disability cases </h4>
+                <div class="widget-thumb-wrap">
+                    <i class="widget-thumb-icon bg-red icon-layers"></i>
+                    <div class="widget-thumb-body">
+
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::where('status','=','Disabled')->get())}}">0</span>
+                    </div>
+                </div>
+            </div>
+            <!-- END WIDGET THUMB -->
+        </div>
+        <div class="col-md-3">
+            <!-- BEGIN WIDGET THUMB -->
+            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                <h4 class="widget-thumb-heading">Total soft injury cases</h4>
+                <div class="widget-thumb-wrap">
+                    <i class="widget-thumb-icon bg-purple icon-screen-desktop"></i>
+                    <div class="widget-thumb-body">
+
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::where('status','=','Soft injury')->get())}}">0</span>
+                    </div>
+                </div>
+            </div>
+            <!-- END WIDGET THUMB -->
+        </div>
+        <div class="col-md-3">
+            <!-- BEGIN WIDGET THUMB -->
+            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                <h4 class="widget-thumb-heading">Available Items/Materials</h4>
+                <div class="widget-thumb-wrap">
+                    <i class="widget-thumb-icon bg-blue icon-bar-chart"></i>
+                    <div class="widget-thumb-body">
+
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\ItemsInventory::all())}}">0</span>
+                    </div>
+                </div>
+            </div>
+            <!-- END WIDGET THUMB -->
+        </div>
+    </div>
+    <div class="row widget-row">
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    </div>
 @stop

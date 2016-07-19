@@ -10,53 +10,38 @@
         {!! Form::open(array('url'=>'inventory/disbursement/edit','role'=>'form','id'=>'DepartmentFormUN')) !!}
         <div class="form-body">
             <div class="form-group">
-                <label>Client full name</label>
-                <select name="client_id" class="form-control" id="client_id">
-                    <td>
-                        @if(is_object($disbursement->client) && $disbursement->client != null && $disbursement->client !="")
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                        <label>Date</label>
+                        <input type="text" class="form-control input-medium date-picker" readonly name="distributed_date" id="distributed_date" data-date-format="yyyy-mm-dd" value="{{$disbursement->distributed_date}}">
+                    </div>
+                    <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
+                        <label>Progress Number</label>
+                        <input type="text" name="progress_number" id="progress_number" placeholder="Enter Progress number" class="form-control" value="{{$disbursement->progress_number}}">
+                    </div>
 
-                            <option value="{{$disbursement->client->id}}">{{$disbursement->client->first_name ." " .$disbursement->client->last_name}}</option>
-                            @else
-                            <option value="">--Select--</option>
-                        @endif
-                    </td>
-
-                    @foreach(\App\Client::all() as $client)
-                        <option value="{{$client->id}}">{{$client->first_name." ".$client->last_name}}</option>
-                    @endforeach
-                </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label> Item/Material Name</label>
-                <select name="item_id" class="form-control" id="item_id">
-                    @if(is_object($disbursement->item) && $disbursement->item != null && $disbursement->item !="")
-
-                        <option value="{{$disbursement->item->id}}">{{$disbursement->item->item_name}}</option>
-                        @else
-                        <option value="">--Select--</option>
-                    @endif
-
-                    @foreach(\App\ItemsInventory::all() as $item)
-                        <option value="{{$item->id}}">{{$item->item_name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
+            <div class="form-group" id="itemsdispatch">
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-                        <label>Date</label>
-                        <input type="text" class="form-control input-medium date-picker" value="{{$disbursement->disbursements_date}}" readonly name="disbursements_date" id="disbursements_date" data-date-format="yyyy-mm-dd">
+                        <label> Item/materials distributed</label>
+                        <input type="text" name="item" id="item" class="form-control" value="{{$disbursement->item}}">
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
                         <label>Quantity</label>
                         <input type="text" class="form-control" name="quantity" id="quantity" value="{{$disbursement->quantity}}">
                     </div>
-
                 </div>
             </div>
+
             <div class="form-group">
-                <label>Distributed By</label>
-                <input type="text" class="form-control" name="disbursements_by" id="disbursements_by" value="{{$disbursement->disbursements_by}}">
+                <label>Donor type</label>
+                <input type="text" class="form-control" name="donor_type" id="donor_type" value="{{$disbursement->donor_type}}">
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" class="form-control" name="address" id="address" value="{{$disbursement->address}}">
             </div>
 
             <hr/>
@@ -100,17 +85,17 @@
     });
     $("#DepartmentFormUN").validate({
         rules: {
-            client_id: "required",
-            disbursements_by: "required",
-            item_id: "required",
+            progress_number: "required",
+            donor_type: "required",
+            item: "required",
             quantity: "required",
-            disbursements_date: "required"
+            distributed_date: "required"
         },
         messages: {
-            client_id: "Please field is required",
-            disbursements_by: "Please field is required",
-            item_id: "Please field is required",
-            disbursements_date: "Please field is required",
+            progress_number: "Please field is required",
+            donor_type: "Please field is required",
+            item: "Please field is required",
+            distributed_date: "Please field is required",
             quantity: "Please enter quantity"
         },
         submitHandler: function(form) {

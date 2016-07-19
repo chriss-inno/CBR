@@ -225,6 +225,9 @@
                 first_name: "required",
                 last_name: "required",
                 marital_status: "required",
+                status: "required",
+                consultation_date: "required",
+                consultation_no: "required",
                 nationality: "required",
                 sex: "required"
             },
@@ -232,6 +235,9 @@
                 first_name: "Please enter first name",
                 last_name: "Please enter last status",
                 marital_status: "Please select marital status",
+                status: "Please select status",
+                consultation_date: "Please enter consultation_date",
+                consultation_no: "Please enter consultation_no",
                 nationality: "Please select nationality",
                 sex: "Please select sex"
             }
