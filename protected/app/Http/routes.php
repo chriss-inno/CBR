@@ -80,6 +80,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('beneficiaries/create','BeneficiaryController@create');
     Route::post('beneficiaries/create','BeneficiaryController@store');
     Route::get('beneficiaries/edit/{id}','BeneficiaryController@edit');
+    Route::get('beneficiaries/show/{id}','BeneficiaryController@show');
     Route::post('beneficiaries/edit','BeneficiaryController@update');
     Route::get('beneficiaries/remove/{id}','BeneficiaryController@destroy');
    
@@ -94,6 +95,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('social/needs/create','SocialNeedController@create');
     Route::post('social/needs/create','SocialNeedController@store');
     Route::get('social/needs/edit/{id}','SocialNeedController@edit');
+    Route::get('social/needs/show/{id}','SocialNeedController@show');
     Route::post('social/needs/edit','SocialNeedController@update');
     Route::get('social/needs/remove/{id}','SocialNeedController@destroy');
 
@@ -228,6 +230,8 @@ Route::group(['middleware' => ['web']], function () {
 
     //Material monitoring
     Route::get('sr/materials','ItemInventoryController@dashboard');
+    Route::post('sr/materials','ItemInventoryController@dashboard');
+
     Route::get('inventory','ItemInventoryController@index');
     Route::get('inventory/create','ItemInventoryController@create');
     Route::post('inventory/create','ItemInventoryController@store');

@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Welcome
+    Material Support
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" ) !!}
@@ -331,29 +331,46 @@
     </ul>
 @stop
 @section('contents')
-    <div class="row widget-row">
-        <div class="col-md-3">
-            <!-- BEGIN WIDGET THUMB -->
-            <a href="{{url('inventory')}}" class="btn btn blue btn-block" style="padding-bottom: 30px; padding-top: 30px"><i class="fa fa-database fa-2x"></i> Material inventory</a>
-            <!-- END WIDGET THUMB -->
-        </div>
-        <div class="col-md-3">
-            <!-- BEGIN WIDGET THUMB -->
-            <a href="{{url('inventory/disbursement')}}" class="btn btn blue btn-block" style="padding-bottom: 30px; padding-top: 30px"><i class="fa fa-users fa-2x"></i> Material Disbursement</a>
-            <!-- END WIDGET THUMB -->
-        </div>
-        <div class="col-md-3">
-            <!-- BEGIN WIDGET THUMB -->
-            <a href="{{url('inventory/received')}}" class="btn btn blue btn-block" style="padding-bottom: 30px; padding-top: 30px"><i class="fa fa-users fa-2x"></i> Received Items</a>
-            <!-- END WIDGET THUMB -->
-        </div>
-        <div class="col-md-3">
-            <!-- BEGIN WIDGET THUMB -->
-            <a href="{{url('inventory/reports')}}" class="btn btn blue btn-block" style="padding-bottom: 30px; padding-top: 30px"><i class="fa fa-line-chart fa-2x"></i> Inventory reports</a>
-            <!-- END WIDGET THUMB -->
-        </div>
-    </div>
     <div class="row widget-row" style="margin-top: 20px">
-        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div class="col-md-9">
+         <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+         <div class="col-md-3">
+             <div class="row">
+                 <div class="col-md-11">
+                 <a href="#" class="btn btn-primary btn-block"><i class="fa fa-users" > </i> Prepare list of beneficiaries</a>
+                 </div>
+             </div>
+             <div class="row" style="margin-top: 10px">
+                 <div class="col-md-11">
+                     <a href="#" class="btn btn-primary btn-block"><i class="fa fa-server" > </i> Materials Distribution</a>
+                 </div>
+             </div>
+             <div class="row" style="margin-top: 10px">
+                 <div class="col-md-11">
+                     <a href="#" class="btn btn-primary btn-block text-left"><i class="fa fa-server" > </i> Import data</a>
+                 </div>
+             </div>
+             <div class="row" style="margin-top: 10px">
+                 <div class="col-md-11">
+                     <a href="#" class="btn btn-primary btn-block"><i class="fa fa-server" > </i> Reports</a>
+                 </div>
+             </div>
+
+             <div class="row" style="margin-top: 30px">
+                 <div class="col-md-11">
+                 {!! Form::open() !!}
+                  <div class="form-group">
+                      <input type="text" name="search_no" id="search_no" placeholder="Enter Progress number" class="form-control">
+                  </div>
+                 <div class="form-group">
+                      <button class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                  </div>
+
+                 {!! Form::close() !!}
+                 </div>
+             </div>
+
+         </div>
     </div>
 @stop

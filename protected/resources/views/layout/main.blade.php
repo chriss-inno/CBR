@@ -41,7 +41,7 @@ License: You must have a valid license purchased only from themeforest(the above
     {!! Html::style("assets/global/css/plugins.min.css" ) !!}
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
-    {!! Html::style("assets/layouts/layout/css/layout.min.css" ) !!}
+    {!! Html::style("assets/layouts/layout/css/layout.css" ) !!}
      <link href="{{ asset("assets/layouts/layout/css/themes/darkblue.min.css")}}" rel="stylesheet" type="text/css" id="style_color" />
     {!! Html::style("assets/layouts/layout/css/custom.min.css" ) !!}
     <!-- END THEME LAYOUT STYLES -->
@@ -135,7 +135,7 @@ License: You must have a valid license purchased only from themeforest(the above
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
-<div class="page-footer">
+<div class="page-footer text-center">
     <div class="page-footer-inner"> {{date("Y")}} &copy; Community Based Rehabilitation Programme (CBR)
     </div>
     <div class="scroll-to-top">

@@ -251,6 +251,30 @@
                         });
             }
         });
+        $(".showRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
+            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Beneficiaries details</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow','hidden');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("beneficiaries/show") ?>/"+id1);
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
         $(".addRecord").click(function(){
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
@@ -365,12 +389,7 @@
                         <th> Full Name</th>
                         <th> Date of registration </th>
                         <th> Sex </th>
-                        <th> Age </th>
-                        <th> Category </th>
-                        <th> Code </th>
-                        <th> Family size </th>
-                        <th> Number of females </th>
-                        <th> Number of males </th>
+                        <th> More details </th>
                         <th class="text-center"> Action </th>
                     </tr>
                     </thead>
@@ -392,23 +411,8 @@
                                 <td>
                                     <?php echo $beneficiary->sex; ?>
                                 </td>
-                                <td>
-                                    <?php echo $beneficiary->age; ?>
-                                </td>
-                                <td>
-                                    <?php echo $beneficiary->category; ?>
-                                </td>
-                                <td>
-                                    <?php echo $beneficiary->code; ?>
-                                </td>
-                                <td>
-                                    <?php echo $beneficiary->family_size; ?>
-                                </td>
-                                <td>
-                                    <?php echo $beneficiary->number_females; ?>
-                                </td>
-                                <td>
-                                    <?php echo $beneficiary->number_male; ?>
+                                <td class="text-center" id="{{$beneficiary->id}}">
+                                    <a href="#" class="showRecord "> <i class="fa fa-eye "></i> View details </a>
                                 </td>
                                 <td class="text-center" id="{{$beneficiary->id}}">
                                     <a href="#" class="editRecord"> <i class="fa fa-edit "></i> Edit </a>

@@ -299,6 +299,30 @@
             })
 
         });
+        $(".showRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
+            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Details</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow','hidden');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("social/needs/show") ?>/"+id1);
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
 
         $(".deleteRecord").click(function(){
             var id1 = $(this).parent().attr('id');
@@ -394,8 +418,8 @@
                                         <?php echo $need->beneficiary->age; ?>
                                     @endif
                                 </td>
-                                <td>
-                                    <?php echo $need->assistance; ?>
+                                <td class="text-center" id="{{$need->id}}">
+                                    <a href="#" class="showRecord"> <i class="fa fa-eye "></i> View details </a>
                                 </td>
                                 <td>
                                     <?php echo $need->status; ?>

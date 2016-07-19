@@ -44,7 +44,7 @@ License: You must have a valid license purchased only from themeforest(the above
    {!! Html::style("assets/global/css/plugins.min.css" ) !!}
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
-   {!! Html::style("assets/layouts/layout/css/layout.min.css" ) !!}
+   {!! Html::style("assets/layouts/layout/css/layout.css" ) !!}
     <link href=" {{ asset("assets/layouts/layout/css/themes/darkblue.min.css")}}" rel="stylesheet" type="text/css" id="style_color" />
    {!! Html::style("assets/layouts/layout/css/custom.min.css" ) !!}
     <!-- END THEME LAYOUT STYLES -->

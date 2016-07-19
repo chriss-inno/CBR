@@ -15,4 +15,8 @@ class ItemsDisbursement extends Model
     {
         return $this::belongsTo('\App\Client','client_id');
     }
+    public function beneficiary()
+    {
+        return $this::belongsTo('\App\Beneficiary','client_id');
+    }
 }

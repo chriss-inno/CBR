@@ -334,11 +334,12 @@
                         <thead>
                         <tr>
                             <th> SNO </th>
-                            <th> Full Name </th>
-                            <th> Item/Material </th>
-                            <th> Quantity distributed</th>
-                            <th> Disbursement date </th>
-                            <th> Distributed by </th>
+                            <th> Progress number </th>
+                            <th> Donor type </th>
+                            <th> Address</th>
+                            <th> Item/materials  </th>
+                            <th> Quantity</th>
+                            <th> Date</th>
                             <th class="text-center"> Action </th>
                         </tr>
                         </thead>
