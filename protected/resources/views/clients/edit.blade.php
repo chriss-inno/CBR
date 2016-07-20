@@ -401,8 +401,26 @@
                                     <fieldset class="scheduler-border">
                                         <legend class="scheduler-border">Clients Details</legend>
                                         <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-4">
+                                                    <label for="dob">Date registered</label>
+                                                    <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                                        <input type="text" class="form-control" name="date_registered" id="date_registered" readonly value="{{$client->date_registered}}">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                                        @if($errors->first('last_name') !="")
+                                                            <span class="error">{{ $errors->first('last_name') }}</span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 col-sm-8">
                                             <label for="first_name">File Number</label>
                                             <input type="text" class="form-control" name="file_number" id="file_number" placeholder="Enter file number" value="{{$client->file_number}}">
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="row">

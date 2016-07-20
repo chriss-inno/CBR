@@ -321,6 +321,52 @@
 
             }]
         });
+        $('#containerPie').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Client summary by country '
+            },
+                credits: {
+            enabled: false
+           },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Clients',
+                colorByPoint: true,
+                data: [{
+                    name: 'Burundian',
+                    y: {{((count(\App\Client::where('nationality','=','burundian')->get()) *100)/count(\App\Client::all()) )}}
+                },{
+                    name: 'Burundian',
+                    y: {{((count(\App\Client::where('nationality','=','burundian')->get()) *100)/count(\App\Client::all()) )}}
+                }, {
+                    name: 'Others ',
+                    y:{{((count(\App\Client::where('nationality','<>','congolese')->where('nationality','<>','burundian')->get()) * 100) /count(\App\Client::all())) }},
+                    sliced: true,
+                    selected: true
+                }]
+            }]
+        });
 
     </script>
 @stop
@@ -399,12 +445,12 @@
         <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">Available Items/Materials</h4>
+                <h4 class="widget-thumb-heading">Total Beneficiaries</h4>
                 <div class="widget-thumb-wrap">
                     <i class="widget-thumb-icon bg-blue icon-bar-chart"></i>
                     <div class="widget-thumb-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\ItemsInventory::all())}}">0</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Beneficiary::all())}}">0</span>
                     </div>
                 </div>
             </div>
@@ -412,6 +458,11 @@
         </div>
     </div>
     <div class="row widget-row">
-        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div class="col-md-7">
+            <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+        <div class="col-md-5">
+            <div id="containerPie" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
     </div>
     @stop

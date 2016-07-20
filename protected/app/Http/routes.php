@@ -308,6 +308,9 @@ Route::group(['middleware' => ['web']], function () {
 
     //Reports
     Route::get('reports/assessment/roam','AssessmentRoamReportsController@index');
+    Route::get('reports/assessment/roam/generate','AssessmentRoamReportsController@showReportView');
+    Route::post('reports/assessment/roam/generate','AssessmentRoamReportsController@generateReportView');
+
 
 
 });

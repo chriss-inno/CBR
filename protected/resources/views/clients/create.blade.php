@@ -229,7 +229,8 @@
                 consultation_date: "required",
                 consultation_no: "required",
                 nationality: "required",
-                sex: "required"
+                sex: "required",
+                date_registered: "required"
             },
             messages: {
                 first_name: "Please enter first name",
@@ -239,7 +240,8 @@
                 consultation_date: "Please enter consultation_date",
                 consultation_no: "Please enter consultation_no",
                 nationality: "Please select nationality",
-                sex: "Please select sex"
+                sex: "Please select sex",
+                date_registered: "Please enter date registered"
             }
         });
     </script>
@@ -407,11 +409,30 @@
                                         <fieldset class="scheduler-border">
                                             <legend class="scheduler-border">Clients Details</legend>
                                             <div class="form-group">
-                                                <label for="first_name">File Number</label>
+                                              <div class="row">
+                                                  <div class="col-md-4 col-sm-4">
+                                                      <label for="dob">Date registered</label>
+                                                      <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                                          <input type="text" class="form-control" name="date_registered" id="date_registered" readonly value="{{old('date_registered')}}">
+                                                          <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                                          @if($errors->first('last_name') !="")
+                                                              <span class="error">{{ $errors->first('last_name') }}</span>
+                                                          @endif
+                                                      </div>
+                                                  </div>
+                                                <div class="col-md-8 col-sm-8">
+                                                <label for="file_number">File Number</label>
                                                 <input type="text" class="form-control" name="file_number" id="file_number" placeholder="Enter file number" value="{{old('file_number')}}">
                                                 @if($errors->first('file_number') !="")
                                                  <span class=" error">{{ $errors->first('file_number') }}</span>
                                                     @endif
+                                               </div>
+
+                                              </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">

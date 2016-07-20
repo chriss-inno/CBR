@@ -254,6 +254,7 @@ class ClientController extends Controller
                         $client->status=$row->client_assessment_status;
                         $client->age=$age;
                         $client->input_by=Auth::user()->user_name;
+                        $client->date_registered =date("Y-m-d",strtotime($row->date_registered));
                         $client->save();
 
                         $assessment=new ClientAssessment;
@@ -341,6 +342,7 @@ class ClientController extends Controller
         $client->age=$age;
         $client->input_by=Auth::user()->user_name;
         $client->file_number=$request->file_number;
+        $client->date_registered=$request->date_registered;
         $client->save();
 
         //Create registration no
@@ -436,6 +438,8 @@ class ClientController extends Controller
         $client->street=$request->street;
         $client->status=$request->status;
         $client->age=$age;
+        $client->file_number=$request->file_number;
+        $client->date_registered=$request->date_registered;
         $client->input_by=Auth::user()->user_name;
         $client->save();
 

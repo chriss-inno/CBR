@@ -236,12 +236,12 @@
 @section('custom-scripts')
     <script>
 
-        $('#container').highcharts({
+        $('#SoftInjureChart').highcharts({
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Monthly  Clients Registration for {{date("Y")}}'
+                text: 'Total Soft injury cases per month for year  {{date("Y")}}'
             },
             credits: {
                 enabled: false
@@ -289,7 +289,7 @@
                     $monthData="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Disabled')->get()).",";
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Soft injury')->where('sex','=','Male')->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
@@ -298,7 +298,7 @@
                     $monthData2="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Soft injury')->get()).",";
+                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Soft injury')->where('sex','=','Female')->get()).",";
                     }
                     $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
                     ?>
@@ -312,11 +312,266 @@
                     $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
                     ?>
             series: [{
-                name: 'Total disability cases ',
+                name: 'Male',
                 data:[<?php echo $monthData;?>]
 
             }, {
-                name: 'Total soft injury cases',
+                name: 'Female',
+                data: [<?php echo $monthData2;?>]
+
+            }]
+        });
+        $('#disabilityChart').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Total disability cases per month for year  {{date("Y")}}'
+            },
+            credits: {
+                enabled: false
+            },
+
+            xAxis: {
+                categories: [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of clients'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            <?php
+                    $MonthCount="";
+                    $monthData="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Disabled')->where('sex','=','Male')->get()).",";
+                    }
+                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                    ?>
+                    <?php
+                    $MonthCount2="";
+                    $monthData2="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Disabled')->where('sex','=','Female')->get()).",";
+                    }
+                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
+                    ?>
+                    <?php
+                    $MonthCount3="";
+                    $monthData3="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
+                    }
+                    $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
+                    ?>
+            series: [{
+                name: 'Males',
+                data:[<?php echo $monthData;?>]
+
+            }, {
+                name: 'Females',
+                data: [<?php echo $monthData2;?>]
+
+            }]
+        });
+        $('#BurundianChart').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Total Burundian cases per month for year  {{date("Y")}}'
+            },
+            credits: {
+                enabled: false
+            },
+
+            xAxis: {
+                categories: [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of clients'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            <?php
+                    $MonthCount="";
+                    $monthData="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('nationality','=','burundian')->where('sex','=','Male')->get()).",";
+                    }
+                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                    ?>
+                    <?php
+                    $MonthCount2="";
+                    $monthData2="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('nationality','=','burundian')->where('sex','=','Female')->get()).",";
+                    }
+                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
+                    ?>
+                    <?php
+                    $MonthCount3="";
+                    $monthData3="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
+                    }
+                    $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
+                    ?>
+            series: [{
+                name: 'Males',
+                data:[<?php echo $monthData;?>]
+
+            }, {
+                name: 'Females',
+                data: [<?php echo $monthData2;?>]
+
+            }]
+        });
+        $('#CongoleseChart').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Total Congolese cases per month for year  {{date("Y")}}'
+            },
+            credits: {
+                enabled: false
+            },
+
+            xAxis: {
+                categories: [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of clients'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            <?php
+                    $MonthCount="";
+                    $monthData="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('nationality','=','congolese')->where('sex','=','Male')->get()).",";
+                    }
+                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                    ?>
+                    <?php
+                    $MonthCount2="";
+                    $monthData2="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('nationality','=','congolese')->where('sex','=','Female')->get()).",";
+                    }
+                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
+                    ?>
+                    <?php
+                    $MonthCount3="";
+                    $monthData3="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
+                    }
+                    $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
+                    ?>
+            series: [{
+                name: 'Males',
+                data:[<?php echo $monthData;?>]
+
+            }, {
+                name: 'Females',
                 data: [<?php echo $monthData2;?>]
 
             }]
@@ -341,6 +596,17 @@
 @stop
 @section('contents')
     <div class="row widget-row">
+        <div class="col-md-12 pull-right">
+            <div class="btn-group pull-right">
+                <a href="{{url('reports/assessment/roam/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
+                <a href="{{url('excel/export/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Export Clients</a>
+                <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row widget-row" style="margin-top: 20px">
         <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
@@ -386,12 +652,12 @@
         <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">Available Items/Materials</h4>
+                <h4 class="widget-thumb-heading">Beneficiaries</h4>
                 <div class="widget-thumb-wrap">
                     <i class="widget-thumb-icon bg-blue icon-bar-chart"></i>
                     <div class="widget-thumb-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\ItemsInventory::all())}}">0</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Beneficiary::all())}}">0</span>
                     </div>
                 </div>
             </div>
@@ -399,6 +665,20 @@
         </div>
     </div>
     <div class="row widget-row">
-        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div class="col-md-6">
+            <div id="disabilityChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+        <div class="col-md-6">
+            <div id="SoftInjureChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+
+    </div>
+    <div class="row widget-row">
+        <div class="col-md-6">
+            <div id="BurundianChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+        <div class="col-md-6">
+            <div id="CongoleseChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
     </div>
 @stop
