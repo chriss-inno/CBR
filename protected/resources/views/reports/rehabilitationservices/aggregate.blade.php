@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-   Reports
+    Reports
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css") !!}
@@ -70,12 +70,12 @@
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  active">
+                <li class="nav-item  ">
                     <a href="{{url('reports/assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment roam</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item  active">
                     <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
                         <span class="title">Rehabilitation services</span>
                     </a>
@@ -343,7 +343,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('assessment/roam')}}">Assessment Roam</a>
+            <a href="{{url('rehabilitation/services')}}">Rehabilitation services</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -352,70 +352,180 @@
     </ul>
 @stop
 @section('contents')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row widget-row">
-                <div class="col-md-12 pull-right">
-                    <div class="btn-group pull-right">
-                        <a href="{{url('reports/assessment/roam/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
-                        <a href="{{url('excel/export/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Export Clients</a>
-                        <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
-                    </div>
-
-                </div>
-
+    <div class="row widget-row">
+        <div class="col-md-12 pull-right">
+            <div class="btn-group pull-right">
+                <a href="{{url('reports/rehabilitation/services/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
+                <a href="{{url('reports/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i>  Rehabilitation services Reports</a>
             </div>
-            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-            <div class="portlet light bordered" style="margin-top: 10px">
-                <div class="portlet-title">
-                    <div class="caption font-dark">
-                        <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Generate Report</span>
-                    </div>
-
-                </div>
-                <div class="portlet-body">
-                    <!-- BEGIN SAMPLE FORM PORTLET-->
-                    <div class="portlet light bordered">
-                        <div class="portlet-body form">
-                            {!! Form::open(array('url'=>'reports/assessment/roam/generate','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <div class="row">
-
-                                        <div class="col-md-4">
-                                            <label>Date From</label>
-                                            <input type="text" class="form-control input-medium date-picker" readonly name="date_from" id="date_from" data-date-format="yyyy-mm-dd">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Date To</label>
-                                            <input type="text" class="form-control input-medium date-picker" readonly name="date_to" id="date_to" data-date-format="yyyy-mm-dd">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Report Type</label>
-                                             <select name="report_type" class="form-control">
-                                                 <option value="1">Case Detailed</option>
-                                                 <option value="2">Aggregate</option>
-                                             </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-4 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Generate </button>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            {!! Form::close() !!}
-
-                        </div>
-                    </div>
-                </div>
+        </div>
+    </div>
+    <div class="portlet light bordered" style="margin-top: 10px">
+        <div class="portlet-title">
+            <div class="caption font-dark">
+                <span class="caption-subject bold uppercase">Rehabilitation services report</span>
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
+
+        </div>
+        <div class="portlet-body">
+            <?php  $range = [$startDate, $endDate];?>
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">PWD & PSN statistics (OLD POPULATION) as of {{$startDate}} to {{$endDate}} </legend>
+                <table class="table table-striped table-bordered table-hover ">
+                    <thead>
+                    <tr>
+                        <th rowspan="3"> Disability cases subtotal: </th>
+                        <th colspan="9" class="text-center">Population (Congolese)</th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">Total as of last reporting period</th>
+                        <th colspan="3">*NEW* cases this reporting period</th>
+                        <th colspan="3">Cumulative to date (February 2016)</th>
+                    </tr>
+                    <tr>
+                        <th>F</th>
+                        <th>M</th>
+                        <th>Total</th>
+                        <th>F</th>
+                        <th>M</th>
+                        <th>Total</th>
+                        <th>F</th>
+                        <th>M</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $totalF=0;
+                    $totalM=0;
+                    $totalT=0;
+                    ?>
+                    @if(count($clients )>0)
+                        @foreach(\App\Disability::all() as $discategor)
+                            <tr class="odd gradeX">
+                                <?php
+                                $totalF += count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get());
+                                $totalM += count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get());
+                                $totalT += count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get());
+                                ?>
+                                <td>{{$discategor->category}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    <tr class="odd gradeX">
+                        <th>Total Disability cases: </th>
+                        <td>{{$totalF}}</td>
+                        <td>{{$totalM}}</td>
+                        <td>{{$totalT}}</td>
+                        <td>{{$totalF}}</td>
+                        <td>{{$totalM}}</td>
+                        <td>{{$totalT}}</td>
+                        <td>{{$totalF}}</td>
+                        <td>{{$totalM}}</td>
+                        <td>{{$totalT}}</td>
+                    </tr>
+                    <tr class="odd gradeX">
+                        <th>Total soft injury cases: </th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+                <table class="table table-striped table-bordered table-hover " style="margin-top: 10px">
+                    <thead>
+                    <tr>
+                        <th rowspan="3"> Disability cases: </th>
+                        <th colspan="9" class="text-center">Population (Burundian)</th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">Total as of last reporting period</th>
+                        <th colspan="3">*NEW* cases this reporting period</th>
+                        <th colspan="3">Cumulative to date (February 2016)</th>
+                    </tr>
+                    <tr>
+                        <th>F</th>
+                        <th>M</th>
+                        <th>Total</th>
+                        <th>F</th>
+                        <th>M</th>
+                        <th>Total</th>
+                        <th>F</th>
+                        <th>M</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $totalF=0;
+                    $totalM=0;
+                    $totalT=0;
+                    ?>
+                    @if(count($clients )>0)
+                        @foreach(\App\Disability::all() as $discategor)
+                            <tr class="odd gradeX">
+                                <?php
+                                $totalF += count(\App\Client::where('status','=','disabled')->where('nationality','=','burundian')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get());
+                                $totalM += count(\App\Client::where('status','=','disabled')->where('nationality','=','burundian')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get());
+                                $totalT += count(\App\Client::where('status','=','disabled')->where('nationality','=','burundian')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get());
+                                ?>
+                                <td>{{$discategor->category}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','burundian')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','burundian')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','burundian')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','burundian')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','burundian')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','burundian')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','burundian')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','burundian')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','burundian')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    <tr class="odd gradeX">
+                        <th>Total Disability cases: </th>
+                        <td>{{$totalF}}</td>
+                        <td>{{$totalM}}</td>
+                        <td>{{$totalT}}</td>
+                        <td>{{$totalF}}</td>
+                        <td>{{$totalM}}</td>
+                        <td>{{$totalT}}</td>
+                        <td>{{$totalF}}</td>
+                        <td>{{$totalM}}</td>
+                        <td>{{$totalT}}</td>
+                    </tr>
+                    <tr class="odd gradeX">
+                        <th>Total soft injury cases: </th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
         </div>
     </div>
 @stop

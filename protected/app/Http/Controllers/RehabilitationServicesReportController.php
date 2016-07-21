@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\RehabilitationRegister;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class AssessmentRoamReportsController extends Controller
+class RehabilitationServicesReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,12 +20,12 @@ class AssessmentRoamReportsController extends Controller
     public function index()
     {
         //
-        return view('reports.assessmentroam.index');
+        return view('reports.rehabilitationservices.index');
     }
     public function showReportView()
     {
         //
-        return view('reports.assessmentroam.generate');
+        return view('reports.rehabilitationservices.generate');
     }
     public function exportClients()
     {
@@ -33,7 +34,7 @@ class AssessmentRoamReportsController extends Controller
 
         Excel::create("clients_Details", function ($excel) use ($clients) {
             $excel->sheet('sheet', function ($sheet) use ($clients) {
-                $sheet->loadView('reports.assessmentroam.clients',compact('clients'));
+                $sheet->loadView('reports.rehabilitationservices.clients',compact('clients'));
                 $sheet->setWidth(array(
                     'A'     =>  25,
                     'B'     =>  25,
@@ -116,11 +117,12 @@ class AssessmentRoamReportsController extends Controller
         if($startDate != "" && $endDate != "" )
         {
             if($report_type ==1 ) {
-                $clients=Client::whereBetween('date_registered', $range)->get();
 
-                Excel::create("Case_review_report", function ($excel) use ($clients,$startDate,$endDate) {
-                    $excel->sheet('sheet', function ($sheet) use ($clients,$startDate,$endDate) {
-                        $sheet->loadView('reports.assessmentroam.detailed',compact('clients','startDate','endDate'));
+                $attendances=RehabilitationRegister::whereBetween('attendance_date', $range)->get();
+
+                Excel::create("Case_review_report", function ($excel) use ($attendances,$startDate,$endDate) {
+                    $excel->sheet('sheet', function ($sheet) use ($attendances,$startDate,$endDate) {
+                        $sheet->loadView('reports.rehabilitationservices.detailed',compact('attendances','startDate','endDate'));
                         $sheet->setWidth(array(
                             'A'     =>  25,
                             'B'     =>  25,
@@ -153,8 +155,8 @@ class AssessmentRoamReportsController extends Controller
             }
             else
             {
-                $clients=Client::all();
-                return view('reports.assessmentroam.aggregate',compact('clients','startDate','endDate'));
+                $clients=RehabilitationRegister::all();
+                return view('reports.rehabilitationservices.aggregate',compact('clients','startDate','endDate'));
             }
 
 
@@ -167,7 +169,6 @@ class AssessmentRoamReportsController extends Controller
 
 
     }
-
 
     /**
      * Show the form for creating a new resource.

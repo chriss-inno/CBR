@@ -207,91 +207,61 @@
 
 @stop
 @section('custom-scripts')
+    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
-        $(".disabilityForm").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 20% ;margin-left: 20%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Client disability details</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
 
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("disabilities/clients/create") ?>/"+id1);
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-
-        $(".editRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update disability details</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("disabilities/clients/edit") ?>/"+id1);
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-
-        $(".deleteRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-            var btn = $(this).parent().parent();
-            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-            $("#no").click(function(){
-                $(this).parent().parent().find(".deleteRecord").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-            $("#yes").click(function(){
-                $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('disabilities/clients/remove') ?>/"+id1,function(data){
-                    btn.hide("slow").next("hr").hide("slow");
+        $("#region_id").change(function () {
+            var id1 = this.value;
+            if(id1 != "")
+            {
+                $.get("<?php echo url('fetch/districts') ?>/"+id1,function(data){
+                    $("#district_id").html(data);
                 });
-            });
+
+            }else{$("#district_id").html("<option value=''>----</option>");}
         });
-        $(".deleteRecordAssessment").click(function(){
-            var id1 = $(this).parent().attr('id');
-            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-            var btn = $(this).parent().parent();
-            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-            $("#no").click(function(){
-                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-            $("#yes").click(function(){
-                $.get("<?php echo url('assessment/remove') ?>/"+id1,function(data){
-                    $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                    $(this).parent().parent().find("span").remove();
-                });
-                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
+        $("#DepartmentFormUN").validate({
+            rules: {
+                category_id: "required",
+                disability_diagnosis: "required"
+            },
+            messages: {
+                category_id: "Please select category name",
+                disability_diagnosis: "Please enter diagnosis"
+            },
+            submitHandler: function(form) {
+                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");
+                var postData = $('#DepartmentFormUN').serializeArray();
+                var formURL = $('#DepartmentFormUN').attr("action");
+                $.ajax(
+                        {
+                            url : formURL,
+                            type: "POST",
+                            data : postData,
+                            success:function(data)
+                            {
+                                console.log(data);
+                                //data: return data from server
+                                $("#output").html(data);
+                                setTimeout(function() {
+                                    location.reload();
+                                    $("#output").html("");
+                                }, 2000);
+                            },
+                            error: function(data)
+                            {
+                                console.log(data.responseJSON);
+                                //in the responseJSON you get the form validation back.
+                                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Error in processing data try again...</span><h3>");
+
+                                setTimeout(function() {
+                                    $("#output").html("");
+                                }, 2000);
+                            }
+                        });
+            }
         });
+
     </script>
 @stop
 @section('breadcrumb')
@@ -397,51 +367,48 @@
 
                     <fieldset class="scheduler-border" style="margin-top: 20px;">
                         <legend class="scheduler-border text-primary">Disability details</legend>
-                        <div class="table-toolbar">
-                            <div class="row">
-                                <div class="col-md-12 pull-right">
-                                    <div class="btn-group pull-right" id="{{$client->id}}">
-                                        <a href="#" class="disabilityForm btn blue-madison">  <i class="fa fa-plus-circle"></i> Add disability details</a>
+                        {!! Html::script("assets/tinymce/js/tinymce/tinymce.min.js") !!}
+                        <script>tinymce.init({ selector:'textarea' });</script>
+
+                                {!! Form::open(array('url'=>'disabilities/clients/create','role'=>'form','id'=>'DepartmentFormUN')) !!}
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label>Disability Category</label>
+                                        <select class="form-control" name="category_id" id="category_id">
+                                            @if($client->category_id != "")
+                                                <?php $discat=\App\Disability::find($client->category_id);?>
+                                                    <option value="{{$discat->id}}">{{$discat->category}}</option>
+                                                @else
+                                                <option value="">--Select--</option>
+                                                @endif
+                                            @foreach(\App\Disability::all() as $dis)
+                                                <option value="{{$dis->id}}">{{$dis->category}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                    <div class="form-group">
+                                        <label>Disability/Diagnosis</label>
+                                        <textarea class="form-control" name="disability_diagnosis" rows="6" id="disability_diagnosis">{{$client->disability_diagnosis}}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Remarks</label>
+                                        <textarea class="form-control" name="remarks" rows="6" id="remarks">{{$client->remarks}}</textarea>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-md-8 col-sm-8 pull-left" id="output">
+
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 pull-right text-right">
+                                            <input type="hidden" value="{{$client->id}}" name="client_id" id="client_id">
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save </button>
+                                        </div>
+
+                                    </div>
+
                                 </div>
-                            </div>
-                        </div>
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
-                        <thead>
-                        <tr>
-                            <th> SNO </th>
-                            <th> Category</th>
-                            <th> Disability/Diagnosis </th>
-                            <th> Remarks </th>
-                            <th class="text-center"> Action </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php $count=1;?>
-                        @if(is_object($client->disabilities) && count($client->disabilities )>0)
-                            @foreach($client->disabilities as $discl)
-                                <tr class="odd gradeX">
-                                    <td> {{$count++}} </td>
-                                    <td>
-                                        @if(is_object($discl->disability) && count($discl->disability )>0)
-                                         {{$discl->disability->category}}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <?php echo $discl->disability_diagnosis;?>
-                                    </td>
-                                    <td>
-                                        <?php echo $discl->remarks;?>
-                                    </td>
-                                    <td class="text-center" id="{{$discl->id}}">
-                                        <a href="#" class="editRecord btn btn-primary"> <i class="fa fa-edit"></i> </a>
-                                        <a href="#" class="deleteRecord btn btn-danger"> <i class="fa fa-trash"></i> </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
-                        </tbody>
-                    </table>
+                                {!! Form::close() !!}
+
                     </fieldset>
                 </div>
             </div>

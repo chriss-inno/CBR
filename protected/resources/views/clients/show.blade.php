@@ -3,8 +3,11 @@
     Clients Managements
 @stop
 @section('page-style')
-    {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css") !!}
+    {!! Html::style("assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css") !!}
+    {!! Html::style("assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css") !!}
+    {!! Html::style("assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css") !!}
+    {!! Html::style("assets/global/plugins/clockface/css/clockface.css") !!}
 @stop
 @section('menu-sidebar')
     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
@@ -54,6 +57,12 @@
 
             </a>
 
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
+                <i class="icon-list"></i>
+                <span class="title">Material support</span>
+            </a>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
@@ -190,102 +199,83 @@
     </ul>
 @stop
 @section('page-scripts-level1')
-    {!! Html::script("assets/global/scripts/datatable.js" ) !!}
-    {!! Html::script("assets/global/plugins/datatables/datatables.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js") !!}
-    {!! Html::script("assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"  ) !!}
+    {!! Html::script("assets/global/plugins/clockface/js/clockface.js"  ) !!}
 @stop
 @section('page-scripts-level2')
-    {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
+    {!! Html::script("assets/pages/scripts/components-date-time-pickers.min.js" ) !!}
     {!! Html::script("assets/pages/scripts/ui-confirmations.min.js" ) !!}
 
 @stop
 @section('custom-scripts')
+    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
-        $(".assessmentForm").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 20% ;margin-left: 20%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Client disability details</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
 
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("disabilities/clients/create") ?>/"+id1);
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-
-        $(".editRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update disability details</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("clients") ?>/"+id1+"/edit");
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-
-        $(".deleteRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-            var btn = $(this).parent().parent();
-            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-            $("#no").click(function(){
-                $(this).parent().parent().find(".deleteRecord").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-            $("#yes").click(function(){
-                $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
-                    btn.hide("slow").next("hr").hide("slow");
+        $("#region_id").change(function () {
+            var id1 = this.value;
+            if(id1 != "")
+            {
+                $.get("<?php echo url('fetch/districts') ?>/"+id1,function(data){
+                    $("#district_id").html(data);
                 });
-            });
+
+            }else{$("#district_id").html("<option value=''>----</option>");}
         });
-        $(".deleteRecordAssessment").click(function(){
-            var id1 = $(this).parent().attr('id');
-            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-            var btn = $(this).parent().parent();
-            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-            $("#no").click(function(){
-                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-            $("#yes").click(function(){
-                $.get("<?php echo url('assessment/remove') ?>/"+id1,function(data){
-                    $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                    $(this).parent().parent().find("span").remove();
-                });
-                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
+        $("#AssessmentsFRM").validate({
+            rules: {
+                examiner_name: "required",
+                examiner_title: "required"
+            },
+            messages: {
+                examiner_name: "Please enter examiner name",
+                examiner_title: "Please enter examiner status"
+            }
         });
+        $("#DepartmentFormUN").validate({
+            rules: {
+                category_id: "required",
+                disability_diagnosis: "required"
+            },
+            messages: {
+                category_id: "Please select category name",
+                disability_diagnosis: "Please enter diagnosis"
+            },
+            submitHandler: function(form) {
+                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");
+                var postData = $('#DepartmentFormUN').serializeArray();
+                var formURL = $('#DepartmentFormUN').attr("action");
+                $.ajax(
+                        {
+                            url : formURL,
+                            type: "POST",
+                            data : postData,
+                            success:function(data)
+                            {
+                                console.log(data);
+                                //data: return data from server
+                                $("#output").html(data);
+                                setTimeout(function() {
+                                    location.reload();
+                                    $("#output").html("");
+                                }, 2000);
+                            },
+                            error: function(data)
+                            {
+                                console.log(data.responseJSON);
+                                //in the responseJSON you get the form validation back.
+                                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Error in processing data try again...</span><h3>");
+
+                                setTimeout(function() {
+                                    $("#output").html("");
+                                }, 2000);
+                            }
+                        });
+            }
+        });
+
     </script>
 @stop
 @section('breadcrumb')
@@ -295,11 +285,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('clients')}}">Clients</a>
+            <a href="{{url('clients')}}">Clients/Patient</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Profile</span>
+            <span class="active">Search Client</span>
         </li>
     </ul>
 @stop
@@ -323,15 +313,17 @@
                                     <a href="{{url('excel/export/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Export Clients</a>
                                     <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
                 <div class="portlet-body">
                     <fieldset class="scheduler-border">
                         <legend class="scheduler-border">Client Details</legend>
+                        <div class="form-group">
+                            <label for="first_name">File Number</label>
+                            <input type="text" class="form-control" name="file_number" id="file_number" placeholder="Enter file number" value="{{$client->file_number}}" disabled>
+                        </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4 col-sm-4">
@@ -385,84 +377,253 @@
                         </div>
 
                     </fieldset>
+                    @if(count($client->assessment) >0 && $client->assessment != null )
+                    {!! Form::open(array('url'=>'assessment/edit','role'=>'form','id'=>'AssessmentsFRM')) !!}
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Assessment details</legend>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="dob">Date of first consultation</label>
+                                    <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                        <input type="text" class="form-control" name="consultation_date" id="consultation_date" readonly value="{{$client->assessment->consultation_date}}">
+                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="sex">Consultation No</label>
+                                    <input type="text" class="form-control" name="consultation_no" id="consultation_no" value="{{$client->assessment->consultation_no}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group>">
+                            <label for="diagnosis">Diagnosis</label>
+                            <textarea class="wysihtml5 form-control" rows="6" name="diagnosis" id="diagnosis" >{{$client->assessment->diagnosis}}</textarea>
+                        </div>
+                        <div class="form-group>">
+                            <label for="medical_history">Medical History</label>
+                            <textarea class="wysihtml5 form-control" rows="6" name="medical_history" id="medical_history" >{{$client->assessment->medical_history}}</textarea>
+                        </div>
+                        <div class="form-group>">
+                            <label for="social_history">Social History</label>
+                            <textarea class="wysihtml5 form-control" rows="6" name="social_history" id="social_history" >{{$client->assessment->social_history}}</textarea>
+                        </div>
+                        <div class="form-group>">
+                            <label for="employment">School/employment</label>
+                            <textarea class="wysihtml5 form-control" rows="6" name="employment" id="employment" >{{$client->assessment->employment}}</textarea>
+                        </div>
+                        <div class="form-group>">
+                            <label for="skin_condition">Skin condition</label>
+                            <textarea class="wysihtml5 form-control" rows="6" name="skin_condition" id="skin_condition" >{{$client->assessment->skin_condition}}</textarea>
+                        </div>
+                        <div class="form-group>">
+                            <label for="daily_activities">Activities of daily living</label>
+                            <textarea class="wysihtml5 form-control" rows="6" name="daily_activities" id="daily_activities" >{{$client->assessment->daily_activities}}</textarea>
+                        </div>
+                        <div class="form-group>">
+                            <label for="joint_assessment">Joint assessment</label>
+                            <textarea class="wysihtml5 form-control" rows="6" name="joint_assessment" id="joint_assessment" >{{$client->assessment->joint_assessment}}</textarea>
+                        </div>
+                        <div class="form-group>">
+                            <label for="muscle_assessment">Muscle assessment</label>
+                            <textarea class="wysihtml5 form-control" rows="6" name="muscle_assessment" id="muscle_assessment" >{{$client->assessment->muscle_assessment}}</textarea>
+                        </div>
+                        <div class="form-group>">
+                            <label for="functional_assessment">Functional assessment</label>
+                            <textarea class="wysihtml5 form-control" rows="6" name="functional_assessment" id="functional_assessment" >{{$client->assessment->functional_assessment}}</textarea>
+                        </div>
+                        <div class="form-group>">
+                            <label for="problem_list">Problem list</label>
+                            <textarea class="wysihtml5 form-control" rows="6" name="problem_list" id="problem_list" >{{$client->assessment->problem_list}}</textarea>
+                        </div>
+                        <div class="form-group>">
+                            <label for="treatment">Treatment</label>
+                            <textarea class="wysihtml5 form-control" rows="6" name="treatment" id="treatment" >{{$client->assessment->treatment}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Client Assessment Status</label>
+                            <select  class="form-control" name="status" id="status">
+                                @if(old('status') != "")
+                                    <option value="{{old('status')}}">{{old('status')}}</option>
+                                @else
+                                    <option value="">--Select--</option>
+                                @endif
+                                <option value="Disabled">Disabled</option>
+                                <option value="Soft injury">Soft injury</option>
+                            </select>
+                            @if($errors->first('status') !="")
+                                <span class="help-block help-block-error">{{ $errors->first('status') }}</span>
+                            @endif
+                        </div>
+                        <div class="form-group>">
+                            <label for="remarks">Remarks</label>
+                            <input type="text" class="form-control" name="remarks" id="remarks" value="{{$client->assessment->remarks}}">
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="examiner_name">Examiner Name</label>
+                                    <input type="text" class="form-control" name="examiner_name" id="examiner_name" value="{{$client->assessment->examiner_name}}">
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="examiner_title">Examiner Title</label>
+                                    <input type="text" class="form-control" name="examiner_title" id="examiner_title" value="{{$client->assessment->examiner_title}}">
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    {!! Form::close() !!}
+                    @else
+                        {!! Form::open(array('url'=>'assessment/create','role'=>'form','id'=>'AssessmentsFRM')) !!}
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">Assessment details</legend>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label for="dob">Date of first consultation</label>
+                                        <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                            <input type="text" class="form-control" name="consultation_date" id="consultation_date" readonly>
+                                            <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <label for="sex">Consultation No</label>
+                                        <input type="text" class="form-control" name="consultation_no" id="consultation_no">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group>">
+                                <label for="diagnosis">Diagnosis</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="diagnosis" id="diagnosis" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="medical_history">Medical History</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="medical_history" id="medical_history" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="social_history">Social History</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="social_history" id="social_history" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="employment">School/employment</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="employment" id="employment" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="skin_condition">Skin condition</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="skin_condition" id="skin_condition" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="daily_activities">Activities of daily living</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="daily_activities" id="daily_activities" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="joint_assessment">Joint assessment</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="joint_assessment" id="joint_assessment" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="muscle_assessment">Muscle assessment</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="muscle_assessment" id="muscle_assessment" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="functional_assessment">Functional assessment</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="functional_assessment" id="functional_assessment" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="problem_list">Problem list</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="problem_list" id="problem_list" ></textarea>
+                            </div>
+                            <div class="form-group>">
+                                <label for="treatment">Treatment</label>
+                                <textarea class="wysihtml5 form-control" rows="6" name="treatment" id="treatment" ></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Client Assessment Status</label>
+                                <select  class="form-control" name="status" id="status">
+                                    @if(old('status') != "")
+                                        <option value="{{old('status')}}">{{old('status')}}</option>
+                                    @else
+                                        <option value="">--Select--</option>
+                                    @endif
+                                    <option value="Disabled">Disabled</option>
+                                    <option value="Soft injury">Soft injury</option>
+                                </select>
+                                @if($errors->first('status') !="")
+                                    <span class="help-block help-block-error">{{ $errors->first('status') }}</span>
+                                @endif
+                            </div>
+                            <div class="form-group>">
+                                <label for="remarks">Remarks</label>
+                                <input type="text" class="form-control" name="remarks" id="remarks">
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label for="examiner_name">Examiner Name</label>
+                                        <input type="text" class="form-control" name="examiner_name" id="examiner_name">
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <label for="examiner_title">Examiner Title</label>
+                                        <input type="text" class="form-control" name="examiner_title" id="examiner_title">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        {!! Form::close() !!}
+                        @endif
 
                     <fieldset class="scheduler-border" style="margin-top: 20px;">
                         <legend class="scheduler-border text-primary">Disability details</legend>
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
-                            <thead>
-                            <tr>
-                                <th> SNO </th>
-                                <th> Category</th>
-                                <th> Disability/Diagnosis </th>
-                                <th> Remarks </th>
-                                <th class="text-center"> Action </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php $count=1;?>
-                            @if(is_object($client->disabilities) && count($client->disabilities )>0)
-                                @foreach($client->disabilities as $discl)
-                                    <tr class="odd gradeX">
-                                        <td> {{$count++}} </td>
-                                        <td>
-                                            @if(is_object($discl->disability) && count($discl->disability )>0)
-                                                {{$discl->disability->category}}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <?php echo $discl->disability_diagnosis;?>
-                                        </td>
-                                        <td>
-                                            <?php echo $discl->remarks;?>
-                                        </td>
-                                        <td class="text-center" id="{{$discl->id}}">
-                                            <a href="#" class="editRecord btn btn-primary"> <i class="fa fa-edit"></i> </a>
-                                            <a href="#" class="deleteRecord btn btn-danger"> <i class="fa fa-trash"></i> </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                            </tbody>
-                        </table>
-                    </fieldset>
-                    <fieldset class="scheduler-border" style="margin-top: 20px;">
-                        <legend class="scheduler-border text-primary">Client Visit History</legend>
-                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_2">
-                            <thead>
-                            <tr>
-                                <th> SNO </th>
-                                <th> Category</th>
-                                <th> Disability/Diagnosis </th>
-                                <th> Remarks </th>
-                                <th class="text-center"> Action </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php $count=1;?>
-                            @if(is_object($client->disabilities) && count($client->disabilities )>0)
-                                @foreach($client->disabilities as $discl)
-                                    <tr class="odd gradeX">
-                                        <td> {{$count++}} </td>
-                                        <td>
-                                            @if(is_object($discl->disability) && count($discl->disability )>0)
-                                                {{$discl->disability->category}}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <?php echo $discl->disability_diagnosis;?>
-                                        </td>
-                                        <td>
-                                            <?php echo $discl->remarks;?>
-                                        </td>
-                                        <td class="text-center" id="{{$discl->id}}">
-                                            <a href="#" class="editRecord btn btn-primary"> <i class="fa fa-edit"></i> </a>
-                                            <a href="#" class="deleteRecord btn btn-danger"> <i class="fa fa-trash"></i> </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                            </tbody>
-                        </table>
+                        {!! Html::script("assets/tinymce/js/tinymce/tinymce.min.js") !!}
+                        <script>tinymce.init({ selector:'textarea' });</script>
+
+                        {!! Form::open(array('url'=>'disabilities/clients/create','role'=>'form','id'=>'DepartmentFormUN')) !!}
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label>Disability Category</label>
+                                <select class="form-control" name="category_id" id="category_id">
+                                    @if($client->category_id != "")
+                                        <?php $discat=\App\Disability::find($client->category_id);?>
+                                        <option value="{{$discat->id}}">{{$discat->category}}</option>
+                                    @else
+                                        <option value="">--Select--</option>
+                                    @endif
+                                    @foreach(\App\Disability::all() as $dis)
+                                        <option value="{{$dis->id}}">{{$dis->category}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Disability/Diagnosis</label>
+                                <textarea class="form-control" name="disability_diagnosis" rows="6" id="disability_diagnosis">{{$client->disability_diagnosis}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Remarks</label>
+                                <textarea class="form-control" name="remarks" rows="6" id="remarks">{{$client->remarks}}</textarea>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-md-8 col-sm-8 pull-left" id="output">
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        {!! Form::close() !!}
+
                     </fieldset>
                 </div>
             </div>

@@ -105,16 +105,7 @@
                         <span class="title">Social needs/Support</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
-                    <a href="{{url('regions')}}" class="nav-link ">
-                        <span class="title">Regions</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('districts')}}" class="nav-link ">
-                        <span class="title">Districts</span>
-                    </a>
-                </li>
+
 
             </ul>
         </li>

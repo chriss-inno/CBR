@@ -308,8 +308,14 @@ Route::group(['middleware' => ['web']], function () {
 
     //Reports
     Route::get('reports/assessment/roam','AssessmentRoamReportsController@index');
+    Route::get('excel/export/clients','AssessmentRoamReportsController@exportClients');
     Route::get('reports/assessment/roam/generate','AssessmentRoamReportsController@showReportView');
     Route::post('reports/assessment/roam/generate','AssessmentRoamReportsController@generateReportView');
+
+    Route::get('reports/rehabilitation/services','RehabilitationServicesReportController@index');
+    Route::get('reports/rehabilitation/services/generate','RehabilitationServicesReportController@showReportView');
+    Route::post('reports/rehabilitation/services/generate','RehabilitationServicesReportController@generateReportView');
+
 
 
 

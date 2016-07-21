@@ -70,12 +70,12 @@
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  active">
+                <li class="nav-item  ">
                     <a href="{{url('reports/assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment roam</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item  active">
                     <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
                         <span class="title">Rehabilitation services</span>
                     </a>
@@ -98,16 +98,6 @@
                 <li class="nav-item  ">
                     <a href="{{url('reports/social/needs')}}" class="nav-link ">
                         <span class="title">Social needs/Support</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('regions')}}" class="nav-link ">
-                        <span class="title">Regions</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('districts')}}" class="nav-link ">
-                        <span class="title">Districts</span>
                     </a>
                 </li>
 
@@ -343,7 +333,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('assessment/roam')}}">Assessment Roam</a>
+            <a href="{{url('rehabilitation/services')}}">Rehabilitation services</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -357,11 +347,9 @@
             <div class="row widget-row">
                 <div class="col-md-12 pull-right">
                     <div class="btn-group pull-right">
-                        <a href="{{url('reports/assessment/roam/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
-                        <a href="{{url('excel/export/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Export Clients</a>
-                        <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
+                        <a href="{{url('reports/rehabilitation/services/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
+                        <a href="{{url('reports/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i>  Rehabilitation services Reports</a>
                     </div>
-
                 </div>
 
             </div>
@@ -378,7 +366,7 @@
                     <!-- BEGIN SAMPLE FORM PORTLET-->
                     <div class="portlet light bordered">
                         <div class="portlet-body form">
-                            {!! Form::open(array('url'=>'reports/assessment/roam/generate','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
+                            {!! Form::open(array('url'=>'reports/rehabilitation/services/generate','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
                             <div class="form-body">
                                 <div class="form-group">
                                     <div class="row">

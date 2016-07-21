@@ -1,7 +1,8 @@
- <table border="1">
+
+<table border="1">
     <thead>
     <tr>
-        <th colspan="22" align="center">Case review as  of {{$startDate}} to {{$endDate}}</th>
+        <th colspan="22" align="center">All clients details</th>
     </tr>
     <tr>
         <th colspan="5" align="center">Client Details</th>
@@ -14,6 +15,7 @@
         <th> Client Name </th>
         <th> Sex </th>
         <th>Date of  Birth </th>
+        <th>Nationality </th>
         <th>Date of first consultation </th>
         <th>Consultation No </th>
         <th>Diagnosis </th>
@@ -50,6 +52,9 @@
                 </td>
                 <td>
                     {{$client->dob}}
+                </td>
+                <td>
+                    {{ucwords($client->nationality)}}
                 </td>
                 <td>
                     @if(count($client->assessment) >0 && $client->assessment !="" && $client->assessment != null)

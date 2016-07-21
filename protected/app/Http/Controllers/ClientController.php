@@ -99,12 +99,10 @@ class ClientController extends Controller
                             $category_id= $dis->id;
                         }
 
-                        $clds=new ClientDisability;
-                        $clds->client_id=$client->id;
-                        $clds->category_id=$category_id;
-                        $clds->disability_diagnosis=$row->disability_diagnosis;
-                        $clds->remarks=$row->remarks;
-                        $clds->save();
+                        $client->category_id=$category_id;
+                        $client->disability_diagnosis=$row->disability_diagnosis;
+                        $client->remarks=$row->remarks;
+                        $client->save();
 
                     }
                     else

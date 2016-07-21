@@ -47,12 +47,15 @@ class ClientDisabilityController extends Controller
     public function store(Request $request)
     {
         //
-        $clds=new ClientDisability;
-        $clds->client_id=$request->client_id;
-        $clds->category_id=$request->category_id;
-        $clds->disability_diagnosis=$request->disability_diagnosis;
-        $clds->remarks=$request->remarks;
-        $clds->save();
+
+
+        $client=Client::find($request->client_id);
+        $client->category_id=$request->category_id;
+        $client->disability_diagnosis=$request->disability_diagnosis;
+        $client->remarks=$request->remarks;
+        $client->save();
+
+       return "<span class='text-info'><i class='fa fa-info'></i> Saved successfully </span>";
     }
 
     /**
@@ -91,11 +94,11 @@ class ClientDisabilityController extends Controller
     public function update(Request $request)
     {
         //
-        $clds= ClientDisability::find($request->id);
-        $clds->category_id=$request->category_id;
-        $clds->disability_diagnosis=$request->disability_diagnosis;
-        $clds->remarks=$request->remarks;
-        $clds->save();
+        $client=Client::find($request->client_id);
+        $client->category_id=$request->category_id;
+        $client->disability_diagnosis=$request->disability_diagnosis;
+        $client->remarks=$request->remarks;
+        $client->save();
 
         return "data saved";
     }
@@ -109,7 +112,10 @@ class ClientDisabilityController extends Controller
     public function destroy($id)
     {
         //
-        $clds= ClientDisability::find($id);
-        $clds->delete();
+        $client=Client::find($id);
+        $client->category_id="";
+        $client->disability_diagnosis="";
+        $client->remarks="";
+        $client->save();
     }
 }
