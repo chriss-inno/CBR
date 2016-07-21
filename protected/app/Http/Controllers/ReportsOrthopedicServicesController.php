@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class AssessmentRoamReportsController extends Controller
+class ReportsOrthopedicServicesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,12 +19,12 @@ class AssessmentRoamReportsController extends Controller
     public function index()
     {
         //
-        return view('reports.assessmentroam.index');
+        return view('reports.orthopedicservices.index');
     }
     public function showReportView()
     {
         //
-        return view('reports.assessmentroam.generate');
+        return view('reports.orthopedicservices.generate');
     }
     public function exportClients()
     {
@@ -37,7 +33,7 @@ class AssessmentRoamReportsController extends Controller
 
         Excel::create("clients_Details", function ($excel) use ($clients) {
             $excel->sheet('sheet', function ($sheet) use ($clients) {
-                $sheet->loadView('reports.assessmentroam.clients',compact('clients'));
+                $sheet->loadView('reports.orthopedicservices.clients',compact('clients'));
                 $sheet->setWidth(array(
                     'A'     =>  25,
                     'B'     =>  25,
@@ -158,7 +154,7 @@ class AssessmentRoamReportsController extends Controller
             else
             {
                 $clients=Client::all();
-                return view('reports.assessmentroam.aggregate',compact('clients','startDate','endDate'));
+                return view('reports.orthopedicservices.aggregate',compact('clients','startDate','endDate'));
             }
 
 
@@ -171,7 +167,6 @@ class AssessmentRoamReportsController extends Controller
 
 
     }
-
 
     /**
      * Show the form for creating a new resource.
