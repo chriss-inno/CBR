@@ -366,7 +366,7 @@
                     <!-- BEGIN SAMPLE FORM PORTLET-->
                     <div class="portlet light bordered">
                         <div class="portlet-body form">
-                            {!! Form::open(array('url'=>'reports/rehabilitation/services/generate','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
+                            {!! Form::open(array('url'=>'reports/orthopedic/services/generate','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
                             <div class="form-body">
                                 <div class="form-group">
                                     <div class="row">
@@ -382,7 +382,7 @@
                                         <div class="col-md-4">
                                             <label>Report Type</label>
                                              <select name="report_type" class="form-control">
-                                                 <option value="1">Case Detailed</option>
+                                                 <option value="1">Detailed</option>
                                                  <option value="2">Aggregate</option>
                                              </select>
                                         </div>

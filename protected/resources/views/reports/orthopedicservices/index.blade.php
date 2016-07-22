@@ -594,7 +594,7 @@
         <div class="col-md-12 pull-right">
             <div class="btn-group pull-right">
                 <a href="{{url('reports/orthopedic/services/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
-                <a href="{{url('reports/orthopedic/services/services')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i>  Rehabilitation services Reports</a>
+                <a href="{{url('reports/orthopedic/services')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Orthopedic services Reports</a>
             </div>
 
         </div>

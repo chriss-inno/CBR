@@ -242,7 +242,7 @@ class ClientController extends Controller
                         $client->marital_status=$row->marital_status;
                         $client->address=$row->address;
                         $client->phone=$row->phone;
-                        $client->nationality=$row->nationality;
+                        $client->nationality=strtolower($row->nationality);
                         $client->camp_id=$camp_id;
                         $client->center_id=$center_id;
                         $client->region_id=$region_id;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\OrthopedicServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
@@ -116,11 +117,11 @@ class ReportsOrthopedicServicesController extends Controller
         if($startDate != "" && $endDate != "" )
         {
             if($report_type ==1 ) {
-                $clients=Client::whereBetween('date_registered', $range)->get();
+                $attendances=OrthopedicServices::whereBetween('attendance_date', $range)->get();
 
-                Excel::create("Case_review_report", function ($excel) use ($clients,$startDate,$endDate) {
-                    $excel->sheet('sheet', function ($sheet) use ($clients,$startDate,$endDate) {
-                        $sheet->loadView('reports.assessmentroam.detailed',compact('clients','startDate','endDate'));
+                Excel::create("orthopedic_clients_report", function ($excel) use ($attendances,$startDate,$endDate) {
+                    $excel->sheet('sheet', function ($sheet) use ($attendances,$startDate,$endDate) {
+                        $sheet->loadView('reports.orthopedicservices.detailed',compact('attendances','startDate','endDate'));
                         $sheet->setWidth(array(
                             'A'     =>  25,
                             'B'     =>  25,
@@ -153,7 +154,7 @@ class ReportsOrthopedicServicesController extends Controller
             }
             else
             {
-                $clients=Client::all();
+                $clients=OrthopedicServices::all();
                 return view('reports.orthopedicservices.aggregate',compact('clients','startDate','endDate'));
             }
 

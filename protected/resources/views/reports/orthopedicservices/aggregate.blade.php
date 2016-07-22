@@ -343,7 +343,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('rehabilitation/services')}}">Rehabilitation services</a>
+            <a href="{{url('orthopedic/services')}}"> Orthopedic services</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -374,7 +374,7 @@
                 <table class="table table-striped table-bordered table-hover ">
                     <thead>
                     <tr>
-                        <th rowspan="3"> Disability cases subtotal: </th>
+                        <th rowspan="3"> Services received: </th>
                         <th colspan="9" class="text-center">Population (Congolese)</th>
                     </tr>
                     <tr>
@@ -400,15 +400,8 @@
                     $totalM=0;
                     $totalT=0;
                     ?>
-                    @if(count($clients )>0)
-                        @foreach(\App\Disability::all() as $discategor)
                             <tr class="odd gradeX">
-                                <?php
-                                $totalF += count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get());
-                                $totalM += count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get());
-                                $totalT += count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get());
-                                ?>
-                                <td>{{$discategor->category}}</td>
+                                <td>Repair services</td>
                                 <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
                                 <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
                                 <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
@@ -419,10 +412,33 @@
                                 <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
                                 <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
                             </tr>
-                        @endforeach
-                    @endif
+                            <tr class="odd gradeX">
+                                <td>Fabrication services</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                            </tr>
+                            <tr class="odd gradeX">
+                                <td>Measurement services</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Female')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('sex','=','Male')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                                <td>{{count(\App\Client::where('status','=','disabled')->where('nationality','=','congolese')->where('category_id','=',$discategor->id)->whereBetween('date_registered', $range)->get())}}</td>
+                            </tr>
+
                     <tr class="odd gradeX">
-                        <th>Total Disability cases: </th>
+                        <th>Total Clients: </th>
                         <td>{{$totalF}}</td>
                         <td>{{$totalM}}</td>
                         <td>{{$totalT}}</td>
@@ -433,20 +449,6 @@
                         <td>{{$totalM}}</td>
                         <td>{{$totalT}}</td>
                     </tr>
-                    <tr class="odd gradeX">
-                        <th>Total soft injury cases: </th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-
                     </tbody>
                 </table>
                 <table class="table table-striped table-bordered table-hover " style="margin-top: 10px">

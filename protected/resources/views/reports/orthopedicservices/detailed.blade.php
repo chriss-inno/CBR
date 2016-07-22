@@ -1,16 +1,19 @@
  <table border="1">
     <thead>
     <tr>
-        <th colspan="22" align="center">Case review as  of {{$startDate}} to {{$endDate}}</th>
+        <th colspan="22" align="center"> {{$startDate}} to {{$endDate}}</th>
     </tr>
     <tr>
-        <th> File Number</th>
+        <th> Date of attending</th>
+        <th> File Number </th>
         <th> Client Full Name </th>
         <th> Sex </th>
-        <th>Date of  Birth </th>
-        <th>Nationality </th>
-        <th> Attending date </th>
+        <th> Age </th>
+        <th> Nationality </th>
         <th> Diagnosis </th>
+        <th> Service received </th>
+        <th> Item serviced </th>
+        <th> Quantity </th>
 
 
     </tr>
@@ -21,35 +24,42 @@
          @foreach($attendances as $att)
              <tr class="odd gradeX">
                  <td>
-                     <?php echo $att->file_no; ?>
-                 </td>
-                 <td>
                      @if(is_object($att->client) && $att->client != null)
-                         {{$att->client->first_name ." ".$att->client->last_name	}}
+                         {{$att->client->file_number}}
                      @endif
                  </td>
                  <td>
                      @if(is_object($att->client) && $att->client != null)
-                         {{$att->client->sex }}
+                         {{$att->client->first_name ." ". $att->client->last_name}}
                      @endif
                  </td>
                  <td>
                      @if(is_object($att->client) && $att->client != null)
-                         {{$att->client->dob }}
+                         {{$att->client->sex}}
                      @endif
                  </td>
                  <td>
                      @if(is_object($att->client) && $att->client != null)
-                         {{$att->client->nationality }}
+                         {{$att->client->age	}}
                      @endif
                  </td>
                  <td>
-                     <?php echo $att->attendance_date; ?>
+                     @if(is_object($att->client) && $att->client != null)
+                         {{ucwords($att->client->nationality)}}
+                     @endif
                  </td>
                  <td>
                      <?php echo $att->diagnosis; ?>
                  </td>
-
+                 <td>
+                     <?php echo $att->service_received; ?>
+                 </td>
+                 <td>
+                     <?php echo $att->item_serviced; ?>
+                 </td>
+                 <td>
+                     <?php echo $att->quantity; ?>
+                 </td>
              </tr>
          @endforeach
      @endif
