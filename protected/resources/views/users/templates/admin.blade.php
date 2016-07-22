@@ -350,6 +350,7 @@
                     }
                 }
             },
+            @if(count(\App\Client::all()) >0)
             series: [{
                 name: 'Clients',
                 colorByPoint: true,
@@ -366,6 +367,24 @@
                     selected: true
                 }]
             }]
+            @else
+            series: [{
+                name: 'Clients',
+                colorByPoint: true,
+                data: [{
+                    name: 'Burundian',
+                    y: 0
+                },{
+                    name: 'Burundian',
+                    y: 0
+                }, {
+                    name: 'Others ',
+                    y:0,
+                    sliced: true,
+                    selected: true
+                }]
+            }]
+         @endif
         });
 
     </script>

@@ -74,12 +74,12 @@
                         <span class="title">Assessment roam</span>
                     </a>
                 </li>
-                <li class="nav-item  active">
+                <li class="nav-item  ">
                     <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
                         <span class="title">Rehabilitation services</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item  active">
                     <a href="{{url('reports/orthopedic/services')}}" class="nav-link ">
                         <span class="title">Orthopedic services</span>
                     </a>
@@ -97,16 +97,6 @@
                 <li class="nav-item  ">
                     <a href="{{url('reports/social/needs')}}" class="nav-link ">
                         <span class="title">Social needs/Support</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('regions')}}" class="nav-link ">
-                        <span class="title">Regions</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('districts')}}" class="nav-link ">
-                        <span class="title">Districts</span>
                     </a>
                 </li>
 
@@ -241,7 +231,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Received cases per month for year  {{date("Y")}}'
+                text: 'Number of clients per service received per month for year  {{date("Y")}}'
             },
             credits: {
                 enabled: false
@@ -289,7 +279,7 @@
                     $monthData="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount.=count(\App\RehabilitationRegister::where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->get()).",";
+                        $MonthCount.=count(\App\OrthopedicServices::where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('service_received','=','Repairing')->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
@@ -298,7 +288,7 @@
                     $monthData2="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Soft injury')->where('sex','=','Female')->get()).",";
+                        $MonthCount2.=count(\App\OrthopedicServices::where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('service_received','=','Fabrication')->get()).",";
                     }
                     $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
                     ?>
@@ -307,13 +297,21 @@
                     $monthData3="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
+                        $MonthCount3.=count(\App\OrthopedicServices::where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('service_received','=','Item measurement')->get()).",";
                     }
                     $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
                     ?>
             series: [{
-                name: 'Cases',
+                name: 'Repairing',
                 data:[<?php echo $monthData;?>]
+
+            },{
+                name: 'Fabrication services',
+                data:[<?php echo $monthData2;?>]
+
+            },{
+                name: 'Measurement services',
+                data:[<?php echo $monthData3;?>]
 
             }]
         });
@@ -583,7 +581,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('rehabilitation/services')}}">Rehabilitation services</a>
+            <a href="{{url('orthopedic/services')}}">Orthopedic services</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -595,28 +593,18 @@
     <div class="row widget-row">
         <div class="col-md-12 pull-right">
             <div class="btn-group pull-right">
-                <a href="{{url('reports/rehabilitation/services/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
-                <a href="{{url('reports/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i>  Rehabilitation services Reports</a>
+                <a href="{{url('reports/orthopedic/services/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
+                <a href="{{url('reports/orthopedic/services/services')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i>  Rehabilitation services Reports</a>
             </div>
 
         </div>
 
     </div>
     <div class="row widget-row">
-        <div class="col-md-6">
-            <div id="disabilityChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div id="SoftInjureChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         </div>
 
     </div>
-    <div class="row widget-row">
-        <div class="col-md-6">
-            <div id="BurundianChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-        <div class="col-md-6">
-            <div id="CongoleseChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-    </div>
+
 @stop

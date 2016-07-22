@@ -75,12 +75,12 @@
                         <span class="title">Assessment roam</span>
                     </a>
                 </li>
-                <li class="nav-item  active">
+                <li class="nav-item  ">
                     <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
                         <span class="title">Rehabilitation services</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('reports/orthopedic/services')}}" class="nav-link ">
                         <span class="title">Orthopedic services</span>
                     </a>
@@ -333,7 +333,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('rehabilitation/services')}}">Rehabilitation services</a>
+            <a href="{{url('orthopedic/services')}}"> Orthopedic services</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
