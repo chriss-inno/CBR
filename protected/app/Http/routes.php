@@ -324,9 +324,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('reports/material/support/generate','ReportsOrthopedicServicesController@showReportView');
     Route::post('reports/material/support/generate','ReportsOrthopedicServicesController@generateReportView');
 
-    Route::get('reports/beneficiaries','ReportsOrthopedicServicesController@index');
-    Route::get('reports/beneficiaries/generate','ReportsOrthopedicServicesController@showReportView');
-    Route::post('reports/beneficiaries/generate','ReportsOrthopedicServicesController@generateReportView');
+    Route::get('reports/beneficiaries','BeneficiariesReportsController@index');
+    Route::get('reports/beneficiaries/generate','BeneficiariesReportsController@showReportView');
+    Route::post('reports/beneficiaries/generate','BeneficiariesReportsController@generateReportView');
 
     Route::get('reports/social/needs','ReportsOrthopedicServicesController@index');
     Route::get('reports/social/needs/generate','ReportsOrthopedicServicesController@showReportView');

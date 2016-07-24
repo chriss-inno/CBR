@@ -1,0 +1,366 @@
+@extends('layout.main')
+@section('page-title')
+   Reports
+@stop
+@section('page-style')
+    {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/morris/morris.css" ) !!}
+    {!! Html::style("assets/global/plugins/fullcalendar/fullcalendar.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/jqvmap/jqvmap/jqvmap.css" ) !!}
+@stop
+@section('menu-sidebar')
+    <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+        <li class="nav-item ">
+            <a href="{{url('home')}}" class="nav-link nav-toggle">
+                <i class="icon-home"></i>
+                <span class="title">Home</span>
+                <span class="selected"></span>
+            </a>
+
+        </li>
+
+        <li class="nav-item">
+            <a href="{{url('assessment/roam')}}" class="nav-link nav-toggle">
+                <i class="fa fa-building-o fa-2x"></i>
+                <span class="title">Assessment roam</span>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Rehabilitation services</span>
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('orthopedic/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Orthopedic services</span>
+
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('beneficiaries')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Beneficiaries</span>
+
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('social/needs')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Social needs/Support</span>
+
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
+                <i class="icon-list"></i>
+                <span class="title">Material support</span>
+            </a>
+        </li>
+        <li class="nav-item  start active open">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-line-chart fa-2x"></i>
+                <span class="title"> Reports</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('reports/assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment roam</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
+                        <span class="title">Rehabilitation services</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/orthopedic/services')}}" class="nav-link ">
+                        <span class="title">Orthopedic services</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/material/support')}}" class="nav-link ">
+                        <span class="title">Material support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/beneficiaries')}}" class="nav-link ">
+                        <span class="title">Beneficiaries  Identification/Registration</span>
+                    </a>
+                </li>
+                <li class="nav-item  active">
+                    <a href="{{url('reports/social/needs')}}" class="nav-link ">
+                        <span class="title">Social needs/Support</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="heading">
+            <h3 class="uppercase">SYSTEM SETTINGS</h3>
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-settings"></i>
+                <span class="title"> General Settings</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('setting/organization')}}" class="nav-link ">
+                        <span class="title">Organization</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('disabilities')}}" class="nav-link ">
+                        <span class="title">Disabilities</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('camps')}}" class="nav-link ">
+                        <span class="title">Camps</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('centres')}}" class="nav-link ">
+                        <span class="title">Centres</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('departments')}}" class="nav-link ">
+                        <span class="title">Departments</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('countries')}}" class="nav-link ">
+                        <span class="title">Countries</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('regions')}}" class="nav-link ">
+                        <span class="title">Regions</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('districts')}}" class="nav-link ">
+                        <span class="title">Districts</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="heading">
+            <h3 class="uppercase"> ADMINISTRATION</h3>
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-users"></i>
+                <span class="title"> Users</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('users/create')}}" class="nav-link ">
+                        <span class="title">New User</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('users')}}" class="nav-link ">
+                        <span class="title">Manage</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('roles')}}l" class="nav-link ">
+                        <span class="title">Permissions setup</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
+    </ul>
+@stop
+@section('page-scripts-level1')
+    {!! Html::script("assets/global/plugins/moment.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/morris/morris.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/morris/raphael-min.js" ) !!}
+    {!! Html::script("assets/global/plugins/counterup/jquery.waypoints.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/counterup/jquery.counterup.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/amcharts.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/serial.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/pie.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/radar.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/themes/light.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/themes/patterns.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/themes/chalk.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/ammap/ammap.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amstockcharts/amstock.js" ) !!}
+    {!! Html::script("assets/global/plugins/fullcalendar/fullcalendar.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/horizontal-timeline/horozontal-timeline.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/flot/jquery.flot.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/flot/jquery.flot.resize.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/flot/jquery.flot.categories.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/jquery.sparkline.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" ) !!}
+@stop
+@section('page-scripts-level2')
+    {!! Html::script("assets/pages/scripts/dashboard.min.js" ) !!}
+    {!! Html::script("assets/highcharts/js/highcharts.js") !!}
+    {!! Html::script("assets/highcharts/js/modules/exporting.js") !!}
+@stop
+@section('custom-scripts')
+    <script>
+
+        $('#SoftInjureChart').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Number of beneficiaries per category per month for year  {{date("Y")}}'
+            },
+            credits: {
+                enabled: false
+            },
+
+            xAxis: {
+                categories: [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of cases received'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.0f} </b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            <?php
+                    $MonthCount="";
+                    $monthData="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount.=count(\App\OrthopedicServices::where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('service_received','=','Repairing')->get()).",";
+                    }
+                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                    ?>
+                    <?php
+                    $MonthCount2="";
+                    $monthData2="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount2.=count(\App\OrthopedicServices::where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('service_received','=','Fabrication')->get()).",";
+                    }
+                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
+                    ?>
+                    <?php
+                    $monthData3="";
+
+                    $categories=\App\Beneficiary::orderBy('category')->groupBy('category')->get();
+                    $series="";
+                    $seriesData="series: [ ";
+
+
+
+                        foreach ($categories as $cat)
+                        {
+                            $MonthCount3="";
+                            $data="";
+                            for($i=1; $i<= 12; $i++)
+                            {
+                                $data .=count(\App\Beneficiary::where(\DB::raw('Month(date_registration)'),'=',$i)->where(\DB::raw('Year(date_registration)'),'=',date('Y'))->where('category','=',$cat->category)->get()).",";
+
+                            }
+                            $MonthCount3.=substr($data,0,strlen($data)-1);
+
+                            $series .= "{
+                    name: '".$cat->category."',
+                    data:[".$MonthCount3."]
+
+                }," ;
+
+                        }
+
+
+                    $monthData3.=substr($series,0,strlen($series)-1);
+                    $seriesData .=$monthData3;
+                    $seriesData .="]";
+                    ?>
+            <?php echo $seriesData;?>
+        });
+
+    </script>
+@stop
+@section('breadcrumb')
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="{{url('home')}}">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="{{url('beneficiaries')}}">Beneficiaries</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <span class="active">Reports</span>
+        </li>
+    </ul>
+@stop
+@section('contents')
+    <div class="row widget-row">
+        <div class="col-md-12 pull-right">
+            <div class="btn-group pull-right">
+                <a href="{{url('reports/beneficiaries/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
+                <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Beneficiaries</a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row widget-row">
+        <div class="col-md-12">
+            <div id="SoftInjureChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+
+    </div>
+
+@stop
