@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Clients Assessments
+    Clients Managements
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -8,50 +8,143 @@
 @stop
 @section('menu-sidebar')
     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-        <li class="nav-item start ">
+        <li class="nav-item ">
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
-                <span class="title">Dashboard</span>
-                <span class="selected"></span>
+                <span class="title">Home</span>
+
             </a>
 
         </li>
-        <li class="heading">
-            <h3 class="uppercase">CLIENT MANAGEMENT</h3>
+        <li class="nav-item start active open">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Clients</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+
+                <li class="nav-item  ">
+                    <a href="{{url('clients')}}" class="nav-link ">
+                        <span class="title">View All Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/export/clients')}}" class="nav-link ">
+                        <span class="title">Export Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/import/clients')}}" class="nav-link ">
+                        <span class="title">Import Client</span>
+                    </a>
+                </li>
+                <li class="nav-item active ">
+                    <a href="{{url('assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('referrals/request')}}" class="nav-link ">
+                        <span class="title">Client Referral</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Rehabilitation services</span>
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('orthopedic/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Orthopedic services</span>
+
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('beneficiaries')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Beneficiaries</span>
+
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('social/needs')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Social needs/Support</span>
+
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
+                <i class="icon-list"></i>
+                <span class="title">Material support</span>
+            </a>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-user"></i>
-                <span class="title"> Admission</span>
+                <i class="fa fa-line-chart fa-2x"></i>
+                <span class="title"> Reports</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
-                    <a href="{{url('clients/create')}}" class="nav-link ">
-                        <span class="title">Registration</span>
+                    <a href="{{url('reports/assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment roam</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('clients')}}" class="nav-link ">
-                        <span class="title">Management</span>
+                    <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
+                        <span class="title">Rehabilitation services</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('clients')}}" class="nav-link ">
-                        <span class="title">Reports</span>
+                    <a href="{{url('reports/orthopedic/services')}}" class="nav-link ">
+                        <span class="title">Orthopedic services</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/material/support')}}" class="nav-link ">
+                        <span class="title">Material support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/beneficiaries')}}" class="nav-link ">
+                        <span class="title">Beneficiaries  Identification/Registration</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/social/needs')}}" class="nav-link ">
+                        <span class="title">Social needs/Support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('regions')}}" class="nav-link ">
+                        <span class="title">Regions</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('districts')}}" class="nav-link ">
+                        <span class="title">Districts</span>
                     </a>
                 </li>
 
             </ul>
         </li>
-        </li>
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item  active open">
+        <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-wallet"></i>
-                <span class="title"> General</span>
+                <i class="icon-settings"></i>
+                <span class="title"> General Settings</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
@@ -60,7 +153,12 @@
                         <span class="title">Organization</span>
                     </a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item  ">
+                    <a href="{{url('disabilities')}}" class="nav-link ">
+                        <span class="title">Disabilities</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
@@ -75,22 +173,12 @@
                         <span class="title">Departments</span>
                     </a>
                 </li>
-
-            </ul>
-        </li>
-        <li class="nav-item ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-bulb"></i>
-                <span class="title"> Location</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
                 <li class="nav-item  ">
                     <a href="{{url('countries')}}" class="nav-link ">
                         <span class="title">Countries</span>
                     </a>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item  ">
                     <a href="{{url('regions')}}" class="nav-link ">
                         <span class="title">Regions</span>
                     </a>
@@ -104,11 +192,11 @@
             </ul>
         </li>
         <li class="heading">
-            <h3 class="uppercase">USER ADMINISTRATION</h3>
+            <h3 class="uppercase"> ADMINISTRATION</h3>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-user"></i>
+                <i class="icon-users"></i>
                 <span class="title"> Users</span>
                 <span class="arrow"></span>
             </a>
@@ -147,13 +235,36 @@
 @stop
 @section('custom-scripts')
     <script>
-        $("#addRegion").click(function(){
+        function closePrint () {
+            document.body.removeChild(this.__container__);
+        }
+
+        function setPrint () {
+            this.contentWindow.__container__ = this;
+            this.contentWindow.onbeforeunload = closePrint;
+            this.contentWindow.onafterprint = closePrint;
+            this.contentWindow.focus(); // Required for IE
+            this.contentWindow.print();
+        }
+
+        function printPage (sURL) {
+            var oHiddFrame = document.createElement("iframe");
+            oHiddFrame.onload = setPrint;
+            oHiddFrame.style.visibility = "hidden";
+            oHiddFrame.style.position = "fixed";
+            oHiddFrame.style.right = "0";
+            oHiddFrame.style.bottom = "0";
+            oHiddFrame.src = sURL;
+            document.body.appendChild(oHiddFrame);
+        }
+        $(".clientForm").click(function(){
+            var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Camps: Camps details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Client details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -174,11 +285,11 @@
         $(".editRecord").click(function(){
             var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Camps: Camps details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Client details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -190,6 +301,30 @@
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
             $(".modal-body").load("<?php echo url("clients") ?>/"+id1+"/edit");
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
+        $(".showRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
+            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i>Client assessment details</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow','hidden');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("assessment/show") ?>/"+id1+"");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -207,25 +342,43 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
+                $.get("<?php echo url('assessment/remove') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
+            });
+        });
+        $(".deleteRecordAssessment").click(function(){
+            var id1 = $(this).parent().attr('id');
+            $(".deleteModule").show("slow").parent().parent().find("span").remove();
+            var btn = $(this).parent().parent();
+            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
+            $("#no").click(function(){
+                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
+                $(this).parent().parent().find("span").remove();
+            });
+            $("#yes").click(function(){
+                $.get("<?php echo url('assessment/remove') ?>/"+id1,function(data){
+                    $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
+                    $(this).parent().parent().find("span").remove();
+                });
+                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
+                $(this).parent().parent().find("span").remove();
             });
         });
     </script>
 @stop
 @section('breadcrumb')
-    <ul class="page-breadcrumb ">
+    <ul class="page-breadcrumb">
         <li>
             <a href="{{url('home')}}">Home</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#">Clients</a>
+            <a href="{{url('clients')}}">Clients</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Client assessments</span>
+            <span class="active">Assessments</span>
         </li>
     </ul>
 @stop
@@ -237,69 +390,71 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Client/Patient Search</span>
+                        <span class="caption-subject bold uppercase">Assessments</span>
                     </div>
                     <div class="table-toolbar">
-                        <div class="row">
-                            <div class="col-md-12 pull-right">
-                                <div class="btn-group pull-right">
-                                    <a href="{{url('clients/create')}}" class="btn blue-madison"><i class="fa fa-file"></i> New Client</a>
-                                    <a href="{{url('clients')}}" class="btn blue-madison"><i class="fa fa-users"></i> View All Client</a>
-                                    <a href="{{url('excel/import/clients')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import Clients</a>
-                                    <a href="{{url('excel/export/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Export Clients</a>
-                                    <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
-                                </div>
 
+                        <div class="table-toolbar">
+                            <div class="btn-group pull-right">
+                                <a href="{{url('clients')}}" class=" btn blue-madison"><i class="fa fa-file"></i> New Assessment</a>
+                                <a href="{{url('assessment')}}" class="btn blue-madison"><i class="fa fa-users"></i> View All Assessment</a>
+                                <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
+
+
                 <div class="portlet-body">
+
                     <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
                         <thead>
                         <tr>
                             <th> SNO </th>
-                            <th> First Name </th>
-                            <th> Last Name </th>
-                            <th> Other Name </th>
+                            <th> File number  </th>
+                            <th> Full Name </th>
                             <th> Sex </th>
                             <th> Age </th>
-                            <th> Status </th>
-                            <th> Profile </th>
+                            <th> Assessment Date </th>
+                            <th> Assessment Form </th>
                             <th class="text-center"> Action </th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php $count=1;?>
-                        @if(count($clients )>0)
-                            @foreach($clients as $client)
+                        @if(count($assessments )>0)
+                            @foreach($assessments as $assess)
                                 <tr class="odd gradeX">
                                     <td> {{$count++}} </td>
+                                    <td>@if(is_object($assess->client) && $assess->client != null)
+                                        {{$assess->client->file_number}}@endif
+                                    </td>
+                                    <td>@if(is_object($assess->client) && $assess->client != null)
+                                        {{$assess->client->full_name}}@endif
+                                    </td>
+                                    <td>@if(is_object($assess->client) && $assess->client != null)
+                                        {{$assess->client->sex}}@endif
+                                    </td>
+                                    <td>@if(is_object($assess->client) && $assess->client != null)
+                                        {{$assess->client->age}}@endif
+                                    </td>
+
                                     <td>
-                                        {{$client->first_name	}}
+                                        {{$assess->consultation_date}}
                                     </td>
-                                    <td>
-                                        {{$client->last_name}}
+                                    <td class="text-center" id="{{$assess->id}}">
+                                        <a href="#" class="showRecord btn " > <i class="fa fa-eye green "></i> </a>
+                                        <a href="#" class=" btn "> <i class="fa fa-print green " onclick="printPage('{{url('assessment/print')}}/{{$assess->id}}');" ></i> </a>
+                                        <a href="{{url('assessment/download')}}/{{$assess->id}}" class=" btn  "> <i class="fa fa-download text-danger "></i> </a>
                                     </td>
-                                    <td>
-                                        {{$client->middle_name}}
-                                    </td>
-                                    <td>
-                                        {{$client->sex}}
-                                    </td>
-                                    <td>
-                                        {{$client->age}}
-                                    </td>
-                                    <td>
-                                        {{$client->status}}
-                                    </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('clients')}}/{{$client->id}}"  class="btn btn-icon-only blue"> <i class="fa fa-eye"></i> </a>
-                                    </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="#"  class="btn btn-icon-only blue "> <i class="fa fa-edit"></i> </a>
-                                        <a href="#" class="btn btn-icon-only red deleteRecord"> <i class="fa fa-trash"></i> </a>
+                                    <td class="text-center" id="{{$assess->id}}">
+                                        @if(is_object($assess->client) && $assess->client != null)
+                                            <a href="{{url('assessment/edit')}}/{{$assess->client->id}}" class=" btn" > <i class="fa fa-edit green "></i> </a>
+                                            @else
+                                            <a href="#" class=" btn" > <i class="fa fa-edit green "></i> </a>
+                                        @endif
+                                        <a href="#" class=" deleteRecord btn"> <i class="fa fa-trash text-danger "></i> </a>
                                     </td>
                                 </tr>
                             @endforeach

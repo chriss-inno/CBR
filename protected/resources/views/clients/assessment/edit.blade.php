@@ -20,13 +20,40 @@
             </a>
 
         </li>
-
         <li class="nav-item start active open">
-            <a href="{{url('assessment/roam')}}" class="nav-link nav-toggle">
-                <i class="fa fa-building-o fa-2x"></i>
-                <span class="title">Assessment roam</span>
-                <span class="selected"></span>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Clients</span>
+                <span class="arrow"></span>
             </a>
+            <ul class="sub-menu">
+
+                <li class="nav-item  ">
+                    <a href="{{url('clients')}}" class="nav-link ">
+                        <span class="title">View All Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/export/clients')}}" class="nav-link ">
+                        <span class="title">Export Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/import/clients')}}" class="nav-link ">
+                        <span class="title">Import Client</span>
+                    </a>
+                </li>
+                <li class="nav-item active ">
+                    <a href="{{url('assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('referrals/request')}}" class="nav-link ">
+                        <span class="title">Client Referral</span>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="nav-item ">
             <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
@@ -58,6 +85,12 @@
 
             </a>
 
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
+                <i class="icon-list"></i>
+                <span class="title">Material support</span>
+            </a>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
@@ -344,20 +377,13 @@
                         <span class="caption-subject bold uppercase">Client assessment</span>
                     </div>
                     <div class="table-toolbar">
-                        <div class="row">
-                            <div class="col-md-12 pull-right">
                                 <div class="btn-group pull-right">
-                                    <a href="{{url('clients/create')}}" class="btn blue-madison"><i class="fa fa-file"></i> New Client</a>
-                                    <a href="{{url('clients')}}" class="btn blue-madison"><i class="fa fa-users"></i> View All Client</a>
-                                    <a href="{{url('excel/import/clients')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import Clients</a>
-                                    <a href="{{url('excel/export/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Export Clients</a>
+                                    <a href="{{url('clients')}}" class=" btn blue-madison"><i class="fa fa-file"></i> New Assessment</a>
+                                    <a href="{{url('assessment')}}" class="btn blue-madison"><i class="fa fa-users"></i> View All Assessment</a>
                                     <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
                                 </div>
-
-                            </div>
-
-                        </div>
                     </div>
+
                 </div>
                 <div class="portlet-body form">
                     {!! Form::open(array('url'=>'assessment/edit','role'=>'form','id'=>'DepartmentFormUN')) !!}
@@ -369,27 +395,14 @@
                                 <input type="text" class="form-control" name="file_number" id="file_number" placeholder="Enter file number" value="{{$client->file_number}}" disabled>
                             </div>
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-4">
-                                        <label for="first_name">First Name</label>
-                                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First name" value="{{$client->first_name}}" disabled>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <label for="last_name">Last Name</label>
-                                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last name"value="{{$client->last_name}}" disabled>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <label for="middle_name">Other Name</label>
-                                        <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name" value="{{$client->middle_name}}"  disabled>
-                                    </div>
-
-                                </div>
+                                        <label for="first_name">Full Name</label>
+                                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First name" value="{{$client->full_name}}" disabled>
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4 col-sm-4">
-                                        <label for="dob">Date of birth</label>
-                                        <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name"  value="{{$client->dob}}"  disabled>
+                                        <label for="dob">Age</label>
+                                        <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name"  value="{{$client->age}}"  disabled>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <label for="sex">Sex</label>
@@ -404,18 +417,8 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
-                                        <label for="marital_status">Marital Status</label>
-                                        <select class="form-control" name="marital_status" id="marital_status" disabled>
-                                            @if($client->marital_status != "")
-                                                <option value="{{$client->marital_status}}" selected>{{$client->marital_status}}</option>
-                                            @else
-                                                <option value="">---Select--</option>
-                                            @endif
-                                            <option value="Single">Single</option>
-                                            <option value="Married">Married</option>
-                                            <option value="Divorced">Divorced</option>
-                                            <option value="Widow">Widow</option>
-                                        </select>
+                                        <label for="marital_status">Address</label>
+                                        <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name"  value="{{$client->address}}"  disabled>
                                     </div>
                                 </div>
                             </div>

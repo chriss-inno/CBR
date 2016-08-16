@@ -234,30 +234,29 @@ class ClientController extends Controller
 
                         $client=new Client;
                         $client->file_number=$row->file_number;
-                        $client->first_name=$row->first_name;
-                        $client->middle_name=$row->middle_name;
-                        $client->last_name=$row->last_name;
+                        $client->full_name=$row->full_name;
+                        //$client->middle_name=$row->middle_name;
+                       // $client->last_name=$row->last_name;
                         $client->sex=$row->sex;
-                        $client->dob=date("Y-m-d",strtotime($row->date_of_birth));
-                        $client->marital_status=$row->marital_status;
+                        $client->age=$row->age;
+                       // $client->marital_status=$row->marital_status;
                         $client->address=$row->address;
-                        $client->phone=$row->phone;
-                        $client->nationality=strtolower($row->nationality);
+                       // $client->phone=$row->phone;
+                        $client->nationality=ucwords(strtolower($row->nationality));
                         $client->camp_id=$camp_id;
                         $client->center_id=$center_id;
                         $client->region_id=$region_id;
                         $client->district_id=$district_id;
-                        $client->ward=$row->ward;
-                        $client->street=$row->street;
+                       // $client->ward=$row->ward;
+                        //$client->street=$row->street;
                         $client->status=$row->client_assessment_status;
-                        $client->age=$age;
                         $client->input_by=Auth::user()->user_name;
-                        $client->date_registered =date("Y-m-d",strtotime($row->date_registered));
+                        $client->date_registered =date("Y-m-d",strtotime($row->date_of_first_consultation));
                         $client->save();
 
                         $assessment=new ClientAssessment;
-                        $assessment->consultation_no=$row->consultation_no;
-                        $assessment->consultation_date=$row->date_of_first_consultation;
+                        $assessment->consultation_no=$row->full_name;
+                        $assessment->consultation_date=date("Y-m-d",strtotime($row->date_of_first_consultation));
                         $assessment->diagnosis=$row->diagnosis;
                         $assessment->medical_history=$row->medical_history;
                         $assessment->social_history=$row->social_history;
@@ -284,7 +283,7 @@ class ClientController extends Controller
 
             if($this->error_found != "")
             {
-                return  redirect('excel/import/disabilities');
+                return  redirect()->back();
             }
             else
             {
@@ -315,67 +314,75 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ClientRequest $request)
+    public function store(Request $request)
     {
         //
-        $age=date("Y")-date("Y",strtotime($request->dob));
+        if(count(Client::where('file_number','=',$request->file_number)->get()) > 0) {
 
-        $client=new Client;
-        $client->first_name=$request->first_name;
-        $client->middle_name=$request->middle_name;
-        $client->last_name=$request->last_name;
-        $client->sex=$request->sex;
-        $client->dob=$request->dob;
-        $client->marital_status=$request->marital_status;
-        $client->address=$request->address;
-        $client->phone=$request->phone;
-        $client->nationality=$request->nationality;
-        $client->camp_id=$request->camp_id;
-        $client->center_id=$request->center_id;
-        $client->region_id=$request->region_id;
-        $client->district_id=$request->district_id;
-        $client->ward=$request->ward;
-        $client->street=$request->street;
-        $client->status=$request->status;
-        $client->age=$age;
-        $client->input_by=Auth::user()->user_name;
-        $client->file_number=$request->file_number;
-        $client->date_registered=$request->date_registered;
-        $client->save();
+            return "<span class='text-danger'><i class='fa-info'></i>Save failed: File number [".$request->file_number."] was already used </span>";
 
-        //Create registration no
-        //$client->file_number="CBR".date("Y")."CL".$client->id;
-       // $client->save();
-
-        //Assessments details
-        $assessment=new ClientAssessment;
-        $assessment->consultation_no=$request->consultation_no;
-        $assessment->consultation_date=$request->consultation_date;
-        $assessment->diagnosis=$request->diagnosis;
-        $assessment->medical_history=$request->medical_history;
-        $assessment->social_history=$request->social_history;
-        $assessment->employment=$request->employment;
-        $assessment->skin_condition=$request->skin_condition;
-        $assessment->daily_activities=$request->daily_activities;
-        $assessment->remarks=$request->remarks;
-        $assessment->joint_assessment=$request->joint_assessment;
-        $assessment->muscle_assessment=$request->muscle_assessment;
-        $assessment->functional_assessment=$request->functional_assessment;
-        $assessment->problem_list=$request->problem_list;
-        $assessment->treatment=$request->treatment;
-        $assessment->examiner_name=$request->examiner_name;
-        $assessment->examiner_title=$request->examiner_title;
-        $assessment->client_id=$client->id;
-        $assessment->save();
-
-        //Process disability
-        if(strtolower($client->status) =="disabled")
-        {
-            return redirect('disabilities/clients/show/'.$client->id);
         }
-        else
-        {
-            return redirect('clients');
+        else {
+
+
+            $client = new Client;
+            $client->full_name = $request->fullname;
+            $client->sex = $request->sex;
+            $client->age = $request->age;
+            //$client->marital_status=$request->marital_status;
+            $client->address = $request->address;
+            //$client->phone=$request->phone;
+            $client->nationality = $request->nationality;
+            $client->camp_id = $request->camp_id;
+            $client->center_id = $request->center_id;
+            $client->region_id = $request->region_id;
+            $client->district_id = $request->district_id;
+            //$client->ward=$request->ward;
+            // $client->street=$request->street;
+            // $client->status=$request->status;
+
+            $client->input_by = Auth::user()->user_name;
+            $client->file_number = $request->file_number;
+            $client->date_registered = $request->date_registered;
+            $client->save();
+
+            //Create registration no
+            //$client->file_number="CBR".date("Y")."CL".$client->id;
+            // $client->save();
+
+            //Assessments details
+            /*
+            $assessment=new ClientAssessment;
+            $assessment->consultation_no=$request->consultation_no;
+            $assessment->consultation_date=$request->consultation_date;
+            $assessment->diagnosis=$request->diagnosis;
+            $assessment->medical_history=$request->medical_history;
+            $assessment->social_history=$request->social_history;
+            $assessment->employment=$request->employment;
+            $assessment->skin_condition=$request->skin_condition;
+            $assessment->daily_activities=$request->daily_activities;
+            $assessment->remarks=$request->remarks;
+            $assessment->joint_assessment=$request->joint_assessment;
+            $assessment->muscle_assessment=$request->muscle_assessment;
+            $assessment->functional_assessment=$request->functional_assessment;
+            $assessment->problem_list=$request->problem_list;
+            $assessment->treatment=$request->treatment;
+            $assessment->examiner_name=$request->examiner_name;
+            $assessment->examiner_title=$request->examiner_title;
+            $assessment->client_id=$client->id;
+            $assessment->save();
+
+            //Process disability
+            if(strtolower($client->status) =="disabled")
+            {
+                return redirect('disabilities/clients/show/'.$client->id);
+            }
+            else
+            {
+                return redirect('clients');
+            }
+            */
+            return "<span class='text-success'><i class='fa fa-info'></i> Saved successfully</span>";
         }
 
     }
@@ -416,85 +423,94 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $age=date("Y")-date("Y",strtotime($request->dob));
+        if(! count(Client::where('file_number','=',$request->file_number)->get()) > 0) {
 
-        $client= Client::find($id);
-        $client->first_name=$request->first_name;
-        $client->middle_name=$request->middle_name;
-        $client->last_name=$request->last_name;
-        $client->sex=$request->sex;
-        $client->dob=$request->dob;
-        $client->marital_status=$request->marital_status;
-        $client->address=$request->address;
-        $client->phone=$request->phone;
-        $client->nationality=$request->nationality;
-        $client->camp_id=$request->camp_id;
-        $client->center_id=$request->center_id;
-        $client->region_id=$request->region_id;
-        $client->district_id=$request->district_id;
-        $client->ward=$request->ward;
-        $client->street=$request->street;
-        $client->status=$request->status;
-        $client->age=$age;
-        $client->file_number=$request->file_number;
-        $client->date_registered=$request->date_registered;
-        $client->input_by=Auth::user()->user_name;
-        $client->save();
+            return "<span class='text-danger'><i class='fa-info'></i>Save failed: File number [".$request->file_number."] was not found </span>";
 
-        //Process disability
-
-        //Assessments details
-        if($request->assessment_id !="") {
-            $assessment = ClientAssessment::find($request->assessment_id);
-            $assessment->consultation_no = $request->consultation_no;
-            $assessment->consultation_date = $request->consultation_date;
-            $assessment->diagnosis = $request->diagnosis;
-            $assessment->medical_history = $request->medical_history;
-            $assessment->social_history = $request->social_history;
-            $assessment->employment = $request->employment;
-            $assessment->skin_condition = $request->skin_condition;
-            $assessment->daily_activities = $request->daily_activities;
-            $assessment->remarks = $request->remarks;
-            $assessment->joint_assessment = $request->joint_assessment;
-            $assessment->muscle_assessment = $request->muscle_assessment;
-            $assessment->functional_assessment = $request->functional_assessment;
-            $assessment->problem_list = $request->problem_list;
-            $assessment->treatment = $request->treatment;
-            $assessment->examiner_name = $request->examiner_name;
-            $assessment->examiner_title = $request->examiner_title;
-            $assessment->client_id = $client->id;
-            $assessment->save();
         }
-        else
-        {
-            $assessment= new ClientAssessment;
-            $assessment->consultation_no=$request->consultation_no;
-            $assessment->consultation_date=$request->consultation_date;
-            $assessment->diagnosis=$request->diagnosis;
-            $assessment->medical_history=$request->medical_history;
-            $assessment->social_history=$request->social_history;
-            $assessment->employment=$request->employment;
-            $assessment->skin_condition=$request->skin_condition;
-            $assessment->daily_activities=$request->daily_activities;
-            $assessment->remarks=$request->remarks;
-            $assessment->joint_assessment=$request->joint_assessment;
-            $assessment->muscle_assessment=$request->muscle_assessment;
-            $assessment->functional_assessment=$request->functional_assessment;
-            $assessment->problem_list=$request->problem_list;
-            $assessment->treatment=$request->treatment;
-            $assessment->examiner_name=$request->examiner_name;
-            $assessment->examiner_title=$request->examiner_title;
-            $assessment->client_id=$client->id;
-            $assessment->save();
-        }
+        else {
+            $age = date("Y") - date("Y", strtotime($request->dob));
 
-        if(strtolower($client->status) =="disabled")
-        {
-            return redirect('disabilities/clients/show/'.$client->id);
-        }
-        else
-        {
-            return redirect('clients');
+            $client = Client::find($id);
+            $client->full_name = $request->fullname;
+            //$client->middle_name=$request->middle_name;
+            // $client->last_name=$request->last_name;
+            $client->sex = $request->sex;
+            $client->age = $request->age;
+            //$client->marital_status=$request->marital_status;
+            $client->address = $request->address;
+            // $client->phone=$request->phone;
+            $client->nationality = $request->nationality;
+            $client->camp_id = $request->camp_id;
+            $client->center_id = $request->center_id;
+            $client->region_id = $request->region_id;
+            $client->district_id = $request->district_id;
+            // $client->ward=$request->ward;
+            //$client->street=$request->street;
+            //$client->status=$request->status;
+            //$client->age=$age;
+            $client->file_number = $request->file_number;
+            $client->date_registered = $request->date_registered;
+            $client->input_by = Auth::user()->user_name;
+            $client->save();
+
+            //Process disability/
+            /*
+            //Assessments details
+            if($request->assessment_id !="") {
+                $assessment = ClientAssessment::find($request->assessment_id);
+                $assessment->consultation_no = $request->consultation_no;
+                $assessment->consultation_date = $request->consultation_date;
+                $assessment->diagnosis = $request->diagnosis;
+                $assessment->medical_history = $request->medical_history;
+                $assessment->social_history = $request->social_history;
+                $assessment->employment = $request->employment;
+                $assessment->skin_condition = $request->skin_condition;
+                $assessment->daily_activities = $request->daily_activities;
+                $assessment->remarks = $request->remarks;
+                $assessment->joint_assessment = $request->joint_assessment;
+                $assessment->muscle_assessment = $request->muscle_assessment;
+                $assessment->functional_assessment = $request->functional_assessment;
+                $assessment->problem_list = $request->problem_list;
+                $assessment->treatment = $request->treatment;
+                $assessment->examiner_name = $request->examiner_name;
+                $assessment->examiner_title = $request->examiner_title;
+                $assessment->client_id = $client->id;
+                $assessment->save();
+            }
+            else
+            {
+                $assessment= new ClientAssessment;
+                $assessment->consultation_no=$request->consultation_no;
+                $assessment->consultation_date=$request->consultation_date;
+                $assessment->diagnosis=$request->diagnosis;
+                $assessment->medical_history=$request->medical_history;
+                $assessment->social_history=$request->social_history;
+                $assessment->employment=$request->employment;
+                $assessment->skin_condition=$request->skin_condition;
+                $assessment->daily_activities=$request->daily_activities;
+                $assessment->remarks=$request->remarks;
+                $assessment->joint_assessment=$request->joint_assessment;
+                $assessment->muscle_assessment=$request->muscle_assessment;
+                $assessment->functional_assessment=$request->functional_assessment;
+                $assessment->problem_list=$request->problem_list;
+                $assessment->treatment=$request->treatment;
+                $assessment->examiner_name=$request->examiner_name;
+                $assessment->examiner_title=$request->examiner_title;
+                $assessment->client_id=$client->id;
+                $assessment->save();
+            }
+
+            if(strtolower($client->status) =="disabled")
+            {
+                return redirect('disabilities/clients/show/'.$client->id);
+            }
+            else
+            {
+                return redirect('clients');
+            }
+      */
+            return "<span class='text-success'><i class='fa fa-info'></i> Saved successfully</span>";
         }
     }
 

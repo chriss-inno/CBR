@@ -16,13 +16,40 @@
             </a>
 
         </li>
-
         <li class="nav-item start active open">
-            <a href="{{url('assessment/roam')}}" class="nav-link nav-toggle">
-                <i class="fa fa-building-o fa-2x"></i>
-                <span class="title">Assessment roam</span>
-                <span class="selected"></span>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Clients</span>
+                <span class="arrow"></span>
             </a>
+            <ul class="sub-menu">
+
+                <li class="nav-item active ">
+                    <a href="{{url('clients')}}" class="nav-link ">
+                        <span class="title">View All Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/export/clients')}}" class="nav-link ">
+                        <span class="title">Export Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/import/clients')}}" class="nav-link ">
+                        <span class="title">Import Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('referrals/request')}}" class="nav-link ">
+                        <span class="title">Client Referral</span>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="nav-item ">
             <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
@@ -208,14 +235,14 @@
 @stop
 @section('custom-scripts')
     <script>
-        $(".assessmentForm").click(function(){
+        $(".clientForm").click(function(){
             var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:80%;margin-right: 10% ;margin-left: 10%">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Client assessment details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Client details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -226,7 +253,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("assessment/create") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("clients/create") ?>");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -236,11 +263,11 @@
         $(".editRecord").click(function(){
             var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Camps: Camps details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Client details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -301,7 +328,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('clients')}}">Clients/Patient</a>
+            <a href="{{url('clients')}}">Clients</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -317,23 +344,21 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Client Assessment</span>
+                        <span class="caption-subject bold uppercase">Client Management</span>
                     </div>
-                </div>
                     <div class="table-toolbar">
-                        <div class="row">
-                            <div class="col-md-12 pull-right">
+
                                 <div class="btn-group pull-right">
-                                    <a href="{{url('clients/create')}}" class="btn blue-madison"><i class="fa fa-file"></i> New Client</a>
+                                    <a href="#" class="clientForm btn blue-madison"><i class="fa fa-file"></i> New Client</a>
                                     <a href="{{url('clients')}}" class="btn blue-madison"><i class="fa fa-users"></i> View All Client</a>
                                     <a href="{{url('excel/import/clients')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import Clients</a>
                                     <a href="{{url('excel/export/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Export Clients</a>
                                     <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
-                                 </div>
+                                </div>
 
-                        </div>
                     </div>
                 </div>
+
 
                 <div class="portlet-body">
                     <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
@@ -341,12 +366,13 @@
                         <tr>
                             <th> SNO </th>
                             <th> File number  </th>
-                            <th> Client Name </th>
+                            <th> Full Name </th>
                             <th> Sex </th>
-                            <th> Date of  Birth </th>
-                            <th>Disability </th>
-                            <th>Assessment Form </th>
-                            <th> Client Profile </th>
+                            <th> Age </th>
+                            <th>Nationality </th>
+                            <th>Service Centre </th>
+                            <th> Address </th>
+                            <th> Assessment </th>
                             <th class="text-center"> Action </th>
                         </tr>
                         </thead>
@@ -360,33 +386,34 @@
                                         {{$client->file_number}}
                                     </td>
                                     <td>
-                                        {{$client->first_name ." ".$client->last_name}}
+                                        {{$client->full_name}}
                                     </td>
                                     <td>
                                         {{$client->sex}}
                                     </td>
                                     <td>
-                                        {{$client->dob}}
+                                        {{$client->age}}
                                     </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        @if(strtolower($client->status) =="disabled")
-                                            <a href="{{url('disabilities/clients/show')}}/{{$client->id}}"> <i class="fa fa-eye"></i> View form</a>
-                                            @else
-                                            {{$client->status}}
+                                    <td>
+                                        {{$client->nationality}}
+                                    </td>
+
+                                    <td>
+                                        @if($client->centre != null && is_object($client->centre))
+                                        {{$client->centre->centre_name}}
                                             @endif
+                                    </td>
+                                    <td>
+                                        {{$client->address}}
+                                    </td>
+                                    <td class="text-center" id="{{$client->id}}">
+                                        <a href="{{url('assessment/create')}}/{{$client->id}}"  class="btn" > <i class="fa fa-file green "> Open</i></a>
+                                        <a href="{{url('assessment')}}/{{$client->id}}"  class="btn" ><i class="fa fa-eye green "> View</i> </a>
 
                                     </td>
-
                                     <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('assessment/create')}}/{{$client->id}}"> <i class="fa fa-edit text-primary"></i> Edit </a>
-                                        <a href="#" class=" deleteRecordAssessment"> <i class="fa fa-trash text-danger"></i> Delete</a>
-                                    </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('clients')}}/{{$client->id}}" > <i class="fa fa-eye"></i> View</a>
-                                    </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('clients')}}/{{$client->id}}/edit" > <i class="fa fa-edit green fa-2x"></i> </a>
-                                        <a href="#" class=" deleteRecord d"> <i class="fa fa-trash text-danger fa-2x"></i> </a>
+                                        <a href="#" class="editRecord btn" > <i class="fa fa-edit green "> Edit</i> </a>
+                                        <a href="#" class=" deleteRecord btn"> <i class="fa fa-trash text-danger "> Delete</i> </a>
                                     </td>
                                 </tr>
                             @endforeach

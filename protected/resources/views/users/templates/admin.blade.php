@@ -18,12 +18,45 @@
             </a>
 
         </li>
-
-        <li class="nav-item">
-            <a href="{{url('assessment/roam')}}" class="nav-link nav-toggle">
-                <i class="fa fa-building-o fa-2x"></i>
-                <span class="title">Assessment roam</span>
+        <li class="nav-item ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Clients</span>
+                <span class="arrow"></span>
             </a>
+            <ul class="sub-menu">
+
+                <li class="nav-item active ">
+                    <a href="{{url('clients')}}" class="nav-link ">
+                        <span class="title">View All Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/export/clients')}}" class="nav-link ">
+                        <span class="title">Export Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/import/clients')}}" class="nav-link ">
+                        <span class="title">Import Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('disabilities/clients')}}" class="nav-link ">
+                        <span class="title">Disabilities</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('referrals/request')}}" class="nav-link ">
+                        <span class="title">Client Referral</span>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="nav-item ">
             <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
@@ -390,7 +423,7 @@
     </script>
 @stop
 @section('page-head-bar')
-        <!-- BEGIN PAGE TITLE -->
+
             <h3>Welcome
                 <small>dashboard & statistics</small>
             </h3>
@@ -404,8 +437,8 @@
             </div>
 
         </div>
-        <!-- END PAGE TOOLBAR -->
-    @stop
+
+@stop
 @section('breadcrumb')
     <ul class="page-breadcrumb">
         <li>

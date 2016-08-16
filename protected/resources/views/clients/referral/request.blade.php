@@ -11,85 +11,132 @@
         <li class="nav-item ">
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
-                <span class="title">Dashboard</span>
+                <span class="title">Home</span>
+
+            </a>
+
+        </li>
+        <li class="nav-item start active open">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Clients</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+
+                <li class="nav-item  ">
+                    <a href="{{url('clients')}}" class="nav-link ">
+                        <span class="title">View All Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/export/clients')}}" class="nav-link ">
+                        <span class="title">Export Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/import/clients')}}" class="nav-link ">
+                        <span class="title">Import Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item active ">
+                    <a href="{{url('referrals/request')}}" class="nav-link ">
+                        <span class="title">Client Referral</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Rehabilitation services</span>
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('orthopedic/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Orthopedic services</span>
 
             </a>
 
         </li>
         <li class="nav-item ">
-            <a href="{{url('registration/desk')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Registration Desk</span>
+            <a href="{{url('beneficiaries')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Beneficiaries</span>
 
             </a>
+
         </li>
-        <li class="heading">
-            <h3 class="uppercase">Medical rehabilitation </h3>
+        <li class="nav-item ">
+            <a href="{{url('social/needs')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Social needs/Support</span>
+
+            </a>
+
         </li>
-        <li class="nav-item start active open">
-            <a href="{{url('referrals')}}" class="nav-link nav-toggle">
-                <i class="icon-direction"></i>
-                <span class="title">Patient Referrals</span>
-                <span class="selected"></span>
+        <li class="nav-item ">
+            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
+                <i class="icon-list"></i>
+                <span class="title">Material support</span>
             </a>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-puzzle"></i>
-                <span class="title"> Progress Monitoring</span>
+                <i class="fa fa-line-chart fa-2x"></i>
+                <span class="title"> Reports</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
-                    <a href="{{url('physiotherapy')}}" class="nav-link ">
-                        <span class="title">Physiotherapy register </span>
+                    <a href="{{url('reports/assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment roam</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('orthopedic')}}" class="nav-link ">
-                        <span class="title">Orthopedic register </span>
+                    <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
+                        <span class="title">Rehabilitation services</span>
                     </a>
                 </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/orthopedic/services')}}" class="nav-link ">
+                        <span class="title">Orthopedic services</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/material/support')}}" class="nav-link ">
+                        <span class="title">Material support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/beneficiaries')}}" class="nav-link ">
+                        <span class="title">Beneficiaries  Identification/Registration</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/social/needs')}}" class="nav-link ">
+                        <span class="title">Social needs/Support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('regions')}}" class="nav-link ">
+                        <span class="title">Regions</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('districts')}}" class="nav-link ">
+                        <span class="title">Districts</span>
+                    </a>
+                </li>
+
             </ul>
-        </li>
-        <li class="heading">
-            <h3 class="uppercase">Social rehabilitation</h3>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('social/rehabilitation/clients')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">People with Special Need</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('sr/cases')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Case monitoring</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Material distribution</span>
-            </a>
-        </li>
-        <li class="heading">
-            <h3 class="uppercase">GENERAL REPORTS</h3>
-        </li>
-        <li class="nav-item  ">
-            <a href="{{url('mr/reports')}}" class="nav-link ">
-                <span class="title">Medical rehabilitation Reports </span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('sr/reports')}}" class="nav-link ">
-                <span class="title">Social rehabilitation Reports</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('general/reports')}}" class="nav-link ">
-                <span class="title">General Reports</span>
-            </a>
         </li>
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
@@ -149,7 +196,7 @@
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-user"></i>
+                <i class="icon-users"></i>
                 <span class="title"> Users</span>
                 <span class="arrow"></span>
             </a>
@@ -310,9 +357,7 @@
                         <i class="icon-users font-dark"></i>
                         <span class="caption-subject bold uppercase">Client/Patient list</span>
                     </div>
-                </div>
-                <div class="table-toolbar">
-                    <div class="row">
+                    <div class="table-toolbar">
                         <div class="col-md-8 pull-right">
                             <div class="btn-group pull-right">
                                 <a href="{{url('referrals/request')}}" class="btn blue-madison"><i class="fa fa-file"></i> Referral Request</a>
@@ -323,20 +368,19 @@
 
                     </div>
                 </div>
-            </div>
+
                 <div class="portlet-body" >
                     <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
                         <thead>
                         <tr>
                             <th> SNO </th>
-                            <th> Reg No</th>
-                            <th> First Name </th>
-                            <th> Last Name </th>
-                            <th> Other Name </th>
+                            <th> File number  </th>
+                            <th> Full Name </th>
                             <th> Sex </th>
                             <th> Age </th>
-                            <th> Camp </th>
-                            <th> Centre </th>
+                            <th>Nationality </th>
+                            <th>Service Centre </th>
+                            <th> Address </th>
                             <th class="text-center"> Referral form </th>
                         </tr>
                         </thead>
@@ -347,16 +391,10 @@
                                 <tr class="odd gradeX">
                                     <td> {{$count++}} </td>
                                     <td>
-                                        {{$client->reg_no}}
+                                        {{$client->file_number}}
                                     </td>
                                     <td>
-                                        {{$client->first_name	}}
-                                    </td>
-                                    <td>
-                                        {{$client->last_name}}
-                                    </td>
-                                    <td>
-                                        {{$client->middle_name}}
+                                        {{$client->full_name}}
                                     </td>
                                     <td>
                                         {{$client->sex}}
@@ -365,17 +403,19 @@
                                         {{$client->age}}
                                     </td>
                                     <td>
-                                        @if(is_object($client->camp)&& $client->camp_id !="" && $client->camp !="" && $client->camp !=null )
-                                            {{$client->camp->camp_name}}
+                                        {{$client->nationality}}
+                                    </td>
+
+                                    <td>
+                                        @if($client->centre != null && is_object($client->centre))
+                                            {{$client->centre->centre_name}}
                                         @endif
                                     </td>
                                     <td>
-                                        @if(is_object($client->centre)&& $client->center_id !="" && $client->centre !="" && $client->centre !=null )
-                                        {{$client->centre->centre_name}}
-                                        @endif
+                                        {{$client->address}}
                                     </td>
                                     <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('referrals/create')}}/{{$client->id}}" > <i class="fa fa-file"></i> </a>
+                                        <a href="{{url('referrals/create')}}/{{$client->id}}" > <i class="fa fa-file"></i> Open Form </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -385,6 +425,8 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->
         </div>

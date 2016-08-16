@@ -22,7 +22,16 @@ class ClientAssessmentController extends Controller
     public function index()
     {
         //
+        $assessments=ClientAssessment::all();
+        return view('clients.assessment.index',compact('assessments'));
     }
+    public function getClientAssessments($id)
+    {
+        //
+        $assessments=ClientAssessment::where('client_id','=',$id)->get();
+        return view('clients.assessment.index',compact('assessments'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -109,7 +118,13 @@ class ClientAssessmentController extends Controller
         $client->status=$request->status;
         $client->save();
 
-        return  redirect('clients');
+        if(strtolower($client->status) =="disabled")
+        {
+            return redirect('disabilities/clients/show/'.$client->id);
+        }
+        else {
+            return redirect('assessment');
+        }
     }
 
     /**
@@ -121,6 +136,25 @@ class ClientAssessmentController extends Controller
     public function show($id)
     {
         //
+        $assessment=ClientAssessment::find($id);
+        return view('clients.assessment.show',compact('assessment'));
+    }
+
+    public function printForm($id)
+    {
+        //
+        $assessment=ClientAssessment::find($id);
+        return view('clients.assessment.print',compact('assessment'));
+    }
+    public function downloadForm($id)
+    {
+        //
+        $assessment=ClientAssessment::find($id);
+        $fo = 'This form is applicable for identification of functional needs of PWDs/PSNs according to the components <br/>of the Global CBR matrix ( Health , Education ,  Livelihood , social and Empowerment ).';
+        $pdf = \PDF::loadView('clients.assessment.print', compact('assessment'))
+                            ->setOption('footer-right', 'Page [page]')
+                            ->setOption('page-offset', 0);
+        return $pdf->download('clientAssessment.pdf');
     }
 
     /**
@@ -132,6 +166,15 @@ class ClientAssessmentController extends Controller
     public function edit($id)
     {
         //
+        $client=Client::find($id);
+        if(is_object($client->assessment) && $client->assessment !=null && $client->assessment !="" )
+        {
+            return view('clients.assessment.edit',compact('client'));
+        }
+        else
+        {
+            return view('clients.assessment.create',compact('client'));
+        }
     }
 
     /**
@@ -167,8 +210,13 @@ class ClientAssessmentController extends Controller
         $client=Client::find($request->client_id);
         $client->status=$request->status;
         $client->save();
-
-        return  redirect('clients');
+        if(strtolower($client->status) =="disabled")
+        {
+            return redirect('disabilities/clients/show/'.$client->id);
+        }
+        else {
+            return redirect('assessment');
+        }
     }
 
     /**
@@ -180,10 +228,7 @@ class ClientAssessmentController extends Controller
     public function destroy($id)
     {
         //
-        $client=Client::find($id);
-        if(is_object($client->assessment) && $client->assessment !=null && $client->assessment !="" )
-        {
-            $client->assessment->delete();
-        }
+        $assessment= ClientAssessment::find($id);
+        $assessment->delete();
     }
 }

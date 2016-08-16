@@ -84,6 +84,16 @@ class ClientReferralController extends Controller
         $referral= ClientReferral::find($id);
         return view('clients.referral.show',compact('referral'));
     }
+    public function download($id)
+    {
+        //
+        $referral= ClientReferral::find($id);
+        $pdf = \PDF::loadView('clients.referral.show', compact('referral'))
+            ->setOption('footer-right', 'Page [page]')
+            ->setOption('page-offset', 0);
+        return $pdf->download('clientReferralForm.pdf');
+    }
+
 
     /**
      * Show the form for editing the specified resource.

@@ -38,7 +38,7 @@ Route::group(['middleware' => ['web']], function () {
 
     
     //Assessment roam
-    Route::get('assessment/roam','ClientController@index');
+    Route::get('assessment/roam','ClientAssessmentController@index');
 
     //rehabilitation services progress
     Route::get('rehabilitation/services/progress','RehabilitationProgressController@index');
@@ -138,12 +138,17 @@ Route::group(['middleware' => ['web']], function () {
 
 
     //Assessments
+    Route::get('assessment/{id}','ClientAssessmentController@getClientAssessments');
+    Route::get('assessment','ClientAssessmentController@index');
     Route::get('assessment/client/{id}','ClientAssessmentController@newUserCreate');
     Route::post('assessment/client/','ClientAssessmentController@postNewUserCreate');
     Route::post('assessment/create','ClientAssessmentController@store');
     Route::get('assessment/create/{id}','ClientAssessmentController@create');
     Route::get('assessment/edit/{id}','ClientAssessmentController@edit');
     Route::post('assessment/edit','ClientAssessmentController@update');
+    Route::get('assessment/download/{id}','ClientAssessmentController@downloadForm');
+    Route::get('assessment/show/{id}','ClientAssessmentController@show');
+    Route::get('assessment/print/{id}','ClientAssessmentController@printForm');
     Route::get('assessment/remove/{id}','ClientAssessmentController@destroy');
 
 
@@ -152,11 +157,15 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('referrals/request','ClientReferralController@referralRequest');
     Route::get('referrals/create/{id}','ClientReferralController@create');
     Route::post('referrals/create/','ClientReferralController@store');
+    Route::get('referrals/print/{id}','ClientReferralController@show');
+    Route::get('referrals/download/{id}','ClientReferralController@download');
+    Route::get('referrals/show/{id}','ClientReferralController@show');
     Route::get('referrals/edit/{id}','ClientReferralController@edit');
     Route::post('referrals/edit','ClientReferralController@update');
     Route::get('referrals/reports','ClientReferralController@reports');
     Route::get('referrals/remove/{id}','ClientReferralController@destroy');
     Route::post('referrals/Search','ClientReferralController@GetClientList');
+    
 
     //Disabilities 
     Route::get('disabilities','DisabilityController@index');
