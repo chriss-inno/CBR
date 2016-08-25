@@ -16,35 +16,49 @@
             </a>
 
         </li>
-
-        <li class="nav-item ">
-            <a href="{{url('assessment/roam')}}" class="nav-link nav-toggle">
-                <i class="fa fa-building-o fa-2x"></i>
-                <span class="title">Assessment roam</span>
-                <span class="selected"></span>
-            </a>
-        </li>
-        <li class="nav-item ">
+        <li class="nav-item start active open">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-puzzle"></i>
-                <span class="title"> Rehabilitation services </span>
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Clients</span>
                 <span class="arrow"></span>
-                <span class="selected"></span>
             </a>
             <ul class="sub-menu">
+
                 <li class="nav-item active ">
-                    <a href="{{url('rehabilitation/services')}}" class="nav-link ">
-                        <span class="title">Rehabilitation register </span>
+                    <a href="{{url('clients')}}" class="nav-link ">
+                        <span class="title">View All Clients</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('rehabilitation/services/progress')}}" class="nav-link ">
-                        <span class="title">Progress monitoring  </span>
+                    <a href="{{url('excel/export/clients')}}" class="nav-link ">
+                        <span class="title">Export Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/import/clients')}}" class="nav-link ">
+                        <span class="title">Import Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('referrals/request')}}" class="nav-link ">
+                        <span class="title">Client Referral</span>
                     </a>
                 </li>
             </ul>
         </li>
-        <li class="nav-item start active open ">
+        <li class="nav-item ">
+            <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Rehabilitation services</span>
+            </a>
+
+        </li>
+        <li class="nav-item ">
             <a href="{{url('orthopedic/services')}}" class="nav-link nav-toggle">
                 <i class="fa fa-cogs fa-2x"></i>
                 <span class="title">Orthopedic services</span>
