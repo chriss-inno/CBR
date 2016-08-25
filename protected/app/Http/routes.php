@@ -135,6 +135,17 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('details/summary/clients/{id}','ClientController@showSummary');
     Route::get('progress/monitoring','ClientController@index');
     Route::get('progress/assessment','ClientController@index');
+    
+    //LiveliHood
+    
+     //Clients
+    Route::resource('livelihood/clients','LiveHoodClientController');
+    Route::get('excel/livelihood/clients','LiveHoodClientController@showImport');
+    Route::post('excel/livelihood/clients','LiveHoodClientController@postImport');
+    
+    //Groups
+     Route::resource('livelihood/groups','LiveHoodGroupController');
+
 
 
     //Assessments
