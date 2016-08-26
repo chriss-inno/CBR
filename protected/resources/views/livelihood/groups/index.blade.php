@@ -264,8 +264,8 @@
     {!! Html::script("assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" ) !!}
 @stop
 @section('page-scripts-level2')
-    {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
-    {!! Html::script("assets/pages/scripts/ui-confirmations.min.js" ) !!}
+    {!! Html::script("assets/pages/scripts/table-datatables-managed.js" ) !!}
+    {!! Html::script("assets/pages/scripts/ui-confirmations.js" ) !!}
 
 @stop
 @section('custom-scripts')
@@ -318,7 +318,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("livelihood/groups/clients/") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("livelihood/groups") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -330,7 +330,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Beneficiaries register</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Group Details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -355,7 +355,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i>Group Details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -443,7 +443,6 @@
                         <th> Registration Date </th>
                         <th> Phone </th>
                         <th> Nationality </th>
-                        <th class="text-center"> More details </th>
                         <th class="text-center"> Action </th>
                     </tr>
                     </thead>

@@ -14,8 +14,8 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Date of registration</label>
-                            <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d" value="{{$client->registration_date}}">
-                                <input type="text" class="form-control" name="registration_date" id="registration_date" readonly>
+                            <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d" >
+                                <input type="text" class="form-control" name="registration_date" id="registration_date" readonly value="{{$client->registration_date}}">
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
                                                                 <i class="fa fa-calendar"></i>
@@ -67,7 +67,16 @@
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Group</label>
-                            <input type="text" class="form-control" name="group" id="group" value="{{$client->group}}">
+                            <select name="group" id="group" class="form-control">
+
+                                @if($client->group != "")
+                                    <option value="{{$client->group}}" selected>{{$client->group}}</option>
+                                @endif
+                                <option value="">--None--</option>
+                                @foreach(\App\LiveliHoodsGroup::orderBy('group_name','ASC')->get() as $lg )
+                                    <option value="{{$lg->group_name}}">{{$lg->group_name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Zone</label>
@@ -84,7 +93,7 @@
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Phone Number</label>
-                            <input type="text" class="form-control" name="phone" id="phone">
+                            <input type="text" class="form-control" name="phone" id="phone" value="{{$client->phone}}">
 
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">

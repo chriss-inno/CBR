@@ -15,13 +15,11 @@ class CreateLiveliHoodsGroupsTable extends Migration
         Schema::create('liveli_hoods_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('group_name');
-            $table->string('category');
-            $table->string('position');
-            $table->string('group');
-            $table->string('zone');
-            $table->string('activity');
-            $table->string('donor');
-            $table->string('registration_date');
+            $table->string('category')->nullable();
+            $table->string('zone')->nullable();
+            $table->string('activity')->nullable();
+            $table->string('donor')->nullable();
+            $table->string('registration_date')->nullable();
             $table->string('phone');
             $table->string('nationality');
             $table->timestamps();

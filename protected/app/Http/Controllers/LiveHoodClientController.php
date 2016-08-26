@@ -54,23 +54,30 @@ class livehoodClientController extends Controller
     public function store(Request $request)
     {
         //
-        $client=new LiveliHoodsClient;
-        $client->progress_number=$request->progress_number;
-        $client->full_name=$request->full_name;
-        $client->sex=$request->sex;
-        $client->age=$request->age;
-        $client->category=$request->category;
-        $client->position=$request->position;
-        $client->group=$request->group;
-        $client->zone=$request->zone;
-        $client->activity=$request->activity;
-        $client->donor=$request->donor;
-        $client->registration_date=$request->registration_date;
-        $client->phone=$request->phone;
-        $client->nationality=$request->nationality;
-        $client->save();
+        if(!count(LiveliHoodsClient::where('progress_number','=',$request->progress_number)->get()) > 0) {
 
-        return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
+            return "<span class='text-danger'><i class='fa-info'></i>Save failed: Progress number [".$request->progress_number."] was not available in beneficiary list </span>";
+
+        }
+        else {
+            $client = new LiveliHoodsClient;
+            $client->progress_number = $request->progress_number;
+            $client->full_name = $request->full_name;
+            $client->sex = $request->sex;
+            $client->age = $request->age;
+            $client->category = $request->category;
+            $client->position = $request->position;
+            $client->group = $request->group;
+            $client->zone = $request->zone;
+            $client->activity = $request->activity;
+            $client->donor = $request->donor;
+            $client->registration_date = $request->registration_date;
+            $client->phone = $request->phone;
+            $client->nationality = $request->nationality;
+            $client->save();
+
+            return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
+        }
     }
 
     /**
@@ -110,16 +117,16 @@ class livehoodClientController extends Controller
                 \DB::table('dump_assessments')->truncate();
                 $results->each(function($row) {
 
-                    $age=date("Y")-date("Y",strtotime($row->date_of_birth));
-                    if(count(LiveliHoodsClient::where('file_number','=',$row->file_number)->get()) >0 && Client::where('file_number','=',$row->file_number)->get() != null)
+                    if(!count(LiveliHoodsClient::where('progress_number','=',$row->progress_number)->get()) >0 && Client::where('file_number','=',$row->progress_number)->get() != null)
                     {
                         //Save in dump
+                        $this->error_found="error occured";
                     }
                     else
                     {
 
                         $camp_name="";
-                        $groups=LiveliHoodsGroup::where('group_name','=',ucwords(strtolower($row->camp_name)))->get()->first();
+                        $groups=LiveliHoodsGroup::where('group_name','=',ucwords(strtolower($row->group)))->get()->first();
                         if(count($groups) >0 && $groups != null)
                         {
                             $camp_name=$groups->group_name;
@@ -129,8 +136,6 @@ class livehoodClientController extends Controller
                            $groups= new LiveliHoodsGroup;
                            $groups->group_name=ucwords(strtolower($row->group));
                            $groups->category=$row->category;
-                           $groups->position=$row->position;
-                           $groups->group=$row->group;
                            $groups->zone=$row->zone;
                            $groups->activity=$row->activity;
                            $groups->donor=$row->donor;
@@ -138,12 +143,14 @@ class livehoodClientController extends Controller
                            $groups->phone=$row->phone;
                            $groups->nationality=$row->nationality;
                            $groups->save();
+
+                           $camp_name=$groups->group_name;
                         }
 
                        
                         $client=new LiveliHoodsClient;
                         $client->full_name=$row->full_name;
-                        $client->sex=$row->sex;
+                        $client->sex=$row->gender;
                         $client->age=$row->age;
                         $client->category=$row->category;
                         $client->position=$row->position;
@@ -166,7 +173,7 @@ class livehoodClientController extends Controller
 
             if($this->error_found != "")
             {
-                return  redirect()->back();
+                return  redirect()->back()->with('error',$this->error_found);
             }
             else
             {
@@ -203,23 +210,30 @@ class livehoodClientController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $client=LiveliHoodsClient::find($id);
-        $client->full_name=$request->full_name;
-        $client->sex=$request->sex;
-        $client->age=$request->age;
-        $client->category=$request->category;
-        $client->position=$request->position;
-        $client->group=$request->group;
-        $client->zone=$request->zone;
-        $client->activity=$request->activity;
-        $client->donor=$request->donor;
-        $client->registration_date=$request->registration_date;
-        $client->progress_number=$request->progress_number;
-        $client->phone=$request->phone;
-        $client->nationality=$request->nationality;
-        $client->save();
+        if(!count(LiveliHoodsClient::where('progress_number','=',$request->progress_number)->get()) > 0) {
 
-        return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
+            return "<span class='text-danger'><i class='fa-info'></i>Save failed: Progress number [".$request->progress_number."] was not available in beneficiary list </span>";
+
+        }
+        else {
+            $client = LiveliHoodsClient::find($id);
+            $client->full_name = $request->full_name;
+            $client->sex = $request->sex;
+            $client->age = $request->age;
+            $client->category = $request->category;
+            $client->position = $request->position;
+            $client->group = $request->group;
+            $client->zone = $request->zone;
+            $client->activity = $request->activity;
+            $client->donor = $request->donor;
+            $client->registration_date = $request->registration_date;
+            $client->progress_number = $request->progress_number;
+            $client->phone = $request->phone;
+            $client->nationality = $request->nationality;
+            $client->save();
+
+            return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
+        }
     }
 
     /**

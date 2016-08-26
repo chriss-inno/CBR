@@ -51,7 +51,7 @@ var TableDatatablesManaged = function () {
                 [5, 15, 20, "All"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 5,            
+            "pageLength": 5,
             "pagingType": "bootstrap_full_number",
             "columnDefs": [{  // set default column settings
                 'orderable': false,
@@ -60,9 +60,8 @@ var TableDatatablesManaged = function () {
                 "searchable": false,
                 "targets": [0]
             }],
-            "order": [
-                [1, "asc"]
-            ] // set first column as a default sort by asc
+            "order":false
+             // set first column as a default sort by asc
         });
 
         var tableWrapper = jQuery('#sample_1_wrapper');

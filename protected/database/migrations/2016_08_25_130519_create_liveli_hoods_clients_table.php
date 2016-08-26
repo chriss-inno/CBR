@@ -16,17 +16,17 @@ class CreateLiveliHoodsClientsTable extends Migration
             $table->increments('id');
             $table->string('progress_number');
             $table->string('full_name');
-            $table->string('sex');
-            $table->string('age');
-            $table->string('category');
-            $table->string('position');
-            $table->string('group');
-            $table->string('zone');
-            $table->string('activity');
-            $table->string('donor');
-            $table->string('registration_date');
-            $table->string('phone');
-            $table->string('nationality');
+            $table->string('sex')->nullable();
+            $table->string('age')->nullable();
+            $table->string('category')->nullable();
+            $table->string('position')->nullable();
+            $table->string('group')->nullable();
+            $table->string('zone')->nullable();
+            $table->string('activity')->nullable();
+            $table->string('donor')->nullable();
+            $table->date('registration_date')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('nationality')->nullable();
             $table->timestamps();
         });
     }

@@ -1768,16 +1768,16 @@ Custom color buttons
 
 .btn.blue-madison:not(.btn-outline) {
   color: #FFFFFF;
-  background-color: #578ebe;
-  border-color: #578ebe; }
+  background-color: #F8C42A;
+  border-color: #F8C42A; }
   .btn.blue-madison:not(.btn-outline):focus, .btn.blue-madison:not(.btn-outline).focus {
     color: #FFFFFF;
-    background-color: #3f74a3;
-    border-color: #2a4d6c; }
+    background-color:##231F20;
+    border-color: #231F20; }
   .btn.blue-madison:not(.btn-outline):hover {
     color: #FFFFFF;
-    background-color: #3f74a3;
-    border-color: #3c6f9c; }
+    background-color: #231F20;
+    border-color: #231F20; }
   .btn.blue-madison:not(.btn-outline):active, .btn.blue-madison:not(.btn-outline).active,
   .open > .btn.blue-madison:not(.btn-outline).dropdown-toggle {
     color: #FFFFFF;
@@ -1788,8 +1788,8 @@ Custom color buttons
     .open > .btn.blue-madison:not(.btn-outline).dropdown-toggle:focus,
     .open > .btn.blue-madison:not(.btn-outline).dropdown-toggle.focus {
       color: #FFFFFF;
-      background-color: #356289;
-      border-color: #2a4d6c; }
+      background-color: #F8C42A;
+      border-color: #F8C42A; }
   .btn.blue-madison:not(.btn-outline):active, .btn.blue-madison:not(.btn-outline).active,
   .open > .btn.blue-madison:not(.btn-outline).dropdown-toggle {
     background-image: none; }
@@ -2053,12 +2053,12 @@ Custom color buttons
   color: #4c87b9;
   background: none; }
   .btn.btn-outline.blue-soft:hover, .btn.btn-outline.blue-soft:active, .btn.btn-outline.blue-soft:active:hover, .btn.btn-outline.blue-soft:active:focus, .btn.btn-outline.blue-soft:focus, .btn.btn-outline.blue-soft.active {
-    border-color: #4c87b9;
+    border-color: #F8C42A;
     color: #FFFFFF;
-    background-color: #4c87b9; }
+    background-color: #F8C42A; }
 
 .btn.blue-soft-stripe {
-  border-left: 4px solid #4c87b9 !important; }
+  border-left: 4px solid #F8C42A !important; }
 
 .btn.blue-dark:not(.btn-outline) {
   color: #FFFFFF;
@@ -2160,28 +2160,28 @@ Custom color buttons
 
 .btn.green:not(.btn-outline) {
   color: #FFFFFF;
-  background-color: #32c5d2;
-  border-color: #32c5d2; }
+  background-color: #F8C42A;
+  border-color: #F8C42A; }
   .btn.green:not(.btn-outline):focus, .btn.green:not(.btn-outline).focus {
     color: #FFFFFF;
-    background-color: #26a1ab;
-    border-color: #18666d; }
+    background-color: #F8C42A;
+    border-color: #F8C42A; }
   .btn.green:not(.btn-outline):hover {
     color: #FFFFFF;
-    background-color: #26a1ab;
-    border-color: #2499a3; }
+    background-color: #F8C42A;
+    border-color: #F8C42A; }
   .btn.green:not(.btn-outline):active, .btn.green:not(.btn-outline).active,
   .open > .btn.green:not(.btn-outline).dropdown-toggle {
     color: #FFFFFF;
-    background-color: #26a1ab;
-    border-color: #2499a3; }
+    background-color: #F8C42A;
+    border-color: #F8C42A; }
     .btn.green:not(.btn-outline):active:hover, .btn.green:not(.btn-outline):active:focus, .btn.green:not(.btn-outline):active.focus, .btn.green:not(.btn-outline).active:hover, .btn.green:not(.btn-outline).active:focus, .btn.green:not(.btn-outline).active.focus,
     .open > .btn.green:not(.btn-outline).dropdown-toggle:hover,
     .open > .btn.green:not(.btn-outline).dropdown-toggle:focus,
     .open > .btn.green:not(.btn-outline).dropdown-toggle.focus {
       color: #FFFFFF;
-      background-color: #1f858e;
-      border-color: #18666d; }
+      background-color: #F8C42A;
+      border-color: #F8C42A; }
   .btn.green:not(.btn-outline):active, .btn.green:not(.btn-outline).active,
   .open > .btn.green:not(.btn-outline).dropdown-toggle {
     background-image: none; }
@@ -2189,15 +2189,15 @@ Custom color buttons
   fieldset[disabled] .btn.green:not(.btn-outline):hover,
   fieldset[disabled] .btn.green:not(.btn-outline):focus,
   fieldset[disabled] .btn.green:not(.btn-outline).focus {
-    background-color: #32c5d2;
-    border-color: #32c5d2; }
+    background-color: #F8C42A;
+    border-color: #F8C42A; }
   .btn.green:not(.btn-outline) .badge {
-    color: #32c5d2;
+    color: #F8C42A;
     background-color: #FFFFFF; }
 
 .btn.btn-outline.green {
-  border-color: #32c5d2;
-  color: #32c5d2;
+  border-color: #F8C42A;
+  color: #F8C42A;
   background: none; }
   .btn.btn-outline.green:hover, .btn.btn-outline.green:active, .btn.btn-outline.green:active:hover, .btn.btn-outline.green:active:focus, .btn.btn-outline.green:focus, .btn.btn-outline.green.active {
     border-color: #32c5d2;

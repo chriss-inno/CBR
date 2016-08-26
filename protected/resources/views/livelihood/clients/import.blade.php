@@ -441,6 +441,13 @@
                     <div class="portlet light bordered">
                         <div class="portlet-body form">
                             {!! Form::open(array('url'=>'excel/livelihood/clients','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
+                            @if(Session::has('error'))
+                                <div class="alert fade in alert-danger">
+                                    <i class="icon-remove close" data-dismiss="alert"></i>
+                                    {{Session::get('error')}}
+                                </div>
+                            @endif
+
                             <div class="form-body">
                                 <div class="form-group">
                                     <label>Import details from MS Excel <a href={{asset("assets/templates/livehood_client_registration.xls")}}> Download template here</a> </label>

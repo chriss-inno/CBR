@@ -142,9 +142,14 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('livelihood/clients','LiveHoodClientController');
     Route::get('excel/livelihood/clients','LiveHoodClientController@showImport');
     Route::post('excel/livelihood/clients','LiveHoodClientController@postImport');
+    Route::get('remove/livelihood/clients/{id}','LiveHoodClientController@destroy');
+
     
     //Groups
      Route::resource('livelihood/groups','LiveHoodGroupController');
+     Route::get('excel/livelihood/groups','LiveHoodClientController@showImport');
+     Route::post('excel/livelihood/groups','LiveHoodClientController@postImport');
+     Route::get('remove/livelihood/groups/{id}','LiveHoodClientController@destroy');
 
 
 

@@ -264,8 +264,8 @@
     {!! Html::script("assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" ) !!}
 @stop
 @section('page-scripts-level2')
-    {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
-    {!! Html::script("assets/pages/scripts/ui-confirmations.min.js" ) !!}
+    {!! Html::script("assets/pages/scripts/table-datatables-managed.js" ) !!}
+    {!! Html::script("assets/pages/scripts/ui-confirmations.js" ) !!}
 
 @stop
 @section('custom-scripts')
@@ -330,7 +330,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Beneficiaries register</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Clients details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -384,7 +384,7 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('livelihood/clients/remove') ?>/"+id1,function(data){
+                $.get("<?php echo url('remove/livelihood/clients') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
@@ -474,8 +474,8 @@
                                     <a href="#" class="showRecord "> <i class="fa fa-eye "></i> View details </a>
                                 </td>
                                 <td class="text-center" id="{{$client->id}}">
-                                    <a href="#" class="editRecord"> <i class="fa fa-edit "></i> Edit </a>
-                                    <a href="#" class="deleteRecord"> <i class="fa fa-trash text-danger "></i> Delete</a>
+                                    <a href="#" class="editRecord btn"> <i class="fa fa-edit "></i> </a>
+                                    <a href="#" class="deleteRecord btn"> <i class="fa fa-trash text-danger "></i> </a>
                                 </td>
                             </tr>
                         @endforeach

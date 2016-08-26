@@ -28,17 +28,17 @@ License: You must have a valid license purchased only from themeforest(the above
     <meta content="" name="author" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     {!! Html::style("assets/global/css/googlefonts.css" ) !!}
-    {!! Html::style("assets/global/plugins/font-awesome/css/font-awesome.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/simple-line-icons/simple-line-icons.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/bootstrap/css/bootstrap.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/font-awesome/css/font-awesome.css" ) !!}
+    {!! Html::style("assets/global/plugins/simple-line-icons/simple-line-icons.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap/css/bootstrap.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css" ) !!}
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     {!! Html::style("assets/global/plugins/select2/css/select2.min.css" ) !!}
     {!! Html::style("assets/global/plugins/select2/css/select2-bootstrap.min.css" ) !!}
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href=" {{ asset("assets/global/css/components.min.css")}}" rel="stylesheet" id="style_components" type="text/css" />
+    <link href=" {{ asset("assets/global/css/components.css")}}" rel="stylesheet" id="style_components" type="text/css" />
     {!! Html::style("assets/global/css/plugins.min.css" ) !!}
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN PAGE LEVEL STYLES -->
@@ -62,6 +62,18 @@ License: You must have a valid license purchased only from themeforest(the above
     {!! Form::open(array('url'=>'login','class'=>'login-form','id'=>'login')) !!}
 
         <h3 class="form-title font-green">Sign In</h3>
+    @if($errors->first('username') || $errors->first('password'))
+        <div class="alert fade in alert-danger">
+            <i class="icon-remove close" data-dismiss="alert"></i>
+            Enter any username or password.
+        </div>
+    @endif
+    @if(Session::has('message'))
+        <div class="alert fade in alert-danger">
+            <i class="icon-remove close" data-dismiss="alert"></i>
+            {{Session::get('message')}}
+        </div>
+    @endif
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
             <span> Enter any username and password. </span>

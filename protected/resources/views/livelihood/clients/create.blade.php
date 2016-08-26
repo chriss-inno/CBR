@@ -65,7 +65,12 @@
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Group</label>
-                            <input type="text" class="form-control" name="group" id="group">
+                            <select name="group" id="group" class="form-control">
+                                <option value="">--None--</option>
+                                @foreach(\App\LiveliHoodsGroup::orderBy('group_name','ASC')->get() as $lg )
+                                    <option value="{{$lg->group_name}}">{{$lg->group_name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Zone</label>
@@ -145,11 +150,11 @@
         rules: {
             progress_number: "required",
             full_name: "required",
-            date_registration: "required",
+            registration_date: "required",
             sex: "required",
             age: "required",
-            number_females: "required",
-            number_male: "required",
+            nationality: "required",
+            group: "required",
             category: "required",
             family_size: "required"
         },
@@ -159,8 +164,8 @@
             date_registration: "Please field is required",
             sex: "Please field is required",
             age: "Please field is required",
-            number_females: "Please field is required",
-            number_male: "Please field is required",
+            nationality: "Please field is required",
+            group: "Please field is required",
             category: "Please field is required",
             family_size: "Please field is required"
         },

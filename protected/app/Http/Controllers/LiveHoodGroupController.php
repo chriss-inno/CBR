@@ -49,17 +49,25 @@ class LiveHoodGroupController extends Controller
     public function store(Request $request)
     {
         //
-        $group=new LiveliHoodsGroup;
-        $group->group_name=$request->group_name;
-        $group->category=$request->category;
-        $group->position=$request->position;
-        $group->zone=$request->zone;
-        $group->activity=$request->activity;
-        $group->donor=$request->donor;
-        $group->registration_date=$request->registration_date;
-        $group->phone=$request->phone;
-        $group->nationality=$request->nationality;
-        $group->save();
+        if(!count(LiveliHoodsGroup::where('group_name','=',ucwords(strtolower($request->group_name)))->get()) > 0) {
+
+            return "<span class='text-danger'><i class='fa-info'></i>Save failed: Group Name [".$request->group_name."] was already exist </span>";
+
+        }
+        else {
+            $group = new LiveliHoodsGroup;
+            $group->group_name = $request->group_name;
+            $group->category = $request->category;
+            $group->zone = $request->zone;
+            $group->activity = $request->activity;
+            $group->donor = $request->donor;
+            $group->registration_date = date('Y-m-d', strtotime($request->registration_date));
+            $group->phone = $request->phone;
+            $group->nationality = $request->nationality;
+            $group->save();
+
+            return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
+        }
         
     }
 

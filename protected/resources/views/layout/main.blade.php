@@ -28,22 +28,22 @@ License: You must have a valid license purchased only from themeforest(the above
     <meta content="" name="author" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     {!! Html::style("assets/global/css/googlefonts.css" ) !!}
-    {!! Html::style("assets/global/plugins/font-awesome/css/font-awesome.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/simple-line-icons/simple-line-icons.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/bootstrap/css/bootstrap.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/font-awesome/css/font-awesome.css" ) !!}
+    {!! Html::style("assets/global/plugins/simple-line-icons/simple-line-icons.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap/css/bootstrap.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css" ) !!}
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     @yield('page-style')
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href=" {{ asset("assets/global/css/components.min.css")}}" rel="stylesheet" id="style_components" type="text/css" />
-    {!! Html::style("assets/global/css/plugins.min.css" ) !!}
+    <link href=" {{ asset("assets/global/css/components.css")}}" rel="stylesheet" id="style_components" type="text/css" />
+    {!! Html::style("assets/global/css/plugins.css" ) !!}
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
     {!! Html::style("assets/layouts/layout/css/layout.css" ) !!}
-     <link href="{{ asset("assets/layouts/layout/css/themes/darkblue.min.css")}}" rel="stylesheet" type="text/css" id="style_color" />
-    {!! Html::style("assets/layouts/layout/css/custom.min.css" ) !!}
+     <link href="{{ asset("assets/layouts/layout/css/themes/darkblue.css")}}" rel="stylesheet" type="text/css" id="style_color" />
+    {!! Html::style("assets/layouts/layout/css/custom.css" ) !!}
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="{{ asset("favicon.ico") }}" /> </head>
 <!-- END HEAD -->
