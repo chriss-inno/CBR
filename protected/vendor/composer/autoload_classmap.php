@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Absolute_Positioner' => $vendorDir . '/dompdf/dompdf/include/absolute_positioner.cls.php',
     'Abstract_Renderer' => $vendorDir . '/dompdf/dompdf/include/abstract_renderer.cls.php',
+    'AddAddressAndNationality2Beneficiaries' => $baseDir . '/database/migrations/2016_08_26_155203_addAddressAndNationality2Beneficiaries.php',
     'AddBeneficiaryId' => $baseDir . '/database/migrations/2016_07_18_133122_addBeneficiaryId.php',
     'AddClientDisabilityFields' => $baseDir . '/database/migrations/2016_07_21_065338_add_client_disability_fields.php',
     'AddClientRegisteredDate' => $baseDir . '/database/migrations/2016_07_20_093411_add_client_registered_date.php',

@@ -401,9 +401,13 @@
                         <th> SNO </th>
                         <th> Progress number </th>
                         <th> Full Name</th>
-                        <th> Date of registration </th>
+                        <th> Age (Year)</th>
                         <th> Sex </th>
-                        <th> More details </th>
+                        <th> Category </th>
+                        <th> Code </th>
+                        <th> Address </th>
+                        <th> Nationality </th>
+                        <th> Details </th>
                         <th class="text-center"> Action </th>
                     </tr>
                     </thead>
@@ -420,17 +424,29 @@
                                     <?php echo $beneficiary->full_name; ?>
                                 </td>
                                 <td>
-                                    <?php echo $beneficiary->date_registration; ?>
+                                    <?php echo $beneficiary->age; ?>
                                 </td>
                                 <td>
                                     <?php echo $beneficiary->sex; ?>
                                 </td>
-                                <td class="text-center" id="{{$beneficiary->id}}">
-                                    <a href="#" class="showRecord "> <i class="fa fa-eye "></i> View details </a>
+                                <td>
+                                    <?php echo $beneficiary->category; ?>
+                                </td>
+                                <td>
+                                    <?php echo $beneficiary->code; ?>
+                                </td>
+                                <td>
+                                    <?php echo $beneficiary->address; ?>
+                                </td>
+                                <td>
+                                    <?php echo $beneficiary->nationality; ?>
                                 </td>
                                 <td class="text-center" id="{{$beneficiary->id}}">
-                                    <a href="#" class="editRecord"> <i class="fa fa-edit "></i> Edit </a>
-                                    <a href="#" class="deleteRecord"> <i class="fa fa-trash text-danger "></i> Delete</a>
+                                    <a href="#" class="showRecord " title="View details"> <i class="fa fa-eye "></i>  </a>
+                                </td>
+                                <td class="text-center" id="{{$beneficiary->id}}">
+                                    <a href="#" class="editRecord btn" title="Edit"> <i class="fa fa-edit "></i>  </a>
+                                    <a href="#" class="deleteRecord btn" t> <i class="fa fa-trash text-danger "></i> </a>
                                 </td>
                             </tr>
                         @endforeach

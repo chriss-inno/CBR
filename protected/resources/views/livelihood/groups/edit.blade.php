@@ -7,16 +7,15 @@
 {!! Html::script("assets/tinymce/js/tinymce/tinymce.min.js") !!}
 <script>tinymce.init({ selector:'textarea' });</script>
 <div class="portlet light bordered">
-    <div class="portlet-body form">
         {!! Form::model($group, array('route' => array('livelihood.groups.update', $group->id), 'method' => 'PUT','role'=>'form','id'=>'DepartmentFormUN')) !!}
         <div class="form-body">
-            <div class="form-group" id="itemsdispatch">
+
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Date of registration</label>
-                            <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d" value="{{$group->registration_date}}">
-                                <input type="text" class="form-control" name="registration_date" id="registration_date" readonly>
+                            <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d" >
+                                <input type="text" class="form-control" name="registration_date" id="registration_date" readonly value="{{$group->registration_date}}">
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
                                                                 <i class="fa fa-calendar"></i>
@@ -41,7 +40,6 @@
                             <label>Zone</label>
                             <input type="text" class="form-control" name="zone" id="zone" value="{{$group->zone}}">
                     </div>
-                </div>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
@@ -50,7 +48,7 @@
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Phone Number</label>
-                            <input type="text" class="form-control" name="phone" id="phone">
+                            <input type="text" class="form-control" name="phone" id="phone" value="{{$group->phone}}">
 
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
@@ -72,8 +70,6 @@
                     <label>Donor</label>
                     <input type="text" class="form-control" name="donor" id="donor" value="{{$group->donor}}">
                 </div>
-
-            </div>
         </div>
         <div class="form-actions">
             <div class="row">
@@ -89,7 +85,6 @@
         </div>
 
         {!! Form::close() !!}
-    </div>
 </div>
 <!-- END SAMPLE FORM PORTLET-->
 {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
@@ -114,26 +109,16 @@
     });
     $("#DepartmentFormUN").validate({
         rules: {
-            progress_number: "required",
-            full_name: "required",
-            date_registration: "required",
-            sex: "required",
-            age: "required",
-            number_females: "required",
-            number_male: "required",
-            category: "required",
-            family_size: "required"
+            group_name: "required",
+            activity: "required",
+            registration_date: "required",
+            nationality: "required"
         },
         messages: {
-            attendance_date: "Please field is required",
-            full_name: "Please field is required",
-            date_registration: "Please field is required",
-            sex: "Please field is required",
-            age: "Please field is required",
-            number_females: "Please field is required",
-            number_male: "Please field is required",
-            category: "Please field is required",
-            family_size: "Please field is required"
+            group_name: "Please field is required",
+            activity: "Please field is required",
+            registration_date: "Please field is required",
+            nationality: "Please field is required"
         },
         submitHandler: function(form) {
             $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");

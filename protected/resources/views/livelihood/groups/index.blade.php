@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-   Groups
+    Groups
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -100,12 +100,12 @@
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('livelihood/clients')}}" class="nav-link ">
                         <span class="title">Clients</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item  active">
                     <a href="{{url('livelihood/groups')}}" class="nav-link ">
                         <span class="title">Groups</span>
                     </a>
@@ -421,10 +421,8 @@
                         <div class="col-md-8 pull-right">
                             <div class="btn-group pull-right">
                                 <a href="#" class="addRecord btn blue-madison"><i class="fa fa-file"></i> Register New</a>
-                                <a href="{{url('livelihood/clients')}}" class="btn blue-madison"><i class="fa fa-server"></i> View all</a>
-                                <a href="{{url('excel/livelihood/clients')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
-                                <a href="{{url('exports/livelihood/clients')}}" class="btn blue-madison"><i class="fa fa-database"></i> Export data</a>
-                                <a href="{{url('reports/livelihood/clients')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Reports</a>
+                                <a href="{{url('livelihood/groups')}}" class="btn blue-madison"><i class="fa fa-server"></i> View all</a>
+                                 <a href="{{url('reports/livelihood/clients')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Reports</a>
                             </div>
                         </div>
 
@@ -437,6 +435,7 @@
                     <tr>
                         <th> SNO </th>
                         <th> Group Name</th>
+                        <th> Category </th>
                         <th> Zone </th>
                         <th> Activity </th>
                         <th> Donor </th>
@@ -477,8 +476,8 @@
                                     <?php echo $group->nationality; ?>
                                 </td>
                                 <td class="text-center" id="{{$group->id}}">
-                                    <a href="#" class="editRecord"> <i class="fa fa-edit "></i> Edit </a>
-                                    <a href="#" class="deleteRecord"> <i class="fa fa-trash text-danger "></i> Delete</a>
+                                    <a href="#" class="editRecord btn"> <i class="fa fa-edit "></i>  </a>
+                                    <a href="#" class="deleteRecord btn"> <i class="fa fa-trash text-danger "></i> </a>
                                 </td>
                             </tr>
                         @endforeach

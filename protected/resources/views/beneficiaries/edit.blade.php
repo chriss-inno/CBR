@@ -63,6 +63,26 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
+                        <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
+                            <label>Address</label>
+                            <input type="text" class="form-control" name="address" id="address"  value="{{$beneficiary->address}}">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                            <label>Nationality</label>
+                            <select name="nationality" id="nationality" class="form-control">
+                                <option value="">--Select--</option>
+                                @if($beneficiary->nationality != "")
+                                    <option value="{{$beneficiary->nationality}}" selected>{{$beneficiary->nationality}}</option>
+                                @endif
+                                @foreach(\App\Country::orderBy('country_name','ASC')->get() as $country )
+                                    <option value="{{$country->country_name}}">{{$country->country_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Family size</label>
                             <input type="text" class="form-control" name="family_size" id="family_size" value="{{$beneficiary->family_size}}">

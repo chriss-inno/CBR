@@ -8,9 +8,9 @@
 <script>tinymce.init({ selector:'textarea' });</script>
 <div class="portlet light bordered">
     <div class="portlet-body form">
-        {!! Form::open(array('url'=>'livelihood/clients','role'=>'form','id'=>'DepartmentFormUN')) !!}
+        {!! Form::open(array('url'=>'livelihood/groups','role'=>'form','id'=>'DepartmentFormUN')) !!}
         <div class="form-body">
-            <div class="form-group" id="itemsdispatch">
+            <div class="form-group">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
@@ -23,7 +23,7 @@
                                                             </button>
                                                         </span>
 
-                        </div>
+                            </div>
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
                             <label>Category</label>
@@ -38,9 +38,8 @@
                     <input type="text" class="form-control" name="group_name" id="group_name">
                 </div>
                 <div class="form-group">
-                            <label>Zone</label>
-                            <input type="text" class="form-control" name="zone" id="zone">
-                    </div>
+                    <label>Zone</label>
+                    <input type="text" class="form-control" name="zone" id="zone">
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -54,35 +53,34 @@
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Nationality</label>
-                           <select name="nationality" id="nationality" class="form-control">
-                               <option value="">--Select--</option>
-                               @foreach(\App\Country::orderBy('country_name','ASC')->get() as $country )
-                                   <option value="{{$country->country_name}}">{{$country->country_name}}</option>
-                                   @endforeach
-                           </select>
+                            <select name="nationality" id="nationality" class="form-control">
+                                <option value="">--Select--</option>
+                                @foreach(\App\Country::orderBy('country_name','ASC')->get() as $country )
+                                    <option value="{{$country->country_name}}">{{$country->country_name}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                     </div>
                 </div>
                 <div class="form-group">
-
                     <label>Donor</label>
                     <input type="text" class="form-control" name="donor" id="donor">
                 </div>
-
             </div>
+
         </div>
         <div class="form-actions">
-        <div class="row">
-            <div class="col-md-8 col-sm-8 pull-left" id="output">
+            <div class="row">
+                <div class="col-md-8 col-sm-8 pull-left" id="output">
+
+                </div>
+                <div class="col-md-4 col-sm-4 pull-right text-right">
+                    <button type="button" class="btn btn-danger "  data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save </button>
+                </div>
 
             </div>
-            <div class="col-md-4 col-sm-4 pull-right text-right">
-                <button type="button" class="btn btn-danger "  data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save </button>
-            </div>
-
-        </div>
         </div>
 
         {!! Form::close() !!}
@@ -111,26 +109,16 @@
     });
     $("#DepartmentFormUN").validate({
         rules: {
-            progress_number: "required",
-            full_name: "required",
-            date_registration: "required",
-            sex: "required",
-            age: "required",
-            number_females: "required",
-            number_male: "required",
-            category: "required",
-            family_size: "required"
+            group_name: "required",
+            activity: "required",
+            registration_date: "required",
+            nationality: "required"
         },
         messages: {
-            attendance_date: "Please field is required",
-            full_name: "Please field is required",
-            date_registration: "Please field is required",
-            sex: "Please field is required",
-            age: "Please field is required",
-            number_females: "Please field is required",
-            number_male: "Please field is required",
-            category: "Please field is required",
-            family_size: "Please field is required"
+            group_name: "Please field is required",
+            activity: "Please field is required",
+            registration_date: "Please field is required",
+            nationality: "Please field is required"
         },
         submitHandler: function(form) {
             $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");

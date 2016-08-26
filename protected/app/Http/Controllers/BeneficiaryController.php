@@ -26,9 +26,48 @@ class BeneficiaryController extends Controller
     public function index()
     {
         //
-        $beneficiaries=Beneficiary::all();
+        $beneficiaries=Beneficiary::all()->take(100);
         return view('beneficiaries.index',compact('beneficiaries'));
     }
+
+    //
+    public function getJSonData()
+    {
+        //
+        $beneficiaries=Beneficiary::all();
+        $iTotalRecords =count(Beneficiary::all());
+        $sEcho = intval(10);
+
+        $records = array();
+        $records["data"] = array();
+
+
+        $count=1;
+        foreach($beneficiaries as $beneficiary) {
+
+            $records["data"][] = array(
+                $count++,
+                $beneficiary->progress_number,
+                $beneficiary->full_name,
+                $beneficiary->age,
+                $beneficiary->sex,
+                $beneficiary->category,
+                $beneficiary->code,
+                $beneficiary->address,
+                $beneficiary->nationality,
+                '<span id="'.$beneficiary->id.'"> <a href="#" class="showRecord " title="View details"> <i class="fa fa-eye "></i>  </a></span>',
+                '<span id="'.$beneficiary->id.'">  <a href="#" class="editRecord btn" title="Edit"> <i class="fa fa-edit "></i>  </a> <a href="#" class="deleteRecord btn" title="Delete"> <i class="fa fa-trash text-danger "></i> </a></span>',
+            );
+        }
+
+
+        $records["draw"] = $sEcho;
+        $records["recordsTotal"] = $iTotalRecords;
+        $records["recordsFiltered"] = $iTotalRecords;
+
+        echo json_encode($records);
+    }
+    //
     public function showImport()
     {
         //
@@ -63,12 +102,15 @@ class BeneficiaryController extends Controller
 
 
 
-                        if(count(Beneficiary::where('progress_number','=',$row->progress_number)->get()) > 0 )
+                        if(count(Beneficiary::where('progress_number','=',str_replace(".","",$row->progress_number))->where('progress_number','=',ucwords(strtolower($row->full_name)))->get()) > 0 )
                         {
                             $beneficiary=new DumpBeneficiary;
                             $beneficiary->progress_number = $row->progress_number;
                             $beneficiary->full_name = $row->full_name;
-                            $beneficiary->date_registration = date("Y-m-d",strtotime($row->date_of_registration));
+                            if($row->date_of_registration != "")
+                            {
+                                $beneficiary->date_registration = date("Y-m-d",strtotime($row->date_of_registration));
+                            }
                             $beneficiary->category = $row->category;
                             $beneficiary->code = $row->code;
                             $beneficiary->age = $row->age;
@@ -85,7 +127,10 @@ class BeneficiaryController extends Controller
                             $beneficiary=new DumpBeneficiary;
                             $beneficiary->progress_number = $row->progress_number;
                             $beneficiary->full_name = $row->full_name;
-                            $beneficiary->date_registration = date("Y-m-d",strtotime($row->date_of_registration));
+                            if($row->date_of_registration != "")
+                            {
+                                $beneficiary->date_registration = date("Y-m-d",strtotime($row->date_of_registration)); 
+                            }
                             $beneficiary->category = $row->category;
                             $beneficiary->code = $row->code;
                             $beneficiary->age = $row->age;
@@ -99,17 +144,31 @@ class BeneficiaryController extends Controller
                         }
                         else
                         {
+                           $sex="";
+                            if(strtolower($row->sex) == "f")
+                            {
+                                $sex="Female";  
+                            }
+                            else
+                            {
+                                $sex="Male";
+                            }
                             $beneficiary = new Beneficiary;
-                            $beneficiary->progress_number = $row->progress_number;
-                            $beneficiary->full_name = $row->full_name;
-                            $beneficiary->date_registration = date("Y-m-d",strtotime($row->date_of_registration));
+                            $beneficiary->progress_number = str_replace(".","",$row->progress_number);
+                            $beneficiary->full_name = ucwords(strtolower($row->full_name));
+                            if($row->date_of_registration != "")
+                            {
+                                $beneficiary->date_registration = date("Y-m-d",strtotime($row->date_of_registration));
+                            }
                             $beneficiary->category = $row->category;
                             $beneficiary->code = $row->code;
                             $beneficiary->age = $row->age;
-                            $beneficiary->sex = $row->sex;
+                            $beneficiary->sex =$sex;
                             $beneficiary->family_size = $row->family_size;
                             $beneficiary->number_females = $row->number_of_females;
                             $beneficiary->number_male = $row->number_of_males;
+                            $beneficiary->address = $row->address;
+                            $beneficiary->nationality = ucwords(strtolower($row->nationality));
                             $beneficiary->save();
                         }
                 });
@@ -155,9 +214,9 @@ class BeneficiaryController extends Controller
     public function store(Request $request)
     {
         //
-        if(count(Beneficiary::where('progress_number','=',$request->progress_number)->get()) > 0) {
-
-            return "<span class='text-danger'><i class='fa-info'></i>Save failed: Progress number [".$request->progress_number."] was already used </span>";
+        if(count(Beneficiary::where('progress_number','=',str_replace(".","",$request->progress_number))->where('progress_number','=',ucwords(strtolower($request->full_name)))->get()) > 0 )
+        {
+                return "<span class='text-danger'><i class='fa-info'></i>Save failed: Progress number [".$request->progress_number."] was already used </span>";
 
         }
         else
@@ -173,6 +232,8 @@ class BeneficiaryController extends Controller
             $beneficiary->family_size = $request->family_size;
             $beneficiary->number_females = $request->number_females;
             $beneficiary->number_male = $request->number_male;
+            $beneficiary->address = $request->address;
+            $beneficiary->nationality = ucwords(strtolower($request->nationality));
             $beneficiary->save();
             return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
         }
@@ -225,6 +286,8 @@ class BeneficiaryController extends Controller
         $beneficiary->family_size=$request->family_size;
         $beneficiary->number_females=$request->number_females;
         $beneficiary->number_male=$request->number_male;
+        $beneficiary->address = $request->address;
+        $beneficiary->nationality = ucwords(strtolower($request->nationality));
         $beneficiary->save();
         return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
     }

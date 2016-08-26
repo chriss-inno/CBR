@@ -92,6 +92,12 @@ class livehoodClientController extends Controller
         $client=LiveliHoodsClient::find($id);
         return view('livelihood.clients.show',compact('client'));
     }
+    public function showReports()
+    {
+        //
+        return view('livelihood.reports.index');
+    }
+
     public function showImport()
     {
         //

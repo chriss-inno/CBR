@@ -14,7 +14,7 @@ class CreateBeneficiariesTable extends Migration
     {
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('progress_number')->unique();
+            $table->string('progress_number');
             $table->string('full_name')->nullable();
             $table->date('date_registration')->nullable();
             $table->string('category')->nullable();

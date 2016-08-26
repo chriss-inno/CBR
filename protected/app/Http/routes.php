@@ -83,6 +83,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('beneficiaries/show/{id}','BeneficiaryController@show');
     Route::post('beneficiaries/edit','BeneficiaryController@update');
     Route::get('beneficiaries/remove/{id}','BeneficiaryController@destroy');
+    Route::get('beneficiaries/json','BeneficiaryController@getJSonData');
    
     //Import 
     Route::get('excel/beneficiaries/errors','BeneficiaryController@showImportErrors');
@@ -143,16 +144,15 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('excel/livelihood/clients','LiveHoodClientController@showImport');
     Route::post('excel/livelihood/clients','LiveHoodClientController@postImport');
     Route::get('remove/livelihood/clients/{id}','LiveHoodClientController@destroy');
+    Route::get('reports/livelihood/clients','LiveHoodClientController@showReports');
+    Route::get('livelihood/reports','LiveHoodClientController@showReports');
 
-    
     //Groups
      Route::resource('livelihood/groups','LiveHoodGroupController');
-     Route::get('excel/livelihood/groups','LiveHoodClientController@showImport');
-     Route::post('excel/livelihood/groups','LiveHoodClientController@postImport');
-     Route::get('remove/livelihood/groups/{id}','LiveHoodClientController@destroy');
-
-
-
+     Route::get('excel/livelihood/groups','LiveHoodGroupController@showImport');
+     Route::post('excel/livelihood/groups','LiveHoodGroupController@postImport');
+     Route::get('remove/livelihood/groups/{id}','LiveHoodGroupController@destroy');
+    
     //Assessments
     Route::get('assessment/{id}','ClientAssessmentController@getClientAssessments');
     Route::get('assessment','ClientAssessmentController@index');

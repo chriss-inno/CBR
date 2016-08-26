@@ -366,6 +366,7 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
     public static $classMap = array (
         'Absolute_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/absolute_positioner.cls.php',
         'Abstract_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/abstract_renderer.cls.php',
+        'AddAddressAndNationality2Beneficiaries' => __DIR__ . '/../..' . '/database/migrations/2016_08_26_155203_addAddressAndNationality2Beneficiaries.php',
         'AddBeneficiaryId' => __DIR__ . '/../..' . '/database/migrations/2016_07_18_133122_addBeneficiaryId.php',
         'AddClientDisabilityFields' => __DIR__ . '/../..' . '/database/migrations/2016_07_21_065338_add_client_disability_fields.php',
         'AddClientRegisteredDate' => __DIR__ . '/../..' . '/database/migrations/2016_07_20_093411_add_client_registered_date.php',
