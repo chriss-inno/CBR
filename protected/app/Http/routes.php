@@ -204,12 +204,16 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('general/disabilities/remove/{id}','DisabilityController@destroy');
 
     //Client disabilities
+    
+    Route::get('disabilities/clients/show/{id}','ClientDisabilityController@showRegister');
     Route::get('disabilities','ClientDisabilityController@index');
     Route::get('disabilities/clients','ClientDisabilityController@searchClient');
     Route::get('disabledclients','ClientDisabilityController@getClients');
     Route::post('disabilities/create','ClientDisabilityController@store');
     Route::get('disabilities/create/{id}','ClientDisabilityController@create');
     Route::get('disabilities/edit/{id}','ClientDisabilityController@edit');
+    Route::get('disabilities/print/{id}','ClientDisabilityController@showPrint');
+    Route::get('disabilities/pdf/{id}','ClientDisabilityController@getPdf');
     Route::post('disabilities/edit','ClientDisabilityController@update');
     Route::get('disabilities/show/{id}','ClientDisabilityController@show');
     Route::get('disabilities/remove/{id}','ClientDisabilityController@destroy');

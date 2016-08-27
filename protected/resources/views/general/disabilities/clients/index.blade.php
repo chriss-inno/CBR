@@ -289,7 +289,7 @@
         $(".showRecord").click(function(){
             var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
@@ -429,7 +429,7 @@
                                         {{$disability->category_name}}
                                     </td>
                                     <td class="text-center" id="{{$disability->id}}">
-                                        <a href="#" class="btn"> <i class="fa fa-eye"></i> </a>
+                                        <a href="#" class="showRecord btn"> <i class="fa fa-eye"></i> </a>
                                         <a href="#" class=" btn "> <i class="fa fa-print green " onclick="printPage('{{url('disabilities/print')}}/{{$disability->id}}');" ></i> </a>
                                         <a href="{{url('disabilities/pdf')}}/{{$disability->id}}" class=" btn" title="Delete"> <i class="fa fa-download text-danger "></i> </a>
                                     </td>

@@ -235,6 +235,8 @@
     {!! Html::script("assets/global/plugins/clockface/js/clockface.js"  ) !!}
     {!! Html::script("assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" ) !!}
     {!! Html::script("assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"  ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-summernote/summernote.min.js"  ) !!}
+
     {!! Html::script("assets/global/plugins/ckeditor/ckeditor.js" ) !!}
 @stop
 @section('page-scripts-level2')

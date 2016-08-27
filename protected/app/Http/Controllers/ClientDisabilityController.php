@@ -25,6 +25,13 @@ class ClientDisabilityController extends Controller
         $disabilities=ClientDisability::all();
         return view('general.disabilities.clients.index',compact('disabilities'));
     }
+    public function showRegister($id)
+    {
+        //
+        $client=Client::find($id);
+        return view('general.disabilities.clients.register',compact('client'));
+    }
+
     public function getClients()
     {
         //
@@ -111,8 +118,24 @@ class ClientDisabilityController extends Controller
     public function show($id)
     {
         //
-        $client=Client::find($id);
-        return view('general.disabilities.clients.show',compact('client'));
+        $disability=ClientDisability::find($id);
+        return view('general.disabilities.clients.show',compact('disability'));
+    }
+    public function showPrint($id)
+    {
+        //
+        $disability=ClientDisability::find($id);
+        return view('general.disabilities.clients.pdf',compact('disability'));
+    }
+    public function getPdf($id)
+    {
+        //
+        $disability=ClientDisability::find($id);
+        $fo = 'This form is applicable for identification of functional needs of PWDs/PSNs according to the components <br/>of the Global CBR matrix ( Health , Education ,  Livelihood , social and Empowerment ).';
+        $pdf = \PDF::loadView('general.disabilities.clients.pdf', compact('disability'))
+            ->setOption('footer-right', 'Page [page]')
+            ->setOption('page-offset', 0);
+        return $pdf->download('client_disability_form.pdf');
     }
 
     /**

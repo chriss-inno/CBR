@@ -1,3 +1,10 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title></title>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{asset("assets/global/plugins/bootstrap/css/bootstrap.min.css")}}"  media='all'>
+</head>
+<body>
 <div class="portlet-body form">
     <div class="row">
         <div class="col-md-12 col-xs-12 text-center">
@@ -117,29 +124,24 @@
         <div class="col-md-12 col-xs-12 col-lg-12">
             <table class="table table-bordered">
                 <tbody>
-                <tr>
-                    <th class="col-md-1 col-xs-1 col-lg-1">Name:</th>
-                    <th class="col-md-5 col-xs-5 col-lg-5"></th>
-                    <th class="col-md-1 col-xs-1 col-lg-1">Sign:</th>
-                    <th class="col-md-5 col-xs-5 col-lg-5"></th>
-                </tr>
-                <tr>
-                    <th class="col-md-1 col-xs-1 col-lg-1">Date:</th>
-                    <th class="col-md-11 col-xs-11 col-lg-11" colspan="3"></th>
-                </tr>
-                <tr>
-                    <th class="col-md-1 col-xs-1 col-lg-1">Title:</th>
-                    <th class="col-md-11 col-xs-11 col-lg-11" colspan="3"></th>
-                </tr>
+                   <tr>
+                       <th class="col-md-1 col-xs-1 col-lg-1">Name:</th>
+                       <th class="col-md-5 col-xs-5 col-lg-5"></th>
+                       <th class="col-md-1 col-xs-1 col-lg-1">Sign:</th>
+                       <th class="col-md-5 col-xs-5 col-lg-5"></th>
+                   </tr>
+                   <tr>
+                       <th class="col-md-1 col-xs-1 col-lg-1">Date:</th>
+                       <th class="col-md-11 col-xs-11 col-lg-11" colspan="3"></th>
+                   </tr>
+                   <tr>
+                       <th class="col-md-1 col-xs-1 col-lg-1">Title:</th>
+                       <th class="col-md-11 col-xs-11 col-lg-11" colspan="3"></th>
+                   </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<div class="row">
-
-    <div class="col-md-4 col-sm-4 pull-right text-right">
-        <button type="button" class="btn btn-danger "  data-dismiss="modal">Close</button>
-    </div>
-
-</div>
+</body>
+</html>
