@@ -31,6 +31,47 @@ class SocialNeedController extends Controller
         $needs=SocialNeed::all();
         return view('socialneeds.index',compact('needs'));
     }
+    public function searchBeneficiaries()
+    {
+        //
+        $beneficiaries=Beneficiary::all()->take(10);
+        return view('socialneeds.beneficiaries',compact('beneficiaries'));
+    }
+    public function getJSonData()
+    {
+        //
+        $beneficiaries=Beneficiary::all();
+        $iTotalRecords =count(Beneficiary::all());
+        $sEcho = intval(10);
+
+        $records = array();
+        $records["data"] = array();
+
+
+        $count=1;
+        foreach($beneficiaries as $beneficiary) {
+
+            $records["data"][] = array(
+                $count++,
+                $beneficiary->progress_number,
+                $beneficiary->full_name,
+                $beneficiary->sex,
+                $beneficiary->category,
+                $beneficiary->code,
+                $beneficiary->address,
+                $beneficiary->nationality,
+                '<span id="'.$beneficiary->id.'"> <a href="#" class="addRecord " title="Process form"> <i class="fa fa-file green "> </i> Open </a></span>',
+            );
+        }
+
+
+        $records["draw"] = $sEcho;
+        $records["recordsTotal"] = $iTotalRecords;
+        $records["recordsFiltered"] = $iTotalRecords;
+
+        echo json_encode($records);
+    }
+
     public function showImport()
     {
         //
@@ -121,10 +162,11 @@ class SocialNeedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
-        return view('socialneeds.create');
+        $beneficiary=Beneficiary::find($id);
+        return view('socialneeds.create',compact('beneficiary'));
     }
 
     /**
@@ -164,6 +206,22 @@ class SocialNeedController extends Controller
         //
         $need=SocialNeed::find($id);
         return view('socialneeds.show',compact('need'));
+    }
+    public function showPrint($id)
+    {
+        //
+        $need=SocialNeed::find($id);
+        return view('socialneeds.pdf',compact('need'));
+    }
+    public function getPdf($id)
+    {
+        //
+        $need=SocialNeed::find($id);
+        $fo = 'This form is applicable for identification of functional needs of PWDs/PSNs according to the components <br/>of the Global CBR matrix ( Health , Education ,  Livelihood , social and Empowerment ).';
+        $pdf = \PDF::loadView('socialneeds.pdf', compact('need'))
+            ->setOption('footer-right', 'Page [page]')
+            ->setOption('page-offset', 0);
+        return $pdf->download('client_social_needs.pdf');
     }
 
     /**

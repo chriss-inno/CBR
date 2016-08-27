@@ -90,10 +90,34 @@
 
         </li>
         <li class="nav-item ">
-            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
+            <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-list"></i>
                 <span class="title">Material support</span>
+                <span class="arrow"></span>
             </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('inventory')}}" class="nav-link ">
+                        <span class="title">Inventory</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/groups')}}" class="nav-link ">
+                        <span class="title">Stock In</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('sr/materials')}}" class="nav-link ">
+                        <span class="title">Distribution</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/reports')}}" class="nav-link ">
+                        <span class="title">Reports</span>
+                    </a>
+                </li>
+
+            </ul>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">

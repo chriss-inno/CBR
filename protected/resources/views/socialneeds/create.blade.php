@@ -13,7 +13,7 @@
             <div class="form-group" id="itemsdispatch">
                 <div class="form-group">
                   <label>Progress number</label>
-                   <input type="text" class="form-control" name="progress_number" id="progress_number">
+                   <input type="text" class="form-control" name="progress_number" id="progress_number" value="{{$beneficiary->progress_number}}" readonly>
                 </div>
                 <div class="form-group">
                     <label>Assistance he/she needs</label>
@@ -96,7 +96,7 @@
                                 //data: return data from server
                                 $("#output").html(data);
                                 setTimeout(function() {
-                                    location.reload();
+                                    location.replace("{{url('social/needs')}}");
                                     $("#output").html("");
                                 }, 2000);
                             }

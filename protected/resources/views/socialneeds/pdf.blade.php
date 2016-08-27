@@ -26,7 +26,7 @@
                     COMMUNITY BASED REHABILITATION PROGRAMME (CBR)<br/>
                     PROGRAMME DE REHABILITATION SUR BASE COMMUNAUTAIRE (PRBC)<br/>
                     <br/>
-                   Social Need/Supports Form
+                    Social Need/Supports Form
                 </strong></h4>
         </div>
     </div>
@@ -91,13 +91,13 @@
 
                 <tbody>
                 <tr>
-                    <th colspan="2">Assistance he/she needs:</th>
+                    <th colspan="2" class="col-md-12 col-sm-12 col-xs-12">Assistance he/she needs:</th>
                 </tr>
                 <tr>
                     <td colspan="2"><?php echo $need->assistance; ?></td>
                 </tr>
                 <tr>
-                    <th >Status </th>
+                    <th class="col-md-2 col-sm-2 col-xs-2">Status </th>
                     <td ><?php echo $need->status; ?></td>
                 </tr>
                 </tbody>
@@ -109,14 +109,3 @@
 </div>
 </body>
 </html>
-<div class="form-actions">
-    <div class="row">
-        <div class="col-md-8 col-sm-8 pull-left" id="output">
-
-        </div>
-        <div class="col-md-4 col-sm-4 pull-right text-right">
-            <button type="button" class="btn btn-primary "  data-dismiss="modal">Close</button>
-        </div>
-
-    </div>
-</div>

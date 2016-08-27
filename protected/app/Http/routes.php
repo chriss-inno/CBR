@@ -102,7 +102,11 @@ Route::group(['middleware' => ['web']], function () {
 
     //social/needs
     Route::get('social/needs','SocialNeedController@index');
-    Route::get('social/needs/create','SocialNeedController@create');
+    Route::get('social/needs/beneficiaries','SocialNeedController@searchBeneficiaries');
+    Route::get('social/needs/beneficiariesjson','SocialNeedController@getJSonData');
+    Route::get('social/needs/create/{id}','SocialNeedController@create');
+    Route::get('social/needs/pdf/{id}','SocialNeedController@getPdf');
+    Route::get('social/needs/print/{id}','SocialNeedController@showPrint');
     Route::post('social/needs/create','SocialNeedController@store');
     Route::get('social/needs/edit/{id}','SocialNeedController@edit');
     Route::get('social/needs/show/{id}','SocialNeedController@show');

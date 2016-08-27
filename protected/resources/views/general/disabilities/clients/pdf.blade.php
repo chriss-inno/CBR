@@ -36,13 +36,6 @@
 
                 <tbody>
                 <tr>
-
-
-
-
-
-                </tr>
-                <tr>
                     <th class="col-md-2 col-sm-2 col-xs-2">File Number</th>
                     <td class="col-md-10 col-sm-10 col-xs-10">
                         @if(is_object($disability->client) && $disability->client != null)

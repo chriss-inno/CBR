@@ -13,11 +13,11 @@
             <div class="form-group" id="itemsdispatch">
                 <div class="form-group">
                     <label>Progress number</label>
-                    <input type="text" class="form-control" name="progress_number" id="progress_number" value="{{$need->progress_number}}">
+                    <input type="text" class="form-control" name="progress_number" id="progress_number" value="{{$need->progress_number}}" readonly>
                 </div>
                 <div class="form-group">
                     <label>Assistance he/she needs</label>
-                    <textarea class="form-control" name="assistance" id="assistance">{{$need->progress_number}}</textarea>
+                    <textarea class="form-control" name="assistance" id="assistance">{{$need->assistance}}</textarea>
                 </div>
 
                 <div class="form-group">
