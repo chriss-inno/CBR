@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Client;
 use App\DumpOrthopedicServices;
 use App\OrthopedicServices;
+use App\OrthopedicServicesItems;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -27,16 +28,33 @@ class OrthopedicServicesController extends Controller
         $attendances=OrthopedicServices::all();
         return view('orthopedic.index',compact('attendances'));
     }
+    public function searchClient()
+    {
+        //
+        $clients=Client::all();
+        return view('orthopedic.clients',compact('clients'));
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
-        return view('orthopedic.create');
+        $client=Client::find($id);
+        return view('orthopedic.create',compact('client'));
+    }
+    public function getPdf($id)
+    {
+        //
+        $attendances=OrthopedicServices::find($id);
+        $fo = 'This form is applicable for identification of functional needs of PWDs/PSNs according to the components <br/>of the Global CBR matrix ( Health , Education ,  Livelihood , social and Empowerment ).';
+        $pdf = \PDF::loadView('orthopedic.pdf', compact('attendances'))
+            ->setOption('footer-right', 'Page [page]')
+            ->setOption('page-offset', 0);
+        return $pdf->download('client_orthopedic_register.pdf');
     }
 
     public function showImport()
@@ -151,19 +169,23 @@ class OrthopedicServicesController extends Controller
         //
         if(count(Client::where('file_number','=',$request->file_no)->get()) > 0 )
         {
+            $attendances = new OrthopedicServices;
+            $attendances->attendance_date = $request->attendance_date;
+            $attendances->file_no = $request->file_no;
+            $attendances->diagnosis = $request->diagnosis;
+            $attendances->save();
+
             if(count($request->service_received) >0 && $request->service_received != null) {
                 $qcount = 0;
                 foreach ($request->service_received as $serv) {
                     if($serv != "" && $request->quantity[$qcount] != "" &&  $request->item_serviced[$qcount] !="")
                     {
-                        $attendances = new OrthopedicServices;
-                        $attendances->attendance_date = $request->attendance_date;
-                        $attendances->file_no = $request->file_no;
-                        $attendances->diagnosis = $request->diagnosis;
-                        $attendances->service_received = $serv;
-                        $attendances->item_serviced = $request->item_serviced[$qcount];
-                        $attendances->quantity = $request->quantity[$qcount];
-                        $attendances->save();
+                        $items = new OrthopedicServicesItems();
+                        $items->service_received = $serv;
+                        $items->item_serviced = $request->item_serviced[$qcount];
+                        $items->quantity = $request->quantity[$qcount];
+                        $items->ors_id= $attendances->id;
+                        $items->save();
                     }
                     $qcount++;
                 }
@@ -186,8 +208,14 @@ class OrthopedicServicesController extends Controller
     public function show($id)
     {
         //
-        $attendance=OrthopedicServices::find($id);
-        return view('orthopedic.show',compact('attendance'));
+        $attendances=OrthopedicServices::find($id);
+        return view('orthopedic.show',compact('attendances'));
+    }
+    public function showPrint($id)
+    {
+        //
+        $attendances=OrthopedicServices::find($id);
+        return view('orthopedic.pdf',compact('attendances'));
     }
 
     /**
@@ -220,10 +248,31 @@ class OrthopedicServicesController extends Controller
              $attendance->attendance_date = $request->attendance_date;
              $attendance->file_no = $request->file_no;
              $attendance->diagnosis = $request->diagnosis;
-             $attendance->service_received =  $request->service_received;
-             $attendance->item_serviced = $request->item_serviced;
-             $attendance->quantity =  $request->attendance_quantitydate;
-              $attendance->save();
+             $attendance->save();
+
+            if(is_object($attendance->items) && count($attendance->items) >0 && $attendance->items != null)
+            {
+                foreach ($attendance->items as $item)
+                {
+                    $item->delete();
+                }
+            }
+            if(count($request->service_received) >0 && $request->service_received != null) {
+                $qcount = 0;
+                foreach ($request->service_received as $serv) {
+                    if($serv != "" && $request->quantity[$qcount] != "" &&  $request->item_serviced[$qcount] !="")
+                    {
+                        $items = new OrthopedicServicesItems();
+                        $items->service_received = $serv;
+                        $items->item_serviced = $request->item_serviced[$qcount];
+                        $items->quantity = $request->quantity[$qcount];
+                        $items->ors_id= $attendance->id;
+                        $items->save();
+                    }
+                    $qcount++;
+                }
+            }
+
                   
 
             return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";

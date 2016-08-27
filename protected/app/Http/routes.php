@@ -50,19 +50,28 @@ Route::group(['middleware' => ['web']], function () {
 
     //rehabilitation services
     Route::get('rehabilitation/services','RehabilitationServicesController@index');
-    Route::get('rehabilitation/services/create','RehabilitationServicesController@create');
+    Route::get('rehabilitation/services/clients','RehabilitationServicesController@searchClient');
+    Route::get('rehabilitation/services/create/{id}','RehabilitationServicesController@create');
     Route::post('rehabilitation/services/create','RehabilitationServicesController@store');
     Route::get('rehabilitation/services/edit/{id}','RehabilitationServicesController@edit');
+    Route::get('rehabilitation/services/show/{id}','RehabilitationServicesController@show');
+    Route::get('rehabilitation/services/pdf/{id}','RehabilitationServicesController@getPdf');
     Route::post('rehabilitation/services/edit','RehabilitationServicesController@update');
     Route::get('rehabilitation/services/remove/{id}','RehabilitationServicesController@destroy');
+    Route::get('rehabilitation/services/print/{id}','RehabilitationServicesController@showPrint');
 
 
     Route::get('orthopedic/services','OrthopedicServicesController@index');
-    Route::get('orthopedic/services/create','OrthopedicServicesController@create');
+    Route::get('orthopedic/services/clients','OrthopedicServicesController@searchClient');
+    Route::get('orthopedic/services/create/{id}','OrthopedicServicesController@create');
     Route::post('orthopedic/services/create','OrthopedicServicesController@store');
     Route::get('orthopedic/services/edit/{id}','OrthopedicServicesController@edit');
+    Route::get('orthopedic/services/show/{id}','OrthopedicServicesController@show');
     Route::post('orthopedic/services/edit','OrthopedicServicesController@update');
     Route::get('orthopedic/services/remove/{id}','OrthopedicServicesController@destroy');
+    Route::get('orthopedic/services/pdf/{id}','OrthopedicServicesController@getPdf');
+    Route::get('orthopedic/services/print/{id}','OrthopedicServicesController@showPrint');
+    
 
     //Import
     Route::get('excel/rehabilitation/services','RehabilitationServicesController@showRSImport');
@@ -136,6 +145,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('details/summary/clients/{id}','ClientController@showSummary');
     Route::get('progress/monitoring','ClientController@index');
     Route::get('progress/assessment','ClientController@index');
+    Route::get('getallclients','ClientController@getJSonData');
+    Route::get('searchclients','ClientController@getJSonDataSearch');
     
     //LiveliHood
     
@@ -184,22 +195,24 @@ Route::group(['middleware' => ['web']], function () {
     
 
     //Disabilities 
-    Route::get('disabilities','DisabilityController@index');
-    Route::get('disabilities/create','DisabilityController@create');
-    Route::post('disabilities/create','DisabilityController@store');
-    Route::get('disabilities/edit/{id}','DisabilityController@edit');
-    Route::post('disabilities/edit','DisabilityController@update');
-    Route::post('disabilities/reports','DisabilityController@reports');
-    Route::post('disabilities/remove/{id}','DisabilityController@destroy');
+    Route::get('general/disabilities','DisabilityController@index');
+    Route::get('general/disabilities/create','DisabilityController@create');
+    Route::post('general/disabilities/create','DisabilityController@store');
+    Route::get('general/disabilities/edit/{id}','DisabilityController@edit');
+    Route::post('general/disabilities/edit','DisabilityController@update');
+    Route::post('general/disabilities/reports','DisabilityController@reports');
+    Route::post('general/disabilities/remove/{id}','DisabilityController@destroy');
 
     //Client disabilities
-    Route::get('disabilities/clients','ClientDisabilityController@index');
-    Route::post('disabilities/clients/create','ClientDisabilityController@store');
-    Route::get('disabilities/clients/create/{id}','ClientDisabilityController@create');
-    Route::get('disabilities/clients/edit/{id}','ClientDisabilityController@edit');
-    Route::post('disabilities/clients/edit','ClientDisabilityController@update');
-    Route::get('disabilities/clients/show/{id}','ClientDisabilityController@show');
-    Route::get('disabilities/clients/remove/{id}','ClientDisabilityController@destroy');
+    Route::get('disabilities','ClientDisabilityController@index');
+    Route::get('disabilities/clients','ClientDisabilityController@searchClient');
+    Route::get('disabledclients','ClientDisabilityController@getClients');
+    Route::post('disabilities/create','ClientDisabilityController@store');
+    Route::get('disabilities/create/{id}','ClientDisabilityController@create');
+    Route::get('disabilities/edit/{id}','ClientDisabilityController@edit');
+    Route::post('disabilities/edit','ClientDisabilityController@update');
+    Route::get('disabilities/show/{id}','ClientDisabilityController@show');
+    Route::get('disabilities/remove/{id}','ClientDisabilityController@destroy');
 
 
     //Cases

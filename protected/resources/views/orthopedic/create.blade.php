@@ -10,7 +10,7 @@
     <div class="portlet-body form">
         {!! Form::open(array('url'=>'orthopedic/services/create','role'=>'form','id'=>'DepartmentFormUN')) !!}
         <div class="form-body">
-            <div class="form-group" id="itemsdispatch">
+            <div class="form-group">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
                             <label>File Number</label>
-                            <input type="text" class="form-control" name="file_no" id="file_no">
+                            <input type="text" class="form-control" name="file_no" id="file_no" value="{{$client->file_number}}" readonly>
                         </div>
 
                     </div>
@@ -133,7 +133,7 @@
                                 //data: return data from server
                                 $("#output").html(data);
                                 setTimeout(function() {
-                                    location.reload();
+                                    location.replace("{{url('orthopedic/services')}}");
                                     $("#output").html("");
                                 }, 2000);
                             }

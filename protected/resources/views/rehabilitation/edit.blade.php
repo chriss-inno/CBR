@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <label>Diagnosis</label>
-                    <textarea class="wysihtml5 form-control" rows="5" name="diagnosis" id="diagnosis"><?php echo $attendances->diagnosis; ?></textarea>
+                    <textarea class="wysihtml5 form-control" rows="6" name="diagnosis" id="diagnosis"><?php echo $attendances->diagnosis; ?></textarea>
                 </div>
             </div>
         </div>

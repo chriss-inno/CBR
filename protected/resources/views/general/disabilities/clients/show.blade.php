@@ -222,43 +222,12 @@
         });
         $("#DepartmentFormUN").validate({
             rules: {
-                category_id: "required",
+                category_name: "required",
                 disability_diagnosis: "required"
             },
             messages: {
-                category_id: "Please select category name",
+                category_name: "Please enter category name",
                 disability_diagnosis: "Please enter diagnosis"
-            },
-            submitHandler: function(form) {
-                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");
-                var postData = $('#DepartmentFormUN').serializeArray();
-                var formURL = $('#DepartmentFormUN').attr("action");
-                $.ajax(
-                        {
-                            url : formURL,
-                            type: "POST",
-                            data : postData,
-                            success:function(data)
-                            {
-                                console.log(data);
-                                //data: return data from server
-                                $("#output").html(data);
-                                setTimeout(function() {
-                                    location.reload();
-                                    $("#output").html("");
-                                }, 2000);
-                            },
-                            error: function(data)
-                            {
-                                console.log(data.responseJSON);
-                                //in the responseJSON you get the form validation back.
-                                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Error in processing data try again...</span><h3>");
-
-                                setTimeout(function() {
-                                    $("#output").html("");
-                                }, 2000);
-                            }
-                        });
             }
         });
 
@@ -306,33 +275,22 @@
                 </div>
                 <div class="portlet-body">
                     <fieldset class="scheduler-border">
-                        <legend class="scheduler-border">Client Details</legend>
+                        <legend class="scheduler-border">Personal Details</legend>
                         <div class="form-group">
                             <label for="first_name">File Number</label>
                             <input type="text" class="form-control" name="file_number" id="file_number" placeholder="Enter file number" value="{{$client->file_number}}" disabled>
                         </div>
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4 col-sm-4">
-                                    <label for="first_name">First Name</label>
-                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First name" value="{{$client->first_name}}" disabled>
-                                </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <label for="last_name">Last Name</label>
-                                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last name"value="{{$client->last_name}}" disabled>
-                                </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <label for="middle_name">Other Name</label>
-                                    <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name" value="{{$client->middle_name}}"  disabled>
-                                </div>
 
-                            </div>
+                            <label for="first_name">Full Name</label>
+                            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First name" value="{{$client->full_name}}" disabled>
+
                         </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4 col-sm-4">
-                                    <label for="dob">Date of birth</label>
-                                    <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Other name"  value="{{$client->dob}}"  disabled>
+                                    <label for="dob">Age</label>
+                                    <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Full name"  value="{{$client->age}}"  disabled>
                                 </div>
                                 <div class="col-md-4 col-sm-4">
                                     <label for="sex">Sex</label>
@@ -347,19 +305,10 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 col-sm-4">
-                                    <label for="marital_status">Marital Status</label>
-                                    <select class="form-control" name="marital_status" id="marital_status" disabled>
-                                        @if($client->marital_status != "")
-                                            <option value="{{$client->marital_status}}" selected>{{$client->marital_status}}</option>
-                                        @else
-                                            <option value="">---Select--</option>
-                                        @endif
-                                        <option value="Single">Single</option>
-                                        <option value="Married">Married</option>
-                                        <option value="Divorced">Divorced</option>
-                                        <option value="Widow">Widow</option>
-                                    </select>
+                                    <label for="sex">Address</label>
+                                    <input type="text" class="form-control" value="{{$client->address}}" disabled>
                                 </div>
+
                             </div>
                         </div>
 
@@ -374,17 +323,7 @@
                                 <div class="form-body">
                                     <div class="form-group">
                                         <label>Disability Category</label>
-                                        <select class="form-control" name="category_id" id="category_id">
-                                            @if($client->category_id != "")
-                                                <?php $discat=\App\Disability::find($client->category_id);?>
-                                                    <option value="{{$discat->id}}">{{$discat->category}}</option>
-                                                @else
-                                                <option value="">--Select--</option>
-                                                @endif
-                                            @foreach(\App\Disability::all() as $dis)
-                                                <option value="{{$dis->id}}">{{$dis->category}}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control" name="category_name" id="category_name" >
                                     </div>
                                     <div class="form-group">
                                         <label>Disability/Diagnosis</label>

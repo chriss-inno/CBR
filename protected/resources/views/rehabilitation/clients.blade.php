@@ -298,20 +298,20 @@
                         "targets": [0]
                     }],
                     "ajax": {
-                        "url": "{{url('getallclients')}}", // ajax source
+                        "url": "{{url('searchclients')}}", // ajax source
                     },
                     "order":false
                     // set first column as a default sort by asc
                     ,
                     "fnDrawCallback": function (oSettings) {
-                        $(".clientForm").click(function(){
+                        $(".addRecord").click(function(){
                             var id1 = $(this).parent().attr('id');
                             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
                             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
                             modaldis+= '<div class="modal-content">';
                             modaldis+= '<div class="modal-header">';
                             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-                            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Client details</span>';
+                            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Rehabilitation register</span>';
                             modaldis+= '</div>';
                             modaldis+= '<div class="modal-body">';
                             modaldis+= ' </div>';
@@ -322,71 +322,11 @@
                             $("body").append(modaldis);
                             $("#myModal").modal("show");
                             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-                            $(".modal-body").load("<?php echo url("clients/create") ?>");
+                            $(".modal-body").load("<?php echo url("rehabilitation/services/create") ?>/"+id1);
                             $("#myModal").on('hidden.bs.modal',function(){
                                 $("#myModal").remove();
                             })
 
-                        });
-
-                        $(".editRecord").click(function(){
-                            var id1 = $(this).parent().attr('id');
-                            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-                            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
-                            modaldis+= '<div class="modal-content">';
-                            modaldis+= '<div class="modal-header">';
-                            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-                            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Client details</span>';
-                            modaldis+= '</div>';
-                            modaldis+= '<div class="modal-body">';
-                            modaldis+= ' </div>';
-                            modaldis+= '</div>';
-                            modaldis+= '</div>';
-                            $('body').css('overflow','hidden');
-
-                            $("body").append(modaldis);
-                            $("#myModal").modal("show");
-                            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-                            $(".modal-body").load("<?php echo url("clients") ?>/"+id1+"/edit");
-                            $("#myModal").on('hidden.bs.modal',function(){
-                                $("#myModal").remove();
-                            })
-
-                        });
-
-                        $(".deleteRecord").click(function(){
-                            var id1 = $(this).parent().attr('id');
-                            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-                            var btn = $(this).parent().parent();
-                            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-                            $("#no").click(function(){
-                                $(this).parent().parent().find(".deleteRecord").show("slow");
-                                $(this).parent().parent().find("span").remove();
-                            });
-                            $("#yes").click(function(){
-                                $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
-                                    btn.hide("slow").next("hr").hide("slow");
-                                });
-                            });
-                        });
-                        $(".deleteRecordAssessment").click(function(){
-                            var id1 = $(this).parent().attr('id');
-                            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-                            var btn = $(this).parent().parent();
-                            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-                            $("#no").click(function(){
-                                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                                $(this).parent().parent().find("span").remove();
-                            });
-                            $("#yes").click(function(){
-                                $.get("<?php echo url('assessment/remove') ?>/"+id1,function(data){
-                                    $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                                    $(this).parent().parent().find("span").remove();
-                                });
-                                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                                $(this).parent().parent().find("span").remove();
-                            });
                         });
                     }
                 });
@@ -436,17 +376,17 @@
     </script>
 @stop
 @section('breadcrumb')
-    <ul class="page-breadcrumb">
+    <ul class="page-breadcrumb ">
         <li>
             <a href="{{url('home')}}">Home</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('clients')}}">Clients</a>
+            <a href="{{url('rehabilitation/services')}}">Rehabilitation services </a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Search Client</span>
+            <span class="active">Rehabilitation register </span>
         </li>
     </ul>
 @stop
@@ -458,17 +398,15 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Client Management</span>
+                        <span class="caption-subject bold uppercase">Search Client</span>
                     </div>
                     <div class="table-toolbar">
 
-                                <div class="btn-group pull-right">
-                                    <a href="#" class="clientForm btn blue-madison"><i class="fa fa-file"></i> New Client</a>
-                                    <a href="{{url('clients')}}" class="btn blue-madison"><i class="fa fa-users"></i> View All Client</a>
-                                    <a href="{{url('excel/import/clients')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import Clients</a>
-                                    <a href="{{url('excel/export/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Export Clients</a>
-                                    <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
-                                </div>
+                        <div class="btn-group pull-right">
+                            <a href="#" class="addRecord btn blue-madison"><i class="fa fa-file"></i> Register New</a>
+                            <a href="{{url('rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All </a>
+                            <a href="{{url('excel/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
+                        </div>
 
                     </div>
                 </div>
@@ -486,8 +424,7 @@
                             <th>Nationality </th>
                             <th>Service Centre </th>
                             <th> Address </th>
-                            <th> Assessment </th>
-                            <th class="text-center"> Action </th>
+                            <th> Action </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -514,8 +451,8 @@
 
                                     <td>
                                         @if($client->centre != null && is_object($client->centre))
-                                        {{$client->centre->centre_name}}
-                                            @endif
+                                            {{$client->centre->centre_name}}
+                                        @endif
                                     </td>
                                     <td>
                                         {{$client->address}}
@@ -524,10 +461,6 @@
                                         <a href="{{url("assessment/create")}}/{{$client->id}}"  class="btn" > <i class="fa fa-file green "> Open</i></a>
                                         <a href="{{url("assessment")}}/{{$client->id}}"  class="btn" ><i class="fa fa-eye green "> View</i> </a>
 
-                                    </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="#" class="editRecord btn" > <i class="fa fa-edit green "> Edit</i> </a>
-                                        <a href="#" class=" deleteRecord btn"> <i class="fa fa-trash text-danger "> Delete</i> </a>
                                     </td>
                                 </tr>
                             @endforeach

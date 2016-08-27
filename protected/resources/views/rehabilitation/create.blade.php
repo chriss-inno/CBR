@@ -27,14 +27,14 @@
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
                             <label>File Number</label>
-                            <input type="text" class="form-control" name="file_no" id="file_no">
+                            <input type="text" class="form-control" name="file_no" id="file_no" value="{{$client->file_number}}" readonly>
                         </div>
 
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Diagnosis</label>
-                    <textarea class="wysihtml5 form-control" rows="5" name="diagnosis" id="diagnosis"></textarea>
+                    <textarea class="wysihtml5 form-control" rows="6" name="diagnosis" id="diagnosis"></textarea>
                  </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
                                 //data: return data from server
                                 $("#output").html(data);
                                 setTimeout(function() {
-                                    location.reload();
+                                    location.replace("{{url('rehabilitation/services')}}");
                                     $("#output").html("");
                                 }, 2000);
                             }

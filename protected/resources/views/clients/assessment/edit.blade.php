@@ -492,11 +492,10 @@
                             <div class="form-group">
                                 <label for="status">Client Assessment Status</label>
                                 <select  class="form-control" name="status" id="status">
-                                    @if(old('status') != "")
-                                        <option value="{{old('status')}}">{{old('status')}}</option>
-                                    @else
-                                        <option value="">--Select--</option>
+                                    @if($client->status != "")
+                                        <option value="{{$client->status}}">{{$client->status}}</option>
                                     @endif
+                                    <option value="">--Select--</option>
                                     <option value="Disabled">Disabled</option>
                                     <option value="Soft injury">Soft injury</option>
                                 </select>

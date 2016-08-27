@@ -33,6 +33,13 @@ class RehabilitationServicesController extends Controller
         $attendances=RehabilitationRegister::all();
         return view('rehabilitation.index',compact('attendances'));
     }
+    public function searchClient()
+    {
+        //
+        $clients=Client::all();
+        return view('rehabilitation.clients',compact('clients'));
+    }
+
     public function showRSImport()
     {
         //
@@ -225,10 +232,11 @@ class RehabilitationServicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
-        return view('rehabilitation.create');
+        $client=Client::find($id);
+        return view('rehabilitation.create',compact('client'));
     }
 
     /**
@@ -266,6 +274,24 @@ class RehabilitationServicesController extends Controller
     public function show($id)
     {
         //
+        $attendances=RehabilitationRegister::find($id);
+        return view('rehabilitation.show',compact('attendances'));
+    }
+    public function showPrint($id)
+    {
+        //
+        $attendances=RehabilitationRegister::find($id);
+        return view('rehabilitation.pdf',compact('attendances'));
+    }
+    public function getPdf($id)
+    {
+        //
+        $attendances=RehabilitationRegister::find($id);
+        $fo = 'This form is applicable for identification of functional needs of PWDs/PSNs according to the components <br/>of the Global CBR matrix ( Health , Education ,  Livelihood , social and Empowerment ).';
+        $pdf = \PDF::loadView('rehabilitation.pdf', compact('attendances'))
+            ->setOption('footer-right', 'Page [page]')
+            ->setOption('page-offset', 0);
+        return $pdf->download('client_rehabilitation.pdf');
     }
 
     /**

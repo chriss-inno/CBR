@@ -26,7 +26,7 @@ class BeneficiaryController extends Controller
     public function index()
     {
         //
-        $beneficiaries=Beneficiary::all()->take(100);
+        $beneficiaries=Beneficiary::all()->take(10);
         return view('beneficiaries.index',compact('beneficiaries'));
     }
 

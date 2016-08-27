@@ -8,7 +8,7 @@
 <div class="portlet-body form">
     <div class="row">
         <div class="col-md-12 col-xs-12 text-center">
-            <img src="{{asset('assets/logo.png')}}" widdiv="100px" height="100px"/>
+            <img src="{{asset('assets/logo.png')}}" width="100px" height="100px"/>
         </div>
     </div>
     <div class="row">
@@ -16,102 +16,145 @@
             <h3><strong>INTERNATIONAL RESCUE COMMITTEE</strong></h3> <br/>
             Box 259, Kasulu Field Office<br/>
             Tel : 028 2810705 ;  Fax : 028 2810706<br/>
-            Email : irc.kasulu@tanzania.diveirc.org
+            Email : irc.kasulu@tanzania.theirc.org
         </div>
     </div>
-    <hr style="background-color: #000000; border-color: #000000;"/>
+    <hr style="background-color: #e7ecf1 ; border-color: #e7ecf1 ;margin-bottom: 20px"/>
     <div class="row">
         <div class="col-md-12 col-xs-12 text-center">
             <h4><strong>
-                    CBR - HOSPITAL REFERRAL FORM – IRC  NYARUGUSU CAMP.
+                    COMMUNITY BASED REHABILITATION PROGRAMME (CBR)<br/>
+                    PROGRAMME DE REHABILITATION SUR BASE COMMUNAUTAIRE (PRBC)<br/>
+                    <br/>
+                    HOSPITAL REFERRAL FORM  <br/>  NYARUGUSU CAMP
                 </strong></h4>
         </div>
     </div>
     <div class="row">
-           <table width="100%">
-               <tr>
-                   <th class="col-md-3 col-xs-3">To</th>
-                   <td colspan="3" class="col-md-9 col-xs-9">{{$referral->referral_to}}</td>
-               </tr>
-               <tr>
-                   <th class="col-md-3 col-xs-3">Date</th>
-                   <td colspan="3" class="col-md-9 col-xs-9">{{$referral->referral_date}}</td>
-               </tr>
-               <tr>
-                   <th class="col-md-3 col-xs-3">Name</th>
-                   <td colspan="3" class="col-md-9 col-xs-9">@if(is_object($referral->client) && $referral->client != null && $referral->client !="")
-                           {{$referral->client->full_name}}
-                       @endif</td>
-               </tr>
-               <tr>
-                   <th class="col-md-3 col-xs-3">Age</th>
-                   <td class="col-md-3 col-xs-3"> @if(is_object($referral->client) && $referral->client != null && $referral->client !="")
-                           {{$referral->client->age}}
-                       @endif</td>
-                   <th class="col-md-3 col-xs-3">Sex</th>
-                   <td class="col-md-3 col-xs-3"> @if(is_object($referral->client) && $referral->client != null && $referral->client !="")
-                           {{$referral->client->sex}}
-                       @endif</td>
-               </tr>
-           </table>
-    </div>
-    <div class="row" style="margin-top: 10px">
-        <div class="col-md-12 col-xs-12"><strong>History: </strong><span style="border-bottom: 1px dotted #000" ><?php echo $referral->history;?></span></div>
-    </div>
-    <div class="row" style="margin-top: 10px">
-        <div class="col-md-12 col-xs-12"><strong>Examination: </strong> <span style="border-bottom: 1px dotted #000" >
-<?php echo $referral->examination;?>
-            </span></div>
-    </div>
-    <div class="row" style="margin-top: 10px">
-        <div class="col-md-12 col-xs-12"><strong>Reason for referral: </strong> <span style="border-bottom: 1px dotted #000" >
-<?php echo $referral->referral_reason;?>
-            </span></div>
-    </div>
-    <div class="row" style="margin-top: 10px">
-        <div class="col-md-1 col-xs-1 text-bold"><strong> Referred by: </strong></div>
-        <div class="col-md-10 col-xs-10">
-            <table width="100%">
+        <div class="col-md-12 col-xs-12 col-lg-12">
+            <table class="table table-bordered">
+                <thead>
                 <tr>
-                    <th class="col-md-1 col-xs-1">Name:</th>
-                    <td class="col-md-5 col-xs-5">{{$referral->referred_by_name}}</td>
-                    <th class="col-md-1 col-xs-1">Title:</th>
-                    <td class="col-md-5 col-xs-5">{{$referral->referred_by_title}}</td>
+                    <th>File Number</th>
+                    <th>Full Name</th>
+                    <th>Sex</th>
+                    <th>Age</th>
+                    <th>Address</th>
                 </tr>
+                </thead>
+                <tbody>
                 <tr>
-                    <th class="col-md-1 col-xs-1">Date:</th>
-                    <td class="col-md-5 col-xs-5">{{$referral->referred_by_date}}</td>
-                    <th class="col-md-1 col-xs-1">Signature:</th>
-                    <td class="col-md-5 col-xs-5"></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="row" style="margin-top: 10px">
-        <div class="col-md-12 col-xs-12"><strong>Findings and Feedback on the plans:</strong>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-xs-12"></div>
-    </div>
-    <div class="row">
-            <table width="100%">
-                <tr>
-                    <th class="col-md-3 col-xs-3">Name</th>
-                    <td class="col-md-9 col-xs-9">……………………………………..</td>
-                </tr>
-                <tr>
-                    <th class="col-md-3 col-xs-3">Title</th>
-                    <td class="col-md-9 col-xs-9">………………………………………</td>
-                </tr>
-                <tr>
-                    <th class="col-md-3 col-xs-3">Signature</th>
-                    <td class="col-md-9 col-xs-9">…………………………</td>
-                </tr>
-            </table>
-    </div>
+                    <td>
+                        @if(is_object($referral->client) && $referral->client != null)
+                            {{$referral->client->file_number}}
+                        @endif
+                    </td>
+                    <td>
+                        @if(is_object($referral->client) && $referral->client != null)
+                            {{$referral->client->full_name}}
+                        @endif
+                    </td>
+                    <td>
+                        @if(is_object($referral->client) && $referral->client != null)
+                            {{$referral->client->sex}}
+                        @endif
 
-    
+                    </td>
+                    <td>
+                        @if(is_object($referral->client) && $referral->client != null)
+                            {{$referral->client->age}}
+                        @endif
+
+                    </td>
+                    <td>
+                        @if(is_object($referral->client) && $referral->client != null)
+                            {{$referral->client->address}}
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="5">Referred To/In</th>
+                </tr>
+                <tr>
+                    <td colspan="5"><?php echo $referral->referral_to; ?></td>
+                </tr>
+                <tr>
+                    <th colspan="5">History</th>
+                </tr>
+                <tr>
+                    <td colspan="5"><?php echo $referral->history;?></td>
+                </tr>
+                <tr>
+                    <th colspan="5">Examination</th>
+                </tr>
+                <tr>
+                    <td colspan="5"><?php echo $referral->examination; ?></td>
+                </tr>
+                <tr>
+                    <th colspan="5">Reason for referral</th>
+                </tr>
+                <tr>
+                    <td colspan="5"><?php echo $referral->referral_reason; ?></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12 col-lg-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="4">Referred by:</th>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{$referral->referred_by_name}}</td>
+                        <td>{{$referral->referred_by_title}}</td>
+                        <td>{{$referral->referred_by_date}}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+    <hr style="background-color: #e7ecf1 ; border-color: #e7ecf1 ;margin-bottom: 20px"/>
+    <div class="row">
+        <div class="col-md-12 col-xs-12 col-lg-12">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th colspan="4">Findings and Feedback on the plans:</th>
+                </tr>
+                <tr>
+                    <td colspan="4" style="height: 300px;"><?php echo $referral->findings; ?></td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Signature</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{$referral->findings_name}}</td>
+                    <td>{{$referral->findings_title}}</td>
+                    <td>{{$referral->referred_by_date}}</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>

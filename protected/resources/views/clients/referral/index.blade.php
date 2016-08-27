@@ -293,7 +293,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Camps: Camps details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -318,7 +318,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Camps: Camps details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -359,7 +359,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i>Client assessment details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i>Client referral details</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -422,11 +422,12 @@
                         <tr>
                             <th> SNO </th>
                             <th> File Number </th>
-                            <th> Client Name </th>
-                            <th> Referral date </th>
-                            <th> Referred To/In </th>
-                            <th> Referred by </th>
-                            <th> Referral form </th>
+                            <th> Full Name </th>
+                            <th> Sex </th>
+                            <th> Age </th>
+                            <th>  Referral Date </th>
+                            <th>  To/In </th>
+                            <th> Details </th>
                             <th class="text-center"> Action </th>
                         </tr>
                         </thead>
@@ -447,14 +448,22 @@
                                         @endif
                                     </td>
                                     <td>
+                                        @if(is_object($referral->client) && $referral->client != null && $referral->client !="")
+                                            {{$referral->client->sex}}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if(is_object($referral->client) && $referral->client != null && $referral->client !="")
+                                            {{$referral->client->age}}
+                                        @endif
+                                    </td>
+                                    <td>
                                         {{$referral->referral_date}}
                                     </td>
                                     <td>
                                         {{$referral->referral_to}}
                                     </td>
-                                    <td>
-                                        {{$referral->referred_by_name ." ".$referral->referred_by_title	}}
-                                    </td>
+
                                     <td class="text-center" id="{{$referral->id}}">
                                         <a href="#" class="showRecord btn " > <i class="fa fa-eye green "></i> </a>
                                         <a href="#" class=" btn "> <i class="fa fa-print green " onclick="printPage('{{url('referrals/print')}}/{{$referral->id}}');" ></i> </a>

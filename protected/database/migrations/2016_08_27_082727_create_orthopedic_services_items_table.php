@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrthopedicServicesTable extends Migration
+class CreateOrthopedicServicesItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,12 @@ class CreateOrthopedicServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('orthopedic_services', function (Blueprint $table) {
+        Schema::create('orthopedic_services_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('file_no');
-            $table->date('attendance_date');
-            $table->text('diagnosis')->nullable();
+            $table->integer('ors_id');
+            $table->string('service_received')->nullable();
+            $table->string('item_serviced')->nullable();
+            $table->integer('quantity')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateOrthopedicServicesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('orthopedic_services');
+        Schema::drop('orthopedic_services_items');
     }
 }

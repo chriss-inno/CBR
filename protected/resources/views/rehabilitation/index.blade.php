@@ -236,6 +236,28 @@
 @section('custom-scripts')
     {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
+        function closePrint () {
+            document.body.removeChild(this.__container__);
+        }
+
+        function setPrint () {
+            this.contentWindow.__container__ = this;
+            this.contentWindow.onbeforeunload = closePrint;
+            this.contentWindow.onafterprint = closePrint;
+            this.contentWindow.focus(); // Required for IE
+            this.contentWindow.print();
+        }
+
+        function printPage (sURL) {
+            var oHiddFrame = document.createElement("iframe");
+            oHiddFrame.onload = setPrint;
+            oHiddFrame.style.visibility = "hidden";
+            oHiddFrame.style.position = "fixed";
+            oHiddFrame.style.right = "0";
+            oHiddFrame.style.bottom = "0";
+            oHiddFrame.src = sURL;
+            document.body.appendChild(oHiddFrame);
+        }
         $("#SearchForm").validate({
             rules: {
                 searchKeyword: "required"
@@ -266,6 +288,7 @@
             }
         });
         $(".addRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
@@ -282,7 +305,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("rehabilitation/services/create") ?>");
+            $(".modal-body").load("<?php echo url("rehabilitation/services/create") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -308,6 +331,30 @@
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
             $(".modal-body").load("<?php echo url("rehabilitation/services/edit") ?>/"+id1);
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
+        $(".showRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
+            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-eye font-blue-sharp"></i> Detalis</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow','hidden');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("rehabilitation/services/show") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -361,8 +408,8 @@
                     <div class="row">
                         <div class="col-md-8 pull-right">
                             <div class="btn-group pull-right">
-                                <a href="#" class="addRecord btn blue-madison"><i class="fa fa-file"></i> Register New</a>
-                                <a href="{{url('rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-server"></i> Registration history</a>
+                                <a href="{{url('rehabilitation/services/clients')}}" class=" btn blue-madison"><i class="fa fa-file"></i> Register New</a>
+                                <a href="{{url('rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All</a>
                                 <a href="{{url('excel/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
                             </div>
                         </div>
@@ -376,9 +423,11 @@
                     <tr>
                         <th> SNO </th>
                         <th> File Number</th>
-                        <th> Client Full Name </th>
-                        <th> Diagnosis </th>
+                        <th> Full Name </th>
+                        <th> Sex </th>
+                        <th> Age </th>
                         <th> Attending date </th>
+                        <th> Diagnosis </th>
                         <th class="text-center"> Action </th>
                     </tr>
                     </thead>
@@ -393,18 +442,31 @@
                                 </td>
                                 <td>
                                     @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->first_name ." ".$att->client->last_name	}}
+                                        {{$att->client->full_name}}
                                     @endif
                                 </td>
                                 <td>
-                                    <?php echo $att->diagnosis; ?>
+                                    @if(is_object($att->client) && $att->client != null)
+                                        {{$att->client->sex}}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(is_object($att->client) && $att->client != null)
+                                        {{$att->client->age}}
+                                    @endif
                                 </td>
                                 <td>
                                     <?php echo $att->attendance_date; ?>
                                 </td>
+                                </td>
                                 <td class="text-center" id="{{$att->id}}">
-                                    <a href="#" class="editRecord"> <i class="fa fa-edit "></i> Edit </a>
-                                    <a href="#" class="deleteRecord"> <i class="fa fa-trash text-danger "></i> Delete</a>
+                                    <a href="#" class="showRecord btn" title="View"> <i class="fa fa-eye "></i>  </a>
+                                    <a href="#" class=" btn "> <i class="fa fa-print green " onclick="printPage('{{url('rehabilitation/services/print')}}/{{$att->id}}');" ></i> </a>
+                                    <a href="{{url('rehabilitation/services/pdf')}}/{{$att->id}}" class=" btn" title="Delete"> <i class="fa fa-download text-danger "></i> </a>
+                                </td>
+                                <td class="text-center" id="{{$att->id}}">
+                                    <a href="#" class="editRecord btn" title="Edit"> <i class="fa fa-edit "></i>  </a>
+                                    <a href="#" class="deleteRecord btn" title="Delete"> <i class="fa fa-trash text-danger "></i> </a>
                                 </td>
                             </tr>
                         @endforeach

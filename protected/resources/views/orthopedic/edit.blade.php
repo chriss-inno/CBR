@@ -10,7 +10,6 @@
     <div class="portlet-body form">
         {!! Form::open(array('url'=>'orthopedic/services/edit','role'=>'form','id'=>'DepartmentFormUN')) !!}
         <div class="form-body">
-            <div class="form-group" id="itemsdispatch">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
@@ -27,25 +26,46 @@
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
                             <label>File Number</label>
-                            <input type="text" class="form-control" name="file_no" id="file_no" value="{{$attendance->file_no}}">
+                            <input type="text" class="form-control" name="file_no" id="file_no" value="{{$attendance->file_no}}" readonly>
                         </div>
 
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Diagnosis</label>
-                    <textarea class="wysihtml5 form-control" rows="5" name="diagnosis" id="diagnosis">{{$attendance->service_received}}</textarea>
+                    <textarea class="wysihtml5 form-control" rows="5" name="diagnosis" id="diagnosis">{{$attendance->diagnosis}}</textarea>
                 </div>
-                <div class="form-group">
+                <div class="form-group" >
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
+
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1">
+                            <a href="#" class="addRow"><i class="fa fa-plus"></i> Add record </a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group" id="itemsdispatch">
+                    @if(is_object($attendance->items) && $attendance->items != null && count($attendance->items) >0 )
+
+                        @foreach($attendance->items as $item)
+                         <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Service receive</label>
-                            <select name="service_received" id="service_received" class="form-control">
-                                @if($attendance->service_received != "" )
-                                    <option value="{{$attendance->service_received}}" selected>{{$attendance->service_received}}</option>
+                            <select name="service_received[]" id="service_received" class="form-control">
+                                @if($item->service_received != "" )
+                                    <option value="{{$item->service_received}}" selected>{{$item->service_received}}</option>
                                 @else
                                     <option value="">--Select--</option>
                                     @endif
+                                <option value="">--None--</option>
                                 <option value="Repairing">Repairing</option>
                                 <option value="Fabrication">Fabrication</option>
                                 <option value="Item measurement">Item measurement</option>
@@ -53,17 +73,44 @@
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Item serviced</label>
-                            <input type="text" class="form-control" name="item_serviced" id="item_serviced" value="{{$attendance->item_serviced}}">
+                            <input type="text" class="form-control" name="item_serviced[]" id="item_serviced" value="{{$item->item_serviced}}">
                         </div>
-                        <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                        <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
                             <label>Quantity</label>
-                            <input type="text" class="form-control" name="quantity" id="quantity" value="{{$attendance->quantity}}">
+                            <input type="text" class="form-control" name="quantity[]" id="quantity" value="{{$item->quantity}}">
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1">
+
                         </div>
 
                     </div>
-                </div>
+                        @endforeach
+                        @else
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                                <label>Service receive</label>
+                                <select name="service_received[]" id="service_received" class="form-control">
+                                    <option value="">--Select--</option>
+                                    <option value="Repairing">Repairing</option>
+                                    <option value="Fabrication">Fabrication</option>
+                                    <option value="Item measurement">Item measurement</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                                <label>Item serviced</label>
+                                <input type="text" class="form-control" name="item_serviced[]" id="item_serviced">
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
+                                <label>Quantity</label>
+                                <input type="text" class="form-control" name="quantity[]" id="quantity">
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1">
 
-            </div>
+                            </div>
+
+                        </div>
+                    @endif
+                </div>
         </div>
         <div class="form-actions">
             <div class="row">

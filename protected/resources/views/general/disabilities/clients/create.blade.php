@@ -3,25 +3,62 @@
 <script>tinymce.init({ selector:'textarea' });</script>
 <div class="portlet light bordered">
     <div class="portlet-body form">
-        {!! Form::open(array('url'=>'disabilities/clients/create','role'=>'form','id'=>'DepartmentFormUN')) !!}
+        {!! Form::open(array('url'=>'disabilities/create','role'=>'form','id'=>'DepartmentFormUN')) !!}
         <div class="form-body">
-            <div class="form-group">
-                <label>Disability Category</label>
-                <select class="form-control" name="category_id" id="category_id">
-                    <option value="">--Select--</option>
-                    @foreach(\App\Disability::all() as $dis)
-                        <option value="{{$dis->id}}">{{$dis->category}}</option>
-                        @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Disability/Diagnosis</label>
-                <textarea class="form-control" name="disability_diagnosis" rows="6" id="disability_diagnosis"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Remarks</label>
-                <textarea class="form-control" name="remarks" rows="6" id="remarks"></textarea>
-            </div>
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Personal Details</legend>
+                <div class="form-group">
+                    <label for="first_name">File Number</label>
+                    <input type="text" class="form-control" name="file_number" id="file_number" placeholder="Enter file number" value="{{$client->file_number}}" disabled>
+                </div>
+                <div class="form-group">
+
+                    <label for="first_name">Full Name</label>
+                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First name" value="{{$client->full_name}}" disabled>
+
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <label for="dob">Age</label>
+                            <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Full name"  value="{{$client->age}}"  disabled>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <label for="sex">Sex</label>
+                            <select class="form-control" name="sex" id="sex" disabled>
+                                @if($client->sex != "")
+                                    <option value="{{$client->sex}}" selected>{{$client->sex}}</option>
+                                @else
+                                    <option value="">---Select--</option>
+                                @endif
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <label for="sex">Address</label>
+                            <input type="text" class="form-control" value="{{$client->address}}" disabled>
+                        </div>
+
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Disability Details</legend>
+                <div class="form-group">
+                    <label>Disability Category</label>
+                    <input type="text" class="form-control" name="category_name" id="category_name" >
+                </div>
+                <div class="form-group">
+                    <label>Disability/Diagnosis</label>
+                    <textarea class="form-control" name="disability_diagnosis" rows="6" id="disability_diagnosis"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea class="form-control" name="remarks" rows="6" id="remarks"></textarea>
+                </div>
+            </fieldset>
             <hr/>
             <div class="row">
                 <div class="col-md-8 col-sm-8 pull-left" id="output">
@@ -55,11 +92,11 @@
     });
     $("#DepartmentFormUN").validate({
         rules: {
-            category_id: "required",
+            category_name: "required",
             disability_diagnosis: "required"
         },
         messages: {
-            category_id: "Please select category name",
+            category_name: "Please enter category name",
             disability_diagnosis: "Please enter diagnosis"
         },
         submitHandler: function(form) {
@@ -74,12 +111,20 @@
                         success:function(data)
                         {
                             console.log(data);
-                            //data: return data from server
-                            $("#output").html(data);
-                            setTimeout(function() {
-                                location.reload();
-                                $("#output").html("");
-                            }, 2000);
+                            if(data =="<span class='text-success'><i class='fa-info'></i> Saved successfully</span>")
+                            {
+                                //data: return data from server
+                                $("#output").html(data);
+                                setTimeout(function() {
+                                    location.replace("{{url('disabilities')}}");
+                                    $("#output").html("");
+                                }, 2000);
+                            }
+                            else
+                            {
+                                $("#output").html(data);
+
+                            }
                         },
                         error: function(data)
                         {

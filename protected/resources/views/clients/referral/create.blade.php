@@ -250,14 +250,11 @@
             rules: {
                 referral_date: "required",
                 referral_to:"required",
-                referred_by_name:"required",
-                referred_by_title:"required"
             },
             messages: {
                 referral_date: "Please enter referral_date",
                 referral_to: "Please enter referral_to",
-                referred_by_name: "Please enter referred_by_name",
-                referred_by_title: "Please enter referred_by_title"
+
             }
         });
     </script>

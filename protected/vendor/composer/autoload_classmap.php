@@ -53,6 +53,7 @@ return array(
     'CreateLiveliHoodsMaterialsTable' => $baseDir . '/database/migrations/2016_08_25_130601_create_liveli_hoods_materials_table.php',
     'CreateMateriaSupportsTable' => $baseDir . '/database/migrations/2016_07_19_135601_create_materia_supports_table.php',
     'CreateOrthopedicRegistersTable' => $baseDir . '/database/migrations/2016_06_21_104236_create_orthopedic_registers_table.php',
+    'CreateOrthopedicServicesItemsTable' => $baseDir . '/database/migrations/2016_08_27_082727_create_orthopedic_services_items_table.php',
     'CreateOrthopedicServicesTable' => $baseDir . '/database/migrations/2016_07_07_095615_create_orthopedic_services_table.php',
     'CreatePSNAssessmentsTable' => $baseDir . '/database/migrations/2016_06_26_114008_create_p_s_n_assessments_table.php',
     'CreatePSNAssistanceServicesTable' => $baseDir . '/database/migrations/2016_06_26_115935_create_p_s_n_assistance_services_table.php',

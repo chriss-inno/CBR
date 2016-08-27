@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Clients Managements
+    Clients Disability Managements
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -215,7 +215,30 @@
 @stop
 @section('custom-scripts')
     <script>
-        $(".assessmentForm").click(function(){
+        function closePrint () {
+            document.body.removeChild(this.__container__);
+        }
+
+        function setPrint () {
+            this.contentWindow.__container__ = this;
+            this.contentWindow.onbeforeunload = closePrint;
+            this.contentWindow.onafterprint = closePrint;
+            this.contentWindow.focus(); // Required for IE
+            this.contentWindow.print();
+        }
+
+        function printPage (sURL) {
+            var oHiddFrame = document.createElement("iframe");
+            oHiddFrame.onload = setPrint;
+            oHiddFrame.style.visibility = "hidden";
+            oHiddFrame.style.position = "fixed";
+            oHiddFrame.style.right = "0";
+            oHiddFrame.style.bottom = "0";
+            oHiddFrame.src = sURL;
+            document.body.appendChild(oHiddFrame);
+        }
+
+        $(".addRecord").click(function(){
             var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 20% ;margin-left: 20%">';
@@ -233,21 +256,20 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("disabilities/clients/create") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("disabilities/create") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
 
         });
-
         $(".editRecord").click(function(){
             var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Camps: Camps details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -258,7 +280,31 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("clients") ?>/"+id1+"/edit");
+            $(".modal-body").load("<?php echo url("disabilities/edit") ?>/"+id1);
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
+        $(".showRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
+            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-eye font-blue-sharp"></i> Detalis</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow','hidden');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("disabilities/show") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -276,7 +322,7 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
+                $.get("<?php echo url('disabilities/remove') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
@@ -312,11 +358,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('clients')}}">Clients</a>
-            <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-            <span class="active">Search Client</span>
+            <span class="active">List All</span>
         </li>
     </ul>
 @stop
@@ -328,16 +370,15 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Client/Patient Search</span>
+                        <span class="caption-subject bold uppercase">Manage Disabled clients</span>
                     </div>
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-8 pull-right">
                                 <div class="btn-group pull-right">
-                                    <a href="{{url('clients/create')}}" class="btn blue-madison"><i class="fa fa-file"></i> New Client</a>
-                                    <a href="{{url('clients')}}" class="btn blue-madison"><i class="fa fa-bars"></i> Client List</a>
-                                    <a href="{{url('progress/monitoring')}}" class="btn blue-madison"><i class="fa fa-refresh"></i> Client Progress</a>
-                                    <a href="{{url('progress/assessment')}}" class="btn blue-madison"><i class="fa fa-plus-square"></i> Clients Assessment</a>
+                                    <a href="{{url('disabilities/clients')}}" class=" btn blue-madison"><i class="fa fa-file"></i> Search Client</a>
+                                    <a href="{{url('disabilities')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All </a>
+                                    <a href="{{url('excel/import/clients')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
                                 </div>
                             </div>
 
@@ -349,46 +390,52 @@
                         <thead>
                         <tr>
                             <th> SNO </th>
-                            <th> REG NO </th>
-                            <th> Client Name </th>
+                            <th> File Number </th>
+                            <th> Full Name </th>
                             <th> Sex </th>
                             <th> Age </th>
-                            <th>Disability </th>
-                            <th>Disability Form </th>
-                            <th> Disability details </th>
+                            <th> Disability Category </th>
+                            <th> Details </th>
                             <th class="text-center"> Action </th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php $count=1;?>
-                        @if(count($clients )>0)
-                            @foreach($clients as $client)
+                        @if(count($disabilities )>0)
+                            @foreach($disabilities as $disability)
                                 <tr class="odd gradeX">
                                     <td> {{$count++}} </td>
                                     <td>
-                                        {{$client->reg_no}}
+                                        @if(is_object($disability->client) && $disability->client != null)
+                                        {{$disability->client->file_number}}
+                                            @endif
                                     </td>
                                     <td>
-                                        {{$client->first_name ." ".$client->last_name}}
+                                        @if(is_object($disability->client) && $disability->client != null)
+                                            {{$disability->client->full_name}}
+                                        @endif
                                     </td>
                                     <td>
-                                        {{$client->sex}}
+                                        @if(is_object($disability->client) && $disability->client != null)
+                                            {{$disability->client->sex}}
+                                        @endif
                                     </td>
                                     <td>
-                                        {{$client->age}}
+                                        @if(is_object($disability->client) && $disability->client != null)
+                                            {{$disability->client->age}}
+                                        @endif
                                     </td>
                                     <td>
-                                        {{$client->is_disabled}}
+                                        {{$disability->category_name}}
                                     </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="#" class="assessmentForm"> <i class="fa fa-edit text-info"></i> Add </a>
+                                    <td class="text-center" id="{{$disability->id}}">
+                                        <a href="#" class="btn"> <i class="fa fa-eye"></i> </a>
+                                        <a href="#" class=" btn "> <i class="fa fa-print green " onclick="printPage('{{url('disabilities/print')}}/{{$disability->id}}');" ></i> </a>
+                                        <a href="{{url('disabilities/pdf')}}/{{$disability->id}}" class=" btn" title="Delete"> <i class="fa fa-download text-danger "></i> </a>
                                     </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('disabilities/clients/show')}}/{{$client->id}}"> <i class="fa fa-eye"></i> View</a>
-                                    </td>
-                                    <td class="text-center" id="{{$client->id}}">
-                                        <a href="{{url('clients')}}/{{$client->id}}/edit"> <i class="fa fa-edit text-primary"></i> </a>
-                                        <a href="#" class=" deleteRecord"> <i class="fa fa-trash text-danger"></i> </a>
+                                    <td class="text-center" id="{{$disability->id}}">
+                                        <a href="#" class="editRecord btn"> <i class="fa fa-edit text-primary"></i> </a>
+                                        <a href="#" class="deleteRecord btn "> <i class="fa fa-trash text-danger"></i> </a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -36,8 +36,87 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $clients=Client::orderBy('first_name','ASC')->get();
+        $clients=Client::orderBy('first_name','ASC')->get()->take(10);
         return view('clients.index',compact('clients'));
+    }
+    public function getJSonData()
+    {
+        //
+        $clients=Client::orderBy('full_name','ASC')->get();
+        $iTotalRecords =count(Client::all());
+        $sEcho = intval(10);
+
+        $records = array();
+        $records["data"] = array();
+
+
+        $count=1;
+        foreach($clients as $client) {
+            $cent="";
+            if($client->centre != null && is_object($client->centre))
+            {
+                $cent= $client->centre->centre_name;
+            }
+
+            $records["data"][] = array(
+                $count++,
+                $client->file_number,
+                $client->full_name,
+                $client->sex,
+                $client->age,
+                $client->nationality,
+                $cent,
+                $client->address,
+                '<span id="'.$client->id.'">  <a href="'.url("assessment/create").'/'.$client->id.'"  class="btn" > <i class="fa fa-file green "> Open</i></a><a href="'.url("assessment").'/'.$client->id.'"  class="btn" ><i class="fa fa-eye green "> View</i> </a></span>',
+                '<span id="'.$client->id.'">  <a href="#" class="editRecord btn" title="Edit"> <i class="fa fa-edit "></i>  </a> <a href="#" class="deleteRecord btn" title="Delete"> <i class="fa fa-trash text-danger "></i> </a></span>',
+            );
+        }
+
+
+        $records["draw"] = $sEcho;
+        $records["recordsTotal"] = $iTotalRecords;
+        $records["recordsFiltered"] = $iTotalRecords;
+
+        echo json_encode($records);
+    }
+    public function getJSonDataSearch()
+    {
+        //
+        $clients=Client::orderBy('full_name','ASC')->get();
+        $iTotalRecords =count(Client::all());
+        $sEcho = intval(10);
+
+        $records = array();
+        $records["data"] = array();
+
+
+        $count=1;
+        foreach($clients as $client) {
+            $cent="";
+            if($client->centre != null && is_object($client->centre))
+            {
+                $cent= $client->centre->centre_name;
+            }
+
+            $records["data"][] = array(
+                $count++,
+                $client->file_number,
+                $client->full_name,
+                $client->sex,
+                $client->age,
+                $client->nationality,
+                $cent,
+                $client->address,
+                '<span id="'.$client->id.'">  <a href="#"  class="addRecord btn" > <i class="fa fa-file green "> Register </i></a></span>',
+            );
+        }
+
+
+        $records["draw"] = $sEcho;
+        $records["recordsTotal"] = $iTotalRecords;
+        $records["recordsFiltered"] = $iTotalRecords;
+
+        echo json_encode($records);
     }
     public function showDisabilityImportError()
     {

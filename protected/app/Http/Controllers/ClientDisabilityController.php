@@ -22,8 +22,54 @@ class ClientDisabilityController extends Controller
     public function index()
     {
         //
-        $clients=Client::where('is_disabled','=','Yes')->get();
-        return view('general.disabilities.clients.index',compact('clients'));
+        $disabilities=ClientDisability::all();
+        return view('general.disabilities.clients.index',compact('disabilities'));
+    }
+    public function getClients()
+    {
+        //
+        $clients=Client::where('status','=','Disabled')->orderBy('full_name','ASC')->get();
+        $iTotalRecords =count(Client::all());
+        $sEcho = intval(10);
+
+        $records = array();
+        $records["data"] = array();
+
+
+        $count=1;
+        foreach($clients as $client) {
+            $cent="";
+            if($client->centre != null && is_object($client->centre))
+            {
+                $cent= $client->centre->centre_name;
+            }
+
+            $records["data"][] = array(
+                $count++,
+                $client->file_number,
+                $client->full_name,
+                $client->sex,
+                $client->age,
+                $client->nationality,
+                $cent,
+                $client->address,
+                '<span id="'.$client->id.'">  <a href="#"  class="addRecord btn" > <i class="fa fa-file green "> Register </i></a></span>',
+            );
+        }
+
+
+        $records["draw"] = $sEcho;
+        $records["recordsTotal"] = $iTotalRecords;
+        $records["recordsFiltered"] = $iTotalRecords;
+
+        echo json_encode($records);
+    }
+
+    public function searchClient()
+    {
+        //
+        $clients=Client::all();
+        return view('general.disabilities.clients.clients',compact('clients'));
     }
 
     /**
@@ -47,15 +93,13 @@ class ClientDisabilityController extends Controller
     public function store(Request $request)
     {
         //
-
-
-        $client=Client::find($request->client_id);
-        $client->category_id=$request->category_id;
-        $client->disability_diagnosis=$request->disability_diagnosis;
-        $client->remarks=$request->remarks;
-        $client->save();
-
-       return "<span class='text-info'><i class='fa fa-info'></i> Saved successfully </span>";
+        $disability=new ClientDisability;
+        $disability->category_name=$request->category_name;
+        $disability->disability_diagnosis=$request->disability_diagnosis;
+        $disability->remarks=$request->remarks;
+        $disability->client_id=$request->client_id;
+        $disability->save();
+       return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
     }
 
     /**
@@ -94,13 +138,12 @@ class ClientDisabilityController extends Controller
     public function update(Request $request)
     {
         //
-        $client=Client::find($request->client_id);
-        $client->category_id=$request->category_id;
-        $client->disability_diagnosis=$request->disability_diagnosis;
-        $client->remarks=$request->remarks;
-        $client->save();
-
-        return "data saved";
+        $disability=ClientDisability::find($request->id);
+        $disability->category_name=$request->category_name;
+        $disability->disability_diagnosis=$request->disability_diagnosis;
+        $disability->remarks=$request->remarks;
+        $disability->save();
+        return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
     }
 
     /**
@@ -112,10 +155,7 @@ class ClientDisabilityController extends Controller
     public function destroy($id)
     {
         //
-        $client=Client::find($id);
-        $client->category_id="";
-        $client->disability_diagnosis="";
-        $client->remarks="";
-        $client->save();
+        $disability=ClientDisability::find($id);
+        $disability->delete();
     }
 }

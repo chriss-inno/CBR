@@ -11,4 +11,9 @@ class OrthopedicServices extends Model
     {
         return $this::belongsTo('\App\Client','file_no','file_number');
     }
+    public function items()
+    {
+        return $this::hasMany('\App\OrthopedicServicesItems','ors_id');
+    }
+    
 }
