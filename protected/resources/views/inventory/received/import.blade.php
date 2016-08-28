@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Item inventories
+    Item received import
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -11,84 +11,199 @@
         <li class="nav-item ">
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
-                <span class="title">Dashboard</span>
+                <span class="title">Home</span>
+                <span class="selected"></span>
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Clients</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+
+                <li class="nav-item active ">
+                    <a href="{{url('clients')}}" class="nav-link ">
+                        <span class="title">View All Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/export/clients')}}" class="nav-link ">
+                        <span class="title">Export Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/import/clients')}}" class="nav-link ">
+                        <span class="title">Import Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('disabilities/clients')}}" class="nav-link ">
+                        <span class="title">Disabilities</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('referrals/request')}}" class="nav-link ">
+                        <span class="title">Client Referral</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Rehabilitation services</span>
+            </a>
+
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('orthopedic/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Orthopedic services</span>
 
             </a>
 
         </li>
         <li class="nav-item ">
-            <a href="{{url('registration/desk')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Registration Desk</span>
-                <span class="selected"></span>
+            <a href="{{url('beneficiaries')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Beneficiaries</span>
+
             </a>
+
         </li>
-        <li class="heading">
-            <h3 class="uppercase">Medical rehabilitation </h3>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('referrals')}}" class="nav-link nav-toggle">
-                <i class="icon-direction"></i>
-                <span class="title">Patient Referrals</span>
+        <li class="nav-item ">
+            <a href="{{url('social/needs')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Social needs/Support</span>
+
             </a>
+
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item start active open">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-puzzle"></i>
-                <span class="title"> Progress Monitoring</span>
+                <i class="icon-list"></i>
+                <span class="title">Material support</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
-                    <a href="{{url('physiotherapy')}}" class="nav-link ">
-                        <span class="title">Physiotherapy register </span>
+                    <a href="{{url('inventory')}}" class="nav-link ">
+                        <span class="title">Inventory</span>
+                    </a>
+                </li>
+                <li class="nav-item active ">
+                    <a href="{{url('inventory/received')}}" class="nav-link ">
+                        <span class="title">Received Items</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('orthopedic')}}" class="nav-link ">
-                        <span class="title">Orthopedic register </span>
+                    <a href="{{url('inventory/disbursement')}}" class="nav-link ">
+                        <span class="title">Distribute Items</span>
                     </a>
                 </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/reports')}}" class="nav-link ">
+                        <span class="title">Reports</span>
+                    </a>
+                </li>
+
             </ul>
         </li>
-        <li class="heading">
-            <h3 class="uppercase">Social rehabilitation</h3>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('social/rehabilitation/clients')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">People with Special Need</span>
+        <li class="nav-item ">
+            <a href="{{url('mobility/aids')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Mobility Aids</span>
+
             </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('sr/cases')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Case monitoring</span>
-            </a>
-        </li>
-        <li class="nav-item start active open">
-            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">Material distribution</span>
-            </a>
-        </li>
-        <li class="heading">
-            <h3 class="uppercase">GENERAL REPORTS</h3>
+
         </li>
         <li class="nav-item  ">
-            <a href="{{url('mr/reports')}}" class="nav-link ">
-                <span class="title">Medical rehabilitation Reports </span>
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-users"></i>
+                <span class="title"> LiveliHoods Tracking</span>
+                <span class="arrow"></span>
             </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/clients')}}" class="nav-link ">
+                        <span class="title">Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/groups')}}" class="nav-link ">
+                        <span class="title">Groups</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/materials')}}" class="nav-link ">
+                        <span class="title">Material Support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/reports')}}" class="nav-link ">
+                        <span class="title">Reports</span>
+                    </a>
+                </li>
+
+            </ul>
         </li>
-        <li class="nav-item">
-            <a href="{{url('sr/reports')}}" class="nav-link ">
-                <span class="title">Social rehabilitation Reports</span>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-line-chart fa-2x"></i>
+                <span class="title"> Reports</span>
+                <span class="arrow"></span>
             </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('general/reports')}}" class="nav-link ">
-                <span class="title">General Reports</span>
-            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('reports/assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment roam</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
+                        <span class="title">Rehabilitation services</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/orthopedic/services')}}" class="nav-link ">
+                        <span class="title">Orthopedic services</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/material/support')}}" class="nav-link ">
+                        <span class="title">Material support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/beneficiaries')}}" class="nav-link ">
+                        <span class="title">Beneficiaries  Identification/Registration</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('reports/social/needs')}}" class="nav-link ">
+                        <span class="title">Social needs/Support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('regions')}}" class="nav-link ">
+                        <span class="title">Regions</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('districts')}}" class="nav-link ">
+                        <span class="title">Districts</span>
+                    </a>
+                </li>
+
+            </ul>
         </li>
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
@@ -148,7 +263,7 @@
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-user"></i>
+                <i class="icon-users"></i>
                 <span class="title"> Users</span>
                 <span class="arrow"></span>
             </a>
@@ -187,13 +302,13 @@
 @stop
 @section('custom-scripts')
     <script>
-        $(".addRegion").click(function(){
+        $(".addRecord").click(function(){
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Item</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Record</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -204,13 +319,14 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/create") ?>");
+            $(".modal-body").load("<?php echo url("inventory/received/create") ?>");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
 
         });
-        $(".showImport").click(function(){
+        $(".showRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
@@ -227,7 +343,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/import") ?>");
+            $(".modal-body").load("<?php echo url("inventory/received/show") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -252,7 +368,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/edit") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("inventory/received/edit") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -270,7 +386,7 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('inventory/remove') ?>/"+id1,function(data){
+                $.get("<?php echo url('inventory/received/remove') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
@@ -318,16 +434,15 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Manage Inventory</span>
+                        <span class="caption-subject bold uppercase">Import data</span>
                     </div>
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-8 pull-right">
                                 <div class="btn-group pull-right">
-                                    <a href="#" class="addRegion btn blue-madison"> <i class="fa fa-plus"></i> Add New Item</a>
-                                    <a href="{{url('inventory')}}" class="btn blue-madison"><i class="fa fa-server"></i> Item list</a>
-                                    <a href="{{url('inventory/categories')}}" class="btn blue-madison"><i class="fa fa-server"></i> Inventory Categories</a>
-                                    <a href="#" class="showImport btn blue-madison"><i class="fa fa-download"></i> Import Items</a>
+                                    <a href="{{url('inventory/received')}}" class="btn blue-madison"><i class="fa fa-server text-info"></i> List All</a>
+                                    <a href="{{url('inventory')}}" class="btn blue-madison" title="Go to Item inventory list"><i class="fa fa-server text-primary"></i> Inventory Items</a>
+                                    <a href="{{url('excel/import/received/items')}}" class="btn blue-madison" title="Import Received Items records"><i class="fa fa-database text-danger"></i> Import Data</a>
                                 </div>
                             </div>
 
@@ -338,11 +453,11 @@
 <!-- BEGIN SAMPLE FORM PORTLET-->
 <div class="portlet light bordered">
     <div class="portlet-body form">
-        {!! Form::open(array('url'=>'inventory/import','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
+        {!! Form::open(array('url'=>'excel/import/received/items','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
         <div class="form-body">
             <div class="form-group">
-                <label>Import Items from MS Excel <a href={{asset("assets/templates/item_import_template.xls")}}>Download template here</a> </label>
-                <input TYPE="file" class="form-control" name="inventory_file" id="inventory_file">
+                <label>Import from MS Excel <a href={{asset("assets/templates/item_received_import_template.xls")}}>Download template here</a> </label>
+                <input type="file" class="form-control" name="inventory_file" id="inventory_file">
             </div>
             <hr/>
             <div class="row text-center">

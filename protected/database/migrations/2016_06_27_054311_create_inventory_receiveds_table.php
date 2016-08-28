@@ -14,11 +14,14 @@ class CreateInventoryReceivedsTable extends Migration
     {
         Schema::create('inventory_receiveds', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('item_id');
+            $table->string('item_name');
+            $table->string('way_bill_number');
+            $table->string('received_from');
+            $table->string('donor');
+            $table->string('population');
+            $table->string('receiver');
             $table->integer('quantity');
-            $table->string('remarks');
-            $table->string('received_by');
-            $table->string('received_date');
+            $table->date('received_date');
             $table->timestamps();
         });
     }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMateriaSupportsTable extends Migration
+class CreateMobilityAidsItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,11 @@ class CreateMateriaSupportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('materia_supports', function (Blueprint $table) {
+        Schema::create('mobility_aids_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('beneficiary_id');
-            $table->string('progress_number');
+            $table->integer('support_id');
             $table->string('item');
-            $table->string('category');
             $table->integer('quantity');
-            $table->string('donor_type');
-            $table->date('distributed_date');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateMateriaSupportsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('materia_supports');
+        Schema::drop('mobility_aids_items');
     }
 }

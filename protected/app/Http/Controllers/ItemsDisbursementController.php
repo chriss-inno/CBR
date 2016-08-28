@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Beneficiary;
 use App\DumpMaterialSupport;
 use App\ItemsDisbursement;
+use App\MaterialSuportItems;
 use App\MateriaSupport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,11 +32,19 @@ class ItemsDisbursementController extends Controller
         $disbursements =MateriaSupport::all();
         return view('inventory.disbursement.index',compact('disbursements'));
     }
+    public function showBeneficiaries()
+    {
+        //
+        $beneficiaries=Beneficiary::all()->take(10);
+        return view('inventory.disbursement.beneficiaries',compact('beneficiaries'));
+    }
     public function showImport()
     {
         //
         return view('inventory.disbursement.import');
     }
+
+
     public function showImportErrors()
     {
         //
@@ -67,7 +76,7 @@ class ItemsDisbursementController extends Controller
 
                     if(count(Beneficiary::where('progress_number','=',$row->progress_number)->get()) > 0 )
                     {
-                        if(count(MateriaSupport::where('progress_number','=',$row->progress_number)->where('item','=',$row->item)->where('quantity','=',$row->quantity)->where('distributed_date','=',date("Y-m-d",strtotime($row->distributed_date)))->get()) > 0)
+                        if(count(MateriaSupport::where('progress_number','=',$row->progress_number)->where('item','=',$row->item)->where('distributed_date','=',date("Y-m-d",strtotime($row->distributed_date)))->get()) > 0)
                         {
                             $disbursement=new DumpMaterialSupport;
                             $disbursement->progress_number=$row->progress_number;
@@ -87,6 +96,7 @@ class ItemsDisbursementController extends Controller
                             $disbursement->donor_type=$row->donor_type;
                             $disbursement->address=$row->address;
                             $disbursement->item=$row->item;
+                            $disbursement->category=$row->category;
                             $disbursement->quantity=$row->quantity;
                             $disbursement->distributed_date=date("Y-m-d",strtotime($row->distributed_date));
 
@@ -146,10 +156,11 @@ class ItemsDisbursementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
-        return view('inventory.disbursement.create');
+        $beneficiary=Beneficiary::find($id);
+        return view('inventory.disbursement.create',compact('beneficiary'));
     }
 
     /**
@@ -165,25 +176,41 @@ class ItemsDisbursementController extends Controller
         {
             if(count($request->item) >0 && $request->item != null)
             {
-                $qcount=0;
+                  $qcount=0;
+                  $error="";
                 foreach ($request->item as $items)
                 {
                     if($items != "" && $items != null)
                     {
-                        $disbursement=new MateriaSupport;
-                        $disbursement->progress_number=$request->progress_number;
-                        $disbursement->donor_type=$request->donor_type;
-                        $disbursement->address=$request->address;
-                        $disbursement->item=$items;
-                        $disbursement->quantity=$request->quantity[$qcount];
-                        $disbursement->distributed_date=$request->distributed_date;
-
-                        $disbursement->save();
+                        if(!count(MateriaSupport::where('progress_number','=',$request->progress_number)->where('item','=',$items)->where('distributed_date','=',date("Y-m-d",strtotime($request->distributed_date)))->get()) > 0)
+                        {
+                            $disbursement = new MateriaSupport;
+                            $disbursement->progress_number = $request->progress_number;
+                            $disbursement->donor_type = $request->donor_type;
+                            $disbursement->item = $items;
+                            $disbursement->category = $request->category[$qcount];
+                            $disbursement->quantity = $request->quantity[$qcount];
+                            $disbursement->distributed_date = $request->distributed_date;
+                            $disbursement->beneficiary_id = $request->beneficiary_id;
+                            $disbursement->save();
+                        }
+                        else
+                        {
+                            $error .= "Beneficiary [".$request->progress_number."] Has already received Item [".$items."] for date [ $request->distributed_date] <br/>" ;
+                        }
+                        
                         $qcount++;
+                    }
+                    else
+                    {
+                        $error ="Save failed no item entered";
                     }
 
                 }
-                return "<span class='text-success'><i class='fa fa-info'></i> Saved successfully</span>";
+                if($error != "")
+                {return "<span class='text-danger'><i class='fa fa-info'></i> $error</span>";}
+                else{return "<span class='text-success'><i class='fa fa-info'></i> Saved successfully</span>";}
+
             }
             else
             {
@@ -207,6 +234,18 @@ class ItemsDisbursementController extends Controller
     public function show($id)
     {
         //
+        $disbursement=MateriaSupport::find($id);
+        return view('inventory.disbursement.pdf',compact('disbursement'));
+    }
+    public function downloadPdf($id)
+    {
+        //
+        $disbursement=MateriaSupport::find($id);
+        $fo = 'This form is applicable for identification of functional needs of PWDs/PSNs according to the components <br/>of the Global CBR matrix ( Health , Education ,  Livelihood , social and Empowerment ).';
+        $pdf = \PDF::loadView('inventory.disbursement.pdf',compact('disbursement'))
+            ->setOption('footer-right', 'Page [page]')
+            ->setOption('page-offset', 0);
+        return $pdf->download('client_material_support.pdf');
     }
 
     /**
@@ -233,13 +272,14 @@ class ItemsDisbursementController extends Controller
     {
         //
         $disbursement=MateriaSupport::find($request->id);
-        $disbursement->progress_number=$request->progress_number;
         $disbursement->donor_type=$request->donor_type;
-        $disbursement->address=$request->address;
         $disbursement->item=$request->item;
+        $disbursement->category=$request->category;
         $disbursement->quantity=$request->quantity;
         $disbursement->distributed_date=$request->distributed_date;
         $disbursement->save();
+        return "<span class='text-success'><i class='fa fa-info'></i> Saved successfully</span>";
+        
     }
 
     /**
@@ -252,6 +292,11 @@ class ItemsDisbursementController extends Controller
     {
         //
         $disbursement=MateriaSupport::find($id);
+        if(is_object($disbursement->items) && count($disbursement->items) >0)
+            foreach($disbursement->items as $itm)
+            {
+                $itm->delete();
+            }
         $disbursement->delete();
     }
 }

@@ -8,58 +8,40 @@
 <div class="portlet light bordered">
     <div class="portlet-body form">
         {!! Form::open(array('url'=>'inventory/disbursement/edit','role'=>'form','id'=>'DepartmentFormUN')) !!}
-
         <div class="form-body">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                    <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                         <label>Date</label>
                         <input type="text" class="form-control input-medium date-picker" readonly name="distributed_date" id="distributed_date" data-date-format="yyyy-mm-dd" value="{{$disbursement->distributed_date}}">
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                    <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
                         <label>Progress Number</label>
-                        <input type="text" name="progress_number" id="progress_number" placeholder="Enter Progress number" class="form-control" readonly value="{{$disbursement->progress_number}}">
+                        <input type="text" name="progress_number" id="progress_number" placeholder="Enter Progress number" class="form-control" value="{{$disbursement->progress_number}}">
                     </div>
 
                 </div>
             </div>
             <div class="form-group" id="itemsdispatch">
                 <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
                         <label> Item/materials distributed</label>
-                        <select name="item" id="item" class="form-control" >
-                            @if($disbursement->item !="")
-                                <option value="{{$disbursement->item}}" selected>{{$disbursement->item}}</option>
-                            @endif
-                            <option value="">--Select--</option>
-                            @foreach(\App\ItemsInventory::orderBy('item_name','ASC')->get() as $itm)
-                                <option value="{{$itm->item_name}}">{{$itm->item_name}}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" name="item" id="item" class="form-control" value="{{$disbursement->item}}">
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
-                        <label> Category </label>
-                        <select name="category" id="category" class="form-control" >
-                            @if($disbursement->category !="")
-                                <option value="{{$disbursement->category}}" selected>{{$disbursement->category}}</option>
-                            @endif
-                            <option value="">--Select--</option>
-                            @foreach(\App\ItemsCategories::orderBy('category_name','ASC')->get() as $itm)
-                                <option value="{{$itm->category_name}}">{{$itm->category_name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
                         <label>Quantity</label>
                         <input type="text" class="form-control" name="quantity" id="quantity" value="{{$disbursement->quantity}}">
                     </div>
-
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Donor type</label>
                 <input type="text" class="form-control" name="donor_type" id="donor_type" value="{{$disbursement->donor_type}}">
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" class="form-control" name="address" id="address" value="{{$disbursement->address}}">
             </div>
 
             <hr/>
@@ -68,8 +50,8 @@
 
                 </div>
                 <div class="col-md-4 col-sm-4 pull-right text-right">
-                    <button type="button" class="btn btn-danger "  data-dismiss="modal">Cancel</button>
                     <input type="hidden" name="id" id="id" value="{{$disbursement->id}}">
+                    <button type="button" class="btn btn-danger "  data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save </button>
                 </div>
 
@@ -128,21 +110,12 @@
                         success:function(data)
                         {
                             console.log(data);
-                            if(data =="<span class='text-success'><i class='fa fa-info'></i> Saved successfully</span>")
-                            {
-                                //data: return data from server
-                                $("#output").html(data);
-                                setTimeout(function() {
-                                    location.replace("{{url('inventory/disbursement')}}");
-                                    $("#output").html("");
-                                }, 2000);
-                            }
-                            else
-                            {
-                                $("#output").html(data);
-
-                            }
-
+                            //data: return data from server
+                            $("#output").html(data);
+                            setTimeout(function() {
+                                location.reload();
+                                $("#output").html("");
+                            }, 2000);
                         },
                         error: function(data)
                         {
@@ -157,4 +130,5 @@
                     });
         }
     });
+
 </script>

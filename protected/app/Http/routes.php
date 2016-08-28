@@ -302,9 +302,12 @@ Route::group(['middleware' => ['web']], function () {
     
     //ItemsDisbursementController
     Route::get('inventory/disbursement','ItemsDisbursementController@index');
-    Route::get('inventory/disbursement/create','ItemsDisbursementController@create');
+    Route::get('inventory/disbursement/beneficiaries','ItemsDisbursementController@showBeneficiaries');
+    Route::get('inventory/disbursement/create/{id}','ItemsDisbursementController@create');
     Route::post('inventory/disbursement/create','ItemsDisbursementController@store');
     Route::get('inventory/disbursement/edit/{id}','ItemsDisbursementController@edit');
+    Route::get('inventory/disbursement/print/{id}','ItemsDisbursementController@show');
+    Route::get('inventory/disbursement/pdf/{id}','ItemsDisbursementController@downloadPdf');
     Route::post('inventory/disbursement/edit','ItemsDisbursementController@update');
     Route::get('inventory/disbursement/show/{id}','ItemsDisbursementController@show');
     Route::get('inventory/disbursement/remove/{id}','ItemsDisbursementController@destroy');
@@ -317,12 +320,23 @@ Route::group(['middleware' => ['web']], function () {
     
     //ItemsReceivingController
     Route::get('inventory/received','ItemsReceivingController@index');
-    Route::get('inventory/receiving/create','ItemsReceivingController@create');
-    Route::post('inventory/receiving/create','ItemsReceivingController@store');
-    Route::get('inventory/receiving/edit/{id}','ItemsReceivingController@edit');
-    Route::post('inventory/receiving/edit','ItemsReceivingController@update');
-    Route::get('inventory/receiving/show/{id}','ItemsReceivingController@show');
-    Route::get('inventory/receiving/remove/{id}','ItemsReceivingController@destroy');
+    Route::get('inventory/received/create','ItemsReceivingController@create');
+    Route::post('inventory/received/create','ItemsReceivingController@store');
+    Route::get('inventory/received/edit/{id}','ItemsReceivingController@edit');
+    Route::post('inventory/received/edit','ItemsReceivingController@update');
+    Route::get('inventory/received/show/{id}','ItemsReceivingController@show');
+    Route::get('inventory/received/remove/{id}','ItemsReceivingController@destroy');
+    Route::get('excel/import/received/items','ItemsReceivingController@showImport');
+    Route::post('excel/import/received/items','ItemsReceivingController@postImport');
+
+    //Mobility aids
+    Route::get('mobility/aids','MobilityAidsController@index');
+    Route::get('mobility/aids/create','MobilityAidsController@create');
+    Route::post('mobility/aids/create','MobilityAidsController@store');
+    Route::get('mobility/aids/edit/{id}','MobilityAidsController@edit');
+    Route::post('mobility/aids/edit','MobilityAidsController@update');
+    Route::get('mobility/aids/show/{id}','MobilityAidsController@show');
+    Route::get('mobility/aids/remove/{id}','MobilityAidsController@destroy');
     
     
     

@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-   Item inventories
+   Item inventories 
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -12,11 +12,11 @@
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">Home</span>
-                <span class="selected"></span>
+
             </a>
 
         </li>
-        <li class="nav-item ">
+        <li class="nav-item start active open">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Clients</span>
@@ -42,11 +42,6 @@
                 <li class="nav-item  ">
                     <a href="{{url('assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('disabilities/clients')}}" class="nav-link ">
-                        <span class="title">Disabilities</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
@@ -87,68 +82,11 @@
             </a>
 
         </li>
-        <li class="nav-item start active open">
-            <a href="javascript:;" class="nav-link nav-toggle">
+        <li class="nav-item ">
+            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
                 <i class="icon-list"></i>
                 <span class="title">Material support</span>
-                <span class="arrow"></span>
             </a>
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="{{url('inventory')}}" class="nav-link ">
-                        <span class="title">Inventory</span>
-                    </a>
-                </li>
-                <li class="nav-item active ">
-                    <a href="{{url('inventory/received')}}" class="nav-link ">
-                        <span class="title">Received Items</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('inventory/disbursement')}}" class="nav-link ">
-                        <span class="title">Distribute Items</span>
-                    </a>
-                </li>
-
-            </ul>
-        </li>
-        <li class="nav-item ">
-            <a href="{{url('mobility/aids')}}" class="nav-link nav-toggle">
-                <i class="fa fa-users fa-2x"></i>
-                <span class="title">Mobility Aids</span>
-
-            </a>
-
-        </li>
-        <li class="nav-item  ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title"> LiveliHoods Tracking</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="{{url('livelihood/clients')}}" class="nav-link ">
-                        <span class="title">Clients</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('livelihood/groups')}}" class="nav-link ">
-                        <span class="title">Groups</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('livelihood/materials')}}" class="nav-link ">
-                        <span class="title">Material Support</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('livelihood/reports')}}" class="nav-link ">
-                        <span class="title">Reports</span>
-                    </a>
-                </li>
-
-            </ul>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
@@ -294,16 +232,17 @@
     {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
     {!! Html::script("assets/pages/scripts/ui-confirmations.min.js" ) !!}
 
+
 @stop
 @section('custom-scripts')
     <script>
-        $(".addRecord").click(function(){
+        $(".addRegion").click(function(){
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Record</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Distribute Item</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -314,31 +253,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/received/create") ?>");
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-        $(".showRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Add Item</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/received/show") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("inventory/disbursement/create") ?>");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -352,7 +267,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item distribution</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -363,7 +278,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/received/edit") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("inventory/disbursement/edit") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -381,7 +296,7 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('inventory/received/remove') ?>/"+id1,function(data){
+                $.get("<?php echo url('inventory/disbursement/remove') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
@@ -395,15 +310,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('inventory')}}">Inventory</a>
+            <a href="#">Inventory</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('inventory/received')}}">Received Items</a>
-            <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-            <span class="active">List</span>
+            <span class="active">Items</span>
         </li>
     </ul>
 @stop
@@ -415,16 +326,16 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Item Received</span>
+                        <span class="caption-subject bold uppercase">Material support disbursements</span>
                     </div>
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-8 pull-right">
                                 <div class="btn-group pull-right">
-                                    <a href="#" class="addRecord btn blue-madison"> <i class="fa fa-plus text-success"></i> Add Record</a>
-                                    <a href="{{url('inventory/received')}}" class="btn blue-madison"><i class="fa fa-server text-info"></i> List All</a>
-                                    <a href="{{url('inventory')}}" class="btn blue-madison" title="Go to Item inventory list"><i class="fa fa-server text-primary"></i> Inventory Items</a>
-                                    <a href="{{url('excel/import/received/items')}}" class="btn blue-madison" title="Import Received Items records"><i class="fa fa-database text-danger"></i> Import Data</a>
+                                    <a href="#" class="addRegion btn blue-madison"> <i class="fa fa-plus"></i> Distribute Item</a>
+                                    <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> View All</a>
+                                    <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-server"></i> View beneficiaries</a>
+                                    <a href="{{url('inventory/disbursement/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
                                 </div>
                             </div>
 
@@ -437,52 +348,42 @@
                         <thead>
                         <tr>
                             <th> SNO </th>
-                            <th> Way Bill# </th>
-                            <th> Item </th>
-                            <th> From </th>
-                            <th> Donor </th>
-                            <th> Population </th>
-                            <th> Receiver </th>
-                            <th> Date </th>
-                            <th> Quantity </th>
+                            <th> Progress number </th>
+                            <th> Donor type </th>
+                            <th> Address</th>
+                            <th> Item/materials  </th>
+                            <th> Quantity</th>
+                            <th> Date</th>
                             <th class="text-center"> Action </th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php $count=1;?>
-                        @if(count($items)>0)
-                            @foreach($items as $item)
+                        @if(count($disbursements)>0)
+                            @foreach($disbursements as $disbursement)
                                 <tr class="odd gradeX">
+                                    <td> {{$count++}} </td>
                                     <td>
-                                        {{$count++}}
+                                        {{$disbursement->progress_number}}
                                     </td>
                                     <td>
-                                        {{$item->way_bill_number}}
+                                        {{$disbursement->donor_type}}
                                     </td>
                                     <td>
-                                        {{$item->item_name}}
+                                        {{$disbursement->address}}
                                     </td>
                                     <td>
-                                        {{$item->received_from}}
+                                        {{$disbursement->item}}
                                     </td>
                                     <td>
-                                        {{$item->donor}}
+                                        {{$disbursement->quantity}}
                                     </td>
                                     <td>
-                                        {{$item->population}}
+                                        {{$disbursement->distributed_date}}
                                     </td>
-                                    <td>
-                                        {{$item->receiver}}
-                                    </td>
-                                    <td>
-                                        {{$item->received_date}}
-                                    </td>
-                                    <td>
-                                        {{$item->quantity}}
-                                    </td>
-                                    <td class="text-center" id="{{$item->id}}">
-                                        <a href="#"  class="btn btn-icon-only blue editRecord"> <i class="fa fa-edit"></i> </a>
-                                        <a href="#" class="btn btn-icon-only red deleteRecord"> <i class="fa fa-trash"></i> </a>
+                                    <td class="text-center" id="{{$disbursement->id}}">
+                                        <a href="#"  class="editRecord"> <i class="fa fa-edit"></i> </a>
+                                        <a href="#" class="deleteRecord"> <i class="fa fa-trash text-danger"></i> </a>
                                     </td>
                                 </tr>
                             @endforeach

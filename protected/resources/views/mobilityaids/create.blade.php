@@ -12,59 +12,40 @@
         <div class="form-body">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                    <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                         <label>Date</label>
                         <input type="text" class="form-control input-medium date-picker" readonly name="distributed_date" id="distributed_date" data-date-format="yyyy-mm-dd">
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                    <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
                         <label>Progress Number</label>
-                        <input type="text" name="progress_number" id="progress_number" placeholder="Enter Progress number" class="form-control" readonly value="{{$beneficiary->progress_number}}">
+                        <input type="text" name="progress_number" id="progress_number" placeholder="Enter Progress number" class="form-control">
                     </div>
 
                 </div>
             </div>
             <div class="form-group" id="itemsdispatch">
                 <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-
+                 <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                    <label> Item/materials distributed</label>
+                     <input type="text" name="item[]" id="item" class="form-control">
                     </div>
                     <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5">
-
-                    </div>
-                    <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1">
-                        <a href="#" class="addRow"><i class="fa fa-plus"></i> Add </a>
-                    </div>
-                </div>
-                <div class="row">
-                 <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
-                    <label> Item/materials distributed</label>
-                     <select name="item[]" id="item" class="form-control" >
-                         <option value="">--Select--</option>
-                         @foreach(\App\ItemsInventory::orderBy('item_name','ASC')->get() as $itm)
-                             <option value="{{$itm->item_name}}">{{$itm->item_name}}</option>
-                             @endforeach
-                     </select>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
-                        <label> Category </label>
-                        <select name="category[]" id="category" class="form-control" >
-                            <option value="">--Select--</option>
-                            @foreach(\App\ItemsCategories::orderBy('category_name','ASC')->get() as $itm)
-                                <option value="{{$itm->category_name}}">{{$itm->category_name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                         <label>Quantity</label>
                         <input type="text" class="form-control" name="quantity[]" id="quantity">
                     </div>
-
+                    <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1">
+                       <a href="#" class="addRow"><i class="fa fa-plus"></i> Add </a>
+                    </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Donor type</label>
                 <input type="text" class="form-control" name="donor_type" id="donor_type">
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" class="form-control" name="address" id="address">
             </div>
 
             <hr/>
@@ -74,7 +55,6 @@
                 </div>
                 <div class="col-md-4 col-sm-4 pull-right text-right">
                     <button type="button" class="btn btn-danger "  data-dismiss="modal">Cancel</button>
-                    <input type="hidden" name="beneficiary_id" id="beneficiary_id" value="{{$beneficiary->id}}">
                     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save </button>
                 </div>
 
@@ -138,7 +118,7 @@
                                 //data: return data from server
                                 $("#output").html(data);
                                 setTimeout(function() {
-                                    location.replace("{{url('inventory/disbursement')}}");
+                                    location.reload();
                                     $("#output").html("");
                                 }, 2000);
                             }
@@ -168,27 +148,16 @@
 
         div.className = 'row';
 
-        div.innerHTML = '<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">\
+        div.innerHTML = '<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">\
                <label> Item/materials distributed</label>\
-               <select name="item[]" id="item" class="form-control" >\
-                <option value="">--Select--</option>\
-                @foreach(\App\ItemsInventory::orderBy('item_name','ASC')->get() as $itm)\
-                <option value="{{$itm->item_name}}">{{$itm->item_name}}</option>\
-                @endforeach\
-                </select>\
+                <input type="text" name="item[]" id="item" class="form-control">\
                 </div>\
-                 <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">\
-                <label> Category </label>\
-                <select name="category[]" id="category" class="form-control" >\
-                <option value="">--Select--</option>\
-                @foreach(\App\ItemsCategories::orderBy('category_name','ASC')->get() as $itm)\
-                <option value="{{$itm->category_name}}">{{$itm->category_name}}</option>\
-                @endforeach\
-                </select>\
-                </div>\
-                <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">\
+                <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5">\
                 <label>Quantity</label>\
                 <input type="text" class="form-control" name="quantity[]" id="quantity">\
+                </div>\
+                <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1">\
+                </div>\
                 </div>';
 
         document.getElementById('itemsdispatch').appendChild(div);

@@ -102,22 +102,25 @@
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('livelihood/groups')}}" class="nav-link ">
-                        <span class="title">Stock In</span>
+                    <a href="{{url('inventory/received')}}" class="nav-link ">
+                        <span class="title">Received Items</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('sr/materials')}}" class="nav-link ">
-                        <span class="title">Distribution</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('livelihood/reports')}}" class="nav-link ">
-                        <span class="title">Reports</span>
+                    <a href="{{url('inventory/disbursement')}}" class="nav-link ">
+                        <span class="title">Distribute Items</span>
                     </a>
                 </li>
 
             </ul>
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('mobility/aids')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Mobility Aids</span>
+
+            </a>
+
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">

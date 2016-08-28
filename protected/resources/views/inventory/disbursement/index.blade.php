@@ -12,11 +12,11 @@
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">Home</span>
-
+                <span class="selected"></span>
             </a>
 
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Clients</span>
@@ -42,6 +42,11 @@
                 <li class="nav-item  ">
                     <a href="{{url('assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('disabilities/clients')}}" class="nav-link ">
+                        <span class="title">Disabilities</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
@@ -82,11 +87,68 @@
             </a>
 
         </li>
-        <li class="nav-item ">
-            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
+        <li class="nav-item start active open">
+            <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-list"></i>
                 <span class="title">Material support</span>
+                <span class="arrow"></span>
             </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('inventory')}}" class="nav-link ">
+                        <span class="title">Inventory</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('inventory/received')}}" class="nav-link ">
+                        <span class="title">Received Items</span>
+                    </a>
+                </li>
+                <li class="nav-item  active">
+                    <a href="{{url('inventory/disbursement')}}" class="nav-link ">
+                        <span class="title">Distribute Items</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="nav-item ">
+            <a href="{{url('mobility/aids')}}" class="nav-link nav-toggle">
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Mobility Aids</span>
+
+            </a>
+
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-users"></i>
+                <span class="title"> LiveliHoods Tracking</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/clients')}}" class="nav-link ">
+                        <span class="title">Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/groups')}}" class="nav-link ">
+                        <span class="title">Groups</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/materials')}}" class="nav-link ">
+                        <span class="title">Material Support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/reports')}}" class="nav-link ">
+                        <span class="title">Reports</span>
+                    </a>
+                </li>
+
+            </ul>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
@@ -236,6 +298,28 @@
 @stop
 @section('custom-scripts')
     <script>
+        function closePrint () {
+            document.body.removeChild(this.__container__);
+        }
+
+        function setPrint () {
+            this.contentWindow.__container__ = this;
+            this.contentWindow.onbeforeunload = closePrint;
+            this.contentWindow.onafterprint = closePrint;
+            this.contentWindow.focus(); // Required for IE
+            this.contentWindow.print();
+        }
+
+        function printPage (sURL) {
+            var oHiddFrame = document.createElement("iframe");
+            oHiddFrame.onload = setPrint;
+            oHiddFrame.style.visibility = "hidden";
+            oHiddFrame.style.position = "fixed";
+            oHiddFrame.style.right = "0";
+            oHiddFrame.style.bottom = "0";
+            oHiddFrame.src = sURL;
+            document.body.appendChild(oHiddFrame);
+        }
         $(".addRegion").click(function(){
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
@@ -279,6 +363,30 @@
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
             $(".modal-body").load("<?php echo url("inventory/disbursement/edit") ?>/"+id1);
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
+        $(".showRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
+            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item distribution</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow','hidden');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("inventory/disbursement/show") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -332,9 +440,8 @@
                         <div class="row">
                             <div class="col-md-8 pull-right">
                                 <div class="btn-group pull-right">
-                                    <a href="#" class="addRegion btn blue-madison"> <i class="fa fa-plus"></i> Distribute Item</a>
-                                    <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> View All</a>
-                                    <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-server"></i> View beneficiaries</a>
+                                    <a href="{{url('inventory/disbursement/beneficiaries')}}" class=" btn blue-madison"> <i class="fa fa-search"></i> Search Beneficiaries</a>
+                                    <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All Records</a>
                                     <a href="{{url('inventory/disbursement/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
                                 </div>
                             </div>
@@ -349,11 +456,12 @@
                         <tr>
                             <th> SNO </th>
                             <th> Progress number </th>
-                            <th> Donor type </th>
                             <th> Address</th>
-                            <th> Item/materials  </th>
-                            <th> Quantity</th>
+                            <th> Item/materials </th>
+                            <th> Quantity  </th>
+                            <th> Donor type </th>
                             <th> Date</th>
+                            <th> </th>
                             <th class="text-center"> Action </th>
                         </tr>
                         </thead>
@@ -364,13 +472,14 @@
                                 <tr class="odd gradeX">
                                     <td> {{$count++}} </td>
                                     <td>
-                                        {{$disbursement->progress_number}}
+                                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null )
+                                        {{$disbursement->beneficiary->progress_number}}
+                                            @endif
                                     </td>
                                     <td>
-                                        {{$disbursement->donor_type}}
-                                    </td>
-                                    <td>
-                                        {{$disbursement->address}}
+                                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null )
+                                            {{$disbursement->beneficiary->address}}
+                                        @endif
                                     </td>
                                     <td>
                                         {{$disbursement->item}}
@@ -379,11 +488,19 @@
                                         {{$disbursement->quantity}}
                                     </td>
                                     <td>
+                                        {{$disbursement->donor_type}}
+                                    </td>
+                                    <td>
                                         {{$disbursement->distributed_date}}
                                     </td>
                                     <td class="text-center" id="{{$disbursement->id}}">
-                                        <a href="#"  class="editRecord"> <i class="fa fa-edit"></i> </a>
-                                        <a href="#" class="deleteRecord"> <i class="fa fa-trash text-danger"></i> </a>
+                                        <a href="#" class="showRecord "> <i class="fa fa-eye"></i> </a>
+                                        <a href="#" class="  "> <i class="fa fa-print green " onclick="printPage('{{url('inventory/disbursement/print')}}/{{$disbursement->id}}');" ></i> </a>
+                                        <a href="{{url('inventory/disbursement/pdf')}}/{{$disbursement->id}}" class=" " title="Download"> <i class="fa fa-download text-danger "></i> </a>
+                                    </td>
+                                    <td class="text-center" id="{{$disbursement->id}}">
+                                        <a href="#"  class="editRecord btn"> <i class="fa fa-edit"></i> </a>
+                                        <a href="#" class="deleteRecord btn"> <i class="fa fa-trash text-danger"></i> </a>
                                     </td>
                                 </tr>
                             @endforeach
