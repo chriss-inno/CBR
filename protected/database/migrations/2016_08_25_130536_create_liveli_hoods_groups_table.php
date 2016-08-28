@@ -19,6 +19,8 @@ class CreateLiveliHoodsGroupsTable extends Migration
             $table->string('zone')->nullable();
             $table->string('activity')->nullable();
             $table->string('donor')->nullable();
+            $table->string('address')->nullable();
+            $table->string('funding_source')->nullable();
             $table->string('registration_date')->nullable();
             $table->string('phone');
             $table->string('nationality');

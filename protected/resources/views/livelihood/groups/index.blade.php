@@ -454,13 +454,10 @@
                     <tr>
                         <th> SNO </th>
                         <th> Group Name</th>
-                        <th> Category </th>
-                        <th> Zone </th>
                         <th> Activity </th>
-                        <th> Donor </th>
-                        <th> Registration Date </th>
-                        <th> Phone </th>
-                        <th> Nationality </th>
+                        <th> BDI/Nationality </th>
+                        <th> Location of Group/address </th>
+                        <th> Source of Funding </th>
                         <th class="text-center"> Action </th>
                     </tr>
                     </thead>
@@ -474,25 +471,16 @@
                                     <?php echo $group->group_name; ?>
                                 </td>
                                 <td>
-                                    <?php echo $group->category; ?>
-                                </td>
-                                <td>
-                                    <?php echo $group->zone; ?>
-                                </td>
-                                <td>
                                     <?php echo $group->activity; ?>
                                 </td>
                                 <td>
-                                    <?php echo $group->donor; ?>
-                                </td>
-                                <td>
-                                    <?php echo $group->registration_date; ?>
-                                </td>
-                                <td>
-                                    <?php echo $group->phone; ?>
-                                </td>
-                                <td>
                                     <?php echo $group->nationality; ?>
+                                </td>
+                                <td>
+                                    <?php echo $group->address; ?>
+                                </td>
+                                <td>
+                                    <?php echo $group->funding_source; ?>
                                 </td>
                                 <td class="text-center" id="{{$group->id}}">
                                     <a href="#" class="editRecord btn"> <i class="fa fa-edit "></i>  </a>

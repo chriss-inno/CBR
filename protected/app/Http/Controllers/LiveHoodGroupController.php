@@ -61,6 +61,8 @@ class LiveHoodGroupController extends Controller
             $group->zone = $request->zone;
             $group->activity = $request->activity;
             $group->donor = $request->donor;
+            $group->address = $request->address;
+            $group->funding_source = $request->funding_source;
             $group->registration_date = date('Y-m-d', strtotime($request->registration_date));
             $group->phone = $request->phone;
             $group->nationality = $request->nationality;
@@ -113,6 +115,8 @@ class LiveHoodGroupController extends Controller
         $group->zone=$request->zone;
         $group->activity=$request->activity;
         $group->donor=$request->donor;
+        $group->address = $request->address;
+        $group->funding_source = $request->funding_source;
         $group->registration_date=$request->registration_date;
         $group->phone=$request->phone;
         $group->nationality=$request->nationality;

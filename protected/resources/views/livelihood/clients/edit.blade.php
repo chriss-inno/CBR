@@ -71,11 +71,14 @@
                             <select name="group" id="group" class="form-control">
 
                                 @if($client->group != "")
-                                    <option value="{{$client->group}}" selected>{{$client->group}}</option>
+                                    <?php $gp=\App\LiveliHoodsGroup::find($client->group);?>
+                                  @if(count($gp) >0 && $gp !=null)
+                                    <option value="{{$client->group}}" selected>{{$gp->group_name}}</option>
+                                      @endif
                                 @endif
                                     <option value="">--None--</option>
                                 @foreach(\App\LiveliHoodsGroup::orderBy('group_name','ASC')->get() as $lg )
-                                    <option value="{{$lg->group_name}}">{{$lg->group_name}}</option>
+                                    <option value="{{$lg->id}}">{{$lg->group_name}}</option>
                                 @endforeach
                             </select>
                         </div>

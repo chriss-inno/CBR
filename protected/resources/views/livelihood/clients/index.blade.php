@@ -484,7 +484,9 @@
                                     <?php echo $client->position; ?>
                                 </td>
                                 <td>
-                                    <?php echo $client->group; ?>
+                                    @if(is_object($client->LiveliHoodGroup) && count($client->LiveliHoodGroup) >0 && $client->LiveliHoodGroup != null)
+                                       {{$client->LiveliHoodGroup->group_name}}
+                                        @endif
                                 </td>
                                 <td>
                                     <?php echo $client->nationality; ?>

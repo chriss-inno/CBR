@@ -67,6 +67,14 @@
                     <label>Donor</label>
                     <input type="text" class="form-control" name="donor" id="donor">
                 </div>
+                <div class="form-group">
+                    <label>Location of Group/address</label>
+                    <input type="text" class="form-control" name="address" id="address">
+                </div>
+                <div class="form-group">
+                    <label>Source of Funding</label>
+                    <input type="text" class="form-control" name="funding_source" id="funding_source">
+                </div>
             </div>
 
         </div>

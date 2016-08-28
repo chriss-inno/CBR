@@ -120,7 +120,7 @@ class livehoodClientController extends Controller
             Excel::load($destinationPath . $filename, function ($reader) {
 
                 $results = $reader->get();
-                \DB::table('dump_assessments')->truncate();
+               
                 $results->each(function($row) {
 
                     if(!count(LiveliHoodsClient::where('progress_number','=',$row->progress_number)->get()) >0 && Client::where('file_number','=',$row->progress_number)->get() != null)
@@ -135,7 +135,7 @@ class livehoodClientController extends Controller
                         $groups=LiveliHoodsGroup::where('group_name','=',ucwords(strtolower($row->group)))->get()->first();
                         if(count($groups) >0 && $groups != null)
                         {
-                            $camp_name=$groups->group_name;
+                            $camp_name=$groups->id;
                         }
                         else
                         {
@@ -145,12 +145,14 @@ class livehoodClientController extends Controller
                            $groups->zone=$row->zone;
                            $groups->activity=$row->activity;
                            $groups->donor=$row->donor;
+                           $groups->address = $row->location_of_group;
+                           $groups->funding_source = $row->source_of_funding;
                            $groups->registration_date=date(strtotime($row->registration_date));
                            $groups->phone=$row->phone;
                            $groups->nationality=$row->nationality;
                            $groups->save();
 
-                           $camp_name=$groups->group_name;
+                           $camp_name=$groups->id;
                         }
 
                        
