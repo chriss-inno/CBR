@@ -16,7 +16,7 @@
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">Home</span>
-
+                <span class="selected"></span>
             </a>
 
         </li>
@@ -43,9 +43,14 @@
                         <span class="title">Import Client</span>
                     </a>
                 </li>
-                <li class="nav-item active ">
+                <li class="nav-item  active">
                     <a href="{{url('assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('disabilities/clients')}}" class="nav-link ">
+                        <span class="title">Disabilities</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
@@ -87,10 +92,59 @@
 
         </li>
         <li class="nav-item ">
-            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
+            <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-list"></i>
                 <span class="title">Material support</span>
+                <span class="arrow"></span>
             </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('inventory')}}" class="nav-link ">
+                        <span class="title">Inventory</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('inventory/received')}}" class="nav-link ">
+                        <span class="title">Received Items</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('inventory/disbursement')}}" class="nav-link ">
+                        <span class="title">Distribute Items</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-users"></i>
+                <span class="title"> LiveliHoods Tracking</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/clients')}}" class="nav-link ">
+                        <span class="title">Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/groups')}}" class="nav-link ">
+                        <span class="title">Groups</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/materials')}}" class="nav-link ">
+                        <span class="title">Material Support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/reports')}}" class="nav-link ">
+                        <span class="title">Reports</span>
+                    </a>
+                </li>
+
+            </ul>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
@@ -249,12 +303,12 @@
     <script>
         $("#DepartmentFormUN").validate({
             rules: {
-                examiner_name: "required",
-                examiner_title: "required"
+                examiner_name_g: "required",
+                examiner_title_g: "required"
             },
             messages: {
-                examiner_name: "Please enter examiner name",
-                examiner_title: "Please enter examiner status"
+                examiner_name_g: "Please enter examiner name",
+                examiner_title_g: "Please enter examiner status"
             }
         });
     </script>

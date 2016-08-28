@@ -102,7 +102,7 @@ class BeneficiaryController extends Controller
 
 
 
-                        if(count(Beneficiary::where('progress_number','=',str_replace(".","",$row->progress_number))->where('progress_number','=',ucwords(strtolower($row->full_name)))->get()) > 0 )
+                        if(count(Beneficiary::where('progress_number','=',str_replace(".","",$row->progress_number))->where('full_name','=',ucwords(strtolower($row->full_name)))->get()) > 0 )
                         {
                             $beneficiary=new DumpBeneficiary;
                             $beneficiary->progress_number = $row->progress_number;
@@ -214,7 +214,7 @@ class BeneficiaryController extends Controller
     public function store(Request $request)
     {
         //
-        if(count(Beneficiary::where('progress_number','=',str_replace(".","",$request->progress_number))->where('progress_number','=',ucwords(strtolower($request->full_name)))->get()) > 0 )
+        if(count(Beneficiary::where('progress_number','=',str_replace(".","",$request->progress_number))->where('full_name','=',ucwords(strtolower($request->full_name)))->get()) > 0 )
         {
                 return "<span class='text-danger'><i class='fa-info'></i>Save failed: Progress number [".$request->progress_number."] was already used </span>";
 

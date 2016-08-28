@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Import
+    Social needs/Support  Import
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -16,7 +16,7 @@
             </a>
 
         </li>
-        <li class="nav-item ">
+        <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Clients</span>
@@ -71,7 +71,7 @@
             </a>
 
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item ">
             <a href="{{url('beneficiaries')}}" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Beneficiaries</span>
@@ -112,14 +112,14 @@
 
             </ul>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item start active open ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-users"></i>
                 <span class="title"> LiveliHoods Tracking</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('livelihood/clients')}}" class="nav-link ">
                         <span class="title">Clients</span>
                     </a>
@@ -195,7 +195,7 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
@@ -212,7 +212,7 @@
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
@@ -288,15 +288,44 @@
 
 @stop
 @section('custom-scripts')
+    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
-        $(".assessmentForm").click(function(){
-            var id1 = $(this).parent().attr('id');
+        $("#SearchForm").validate({
+            rules: {
+                searchKeyword: "required"
+            },
+            messages: {
+                searchKeyword: "Please enter search keyword "
+            },
+            submitHandler: function(form) {
+                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");
+                var postData = $('#SearchForm').serializeArray();
+                var formURL = $('#SearchForm').attr("action");
+                $.ajax(
+                        {
+                            url : formURL,
+                            type: "POST",
+                            data : postData,
+                            success:function(data)
+                            {
+                                console.log(data);
+                                //data: return data from server
+                                $("#clientsSearchResults").html(data);
+                            },
+                            error: function(data)
+                            {
+                                console.log(data.responseJSON);
+                            }
+                        });
+            }
+        });
+        $(".addRecord").click(function(){
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:80%;margin-right: 10% ;margin-left: 10%">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Client assessment details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Rehabilitation register</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -307,7 +336,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("assessment/create") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("rehabilitation/services/create") ?>");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -321,7 +350,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Camps: Camps details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -332,7 +361,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("clients") ?>/"+id1+"/edit");
+            $(".modal-body").load("<?php echo url("rehabilitation/services/edit") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -350,29 +379,40 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
+                $.get("<?php echo url('rehabilitation/services/remove') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
         });
-        $(".deleteRecordAssessment").click(function(){
-            var id1 = $(this).parent().attr('id');
-            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-            var btn = $(this).parent().parent();
-            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-            $("#no").click(function(){
-                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-            $("#yes").click(function(){
-                $.get("<?php echo url('assessment/remove') ?>/"+id1,function(data){
-                    $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                    $(this).parent().parent().find("span").remove();
-                });
-                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
+    </script>
+    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
+    <script>
+
+        $("#DepartmentFormUN").validate({
+            rules: {
+                clients_file: "required",
+                status: "required",
+                quantity: "required"
+            },
+            messages: {
+                clients_file: "Please Select file to upload",
+                status: "Please select status",
+                quantity: "Please enter quantity"
+            }
         });
+        $("#DepartmentFormUN1").validate({
+            rules: {
+                clients_file: "required",
+                status: "required",
+                quantity: "required"
+            },
+            messages: {
+                clients_file: "Please Select file to upload",
+                status: "Please select status",
+                quantity: "Please enter quantity"
+            }
+        });
+
     </script>
 @stop
 @section('breadcrumb')
@@ -382,11 +422,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('beneficiaries')}}"> Beneficiaries </a>
+            <a href="{{url('inventory/disbursement')}}"> Material Support  </a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active"> List all</span>
+            <span class="active">Import</span>
         </li>
     </ul>
 @stop
@@ -397,86 +437,51 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Import errors </span>
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">Material support  : Import</span>
                     </div>
-                </div>
-                <div class="table-toolbar">
-                    <div class="row">
-                        <div class="col-md-12 pull-right">
-                            <div class="btn-group pull-right">
-                                <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-server"></i> Beneficiaries</a>
-                                <a href="{{url('excel/beneficiaries')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
-                            </div>
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-12 pull-right">
+                                <div class="col-md-8 pull-right">
+                                    <div class="btn-group pull-right">
+                                        <a href="{{url('inventory/disbursement/beneficiaries')}}" class=" btn blue-madison"> <i class="fa fa-search"></i> Search Beneficiaries</a>
+                                        <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All Records</a>
+                                        <a href="{{url('inventory/disbursement/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
+                                    </div>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="portlet-body">
-                    <table class="table table-striped table-bordered table-hover table-checkable order-column text-danger" id="sample_1">
-                        <thead>
-                        <tr>
-                            <th> SNO </th>
-                            <th> Progress number </th>
-                            <th> Full Name</th>
-                            <th> Date of registration </th>
-                            <th> Sex </th>
-                            <th> Age </th>
-                            <th> Category </th>
-                            <th> Code </th>
-                            <th> Family size </th>
-                            <th> Number of females </th>
-                            <th> Number of males </th>
-                            <th class="text-danger"> Error found </th>
-                        </tr>
-                        </thead>
-                        <tbody id="clientsSearchResults">
-                        <?php $count=1;?>
-                        @if(count($beneficiaries )>0)
-                            @foreach($beneficiaries as $beneficiary)
-                                <tr class="odd gradeX">
-                                    <td> {{$count++}} </td>
-                                    <td>
-                                        <?php echo $beneficiary->progress_number; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->full_name; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->date_registration; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->sex; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->age; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->category; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->code; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->family_size; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->number_females; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->number_male; ?>
-                                    </td>
-                                    <td class="text-danger">
-                                        <?php echo $beneficiary->error_descriptions; ?>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
+                    <!-- BEGIN SAMPLE FORM PORTLET-->
+                    <div class="portlet light bordered">
+                        <div class="portlet-body form">
+                            {!! Form::open(array('url'=>'inventory/disbursement/import','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label>Import material support distribution details from MS Excel <a href={{asset("assets/templates/material_support_template.xls")}}> Download template here</a> </label>
+                                    <input TYPE="file" class="form-control" name="clients_file" id="clients_file">
+                                    @if($errors->first('clients_file') !="")
+                                        <span class=" error">{{ $errors->first('clients_file') }}</span>
+                                    @endif
+                                </div>
+                                <hr/>
+                                <div class="row text-center">
+                                    <div class="col-md-4 col-sm-4">
+                                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Import </button>
+                                    </div>
 
+                                </div>
 
-                        </tbody>
-                    </table>
+                            </div>
+
+                            {!! Form::close() !!}
+
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->

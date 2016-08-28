@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Beneficiary;
 use App\Client;
 use App\ClientDisability;
 use Illuminate\Http\Request;
@@ -101,12 +102,65 @@ class ClientDisabilityController extends Controller
     {
         //
         $disability=new ClientDisability;
+        $disability->progress_number=$request->progress_number;
         $disability->category_name=$request->category_name;
         $disability->disability_diagnosis=$request->disability_diagnosis;
         $disability->remarks=$request->remarks;
         $disability->client_id=$request->client_id;
         $disability->save();
+
+        //Add details to beneficiaries
+        $client=Client::find($request->client_id);
+        if(count($client) > 0 && $client != null)
+        {
+            if(!count(Beneficiary::where('progress_number','=',str_replace(".","",$request->progress_number))->where('full_name','=',ucwords(strtolower($client->full_name)))->get()) > 0 )
+            {
+                $beneficiary = new Beneficiary();
+                $beneficiary->progress_number = $request->progress_number;
+                $beneficiary->full_name = ucwords(strtolower($client->full_name));
+                $beneficiary->date_registration = date("Y-m-d");
+                $beneficiary->age = $client->age;
+                $beneficiary->sex = $client->sex;
+                $beneficiary->address = $client->address;
+                $beneficiary->nationality = ucwords(strtolower($client->nationality));
+                $beneficiary->save();
+            }
+
+        }
+
        return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
+    }
+    
+    public function postRegister(Request $request)
+    {
+        //
+        $disability=new ClientDisability;
+        $disability->progress_number=$request->progress_number;
+        $disability->category_name=$request->category_name;
+        $disability->disability_diagnosis=$request->disability_diagnosis;
+        $disability->remarks=$request->remarks;
+        $disability->client_id=$request->client_id;
+        $disability->save();
+
+        //Add details to beneficiaries
+        $client=Client::find($request->client_id);
+        if(count($client) > 0 && $client != null)
+        {
+            if(!count(Beneficiary::where('progress_number','=',str_replace(".","",$request->progress_number))->where('full_name','=',ucwords(strtolower($client->full_name)))->get()) > 0 )
+            {
+                $beneficiary = new Beneficiary();
+                $beneficiary->progress_number = $request->progress_number;
+                $beneficiary->full_name = ucwords(strtolower($client->full_name));
+                $beneficiary->date_registration = date("Y-m-d");
+                $beneficiary->age = $client->age;
+                $beneficiary->sex = $client->sex;
+                $beneficiary->address = $client->address;
+                $beneficiary->nationality = ucwords(strtolower($client->nationality));
+                $beneficiary->save();
+            }
+
+        }
+        return redirect('clients');
     }
 
     /**
@@ -162,6 +216,7 @@ class ClientDisabilityController extends Controller
     {
         //
         $disability=ClientDisability::find($request->id);
+        $disability->progress_number=$request->progress_number;
         $disability->category_name=$request->category_name;
         $disability->disability_diagnosis=$request->disability_diagnosis;
         $disability->remarks=$request->remarks;

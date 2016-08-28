@@ -7,18 +7,18 @@
 
 <div class="portlet light bordered">
     <div class="portlet-body form">
-        {!! Form::open(array('url'=>'inventory/disbursement/edit','role'=>'form','id'=>'DepartmentFormUN')) !!}
+        {!! Form::open(array('url'=>'livelihood/materials/edit','role'=>'form','id'=>'DepartmentFormUN')) !!}
 
         <div class="form-body">
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
                         <label>Date</label>
-                        <input type="text" class="form-control input-medium date-picker" readonly name="distributed_date" id="distributed_date" data-date-format="yyyy-mm-dd" value="{{$disbursement->distributed_date}}" data-date-viewmode="years" data-date-end-date="+0d">
+                        <input type="text" class="form-control input-medium date-picker" readonly name="support_date" id="support_date" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d" value="{{$support->support_date}}">
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-                        <label>Progress Number</label>
-                        <input type="text" name="progress_number" id="progress_number" placeholder="Enter Progress number" class="form-control" readonly value="{{$disbursement->progress_number}}">
+                        <label>Progress Number/Group Name</label>
+                        <input type="text" name="progress_number" id="progress_number" placeholder="Enter Progress number" class="form-control" readonly  value="{{$support->supported_name}}">
                     </div>
 
                 </div>
@@ -28,9 +28,7 @@
                     <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                         <label> Item/materials distributed</label>
                         <select name="item" id="item" class="form-control" >
-                            @if($disbursement->item !="")
-                                <option value="{{$disbursement->item}}" selected>{{$disbursement->item}}</option>
-                            @endif
+                            <option value="{{$support->item_support}}" selected>{{$support->item_support}}</option>
                             <option value="">--Select--</option>
                             @foreach(\App\ItemsInventory::orderBy('item_name','ASC')->get() as $itm)
                                 <option value="{{$itm->item_name}}">{{$itm->item_name}}</option>
@@ -40,9 +38,7 @@
                     <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                         <label> Category </label>
                         <select name="category" id="category" class="form-control" >
-                            @if($disbursement->category !="")
-                                <option value="{{$disbursement->category}}" selected>{{$disbursement->category}}</option>
-                            @endif
+                            <option value="{{$support->quantity}}">{{$support->category}}</option>
                             <option value="">--Select--</option>
                             @foreach(\App\ItemsCategories::orderBy('category_name','ASC')->get() as $itm)
                                 <option value="{{$itm->category_name}}">{{$itm->category_name}}</option>
@@ -51,15 +47,19 @@
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                         <label>Quantity</label>
-                        <input type="text" class="form-control" name="quantity" id="quantity" value="{{$disbursement->quantity}}">
+                        <input type="text" class="form-control" name="quantity" id="quantity" value="{{$support->quantity}}">
                     </div>
 
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Donor type</label>
-                <input type="text" class="form-control" name="donor_type" id="donor_type" value="{{$disbursement->donor_type}}">
+                <label>Donor</label>
+                <input type="text" class="form-control" name="donor" id="donor" value="{{$support->donor}}">
+            </div>
+            <div class="form-group">
+                <label>Venue</label>
+                <input type="text" class="form-control" name="venue" id="venue" value="{{$support->venue}}">
             </div>
 
             <hr/>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-md-4 col-sm-4 pull-right text-right">
                     <button type="button" class="btn btn-danger "  data-dismiss="modal">Cancel</button>
-                    <input type="hidden" name="id" id="id" value="{{$disbursement->id}}">
+                    <input type="hidden" name="id" id="id"  value="{{$support->id}}">
                     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save </button>
                 </div>
 
@@ -103,17 +103,17 @@
     });
     $("#DepartmentFormUN").validate({
         rules: {
-            progress_number: "required",
-            donor_type: "required",
-            item: "required",
+            supported_name: "required",
+            venue: "required",
+            donor: "required",
             quantity: "required",
-            distributed_date: "required"
+            support_date: "required"
         },
         messages: {
-            progress_number: "Please field is required",
-            donor_type: "Please field is required",
-            item: "Please field is required",
-            distributed_date: "Please field is required",
+            supported_name: "Please field is required",
+            venue: "Please field is required",
+            donor: "Please field is required",
+            support_date: "Please field is required",
             quantity: "Please enter quantity"
         },
         submitHandler: function(form) {
@@ -133,7 +133,7 @@
                                 //data: return data from server
                                 $("#output").html(data);
                                 setTimeout(function() {
-                                    location.replace("{{url('inventory/disbursement')}}");
+                                    location.replace("{{url('livelihood/materials')}}");
                                     $("#output").html("");
                                 }, 2000);
                             }

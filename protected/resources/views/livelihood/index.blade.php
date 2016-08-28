@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Import
+   LiveliHood material support
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -16,7 +16,7 @@
             </a>
 
         </li>
-        <li class="nav-item ">
+        <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Clients</span>
@@ -71,7 +71,7 @@
             </a>
 
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item ">
             <a href="{{url('beneficiaries')}}" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Beneficiaries</span>
@@ -112,14 +112,14 @@
 
             </ul>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item start active open ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-users"></i>
                 <span class="title"> LiveliHoods Tracking</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('livelihood/clients')}}" class="nav-link ">
                         <span class="title">Clients</span>
                     </a>
@@ -195,7 +195,7 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
@@ -212,7 +212,7 @@
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
@@ -286,17 +286,39 @@
     {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
     {!! Html::script("assets/pages/scripts/ui-confirmations.min.js" ) !!}
 
+
 @stop
 @section('custom-scripts')
     <script>
-        $(".assessmentForm").click(function(){
-            var id1 = $(this).parent().attr('id');
+        function closePrint () {
+            document.body.removeChild(this.__container__);
+        }
+
+        function setPrint () {
+            this.contentWindow.__container__ = this;
+            this.contentWindow.onbeforeunload = closePrint;
+            this.contentWindow.onafterprint = closePrint;
+            this.contentWindow.focus(); // Required for IE
+            this.contentWindow.print();
+        }
+
+        function printPage (sURL) {
+            var oHiddFrame = document.createElement("iframe");
+            oHiddFrame.onload = setPrint;
+            oHiddFrame.style.visibility = "hidden";
+            oHiddFrame.style.position = "fixed";
+            oHiddFrame.style.right = "0";
+            oHiddFrame.style.bottom = "0";
+            oHiddFrame.src = sURL;
+            document.body.appendChild(oHiddFrame);
+        }
+        $(".addRegion").click(function(){
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:80%;margin-right: 10% ;margin-left: 10%">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i> Client assessment details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Distribute Item</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -307,7 +329,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("assessment/create") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("inventory/disbursement/create") ?>");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -321,7 +343,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update Camps: Camps details</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item distribution</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -332,7 +354,31 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("clients") ?>/"+id1+"/edit");
+            $(".modal-body").load("<?php echo url("livelihood/materials/edit") ?>/"+id1);
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
+        $(".showRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
+            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item distribution</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow','hidden');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("livelihood/materials") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -350,27 +396,9 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('remove/clients') ?>/"+id1,function(data){
+                $.get("<?php echo url('livelihood/materials/remove') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
-            });
-        });
-        $(".deleteRecordAssessment").click(function(){
-            var id1 = $(this).parent().attr('id');
-            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-            var btn = $(this).parent().parent();
-            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-            $("#no").click(function(){
-                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-            $("#yes").click(function(){
-                $.get("<?php echo url('assessment/remove') ?>/"+id1,function(data){
-                    $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                    $(this).parent().parent().find("span").remove();
-                });
-                $(this).parent().parent().find(".deleteRecordAssessment").show("slow");
-                $(this).parent().parent().find("span").remove();
             });
         });
     </script>
@@ -382,11 +410,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('beneficiaries')}}"> Beneficiaries </a>
+            <a href="#">Inventory</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active"> List all</span>
+            <span class="active">Items</span>
         </li>
     </ul>
 @stop
@@ -397,78 +425,65 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Import errors </span>
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">Material support disbursements</span>
                     </div>
-                </div>
-                <div class="table-toolbar">
-                    <div class="row">
-                        <div class="col-md-12 pull-right">
-                            <div class="btn-group pull-right">
-                                <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-server"></i> Beneficiaries</a>
-                                <a href="{{url('excel/beneficiaries')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-8 pull-right">
+                                <div class="btn-group pull-right">
+                                    <a href="{{url('livelihood/materials/beneficiaries')}}" class=" btn blue-madison"> <i class="fa fa-search"></i> Search Beneficiaries</a>
+                                    <a href="{{url('livelihood/materials/groups')}}" class=" btn blue-madison"> <i class="fa fa-search"></i> Search Group</a>
+                                    <a href="{{url('livelihood/materials')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All Records</a>
+                                    <a href="{{url('livelihood/materials/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
+                                </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
-
                 <div class="portlet-body">
-                    <table class="table table-striped table-bordered table-hover table-checkable order-column text-danger" id="sample_1">
+
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
                         <thead>
                         <tr>
                             <th> SNO </th>
-                            <th> Progress number </th>
-                            <th> Full Name</th>
-                            <th> Date of registration </th>
-                            <th> Sex </th>
-                            <th> Age </th>
-                            <th> Category </th>
-                            <th> Code </th>
-                            <th> Family size </th>
-                            <th> Number of females </th>
-                            <th> Number of males </th>
-                            <th class="text-danger"> Error found </th>
+                            <th> Individual/Group Name </th>
+                            <th> Support Date</th>
+                            <th> Venue </th>
+                            <th> Item Support  </th>
+                            <th> Donor </th>
+                            <th> Quantity</th>
+                            <th class="text-center"> Action </th>
                         </tr>
                         </thead>
-                        <tbody id="clientsSearchResults">
+                        <tbody>
                         <?php $count=1;?>
-                        @if(count($beneficiaries )>0)
-                            @foreach($beneficiaries as $beneficiary)
+                        @if(count($materials)>0)
+                            @foreach($materials as $disbursement)
                                 <tr class="odd gradeX">
                                     <td> {{$count++}} </td>
                                     <td>
-                                        <?php echo $beneficiary->progress_number; ?>
+                                        {{$disbursement->supported_name}}
                                     </td>
                                     <td>
-                                        <?php echo $beneficiary->full_name; ?>
+                                        {{$disbursement->support_date}}
                                     </td>
                                     <td>
-                                        <?php echo $beneficiary->date_registration; ?>
+                                        {{$disbursement->venue}}
                                     </td>
                                     <td>
-                                        <?php echo $beneficiary->sex; ?>
+                                        {{$disbursement->item_support}}
                                     </td>
                                     <td>
-                                        <?php echo $beneficiary->age; ?>
+                                        {{$disbursement->donor}}
                                     </td>
                                     <td>
-                                        <?php echo $beneficiary->category; ?>
+                                        {{$disbursement->quantity}}
                                     </td>
-                                    <td>
-                                        <?php echo $beneficiary->code; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->family_size; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->number_females; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->number_male; ?>
-                                    </td>
-                                    <td class="text-danger">
-                                        <?php echo $beneficiary->error_descriptions; ?>
+                                    <td class="text-center" id="{{$disbursement->id}}">
+                                        <a href="#"  class="editRecord btn"> <i class="fa fa-edit"></i> </a>
+                                        <a href="#" class="deleteRecord btn"> <i class="fa fa-trash text-danger"></i> </a>
                                     </td>
                                 </tr>
                             @endforeach

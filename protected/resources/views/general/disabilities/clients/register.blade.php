@@ -16,11 +16,11 @@
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">Home</span>
-
+                <span class="selected"></span>
             </a>
 
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item  start active open">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Clients</span>
@@ -28,7 +28,7 @@
             </a>
             <ul class="sub-menu">
 
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('clients')}}" class="nav-link ">
                         <span class="title">View All Clients</span>
                     </a>
@@ -43,9 +43,14 @@
                         <span class="title">Import Client</span>
                     </a>
                 </li>
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item active ">
+                    <a href="{{url('disabilities/clients')}}" class="nav-link ">
+                        <span class="title">Disabilities</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
@@ -87,10 +92,59 @@
 
         </li>
         <li class="nav-item ">
-            <a href="{{url('sr/materials')}}" class="nav-link nav-toggle">
+            <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-list"></i>
                 <span class="title">Material support</span>
+                <span class="arrow"></span>
             </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('inventory')}}" class="nav-link ">
+                        <span class="title">Inventory</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('inventory/received')}}" class="nav-link ">
+                        <span class="title">Received Items</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('inventory/disbursement')}}" class="nav-link ">
+                        <span class="title">Distribute Items</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-users"></i>
+                <span class="title"> LiveliHoods Tracking</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/clients')}}" class="nav-link ">
+                        <span class="title">Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/groups')}}" class="nav-link ">
+                        <span class="title">Groups</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/materials')}}" class="nav-link ">
+                        <span class="title">Material Support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/reports')}}" class="nav-link ">
+                        <span class="title">Reports</span>
+                    </a>
+                </li>
+
+            </ul>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
@@ -145,7 +199,7 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
@@ -162,7 +216,7 @@
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
@@ -240,11 +294,13 @@
         $("#DepartmentFormUN").validate({
             rules: {
                 category_name: "required",
-                disability_diagnosis: "required"
+                disability_diagnosis: "required",
+                progress_number: "required"
             },
             messages: {
                 category_name: "Please enter category name",
-                disability_diagnosis: "Please enter diagnosis"
+                disability_diagnosis: "Please enter diagnosis",
+                progress_number: "Please enter progress_number"
             }
         });
     </script>
@@ -375,7 +431,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    {!! Form::open(array('url'=>'assessment/create','role'=>'form','id'=>'DepartmentFormUN')) !!}
+                    {!! Form::open(array('url'=>'disabilities/clients/show','role'=>'form','id'=>'DepartmentFormUN')) !!}
                     <div class="form-body">
                         <fieldset class="scheduler-border">
                             <legend class="scheduler-border">Personal Details</legend>
@@ -418,6 +474,10 @@
                         </fieldset>
                         <fieldset class="scheduler-border">
                             <legend class="scheduler-border">Disability Details</legend>
+                            <div class="form-group">
+                                <label>Progress Number</label>
+                                <input type="text" class="form-control" name="progress_number" id="progress_number" >
+                            </div>
                             <div class="form-group">
                                 <label>Disability Category</label>
                                 <input type="text" class="form-control" name="category_name" id="category_name" >

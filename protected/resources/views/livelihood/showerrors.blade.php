@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Import
+    Import Errors
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -16,7 +16,7 @@
             </a>
 
         </li>
-        <li class="nav-item ">
+        <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Clients</span>
@@ -71,7 +71,7 @@
             </a>
 
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item ">
             <a href="{{url('beneficiaries')}}" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Beneficiaries</span>
@@ -112,14 +112,14 @@
 
             </ul>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item start active open ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-users"></i>
                 <span class="title"> LiveliHoods Tracking</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('livelihood/clients')}}" class="nav-link ">
                         <span class="title">Clients</span>
                     </a>
@@ -195,7 +195,7 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
@@ -212,7 +212,7 @@
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
@@ -382,11 +382,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('beneficiaries')}}"> Beneficiaries </a>
+            <a href="{{url('inventory/disbursement')}}"> Material Support  </a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active"> List all</span>
+            <span class="active">Import</span>
         </li>
     </ul>
 @stop
@@ -397,79 +397,66 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Import errors </span>
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">Material support   : Import</span>
                     </div>
-                </div>
-                <div class="table-toolbar">
-                    <div class="row">
-                        <div class="col-md-12 pull-right">
-                            <div class="btn-group pull-right">
-                                <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-server"></i> Beneficiaries</a>
-                                <a href="{{url('excel/beneficiaries')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
-                            </div>
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-12 pull-right">
+                                <div class="btn-group pull-right">
+                                    <a href="#" class="addRegion btn blue-madison"> <i class="fa fa-plus"></i> Distribute Item</a>
+                                    <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> View All</a>
+                                    <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-server"></i> View beneficiaries</a>
+                                    <a href="{{url('inventory/disbursement/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="portlet-body">
+
                     <table class="table table-striped table-bordered table-hover table-checkable order-column text-danger" id="sample_1">
                         <thead>
                         <tr>
                             <th> SNO </th>
                             <th> Progress number </th>
-                            <th> Full Name</th>
-                            <th> Date of registration </th>
-                            <th> Sex </th>
-                            <th> Age </th>
-                            <th> Category </th>
-                            <th> Code </th>
-                            <th> Family size </th>
-                            <th> Number of females </th>
-                            <th> Number of males </th>
-                            <th class="text-danger"> Error found </th>
+                            <th> Donor type </th>
+                            <th> Address</th>
+                            <th> Item/materials  </th>
+                            <th> Quantity</th>
+                            <th> Date</th>
+                            <th> Error description</th>
                         </tr>
                         </thead>
-                        <tbody id="clientsSearchResults">
+                        <tbody>
                         <?php $count=1;?>
-                        @if(count($beneficiaries )>0)
-                            @foreach($beneficiaries as $beneficiary)
+                        @if(count($disbursements)>0)
+                            @foreach($disbursements as $disbursement)
                                 <tr class="odd gradeX">
                                     <td> {{$count++}} </td>
                                     <td>
-                                        <?php echo $beneficiary->progress_number; ?>
+                                        {{$disbursement->progress_number}}
                                     </td>
                                     <td>
-                                        <?php echo $beneficiary->full_name; ?>
+                                        {{$disbursement->donor_type}}
                                     </td>
                                     <td>
-                                        <?php echo $beneficiary->date_registration; ?>
+                                        {{$disbursement->address}}
                                     </td>
                                     <td>
-                                        <?php echo $beneficiary->sex; ?>
+                                        {{$disbursement->item}}
                                     </td>
                                     <td>
-                                        <?php echo $beneficiary->age; ?>
+                                        {{$disbursement->quantity}}
                                     </td>
                                     <td>
-                                        <?php echo $beneficiary->category; ?>
+                                        {{$disbursement->distributed_date}}
                                     </td>
                                     <td>
-                                        <?php echo $beneficiary->code; ?>
+                                        {{$disbursement->error_descriptions}}
                                     </td>
-                                    <td>
-                                        <?php echo $beneficiary->family_size; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->number_females; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $beneficiary->number_male; ?>
-                                    </td>
-                                    <td class="text-danger">
-                                        <?php echo $beneficiary->error_descriptions; ?>
-                                    </td>
+
                                 </tr>
                             @endforeach
                         @endif

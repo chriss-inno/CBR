@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-   Orthopedic services
+   Beneficiaries
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -63,7 +63,7 @@
             </a>
 
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item ">
             <a href="{{url('orthopedic/services')}}" class="nav-link nav-toggle">
                 <i class="fa fa-cogs fa-2x"></i>
                 <span class="title">Orthopedic services</span>
@@ -112,7 +112,7 @@
 
             </ul>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item start active open ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-users"></i>
                 <span class="title"> LiveliHoods Tracking</span>
@@ -195,7 +195,7 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
@@ -277,40 +277,221 @@
     </ul>
 @stop
 @section('page-scripts-level1')
-    {!! Html::script("assets/global/scripts/datatable.js" ) !!}
+
     {!! Html::script("assets/global/plugins/datatables/datatables.min.js" ) !!}
     {!! Html::script("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js") !!}
-    {!! Html::script("assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.js" ) !!}
 @stop
 @section('page-scripts-level2')
-    {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
-    {!! Html::script("assets/pages/scripts/ui-confirmations.min.js" ) !!}
+
+    {!! Html::script("assets/pages/scripts/ui-confirmations.js" ) !!}
 
 @stop
 @section('custom-scripts')
     {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
-        function closePrint () {
-            document.body.removeChild(this.__container__);
-        }
+        var TableDatatablesManaged = function () {
 
-        function setPrint () {
-            this.contentWindow.__container__ = this;
-            this.contentWindow.onbeforeunload = closePrint;
-            this.contentWindow.onafterprint = closePrint;
-            this.contentWindow.focus(); // Required for IE
-            this.contentWindow.print();
-        }
+            var initTable1 = function () {
 
-        function printPage (sURL) {
-            var oHiddFrame = document.createElement("iframe");
-            oHiddFrame.onload = setPrint;
-            oHiddFrame.style.visibility = "hidden";
-            oHiddFrame.style.position = "fixed";
-            oHiddFrame.style.right = "0";
-            oHiddFrame.style.bottom = "0";
-            oHiddFrame.src = sURL;
-            document.body.appendChild(oHiddFrame);
+                var table = $('#sample_1');
+
+                // begin first table
+                table.dataTable({
+
+                    // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+                    "language": {
+                        "aria": {
+                            "sortAscending": ": activate to sort column ascending",
+                            "sortDescending": ": activate to sort column descending"
+                        },
+                        "emptyTable": "No data available in table",
+                        "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                        "infoEmpty": "No records found",
+                        "infoFiltered": "(filtered1 from _MAX_ total records)",
+                        "lengthMenu": "Show _MENU_",
+                        "search": "Search:",
+                        "zeroRecords": "No matching records found",
+                        "paginate": {
+                            "previous":"Prev",
+                            "next": "Next",
+                            "last": "Last",
+                            "first": "First"
+                        }
+                    },
+
+                    // Or you can use remote translation file
+                    //"language": {
+                    //   url: '//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Portuguese.json'
+                    //},
+
+                    // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+                    // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+                    // So when dropdowns used the scrollable div should be removed.
+                    //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+
+                    "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+                    "columnDefs": [ {
+                        "targets": 0,
+                        "orderable": false,
+                        "searchable": false
+                    }],
+
+                    "lengthMenu": [
+                        [5, 15, 20, -1],
+                        [5, 15, 20, "All"] // change per page values here
+                    ],
+                    // set the initial value
+                    "pageLength": 5,
+                    "pagingType": "bootstrap_full_number",
+                    "columnDefs": [{  // set default column settings
+                        'orderable': false,
+                        'targets': [0]
+                    }, {
+                        "searchable": false,
+                        "targets": [0]
+                    }],
+                    "ajax": {
+                        "url": "{{url('livelihood/getgroups/json')}}", // ajax source
+                    },
+                    "order":false
+                    // set first column as a default sort by asc
+                    ,
+                    "fnDrawCallback": function (oSettings) {
+                        $(".showRecord").click(function(){
+                            var id1 = $(this).parent().attr('id');
+                            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+                            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
+                            modaldis+= '<div class="modal-content">';
+                            modaldis+= '<div class="modal-header">';
+                            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+                            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Beneficiaries details</span>';
+                            modaldis+= '</div>';
+                            modaldis+= '<div class="modal-body">';
+                            modaldis+= ' </div>';
+                            modaldis+= '</div>';
+                            modaldis+= '</div>';
+                            $('body').css('overflow','hidden');
+
+                            $("body").append(modaldis);
+                            $("#myModal").modal("show");
+                            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+                            $(".modal-body").load("<?php echo url("beneficiaries/show") ?>/"+id1);
+                            $("#myModal").on('hidden.bs.modal',function(){
+                                $("#myModal").remove();
+                            })
+
+                        });
+                        $(".addRecord").click(function(){
+                            var id1 = $(this).parent().attr('id');
+                            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+                            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
+                            modaldis+= '<div class="modal-content">';
+                            modaldis+= '<div class="modal-header">';
+                            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+                            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Material Support details</span>';
+                            modaldis+= '</div>';
+                            modaldis+= '<div class="modal-body">';
+                            modaldis+= ' </div>';
+                            modaldis+= '</div>';
+                            modaldis+= '</div>';
+                            $('body').css('overflow','hidden');
+
+                            $("body").append(modaldis);
+                            $("#myModal").modal("show");
+                            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+                            $(".modal-body").load("<?php echo url("livelihood/materials/create") ?>/"+id1+"/Group");
+                            $("#myModal").on('hidden.bs.modal',function(){
+                                $("#myModal").remove();
+                            })
+
+                        });
+
+                        $(".editRecord").click(function(){
+                            var id1 = $(this).parent().attr('id');
+                            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+                            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+                            modaldis+= '<div class="modal-content">';
+                            modaldis+= '<div class="modal-header">';
+                            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+                            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update</span>';
+                            modaldis+= '</div>';
+                            modaldis+= '<div class="modal-body">';
+                            modaldis+= ' </div>';
+                            modaldis+= '</div>';
+                            modaldis+= '</div>';
+                            $('body').css('overflow','hidden');
+
+                            $("body").append(modaldis);
+                            $("#myModal").modal("show");
+                            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+                            $(".modal-body").load("<?php echo url("beneficiaries/edit") ?>/"+id1);
+                            $("#myModal").on('hidden.bs.modal',function(){
+                                $("#myModal").remove();
+                            })
+
+                        });
+
+                        $(".deleteRecord").click(function(){
+                            var id1 = $(this).parent().attr('id');
+                            $(".deleteModule").show("slow").parent().parent().find("span").remove();
+                            var btn = $(this).parent().parent();
+                            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
+                            $("#no").click(function(){
+                                $(this).parent().parent().find(".deleteRecord").show("slow");
+                                $(this).parent().parent().find("span").remove();
+                            });
+                            $("#yes").click(function(){
+                                $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
+                                $.get("<?php echo url('beneficiaries/remove') ?>/"+id1,function(data){
+                                    btn.hide("slow").next("hr").hide("slow");
+                                });
+                            });
+                        });
+                    }
+                });
+
+                var tableWrapper = jQuery('#sample_1_wrapper');
+
+                table.find('.group-checkable').change(function () {
+                    var set = jQuery(this).attr("data-set");
+                    var checked = jQuery(this).is(":checked");
+                    jQuery(set).each(function () {
+                        if (checked) {
+                            $(this).prop("checked", true);
+                            $(this).parents('tr').addClass("active");
+                        } else {
+                            $(this).prop("checked", false);
+                            $(this).parents('tr').removeClass("active");
+                        }
+                    });
+                });
+
+                table.on('change', 'tbody tr .checkboxes', function () {
+                    $(this).parents('tr').toggleClass("active");
+                });
+            }
+
+            return {
+
+                //main function to initiate the module
+                init: function () {
+                    if (!jQuery().dataTable) {
+                        return;
+                    }
+
+                    initTable1();
+                }
+
+            };
+
+        }();
+
+        if (App.isAngularJsApp() === false) {
+            jQuery(document).ready(function() {
+                TableDatatablesManaged.init();
+            });
         }
         $("#SearchForm").validate({
             rules: {
@@ -341,95 +522,7 @@
                         });
             }
         });
-        $(".addRecord").click(function(){
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Orthopedic register</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
 
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("orthopedic/services/create") ?>");
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-
-        $(".editRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("orthopedic/services/edit") ?>/"+id1);
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-        $(".showRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Orthopedic Register Details</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("orthopedic/services/show") ?>/"+id1);
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-
-        $(".deleteRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-            var btn = $(this).parent().parent();
-            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-            $("#no").click(function(){
-                $(this).parent().parent().find(".deleteRecord").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-            $("#yes").click(function(){
-                $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('orthopedic/services/remove') ?>/"+id1,function(data){
-                    btn.hide("slow").next("hr").hide("slow");
-                });
-            });
-        });
     </script>
 @stop
 @section('breadcrumb')
@@ -439,11 +532,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('rehabilitation/services')}}"> Orthopedic services </a>
+            <a href="#">Inventory</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active"> Orthopedic services register</span>
+            <span class="active">Items</span>
         </li>
     </ul>
 @stop
@@ -455,15 +548,16 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase"> Orthopedic services register </span>
+                        <span class="caption-subject bold uppercase"> Groups Search </span>
                     </div>
                 <div class="table-toolbar">
                     <div class="row">
                         <div class="col-md-8 pull-right">
                             <div class="btn-group pull-right">
-                                <a href="{{url('orthopedic/services/clients')}}" class=" btn blue-madison"><i class="fa fa-file"></i> Register New</a>
-                                <a href="{{url('orthopedic/services')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All</a>
-                                <a href="{{url('excel/orthopedic/services')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
+                                <a href="{{url('livelihood/materials/beneficiaries')}}" class=" btn blue-madison"> <i class="fa fa-search"></i> Search Beneficiaries</a>
+                                <a href="{{url('livelihood/materials/groups')}}" class=" btn blue-madison"> <i class="fa fa-search"></i> Search Group</a>
+                                <a href="{{url('livelihood/materials')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All Records</a>
+                                <a href="{{url('livelihood/materials/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
                             </div>
                         </div>
 
@@ -475,58 +569,17 @@
                     <thead>
                     <tr>
                         <th> SNO </th>
-                        <th> File Number </th>
-                        <th> Full Name </th>
-                        <th> Sex </th>
-                        <th> Age </th>
-                        <th> Date Attended</th>
-                        <th> Details </th>
-                        <th class="text-center"> Action </th>
+                        <th> Group Name</th>
+                        <th> Category </th>
+                        <th> Zone </th>
+                        <th> Activity </th>
+                        <th> Donor </th>
+                        <th> Phone </th>
+                        <th> Nationality </th>
+                        <th class="text-center"> Open Form </th>
                     </tr>
                     </thead>
                     <tbody id="clientsSearchResults">
-                    <?php $count=1;?>
-                    @if(count($attendances )>0)
-                        @foreach($attendances as $att)
-                            <tr class="odd gradeX">
-                                <td> {{$count++}} </td>
-
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->file_number}}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->full_name}}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->sex}}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if(is_object($att->client) && $att->client != null)
-                                        {{$att->client->age	}}
-                                    @endif
-                                </td>
-                                <td>
-                                    <?php echo $att->attendance_date; ?>
-                                </td>
-                                <td class="text-center" id="{{$att->id}}">
-                                    <a href="#" class="showRecord btn" title="view"> <i class="fa fa-eye "></i>  </a>
-                                    <a href="#" class=" btn "> <i class="fa fa-print green " onclick="printPage('{{url('orthopedic/services/print')}}/{{$att->id}}');" ></i> </a>
-                                    <a href="{{url('orthopedic/services/pdf')}}/{{$att->id}}" class=" btn text-danger" title="Download"> <i class="fa fa-download "></i>  </a>
-                                </td>
-                                <td class="text-center" id="{{$att->id}}">
-                                    <a href="#" class="editRecord btn" title="edit"> <i class="fa fa-edit "></i>  </a>
-                                    <a href="#" class="deleteRecord btn" title="delete"> <i class="fa fa-trash text-danger "></i> </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
-
 
                     </tbody>
                 </table>

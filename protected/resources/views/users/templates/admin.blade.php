@@ -114,14 +114,6 @@
 
             </ul>
         </li>
-        <li class="nav-item ">
-            <a href="{{url('mobility/aids')}}" class="nav-link nav-toggle">
-                <i class="fa fa-users fa-2x"></i>
-                <span class="title">Mobility Aids</span>
-
-            </a>
-
-        </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-users"></i>

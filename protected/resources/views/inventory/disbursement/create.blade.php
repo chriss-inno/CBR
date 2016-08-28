@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
                         <label>Date</label>
-                        <input type="text" class="form-control input-medium date-picker" readonly name="distributed_date" id="distributed_date" data-date-format="yyyy-mm-dd">
+                        <input type="text" class="form-control input-medium date-picker" readonly name="distributed_date" id="distributed_date" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
                         <label>Progress Number</label>

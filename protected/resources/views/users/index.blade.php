@@ -12,39 +12,58 @@
             <a href="{{url('home')}}" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">Home</span>
-
-            </a>
-
-        </li>
-
-        <li class="nav-item ">
-            <a href="{{url('assessment/roam')}}" class="nav-link nav-toggle">
-                <i class="fa fa-building-o fa-2x"></i>
-                <span class="title">Assessment roam</span>
                 <span class="selected"></span>
             </a>
+
         </li>
-        <li class="nav-item ">
+        <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-puzzle"></i>
-                <span class="title"> Rehabilitation services </span>
+                <i class="fa fa-users fa-2x"></i>
+                <span class="title">Clients</span>
                 <span class="arrow"></span>
-                <span class="selected"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item active ">
-                    <a href="{{url('rehabilitation/services')}}" class="nav-link ">
-                        <span class="title">Rehabilitation register </span>
+
+                <li class="nav-item  ">
+                    <a href="{{url('clients')}}" class="nav-link ">
+                        <span class="title">View All Clients</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('rehabilitation/services/progress')}}" class="nav-link ">
-                        <span class="title">Progress monitoring  </span>
+                    <a href="{{url('excel/export/clients')}}" class="nav-link ">
+                        <span class="title">Export Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('excel/import/clients')}}" class="nav-link ">
+                        <span class="title">Import Client</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('assessment/roam')}}" class="nav-link ">
+                        <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('disabilities/clients')}}" class="nav-link ">
+                        <span class="title">Disabilities</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('referrals/request')}}" class="nav-link ">
+                        <span class="title">Client Referral</span>
                     </a>
                 </li>
             </ul>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
+            <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Rehabilitation services</span>
+            </a>
+
+        </li>
+        <li class="nav-item ">
             <a href="{{url('orthopedic/services')}}" class="nav-link nav-toggle">
                 <i class="fa fa-cogs fa-2x"></i>
                 <span class="title">Orthopedic services</span>
@@ -52,7 +71,7 @@
             </a>
 
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="{{url('beneficiaries')}}" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Beneficiaries</span>
@@ -67,6 +86,61 @@
 
             </a>
 
+        </li>
+        <li class="nav-item ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-list"></i>
+                <span class="title">Material support</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('inventory')}}" class="nav-link ">
+                        <span class="title">Inventory</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('inventory/received')}}" class="nav-link ">
+                        <span class="title">Received Items</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('inventory/disbursement')}}" class="nav-link ">
+                        <span class="title">Distribute Items</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="nav-item ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-users"></i>
+                <span class="title"> LiveliHoods Tracking</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item active ">
+                    <a href="{{url('livelihood/clients')}}" class="nav-link ">
+                        <span class="title">Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/groups')}}" class="nav-link ">
+                        <span class="title">Groups</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/materials')}}" class="nav-link ">
+                        <span class="title">Material Support</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('livelihood/reports')}}" class="nav-link ">
+                        <span class="title">Reports</span>
+                    </a>
+                </li>
+
+            </ul>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
@@ -138,7 +212,7 @@
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>
@@ -174,7 +248,7 @@
         <li class="heading">
             <h3 class="uppercase"> ADMINISTRATION</h3>
         </li>
-        <li class="nav-item start active open ">
+        <li class="nav-item  start active open">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-users"></i>
                 <span class="title"> Users</span>
@@ -186,13 +260,13 @@
                         <span class="title">New User</span>
                     </a>
                 </li>
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('users')}}" class="nav-link ">
                         <span class="title">Manage</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('roles')}}" class="nav-link ">
+                    <a href="{{url('roles')}}l" class="nav-link ">
                         <span class="title">Permissions setup</span>
                     </a>
                 </li>

@@ -370,6 +370,7 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'AddBeneficiaryId' => __DIR__ . '/../..' . '/database/migrations/2016_07_18_133122_addBeneficiaryId.php',
         'AddClientDisabilityFields' => __DIR__ . '/../..' . '/database/migrations/2016_07_21_065338_add_client_disability_fields.php',
         'AddClientRegisteredDate' => __DIR__ . '/../..' . '/database/migrations/2016_07_20_093411_add_client_registered_date.php',
+        'Addprogressnumber2clientdisability' => __DIR__ . '/../..' . '/database/migrations/2016_08_28_214945_addprogressnumber2clientdisability.php',
         'Adobe_Font_Metrics' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Adobe_Font_Metrics.php',
         'Attribute_Translator' => __DIR__ . '/..' . '/dompdf/dompdf/include/attribute_translator.cls.php',
         'Block_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/block_frame_decorator.cls.php',

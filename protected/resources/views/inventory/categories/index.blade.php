@@ -16,7 +16,7 @@
             </a>
 
         </li>
-        <li class="nav-item ">
+        <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Clients</span>
@@ -24,7 +24,7 @@
             </a>
             <ul class="sub-menu">
 
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('clients')}}" class="nav-link ">
                         <span class="title">View All Clients</span>
                     </a>
@@ -94,7 +94,7 @@
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item active ">
+                <li class="nav-item  active">
                     <a href="{{url('inventory')}}" class="nav-link ">
                         <span class="title">Inventory</span>
                     </a>
@@ -111,14 +111,6 @@
                 </li>
 
             </ul>
-        </li>
-        <li class="nav-item ">
-            <a href="{{url('mobility/aids')}}" class="nav-link nav-toggle">
-                <i class="fa fa-users fa-2x"></i>
-                <span class="title">Mobility Aids</span>
-
-            </a>
-
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
@@ -203,7 +195,7 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
@@ -220,7 +212,7 @@
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item ">
                     <a href="{{url('camps')}}" class="nav-link ">
                         <span class="title">Camps</span>
                     </a>

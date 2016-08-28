@@ -14,12 +14,16 @@ class CreateLiveliHoodsMaterialsTable extends Migration
     {
         Schema::create('liveli_hoods_materials', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('progress_number');
-            $table->string('support_date');
-            $table->string('venue');
-            $table->string('item_support');
-            $table->string('donor');
-            $table->integer('quantity');
+            $table->string('supported_name')->nullable();
+            $table->integer('client_id')->nullable();
+            $table->integer('group_id')->nullable();
+            $table->string('support_date')->nullable();
+            $table->string('venue')->nullable();
+            $table->string('item_support')->nullable();
+            $table->string('donor')->nullable();
+            $table->string('category_type')->nullable();
+            $table->string('category')->nullable();
+            $table->integer('quantity')->nullable();
             $table->timestamps();
         });
     }

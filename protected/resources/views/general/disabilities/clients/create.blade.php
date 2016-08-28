@@ -47,6 +47,10 @@
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">Disability Details</legend>
                 <div class="form-group">
+                    <label>Progress Number</label>
+                    <input type="text" class="form-control" name="progress_number" id="progress_number" >
+                </div>
+                <div class="form-group">
                     <label>Disability Category</label>
                     <input type="text" class="form-control" name="category_name" id="category_name" >
                 </div>

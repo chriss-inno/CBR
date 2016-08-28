@@ -167,6 +167,25 @@ Route::group(['middleware' => ['web']], function () {
      Route::get('excel/livelihood/groups','LiveHoodGroupController@showImport');
      Route::post('excel/livelihood/groups','LiveHoodGroupController@postImport');
      Route::get('remove/livelihood/groups/{id}','LiveHoodGroupController@destroy');
+
+
+    //livelihood/materials
+    Route::get('livelihood/materials','LiveliHoodsMaterialController@index');
+    Route::get('livelihood/materials/beneficiaries','LiveliHoodsMaterialController@getBeneficiaries');
+    Route::get('livelihood/materials/groups','LiveliHoodsMaterialController@getGroups');
+    Route::get('livelihood/materials/create/{id}/{gtype}','LiveliHoodsMaterialController@create');
+    Route::post('livelihood/materials/create','LiveliHoodsMaterialController@store');
+    Route::get('livelihood/materials/edit/{id}','LiveliHoodsMaterialController@edit');
+    Route::post('livelihood/materials/edit','LiveliHoodsMaterialController@update');
+    Route::get('livelihood/materials/remove/{id}','LiveliHoodsMaterialController@destroy');
+    Route::get('livelihood/materials/import','LiveliHoodsMaterialController@showImport');
+    Route::post('livelihood/materials/import','LiveliHoodsMaterialController@index');
+
+    //Fetch data
+    Route::get('livelihood/getclients/json','LiveliHoodsMaterialController@getBeneficiariesJSonData');
+    Route::get('livelihood/getgroups/json','LiveliHoodsMaterialController@getJSonData');
+
+
     
     //Assessments
     Route::get('assessment/{id}','ClientAssessmentController@getClientAssessments');
@@ -210,6 +229,7 @@ Route::group(['middleware' => ['web']], function () {
     //Client disabilities
     
     Route::get('disabilities/clients/show/{id}','ClientDisabilityController@showRegister');
+    Route::post('disabilities/clients/show','ClientDisabilityController@postRegister');
     Route::get('disabilities','ClientDisabilityController@index');
     Route::get('disabilities/clients','ClientDisabilityController@searchClient');
     Route::get('disabledclients','ClientDisabilityController@getClients');
