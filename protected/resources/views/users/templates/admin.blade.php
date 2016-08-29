@@ -371,35 +371,14 @@
                     $monthData="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Disabled')->get()).",";
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
-                    <?php
-                    $MonthCount2="";
-                    $monthData2="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Soft injury')->get()).",";
-                    }
-                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
-                    ?>
-                    <?php
-                    $MonthCount3="";
-                    $monthData3="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
-                    }
-                    $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
-                    ?>
-            series: [{
-                name: 'Total disability cases ',
-                data:[<?php echo $monthData;?>]
 
-            }, {
-                name: 'Total soft injury cases',
-                data: [<?php echo $monthData2;?>]
+            series: [{
+                name: 'Clients ',
+                data:[<?php echo $monthData;?>]
 
             }]
         });
@@ -411,7 +390,7 @@
                 type: 'pie'
             },
             title: {
-                text: 'Client summary by country '
+                text: 'Beneficiaries '
             },
                 credits: {
             enabled: false
@@ -432,40 +411,26 @@
                     }
                 }
             },
-            @if(count(\App\Client::all()) >0)
+            @if(count(\App\Beneficiary::all()) >0)
+            <?php
+                   $scollection="";
+                    $sdata="";
+                    foreach (\App\Country::all() as $count)
+                        {
+                            $seriesdata="{
+                    name: '$count->country_name',
+                    y: ".count(\App\Beneficiary::where('nationality','=',$count->country_name)->get())."
+                      }
+                      ";
+                            $scollection .= $seriesdata.",";
+                        }
+                    $sdata=substr($scollection,0,strlen($scollection)-1);
+                    ?>
             series: [{
-                name: 'Clients',
+                name: 'Beneficiaries',
                 colorByPoint: true,
-                data: [{
-                    name: 'Burundian',
-                    y: {{((count(\App\Client::where('nationality','=','burundian')->get()) *100)/count(\App\Client::all()) )}}
-                },{
-                    name: 'Burundian',
-                    y: {{((count(\App\Client::where('nationality','=','burundian')->get()) *100)/count(\App\Client::all()) )}}
-                }, {
-                    name: 'Others ',
-                    y:{{((count(\App\Client::where('nationality','<>','congolese')->where('nationality','<>','burundian')->get()) * 100) /count(\App\Client::all())) }},
-                    sliced: true,
-                    selected: true
-                }]
-            }]
-            @else
-            series: [{
-                name: 'Clients',
-                colorByPoint: true,
-                data: [{
-                    name: 'Burundian',
-                    y: 0
-                },{
-                    name: 'Burundian',
-                    y: 0
-                }, {
-                    name: 'Others ',
-                    y:0,
-                    sliced: true,
-                    selected: true
-                }]
-            }]
+                data: [<?php echo $sdata;?>]
+            }],
          @endif
         });
 
@@ -504,9 +469,9 @@
         <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">Registered Clients</h4>
+                <h4 class="widget-thumb-heading"> Total Assessed Clients</h4>
                 <div class="widget-thumb-wrap">
-                    <i class="widget-thumb-icon bg-green icon-bulb"></i>
+                    <i class="widget-thumb-icon bg-green fa fa-users fa-2x"></i>
                     <div class="widget-thumb-body">
 
                         <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::all())}}">0</span>
@@ -518,12 +483,12 @@
         <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">Total disability cases </h4>
+                <h4 class="widget-thumb-heading">Total Rehabilitation Cases </h4>
                 <div class="widget-thumb-wrap">
                     <i class="widget-thumb-icon bg-red icon-layers"></i>
                     <div class="widget-thumb-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::where('status','=','Disabled')->get())}}">0</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\RehabilitationRegister::all())}}">0</span>
                     </div>
                 </div>
             </div>
@@ -532,12 +497,12 @@
         <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">Total soft injury cases</h4>
+                <h4 class="widget-thumb-heading">Total Orthopedic cases</h4>
                 <div class="widget-thumb-wrap">
                     <i class="widget-thumb-icon bg-purple icon-screen-desktop"></i>
                     <div class="widget-thumb-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::where('status','=','Soft injury')->get())}}">0</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\OrthopedicServices::all())}}">0</span>
                     </div>
                 </div>
             </div>

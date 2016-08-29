@@ -46,7 +46,7 @@ class CountryController extends Controller
     {
         //
         $country=new Country;
-        $country->country_name=$request->country_name;
+        $country->country_name=ucwords(strtolower($request->country_name));
         $country->country_code=$request->country_code;
         $country->save();
     }
@@ -88,7 +88,7 @@ class CountryController extends Controller
     {
         //
         $country=Country::find($id);
-        $country->country_name=$request->country_name;
+        $country->country_name=ucwords(strtolower($request->country_name));
         $country->country_code=$request->country_code;
         $country->save();
     }
