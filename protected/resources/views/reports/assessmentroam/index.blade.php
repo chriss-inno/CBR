@@ -371,7 +371,7 @@
                     $monthData="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Soft injury')->where('sex','=','Male')->get()).",";
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->where('status','=','Soft injury')->where('sex','=','Male')->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
@@ -380,7 +380,7 @@
                     $monthData2="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Soft injury')->where('sex','=','Female')->get()).",";
+                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->where('status','=','Soft injury')->where('sex','=','Female')->get()).",";
                     }
                     $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
                     ?>
@@ -389,7 +389,7 @@
                     $monthData3="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
+                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->get()).",";
                     }
                     $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
                     ?>
@@ -456,7 +456,7 @@
                     $monthData="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Disabled')->where('sex','=','Male')->get()).",";
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->where('status','=','Disabled')->where('sex','=','Male')->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
@@ -465,7 +465,7 @@
                     $monthData2="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('status','=','Disabled')->where('sex','=','Female')->get()).",";
+                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->where('status','=','Disabled')->where('sex','=','Female')->get()).",";
                     }
                     $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
                     ?>
@@ -474,7 +474,7 @@
                     $monthData3="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
+                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->get()).",";
                     }
                     $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
                     ?>
@@ -489,59 +489,41 @@
             }]
         });
         $('#BurundianChart').highcharts({
-            chart: {
-                type: 'column'
-            },
             title: {
                 text: 'Total Burundian cases per month for year  {{date("Y")}}'
             },
             credits: {
                 enabled: false
             },
-
             xAxis: {
-                categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec'
-                ],
-                crosshair: true
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
             },
             yAxis: {
-                min: 0,
                 title: {
-                    text: 'Number of clients'
-                }
+                    text: 'Clients'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
             },
             tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
+                valueSuffix: 'Clients'
             },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
             },
             <?php
                     $MonthCount="";
                     $monthData="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('nationality','=','burundian')->where('sex','=','Male')->get()).",";
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->where('nationality','=','Burundian')->where('sex','=','Male')->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
@@ -550,7 +532,74 @@
                     $monthData2="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('nationality','=','burundian')->where('sex','=','Female')->get()).",";
+                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->where('nationality','=','Burundian')->where('sex','=','Female')->get()).",";
+                    }
+                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
+                    ?>
+                    <?php
+                    $MonthCount3="";
+                    $monthData3="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->get()).",";
+                    }
+                    $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
+                    ?>
+            series: [{
+                name: 'Males',
+                data:[<?php echo $monthData;?>]
+
+            }, {
+                name: 'Females',
+                data: [<?php echo $monthData2;?>]
+
+            }]
+        });
+        $('#CongoleseChart').highcharts({
+            title: {
+                text: 'Total Congolese cases per month for year  {{date("Y")}}'
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: {
+                    text: 'Clients'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: 'Clients'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            <?php
+                    $MonthCount="";
+                    $monthData="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->where('nationality','=','Congolese')->where('sex','=','Male')->get()).",";
+                    }
+                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                    ?>
+                    <?php
+                    $MonthCount2="";
+                    $monthData2="";
+                    for($i=1; $i<= 12; $i++)
+                    {
+                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->where('nationality','=','Congolese')->where('sex','=','Female')->get()).",";
                     }
                     $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
                     ?>
@@ -573,10 +622,8 @@
 
             }]
         });
-        $('#CongoleseChart').highcharts({
-            chart: {
-                type: 'column'
-            },
+        $('#CongoleseChartL').highcharts({
+
             title: {
                 text: 'Total Congolese cases per month for year  {{date("Y")}}'
             },
@@ -607,6 +654,13 @@
                     text: 'Number of clients'
                 }
             },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
@@ -626,7 +680,7 @@
                     $monthData="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('nationality','=','congolese')->where('sex','=','Male')->get()).",";
+                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->where('nationality','=','Congolese')->where('sex','=','Male')->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
@@ -635,7 +689,7 @@
                     $monthData2="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->where('nationality','=','congolese')->where('sex','=','Female')->get()).",";
+                        $MonthCount2.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->where('nationality','=','Congolese')->where('sex','=','Female')->get()).",";
                     }
                     $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
                     ?>
@@ -651,7 +705,6 @@
             series: [{
                 name: 'Males',
                 data:[<?php echo $monthData;?>]
-
             }, {
                 name: 'Females',
                 data: [<?php echo $monthData2;?>]
@@ -711,7 +764,7 @@
                     <i class="widget-thumb-icon bg-red icon-layers"></i>
                     <div class="widget-thumb-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::where('status','=','Disabled')->get())}}">0</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\ClientDisability::all())}}">0</span>
                     </div>
                 </div>
             </div>
@@ -720,12 +773,12 @@
         <div class="col-md-3">
             <!-- BEGIN WIDGET THUMB -->
             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                <h4 class="widget-thumb-heading">Total soft injury cases</h4>
+                <h4 class="widget-thumb-heading">Total Assessments</h4>
                 <div class="widget-thumb-wrap">
                     <i class="widget-thumb-icon bg-purple icon-screen-desktop"></i>
                     <div class="widget-thumb-body">
 
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\Client::where('status','=','Soft injury')->get())}}">0</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{count(\App\ClientAssessment::all())}}">0</span>
                     </div>
                 </div>
             </div>
