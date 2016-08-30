@@ -41,7 +41,7 @@
                      <select name="item[]" id="item" class="form-control" >
                          <option value="">--Select--</option>
                          @foreach(\App\ItemsInventory::orderBy('item_name','ASC')->get() as $itm)
-                             <option value="{{$itm->item_name}}">{{$itm->item_name}}</option>
+                             <option value="{{$itm->id}}">{{$itm->item_name}}</option>
                              @endforeach
                      </select>
                     </div>
@@ -178,7 +178,7 @@
                <select name="item[]" id="item" class="form-control" >\
                 <option value="">--Select--</option>\
                 @foreach(\App\ItemsInventory::orderBy('item_name','ASC')->get() as $itm)\
-                <option value="{{$itm->item_name}}">{{$itm->item_name}}</option>\
+                <option value="{{$itm->id}}">{{$itm->item_name}}</option>\
                 @endforeach\
                 </select>\
                 </div>\

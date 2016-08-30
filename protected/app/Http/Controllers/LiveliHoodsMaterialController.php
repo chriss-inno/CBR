@@ -30,6 +30,12 @@ class LiveliHoodsMaterialController extends Controller
         $materials=LiveliHoodsMaterial::all();
         return view('livelihood.index',compact('materials'));
     }
+    public function showImport()
+    {
+        //
+        return view('livelihood.import');
+    }
+
     public function getGroups()
     {
         //
@@ -163,7 +169,7 @@ class LiveliHoodsMaterialController extends Controller
                         $support->category_type=$request->category_type;
                         $support->category=$request->category[$qcount];
                         $support->quantity=$request->quantity[$qcount];
-                        $support->item_support=$items;
+                        $support->item_id=$items;
                         $support->save();
                     }
                     else
@@ -237,7 +243,7 @@ class LiveliHoodsMaterialController extends Controller
         $support->category_type=$request->category_type;
         $support->category=$request->category;
         $support->quantity=$request->quantity;
-        $support->item_support=$request->item;
+        $support->item_id=$request->item;
         $support->save();
         return "<span class='text-success'><i class='fa fa-info'></i> Saved successfully</span>";
     }

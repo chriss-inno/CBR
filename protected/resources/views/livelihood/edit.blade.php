@@ -28,10 +28,12 @@
                     <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                         <label> Item/materials distributed</label>
                         <select name="item" id="item" class="form-control" >
-                            <option value="{{$support->item_support}}" selected>{{$support->item_support}}</option>
+                            @if(is_object($support->item) && $support->item != null)
+                                <option value="{{$support->item->item_name}}" selected>{{$support->item->item_name}}</option>
+                            @endif
                             <option value="">--Select--</option>
                             @foreach(\App\ItemsInventory::orderBy('item_name','ASC')->get() as $itm)
-                                <option value="{{$itm->item_name}}">{{$itm->item_name}}</option>
+                                <option value="{{$itm->id}}">{{$itm->item_name}}</option>
                             @endforeach
                         </select>
                     </div>

@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Social needs/Support  Import
+    Livelihood Material Support Import
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -442,9 +442,10 @@
                             <div class="col-md-12 pull-right">
                                 <div class="col-md-8 pull-right">
                                     <div class="btn-group pull-right">
-                                        <a href="{{url('inventory/disbursement/beneficiaries')}}" class=" btn blue-madison"> <i class="fa fa-search"></i> Search Beneficiaries</a>
-                                        <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All Records</a>
-                                        <a href="{{url('inventory/disbursement/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
+                                        <a href="{{url('livelihood/materials/beneficiaries')}}" class=" btn blue-madison"> <i class="fa fa-search"></i> Search Beneficiaries</a>
+                                        <a href="{{url('livelihood/materials/groups')}}" class=" btn blue-madison"> <i class="fa fa-search"></i> Search Group</a>
+                                        <a href="{{url('livelihood/materials')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All Records</a>
+                                        <a href="{{url('livelihood/materials/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
                                     </div>
                                 </div>
 
@@ -456,10 +457,10 @@
                     <!-- BEGIN SAMPLE FORM PORTLET-->
                     <div class="portlet light bordered">
                         <div class="portlet-body form">
-                            {!! Form::open(array('url'=>'inventory/disbursement/import','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
+                            {!! Form::open(array('url'=>'livelihood/materials/import','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
                             <div class="form-body">
                                 <div class="form-group">
-                                    <label>Import material support distribution details from MS Excel <a href={{asset("assets/templates/material_support_template.xls")}}> Download template here</a> </label>
+                                    <label>Import material support distribution details from MS Excel <a href={{asset("assets/templates/livelihood_material_support_template.xls")}}> Download template here</a> </label>
                                     <input TYPE="file" class="form-control" name="clients_file" id="clients_file">
                                     @if($errors->first('clients_file') !="")
                                         <span class=" error">{{ $errors->first('clients_file') }}</span>

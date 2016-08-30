@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Beneficiary;
 use App\LiveliHoodsClient;
 use App\LiveliHoodsGroup;
 use Illuminate\Http\Request;
@@ -54,7 +55,7 @@ class livehoodClientController extends Controller
     public function store(Request $request)
     {
         //
-        if(!count(LiveliHoodsClient::where('progress_number','=',$request->progress_number)->get()) > 0) {
+        if(!count(Beneficiary::where('progress_number','=',$request->progress_number)->get()) > 0) {
 
             return "<span class='text-danger'><i class='fa-info'></i>Save failed: Progress number [".$request->progress_number."] was not available in beneficiary list </span>";
 
@@ -123,7 +124,7 @@ class livehoodClientController extends Controller
                
                 $results->each(function($row) {
 
-                    if(!count(LiveliHoodsClient::where('progress_number','=',$row->progress_number)->get()) >0 && Client::where('file_number','=',$row->progress_number)->get() != null)
+                    if(!count(Beneficiary::where('progress_number','=',$row->progress_number)->get()) >0 && Client::where('file_number','=',$row->progress_number)->get() != null)
                     {
                         //Save in dump
                         $this->error_found="error occured";

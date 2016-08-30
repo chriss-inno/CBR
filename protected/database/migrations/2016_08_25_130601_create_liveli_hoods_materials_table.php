@@ -19,7 +19,7 @@ class CreateLiveliHoodsMaterialsTable extends Migration
             $table->integer('group_id')->nullable();
             $table->string('support_date')->nullable();
             $table->string('venue')->nullable();
-            $table->string('item_support')->nullable();
+            $table->string('item_id')->nullable();
             $table->string('donor')->nullable();
             $table->string('category_type')->nullable();
             $table->string('category')->nullable();

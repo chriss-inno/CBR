@@ -470,7 +470,9 @@
                                         {{$disbursement->venue}}
                                     </td>
                                     <td>
-                                        {{$disbursement->item_support}}
+                                        @if(is_object($disbursement->item) && $disbursement->item != null)
+                                        {{$disbursement->item->item_name}}
+                                            @endif
                                     </td>
                                     <td>
                                         {{$disbursement->donor}}
