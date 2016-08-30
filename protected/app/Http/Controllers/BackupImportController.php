@@ -17,6 +17,7 @@ class BackupImportController extends Controller
     public function index()
     {
         //
+        return view('backups.imports.index');
     }
 
     /**
@@ -38,6 +39,7 @@ class BackupImportController extends Controller
     public function store(Request $request)
     {
         //
+        return redirect('backup/imports');
     }
 
     /**

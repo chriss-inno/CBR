@@ -39,6 +39,7 @@ class BackupExportController extends Controller
     public function store(Request $request)
     {
         //
+        return redirect('backup/exports');
     }
 
     /**

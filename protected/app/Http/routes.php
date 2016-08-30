@@ -39,9 +39,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('access/roles','UserRolesController');
     Route::get('access/roles/remove/{id}','UserRolesController@destroy');
 
-    //Backups and restore
-    Route::get('backup/exports','BackupExportController@index');
-    
     //Assessment roam
     Route::get('assessment/roam','ClientAssessmentController@index');
 
@@ -362,12 +359,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('mobility/aids/edit','MobilityAidsController@update');
     Route::get('mobility/aids/show/{id}','MobilityAidsController@show');
     Route::get('mobility/aids/remove/{id}','MobilityAidsController@destroy');
-    
-    
-    
 
-    
-    
     //Data imports
     Route::get('excel/import/clients','ClientController@showImport');
     Route::post('excel/import/clients','ClientController@postImport');
@@ -420,6 +412,13 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('reports/livelihood','LiveliHoodReportController@index');
+
+    //Backups and restore
+    Route::get('backup/exports','BackupExportController@index');
+    Route::post('backup/exports','BackupExportController@store');
+
+    Route::get('backup/imports','BackupImportController@index');
+    Route::post('backup/imports','BackupImportController@store');
 
 
 });

@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Item inventories
+   System backup-Export data
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -76,7 +76,7 @@
             </a>
 
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-list"></i>
                 <span class="title">Material support</span>
@@ -229,7 +229,7 @@
         </li><li class="heading">
             <h3 class="uppercase">SYSTEM BACKUPS</h3>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item start active open ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-database fa-2x"></i>
                 <span class="title"> Data Import/Export</span>
@@ -241,7 +241,7 @@
                         <span class="title">Data Import</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('backup/exports')}}" class="nav-link ">
                         <span class="title">Data Export</span>
                     </a>
@@ -417,36 +417,47 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Manage Inventory</span>
-                    </div>
-                    <div class="table-toolbar">
-                        <div class="row">
-                            <div class="col-md-8 pull-right">
-                                <div class="btn-group pull-right">
-                                    <a href="#" class="addRegion btn blue-madison"> <i class="fa fa-plus"></i> Add New Item</a>
-                                    <a href="{{url('inventory')}}" class="btn blue-madison"><i class="fa fa-server"></i> Item list</a>
-                                    <a href="{{url('inventory/categories')}}" class="btn blue-madison"><i class="fa fa-server"></i> Inventory Categories</a>
-                                    <a href="#" class="showImport btn blue-madison"><i class="fa fa-download"></i> Import Items</a>
-                                </div>
-                            </div>
-
-                        </div>
+                        <span class="caption-subject bold uppercase">SYSTEM BACKUP:DATA EXPORT</span>
                     </div>
                 </div>
                 <div class="portlet-body">
                     <!-- BEGIN SAMPLE FORM PORTLET-->
                     <div class="portlet light bordered">
                         <div class="portlet-body form">
-                            {!! Form::open(array('url'=>'inventory/import','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
+                            {!! Form::open(array('url'=>'backup/exports','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
                             <div class="form-body">
                                 <div class="form-group">
-                                    <label>Import Items from MS Excel <a href={{asset("assets/templates/item_import_template.xls")}}>Download template here</a> </label>
-                                    <input TYPE="file" class="form-control" name="inventory_file" id="inventory_file">
+                                    <div class="row">
+                                        <div class="col-md-4 col-xs-4 col-lg-4">
+                                            <label>Module</label>
+                                            <select name="module" class="form-control">
+                                                <option value="all" >--All--</option>
+                                                <option value="1" >Clients Only</option>
+                                                <option value="2" >Assessments</option>
+                                                <option value="3" >Disabilities</option>
+                                                <option value="4" >Referral</option>
+                                                <option value="5" >Rehabilitation register</option>
+                                                <option value="6" >Orthopedic register</option>
+                                                <option value="7" >Beneficiaries</option>
+                                                <option value="8" > Social needs/Support</option>
+                                                <option value="9" >Material Supports</option>
+                                                <option value="10" > Livelihoods Tracking </option>
+                                                <option value="11" >General Setting</option>
+                                                <option value="12" >Users</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 col-xs-4 col-lg-4">
+                                            <label>Export type</label>
+                                            <select name="module" class="form-control">
+                                                <option value="xml" >XML Data file</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <hr/>
                                 <div class="row text-center">
                                     <div class="col-md-4 col-sm-4">
-                                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Import </button>
+                                        <button type="submit" class="btn btn-primary btn-block"> Export Data </button>
                                     </div>
 
                                 </div>
