@@ -430,7 +430,7 @@
                                     <div class="row">
                                         <div class="col-md-4 col-xs-4 col-lg-4">
                                             <label>Module</label>
-                                            <select name="module" class="form-control">
+                                            <select name="module_choice" class="form-control">
                                                 <option value="all" >--All--</option>
                                                 <option value="1" >Clients Only</option>
                                                 <option value="2" >Assessments</option>

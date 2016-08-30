@@ -15,6 +15,7 @@ class CreateSocialNeedsTable extends Migration
         Schema::create('social_needs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('progress_number');
+            $table->integer('beneficiary_id');
             $table->text('assistance')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

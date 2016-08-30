@@ -108,8 +108,10 @@ class SocialNeedController extends Controller
 
                     if(count(Beneficiary::where('progress_number','=',$row->progress_number)->get()) > 0 )
                     {
+                        $ben=Beneficiary::where('progress_number','=',$row->progress_number)->get()->first();
                         $beneficiary=new SocialNeed;
                         $beneficiary->progress_number = $row->progress_number;
+                        $beneficiary->beneficiary_id=$ben->id;
                         $beneficiary->assistance = $row->assistance_needs;
                         $beneficiary->status = $row->status;
                         $beneficiary->save();
@@ -182,6 +184,7 @@ class SocialNeedController extends Controller
         {
             $need=new SocialNeed;
             $need->progress_number=$request->progress_number;
+            $need->beneficiary_id=$request->beneficiary_id;
             $need->assistance=$request->assistance;
             $need->status=$request->status;
             $need->save();

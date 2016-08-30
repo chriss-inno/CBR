@@ -9,6 +9,6 @@ class SocialNeed extends Model
     //
     public function beneficiary()
     {
-        return $this::belongsTo('\App\Beneficiary','progress_number','progress_number');
+        return $this::belongsTo('\App\Beneficiary','beneficiary_id','id');
     }
 }
