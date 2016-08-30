@@ -24,24 +24,17 @@
             </a>
             <ul class="sub-menu">
 
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('clients')}}" class="nav-link ">
-                        <span class="title">View All Clients</span>
+                        <span class="title">Clients</span>
                     </a>
-                </li>
-                
-                <li class="nav-item  ">
-                    <a href="{{url('excel/import/clients')}}" class="nav-link ">
-                        <span class="title">Import Client</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
+                </li> <li class="nav-item  ">
                     <a href="{{url('assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('disabilities/clients')}}" class="nav-link ">
+                    <a href="{{url('disabilities')}}" class="nav-link ">
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
@@ -465,7 +458,7 @@
                         <div class="row">
                             <div class="col-md-8 pull-right">
                                 <div class="btn-group pull-right">
-                                    <a href="{{url('referrals/request')}}" class="btn blue-madison"><i class="fa fa-file"></i> Referral Request</a>
+                                    <a href="{{url('referrals/request')}}" class="btn blue-madison"><i class="fa fa-search"></i> Search Client</a>
                                     <a href="{{url('referrals')}}" class="btn blue-madison"><i class="fa fa-refresh"></i> All referrals</a>
                                     <a href="{{url('excel/import/referrals')}}" class="btn blue-madison"><i class="fa fa-bars"></i> Import referral data</a>
                                 </div>

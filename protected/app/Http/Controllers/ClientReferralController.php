@@ -54,22 +54,28 @@ class ClientReferralController extends Controller
     public function store(Request $request)
     {
         //
-        $referral=new ClientReferral;
-        $referral->client_id=$request->client_id;
-        $referral->referral_to=$request->referral_to;
-        $referral->referral_date=$request->referral_date;
-        $referral->history=$request->history;
-        $referral->examination=$request->examination;
-        $referral->referral_reason=$request->referral_reason;
-        $referral->referred_by_name=$request->referred_by_name;
-        $referral->referred_by_title=$request->referred_by_title;
-        $referral->referred_by_date=$request->referred_by_date;
-        $referral->findings=$request->findings;
-        $referral->findings_name=$request->findings_name;
-        $referral->findings_title=$request->findings_title;
-        $referral->save();
+        if(!count(ClientReferral::where('client_id','=',$request->id)->where('referred_by_date','=',$request->referral_date)->where('referral_to','=',$request->referral_to)->get()) >0) {
+            $referral = new ClientReferral;
+            $referral->client_id = $request->client_id;
+            $referral->referral_to = $request->referral_to;
+            $referral->referral_date = $request->referral_date;
+            $referral->history = $request->history;
+            $referral->examination = $request->examination;
+            $referral->referral_reason = $request->referral_reason;
+            $referral->referred_by_name = $request->referred_by_name;
+            $referral->referred_by_title = $request->referred_by_title;
+            $referral->referred_by_date = $request->referred_by_date;
+            $referral->findings = $request->findings;
+            $referral->findings_name = $request->findings_name;
+            $referral->findings_title = $request->findings_title;
+            $referral->save();
 
-       return  redirect('referrals');
+            return redirect('referrals');
+        }
+        else
+        {
+            return redirect()->back()->with('error','Client was already referred for this date');
+        }
     }
 
     /**

@@ -30,16 +30,9 @@
 
                 <li class="nav-item active ">
                     <a href="{{url('clients')}}" class="nav-link ">
-                        <span class="title">View All Clients</span>
+                        <span class="title">Clients</span>
                     </a>
-                </li>
-                
-                <li class="nav-item  ">
-                    <a href="{{url('excel/import/clients')}}" class="nav-link ">
-                        <span class="title">Import Client</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
+                </li> <li class="nav-item  ">
                     <a href="{{url('assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment</span>
                     </a>
@@ -50,7 +43,7 @@
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('referrals/request')}}" class="nav-link ">
+                    <a href="{{url('referrals')}}" class="nav-link ">
                         <span class="title">Client Referral</span>
                     </a>
                 </li>

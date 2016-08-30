@@ -27,9 +27,9 @@
             </a>
             <ul class="sub-menu">
 
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('clients')}}" class="nav-link ">
-                        <span class="title">View All Clients</span>
+                        <span class="title">Clients</span>
                     </a>
                 </li>
                 
@@ -44,12 +44,12 @@
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('disabilities/clients')}}" class="nav-link ">
+                    <a href="{{url('disabilities')}}" class="nav-link ">
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('referrals/request')}}" class="nav-link ">
+                    <a href="{{url('referrals')}}" class="nav-link ">
                         <span class="title">Client Referral</span>
                     </a>
                 </li>

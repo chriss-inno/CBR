@@ -38,9 +38,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('users/remove/{id}','UserController@destroy');
     Route::resource('access/roles','UserRolesController');
     Route::get('access/roles/remove/{id}','UserRolesController@destroy');
-    
-    
 
+    //Backups and restore
+    Route::get('backup/exports','BackupExportController@index');
     
     //Assessment roam
     Route::get('assessment/roam','ClientAssessmentController@index');
@@ -374,7 +374,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('excel/import/disabilities','ClientController@postDisabilityImport');
     Route::get('excel/import/disabilities','ClientController@showDisabilityImportError');
     Route::get('excel/import/clients/errors','ClientController@showClientImportError');
-    Route::get('excel/import/referrals','DataImportController@index');
+    Route::get('excel/import/referrals','ReferralImportController@index');
+    Route::post('excel/import/referrals','ReferralImportController@store');
     Route::get('excel/import/apu','DataImportController@index');
     Route::get('excel/import/opu','DataImportController@index');
 

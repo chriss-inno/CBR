@@ -28,15 +28,9 @@
             </a>
             <ul class="sub-menu">
 
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('clients')}}" class="nav-link ">
-                        <span class="title">View All Clients</span>
-                    </a>
-                </li>
-                
-                <li class="nav-item  ">
-                    <a href="{{url('excel/import/clients')}}" class="nav-link ">
-                        <span class="title">Import Client</span>
+                        <span class="title">Clients</span>
                     </a>
                 </li>
                 <li class="nav-item  active">
@@ -45,12 +39,12 @@
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('disabilities/clients')}}" class="nav-link ">
+                    <a href="{{url('disabilities')}}" class="nav-link ">
                         <span class="title">Disabilities</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('referrals/request')}}" class="nav-link ">
+                    <a href="{{url('referrals')}}" class="nav-link ">
                         <span class="title">Client Referral</span>
                     </a>
                 </li>
@@ -257,7 +251,7 @@
                         <span class="title">Data Export</span>
                     </a>
                 </li>
-              </ul>
+            </ul>
         </li>
         <li class="heading">
             <h3 class="uppercase"> ADMINISTRATION</h3>
@@ -268,7 +262,7 @@
                 <span class="title"> Users</span>
                 <span class="arrow"></span>
             </a>
-             <ul class="sub-menu">
+            <ul class="sub-menu">
                 <li class="nav-item  ">
                     <a href="{{url('users')}}" class="nav-link ">
                         <span class="title">List All Users</span>
@@ -438,10 +432,9 @@
                         <div class="row">
                             <div class="col-md-8 pull-right">
                                 <div class="btn-group pull-right">
-                                    <a href="{{url('clients/create')}}" class="btn blue-madison"><i class="fa fa-file"></i> New Client</a>
-                                    <a href="{{url('clients')}}" class="btn blue-madison"><i class="fa fa-bars"></i> Client List</a>
-                                    <a href="{{url('progress/monitoring')}}" class="btn blue-madison"><i class="fa fa-refresh"></i> Client Progress</a>
-                                    <a href="{{url('progress/assessment')}}" class="btn blue-madison"><i class="fa fa-plus-square"></i> Clients Assessment</a>
+                                    <a href="{{url('clients')}}" class=" btn blue-madison"><i class="fa fa-search"></i> Search Clients</a>
+                                    <a href="{{url('assessment')}}" class="btn blue-madison"><i class="fa fa-users"></i> View All Assessment</a>
+                                    <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
                                 </div>
                             </div>
 

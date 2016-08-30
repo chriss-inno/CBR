@@ -10,6 +10,11 @@ use App\Http\Controllers\Controller;
 
 class UserRolesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->error_found="";
+    }
     /**
      * Display a listing of the resource.
      *
