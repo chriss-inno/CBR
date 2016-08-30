@@ -34,11 +34,7 @@
                         <span class="title">View All Clients</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
-                    <a href="{{url('excel/export/clients')}}" class="nav-link ">
-                        <span class="title">Export Client</span>
-                    </a>
-                </li>
+                
                 <li class="nav-item  ">
                     <a href="{{url('excel/import/clients')}}" class="nav-link ">
                         <span class="title">Import Client</span>
@@ -183,18 +179,11 @@
                     <a href="{{url('reports/social/needs')}}" class="nav-link ">
                         <span class="title">Social needs/Support</span>
                     </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('regions')}}" class="nav-link ">
-                        <span class="title">Regions</span>
+                </li><li class="nav-item  ">
+                    <a href="{{url('reports/livelihood')}}" class="nav-link ">
+                        <span class="title">Livelihood Tracking</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
-                    <a href="{{url('districts')}}" class="nav-link ">
-                        <span class="title">Districts</span>
-                    </a>
-                </li>
-
             </ul>
         </li>
         <li class="heading">
@@ -249,6 +238,27 @@
                 </li>
 
             </ul>
+        </li><li class="heading">
+            <h3 class="uppercase">SYSTEM BACKUPS</h3>
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-database fa-2x"></i>
+                <span class="title"> Data Import/Export</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="{{url('backup/imports')}}" class="nav-link ">
+                        <span class="title">Data Import</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('backup/exports')}}" class="nav-link ">
+                        <span class="title">Data Export</span>
+                    </a>
+                </li>
+              </ul>
         </li>
         <li class="heading">
             <h3 class="uppercase"> ADMINISTRATION</h3>
@@ -259,23 +269,17 @@
                 <span class="title"> Users</span>
                 <span class="arrow"></span>
             </a>
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="{{url('users/create')}}" class="nav-link ">
-                        <span class="title">New User</span>
-                    </a>
-                </li>
+             <ul class="sub-menu">
                 <li class="nav-item  ">
                     <a href="{{url('users')}}" class="nav-link ">
-                        <span class="title">Manage</span>
+                        <span class="title">List All Users</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
-                    <a href="{{url('roles')}}l" class="nav-link ">
-                        <span class="title">Permissions setup</span>
+                    <a href="{{url('access/roles')}}" class="nav-link ">
+                        <span class="title">User Roles</span>
                     </a>
                 </li>
-
             </ul>
         </li>
 

@@ -35,6 +35,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('logout','UserController@logout');
     
     Route::resource('users','UserController');
+    Route::get('users/remove/{id}','UserController@destroy');
+    Route::resource('access/roles','UserRolesController');
+    Route::get('access/roles/remove/{id}','UserRolesController@destroy');
+    
+    
 
     
     //Assessment roam
@@ -412,6 +417,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('reports/social/needs/generate','ReportsOrthopedicServicesController@showReportView');
     Route::post('reports/social/needs/generate','ReportsOrthopedicServicesController@generateReportView');
 
+
+    Route::get('reports/livelihood','LiveliHoodReportController@index');
 
 
 });

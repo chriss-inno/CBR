@@ -61,7 +61,11 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Position</label>
-                            <input type="text" class="form-control" name="position" id="position">
+                            <select class="form-control" name="position" id="position">
+                                <option value="">--Select---</option>
+                                <option value="Caregiver">Caregiver</option>
+                                <option value="Beneficiary">Beneficiary</option>
+                            </select>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Group</label>
@@ -155,7 +159,7 @@
             age: "required",
             nationality: "required",
             group: "required",
-            category: "required",
+            position: "required",
             family_size: "required"
         },
         messages: {
@@ -166,7 +170,7 @@
             age: "Please field is required",
             nationality: "Please field is required",
             group: "Please field is required",
-            category: "Please field is required",
+            position: "Please field is required",
             family_size: "Please field is required"
         },
         submitHandler: function(form) {
