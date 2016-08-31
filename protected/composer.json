@@ -15,7 +15,8 @@
         "intervention/image": "^2.3",
         "intervention/imagecache": "^2.3",
         "zizaco/entrust": "5.2.x-dev",
-        "barryvdh/laravel-snappy": "^0.3.0"
+        "barryvdh/laravel-snappy": "^0.3.0",
+        "orchestra/parser": "~3.0"
 
     },
     "require-dev": {

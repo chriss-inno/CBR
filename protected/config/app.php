@@ -160,6 +160,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
+        Orchestra\Parser\XmlServiceProvider::class,
 
     ],
 
@@ -216,6 +217,7 @@ return [
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+        'XmlParser' => Orchestra\Parser\Xml\Facade::class,
 
     ],
 
