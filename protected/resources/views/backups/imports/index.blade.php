@@ -381,13 +381,13 @@
 
         $("#DepartmentFormUN").validate({
             rules: {
-                clients_file: "required",
-                status: "required",
+                uploaded_file: "required",
+                module_choice: "required",
                 quantity: "required"
             },
             messages: {
-                clients_file: "Please select file",
-                status: "Please select status",
+                uploaded_file: "Please select file",
+                module_choice: "Please select status",
                 quantity: "Please enter quantity"
             }
         });
@@ -424,13 +424,13 @@
                     <!-- BEGIN SAMPLE FORM PORTLET-->
                     <div class="portlet light bordered">
                         <div class="portlet-body form">
-                            {!! Form::open(array('url'=>'backup/exports','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
+                            {!! Form::open(array('url'=>'backup/imports','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
                             <div class="form-body">
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-8 col-xs-8 col-lg-8">
                                             <label>Module</label>
-                                            <select name="module" class="form-control">
+                                            <select name="module_choice" id="module_choice" class="form-control">
                                                 <option value="all" >--All--</option>
                                                 <option value="1" >Clients Only</option>
                                                 <option value="2" >Assessments</option>
@@ -452,9 +452,12 @@
                                     <div class="row">
                                         <div class="col-md-8 col-xs-8 col-lg-8">
                                             <label>Import data file</label>
-                                            <input TYPE="file" class="form-control" name="clients_file" id="clients_file">
-                                            @if($errors->first('clients_file') !="")
-                                                <span class=" error">{{ $errors->first('clients_file') }}</span>
+                                            <input TYPE="file" class="form-control" name="uploaded_file" id="uploaded_file">
+                                            @if($errors->first('uploaded_file') !="")
+                                                <span class=" error">{{ $errors->first('uploaded_file') }}</span>
+                                            @endif
+                                             @if(Session::has('error'))
+                                                <span class=" error">{{ Session::has('error') }}</span>
                                             @endif
                                         </div>
                                     </div>

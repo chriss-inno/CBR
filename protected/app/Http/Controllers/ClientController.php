@@ -603,18 +603,26 @@ class ClientController extends Controller
     {
         //
         $client= Client::find($id);
-        if(is_object($client->disabilities) && count($client->disabilities) >0)
-        {
-            foreach ($client->disabilities as $dis)
-            {
-                $dis->delete(); 
-            }
+        if(is_object($client->assessment) && $client->assessment != null){
+           $client->assessment->delete();}
+        if(is_object($client->disabilities) && $client->disabilities != null){
+            foreach ($client->disabilities as $dt){$dt->delete();}
         }
-        if(is_object($client->disabilities) && count($client->disabilities) >0)
-        {
-            foreach ($client->disabilities as $dis)
-            {
-                $dis->delete();
+        if(is_object($client->rehabilitations) && $client->rehabilitations != null){
+            foreach ($client->rehabilitations as $dt){$dt->delete();}
+        }
+        if(is_object($client->referrals) && $client->referrals != null){
+            foreach ($client->referrals as $dt){$dt->delete();}
+        }
+        if(is_object($client->orthopedics) && $client->orthopedics != null){
+            foreach ($client->orthopedics as $dt){
+                if(is_object($dt->items) && $dt->items != null)
+                {
+                    foreach ($dt->items as $oss){
+                        $oss->delete();
+                    }
+                }
+                $dt->delete();
             }
         }
         $client->delete();

@@ -223,7 +223,7 @@ class BeneficiaryController extends Controller
         {
             $beneficiary = new Beneficiary;
             $beneficiary->progress_number = $request->progress_number;
-            $beneficiary->full_name = $request->full_name;
+            $beneficiary->full_name = ucwords(strtolower($request->full_name));
             $beneficiary->date_registration = $request->date_registration;
             $beneficiary->category = $request->category;
             $beneficiary->code = $request->code;
@@ -277,7 +277,7 @@ class BeneficiaryController extends Controller
         //
         $beneficiary= Beneficiary::find($request->id);
         $beneficiary->progress_number=$request->progress_number;
-        $beneficiary->full_name=$request->full_name;
+        $beneficiary->full_name=ucwords(strtolower($request->full_name));
         $beneficiary->date_registration=$request->date_registration;
         $beneficiary->category=$request->category;
         $beneficiary->code=$request->code;
@@ -302,6 +302,13 @@ class BeneficiaryController extends Controller
     {
         //
         $beneficiary= Beneficiary::find($id);
+        if(is_object($beneficiary->socialneeds) && $beneficiary->socialneeds != null)
+        {
+            foreach ($beneficiary->socialneeds as $dt)
+            {
+                $dt->delete();
+            }
+        }
         $beneficiary->delete();
     }
 }

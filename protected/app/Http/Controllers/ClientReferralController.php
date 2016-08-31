@@ -54,7 +54,7 @@ class ClientReferralController extends Controller
     public function store(Request $request)
     {
         //
-        if(!count(ClientReferral::where('client_id','=',$request->id)->where('referred_by_date','=',$request->referral_date)->where('referral_to','=',$request->referral_to)->get()) >0) {
+        if(!count(ClientReferral::where('client_id','=',$request->client_id)->where('referral_reason','=',$request->referral_reason)->where('referral_date','=',$request->referral_date)->where('referral_to','=',$request->referral_to)->get()) >0) {
             $referral = new ClientReferral;
             $referral->client_id = $request->client_id;
             $referral->referral_to = $request->referral_to;

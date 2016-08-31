@@ -250,13 +250,19 @@ class RehabilitationServicesController extends Controller
         //
         if(count(Client::where('file_number','=',$request->file_no)->get()) > 0 )
         {
-            $attendances=new RehabilitationRegister;
-            $attendances->attendance_date=$request->attendance_date;
-            $attendances->diagnosis=$request->diagnosis;
-            $attendances->file_no=$request->file_no;
-            $attendances->save();
+            if(!count(RehabilitationRegister::where('file_no','=',$request->file_no)->where('diagnosis','=',$request->diagnosis)->where('attendance_date','=',$request->attendance_date)->get())>0) {
+                $attendances = new RehabilitationRegister;
+                $attendances->attendance_date = $request->attendance_date;
+                $attendances->diagnosis = $request->diagnosis;
+                $attendances->file_no = $request->file_no;
+                $attendances->save();
+                return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
+            }
+            else{
+                return "<span class='text-danger'><i class='fa-info'></i> Save failed, data exist</span>"; 
+            }
 
-            return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
+            
         }
         else
         {

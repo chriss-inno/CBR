@@ -24,6 +24,19 @@ class Client extends Model
     {
         return $this::hasMany('\App\ClientDisability','client_id','id');
     }
+    public function rehabilitations()
+    {
+        return $this::hasMany('\App\RehabilitationRegister','file_no','file_number');
+    }
+    public function referrals()
+    {
+        return $this::hasMany('\App\ClientReferral','client_id','id');
+    }
+    
+    public function orthopedics()
+    {
+        return $this::hasMany('\App\OrthopedicServices','file_no','file_number');
+    }
     public function region()
     {
         return $this::belongsTo('\App\Region','region_id');

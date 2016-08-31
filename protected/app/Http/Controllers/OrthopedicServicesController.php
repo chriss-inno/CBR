@@ -169,29 +169,33 @@ class OrthopedicServicesController extends Controller
         //
         if(count(Client::where('file_number','=',$request->file_no)->get()) > 0 )
         {
-            $attendances = new OrthopedicServices;
-            $attendances->attendance_date = $request->attendance_date;
-            $attendances->file_no = $request->file_no;
-            $attendances->diagnosis = $request->diagnosis;
-            $attendances->save();
+            if(!count(OrthopedicServices::where('file_no','=',$request->file_no)->where('diagnosis','=',$request->diagnosis)->where('attendance_date','=',$request->attendance_date)->get())>0) {
+                $attendances = new OrthopedicServices;
+                $attendances->attendance_date = $request->attendance_date;
+                $attendances->file_no = $request->file_no;
+                $attendances->diagnosis = $request->diagnosis;
+                $attendances->save();
 
-            if(count($request->service_received) >0 && $request->service_received != null) {
-                $qcount = 0;
-                foreach ($request->service_received as $serv) {
-                    if($serv != "" && $request->quantity[$qcount] != "" &&  $request->item_serviced[$qcount] !="")
-                    {
-                        $items = new OrthopedicServicesItems();
-                        $items->service_received = $serv;
-                        $items->item_serviced = $request->item_serviced[$qcount];
-                        $items->quantity = $request->quantity[$qcount];
-                        $items->ors_id= $attendances->id;
-                        $items->save();
+                if (count($request->service_received) > 0 && $request->service_received != null) {
+                    $qcount = 0;
+                    foreach ($request->service_received as $serv) {
+                        if ($serv != "" && $request->quantity[$qcount] != "" && $request->item_serviced[$qcount] != "") {
+                            $items = new OrthopedicServicesItems();
+                            $items->service_received = $serv;
+                            $items->item_serviced = $request->item_serviced[$qcount];
+                            $items->quantity = $request->quantity[$qcount];
+                            $items->ors_id = $attendances->id;
+                            $items->save();
+                        }
+                        $qcount++;
                     }
-                    $qcount++;
                 }
-            }
 
-            return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
+                return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
+            }
+            else{
+                return "<span class='text-danger'><i class='fa-info'></i> Save failed, data exist</span>";
+            }
         }
         else
         {
