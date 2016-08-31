@@ -309,6 +309,13 @@ class BeneficiaryController extends Controller
                 $dt->delete();
             }
         }
+        if(is_object($beneficiary->supports) && $beneficiary->supports != null)
+        {
+            foreach ($beneficiary->supports as $dt)
+            {
+                $dt->delete();
+            }
+        }
         $beneficiary->delete();
     }
 }

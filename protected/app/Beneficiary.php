@@ -11,4 +11,8 @@ class Beneficiary extends Model
     {
         return $this::hasMany('\App\SocialNeed','beneficiary_id','id');
     }
+    public function supports()
+    {
+        return $this::hasMany('\App\MateriaSupport','beneficiary_id','id');
+    }
 }

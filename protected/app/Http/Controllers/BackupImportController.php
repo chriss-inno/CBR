@@ -486,12 +486,12 @@ class BackupImportController extends Controller
             }
             elseif($request->module_choice =="9")
             {
-                foreach ($xml->ItemCategories as $itemCategories)
+                foreach ($xml->Inventory->ItemCategories as $itemCategories)
                 {
                     foreach ($itemCategories as $cate)
                     {
-                        dump($cate);
-                        if(!count(ItemsCategories::where('status','=',$cate->status)->where('description','=',$cate->description)->where('category_name','=',$cate->category_name)->get()) > 0){
+
+                        if(!count(ItemsCategories::where('category_name','=',$cate->category_name)->get()) > 0){
                            $itmCat = new ItemsCategories;
                            $itmCat->category_name = $cate->category_name;
                            $itmCat->description = $cate->description;
@@ -501,10 +501,136 @@ class BackupImportController extends Controller
                     }
                 }
 
+                foreach ($xml->Inventory->Items as $items)
+                {
+                    foreach ($items as $itm)
+                    {
+
+                        $cate_id="";
+                        $cate=$itm->ItemCategory;
+
+                        if(!count(ItemsCategories::where('category_name','=',$cate->category_name)->get()) > 0){
+                            $itmCat = new ItemsCategories;
+                            $itmCat->category_name = $cate->category_name;
+                            $itmCat->description = $cate->description;
+                            $itmCat->status = $cate->status;
+                            $itmCat->save();
+                            $cate_id=$itmCat->id;
+                        }
+                        else
+                        {
+                            $itmCat=ItemsCategories::where('category_name','=',$cate->category_name)->get()->first();
+                            $cate_id=$itmCat->id;
+                        }
+
+
+                        if(!count(ItemsInventory::where('category_id','=',$cate_id)->where('item_name','=',$itm->item_name)->get()) > 0){
+                            $item=new ItemsInventory;
+                            $item->item_name=$itm->item_name;
+                            $item->description=$itm->description;
+                            $item->category_id= $cate_id;
+                            $item->quantity=$itm->quantity;
+                            $item->remarks=$itm->remarks;
+                            $item->status=$itm->remarks;
+                            $item->save();
+                        }
+                    }
+                }
+                foreach ($xml->Inventory->ReceivedItems as $ReceivedItems)
+                {
+                    foreach ($ReceivedItems as $itm)
+                    {
+
+                        if(!count(InventoryReceived::where('received_date','=',$itm->received_date)->where('quantity','=',$itm->quantity)->where('receiver','=',$itm->receiver)->where('population','=',$itm->population)->where('donor','=',$itm->donor)->where('received_from','=',$itm->received_from)->where('way_bill_number','=',$itm->way_bill_number)->get()) > 0){
+                            $itmCat = new InventoryReceived;
+                            $itmCat->way_bill_number = $itm->way_bill_number;
+                            $itmCat->received_from = $itm->received_from;
+                            $itmCat->donor = $itm->donor;
+                            $itmCat->population = $itm->population;
+                            $itmCat->receiver = $itm->receiver;
+                            $itmCat->quantity = $itm->quantity;
+                            $itmCat->received_date = $itm->received_date;
+                            $itmCat->save();
+                        }
+                    }
+                }
+                foreach ($xml->Inventory->MaterialSupports as $MaterialSupports)
+                {
+                    foreach ($MaterialSupports as $itm)
+                    {
+
+                        $ben = $itm->Beneficiary;
+                        $ben_id = "";
+                        if (!count(Beneficiary::where('address', '=', $ben->address)->where('full_name', '=', ucwords(strtolower($ben->full_name)))->where('progress_number', '=', $ben->progress_number)->get()) > 0) {
+                            $beneficiary = new Beneficiary;
+                            $beneficiary->progress_number = $ben->progress_number;
+                            $beneficiary->full_name = ucwords(strtolower($ben->full_name));
+                            $beneficiary->date_registration = $ben->date_registration;
+                            $beneficiary->category = $ben->category;
+                            $beneficiary->code = $ben->code;
+                            $beneficiary->age = $ben->age;
+                            $beneficiary->sex = $ben->sex;
+                            $beneficiary->family_size = $ben->family_size;
+                            $beneficiary->number_females = $ben->number_females;
+                            $beneficiary->number_male = $ben->number_male;
+                            $beneficiary->address = $ben->address;
+                            $beneficiary->nationality = ucwords(strtolower($ben->nationality));
+                            $beneficiary->save();
+                            $ben_id = $beneficiary->id;
+                        } else {
+                            $beneficiary = Beneficiary::where('address', '=', $ben->address)
+                                ->where('full_name', '=', ucwords(strtolower($ben->full_name)))
+                                ->where('progress_number', '=', $ben->progress_number)->get()->first();
+                            $ben_id = $beneficiary->id;
+                        }
+
+                        if(!count(MateriaSupport::where('distributed_date','=',$itm->distributed_date)->where('quantity','=',$itm->quantity)->where('category','=',$itm->category)->where('item','=',$itm->item)->where('address','=',$itm->address)->where('donor_type','=',$itm->donor_type)->where('beneficiary_id','=',$ben_id)->where('progress_number','=',$itm->progress_number)->get()) > 0){
+                            $item=new MateriaSupport;
+                            $item->progress_number=$itm->progress_number;
+                            $item->donor_type=$itm->donor_type;
+                            $item->address=$itm-> address;
+                            $item->item=$itm->item;
+                            $item->category=$itm->category;
+                            $item->quantity=$itm->quantity;
+                            $item->distributed_date=$itm->distributed_date;
+                            $item->beneficiary_id=$ben_id;
+                            $item->save();
+                        }
+                    }
+                }
+                return redirect('inventory/disbursement');
+            }
+            elseif($request->module_choice =="12")
+            {
+                foreach ($xml->Users as $Users)
+                {
+                    foreach ($Users as $usr)
+                    {
+                        if(!count(User::where('user_name','=',$usr->user_name)->where('user_name','=',$usr->user_name)->get()) >0) {
+                            $user = new User;
+                            $user->first_name = $usr->first_name;
+                            $user->middle_name = $usr->middle_name;
+                            $user->last_name = $usr->last_name;
+                            $user->phone = $usr->phone;
+                            $user->email = $usr->email;
+                            $user->address = $usr->address;
+                            $user->status = $usr->status;
+                            $user->user_name = $usr->user_name;
+                            $user->password = $usr->password;
+                            $user->save();
+                        }
+                    }
+                }
+
+
+                return redirect('users');
 
             }
+            else{
+                return redirect()->back();
+            }
 
-            //return redirect('backup/imports');
+            //return redirect('inventory/disbursement');
        /* }
         catch (\Exception $e) {
             //echo $e->getMessage();

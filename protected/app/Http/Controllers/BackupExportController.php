@@ -501,7 +501,7 @@ class BackupExportController extends Controller
                 $xml.= "<User>";
                 $xml.= "<first_name><![CDATA[".$client->first_name."]]></first_name>";
                 $xml.= "<middle_name><![CDATA[".$client->middle_name."]]></middle_name>";
-                $xml.= "<last_name><![CDATA[".$client->last_name."]]></age>";
+                $xml.= "<last_name><![CDATA[".$client->last_name."]]></last_name>";
                 $xml.= "<phone><![CDATA[".$client->phone."]]></phone>";
                 $xml.= "<email><![CDATA[".$client->email."]]></email>";
                 $xml.= "<address><![CDATA[".$client->address."]]></address>";
@@ -1133,12 +1133,13 @@ class BackupExportController extends Controller
                 $xml.= "<User>";
                 $xml.= "<first_name><![CDATA[".$client->first_name."]]></first_name>";
                 $xml.= "<middle_name><![CDATA[".$client->middle_name."]]></middle_name>";
-                $xml.= "<last_name><![CDATA[".$client->last_name."]]></age>";
+                $xml.= "<last_name><![CDATA[".$client->last_name."]]></last_name>";
                 $xml.= "<phone><![CDATA[".$client->phone."]]></phone>";
                 $xml.= "<email><![CDATA[".$client->email."]]></email>";
                 $xml.= "<address><![CDATA[".$client->address."]]></address>";
                 $xml.= "<status><![CDATA[".$client->status."]]></status>";
                 $xml.= "<user_name><![CDATA[".$client->user_name."]]></user_name>";
+                $xml.= "<password><![CDATA[".$client->password."]]></password>";
                 $xml.= "</User>";
             }
             $xml.= "</Users>";
