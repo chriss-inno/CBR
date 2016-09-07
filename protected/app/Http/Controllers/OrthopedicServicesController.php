@@ -87,7 +87,9 @@ class OrthopedicServicesController extends Controller
                     {
 
 
-                        if(count(OrthopedicServices::where('file_no','=',$row->file_number)->where('attendance_date','=',date("Y-m-d",strtotime($row->attending_date)))->get()) > 0 )
+                         $client=Client::where('file_number','=',$row->file_number)->get()->first();
+
+                        if(count(OrthopedicServices::where('client_id','=',$client->id)->where('attendance_date','=',date("Y-m-d",strtotime($row->attending_date)))->get()) > 0 )
                         {
                             $dump_rs=new DumpOrthopedicServices();
                             $dump_rs->file_no=$row->file_number;
@@ -105,7 +107,7 @@ class OrthopedicServicesController extends Controller
                             $attendances=new OrthopedicServices;
                             $attendances->attendance_date=date("Y-m-d",strtotime($row->attending_date));
                             $attendances->diagnosis=$row->diagnosis;
-                            $attendances->file_no=$row->file_number;
+                            $attendances->client_id=$client->id;
                             $attendances->service_received=$row->service_received;
                             $attendances->item_serviced=$row->item_serviced;
                             $attendances->quantity=$row->quantity_of_items;
@@ -167,12 +169,12 @@ class OrthopedicServicesController extends Controller
     public function store(Request $request)
     {
         //
-        if(count(Client::where('file_number','=',$request->file_no)->get()) > 0 )
+        if(count(Client::where('id','=',$request->client_id)->get()) > 0 )
         {
-            if(!count(OrthopedicServices::where('file_no','=',$request->file_no)->where('diagnosis','=',$request->diagnosis)->where('attendance_date','=',$request->attendance_date)->get())>0) {
+            if(!count(OrthopedicServices::where('client_id','=',$request->client_id)->where('diagnosis','=',$request->diagnosis)->where('attendance_date','=',$request->attendance_date)->get())>0) {
                 $attendances = new OrthopedicServices;
                 $attendances->attendance_date = $request->attendance_date;
-                $attendances->file_no = $request->file_no;
+                $attendances->client_id = $request->client_id;
                 $attendances->diagnosis = $request->diagnosis;
                 $attendances->save();
 
@@ -246,11 +248,9 @@ class OrthopedicServicesController extends Controller
     {
         //
        
-        if(count(Client::where('file_number','=',$request->file_no)->get()) > 0 )
-        {
+    
              $attendance=OrthopedicServices::find($request->id);
              $attendance->attendance_date = $request->attendance_date;
-             $attendance->file_no = $request->file_no;
              $attendance->diagnosis = $request->diagnosis;
              $attendance->save();
 
@@ -280,11 +280,7 @@ class OrthopedicServicesController extends Controller
                   
 
             return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
-        }
-        else
-        {
-            return "<p><h3 class='text-danger'><i class='fa fa-spinner fa-spin'></i> Error in processing data: Client with file number [".$request->file_no."] is not registered<h3></p>";
-        }
+        
     }
 
     /**

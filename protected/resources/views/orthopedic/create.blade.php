@@ -70,6 +70,7 @@
 
             </div>
             <div class="col-md-4 col-sm-4 pull-right text-right">
+              <input type="hidden" name="client_id" id="client_id" value="{{$client->id}}">
                 <button type="button" class="btn btn-danger "  data-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save </button>
             </div>

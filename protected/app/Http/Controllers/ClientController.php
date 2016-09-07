@@ -398,7 +398,7 @@ class ClientController extends Controller
         //
         if(count(Client::where('file_number','=',$request->file_number)->get()) > 0) {
 
-            return "<span class='text-danger'><i class='fa-info'></i>Save failed: File number [".$request->file_number."] was already used </span>";
+            return "<span class='text-danger'><i class='fa fa-info'></i>Save failed: File number [".$request->file_number."] was already used </span>";
 
         }
         else {
@@ -502,7 +502,7 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         //
-        if(! count(Client::where('file_number','=',$request->file_number)->get()) > 0) {
+        if( count(Client::where('id','<>',$id)->where('file_number','=',$request->file_number)->get()) > 0) {
 
             return "<span class='text-danger'><i class='fa-info'></i>Save failed: File number [".$request->file_number."] was not found </span>";
 
