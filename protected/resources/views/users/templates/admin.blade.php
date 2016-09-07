@@ -393,7 +393,7 @@
                    foreach (\App\Country::orderBy('country_name','ASC')->get() as $country) {
                        
                        $series .="{";
-                        $series .=" name: '".$country->country_name."'";
+                        $series .=" name: '".$country->country_name."',";
 
                         $MonthCount="";
                         $monthData="";
@@ -410,8 +410,7 @@
                    
                     ?>
 
-            series: [<?php echo $seriesdata;?>]
-        
+             series: [<?php echo $seriesdata;?>]
         });
         $('#container').highcharts({
             chart: {
@@ -466,7 +465,7 @@
                    foreach (\App\Country::orderBy('country_name','ASC')->get() as $country) {
                        
                        $series1 .="{ ";
-                        $series1 .=" name: '".$country->country_name."'";
+                        $series1 .=" name: '".$country->country_name."',";
 
                         $MonthCount="";
                         $monthData="";
@@ -483,7 +482,7 @@
                    
                     ?>
 
-            series: [<?php echo $seriesdata1;?>]
+           series: [<?php echo $seriesdata1;?>]
         });
         $('#containerPie').highcharts({
             chart: {
