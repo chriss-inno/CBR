@@ -674,35 +674,31 @@ class BackupExportController extends Controller
         }
         elseif($request->module_choice =="5")
         {
-            $clients=Client::all();
+           
             $xml= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             $xml.= "<ApplicationData>";
-            $xml.= "<Clients>";
-            foreach($clients as $client)
-            {
-                $xml.= "<Client>";
-                $xml.= "<file_number><![CDATA[".$client->file_number."]]></file_number>";
-                $xml.= "<full_name><![CDATA[".$client->full_name."]]></full_name>";
-                $xml.= "<age><![CDATA[".$client->age."]]></age>";
-                $xml.= "<sex><![CDATA[".$client->sex."]]></sex>";
-                $xml.= "<address><![CDATA[".$client->address."]]></address>";
-                $xml.= "<nationality><![CDATA[".$client->nationality."]]></nationality>";
-                $xml.= "<zone><![CDATA[".$client->zone."]]></zone>";
-                $xml.= "<status><![CDATA[".$client->status."]]></status>";
-                $xml.= "<date_registered><![CDATA[".$client->date_registered."]]></date_registered>";
-                    $xml.= "<Rehabilitations>";
-                        $attendances=RehabilitationRegister::where('file_no','=',$client->file_number)->get();
+            $xml.= "<Rehabilitations>";
+                        $attendances=RehabilitationRegister::all();
                         foreach ($attendances as $attend) {
+                             $client=Client::find($attend->client_id);
                             $xml.= "<Rehabilitation>";
                                 $xml.= "<attendance_date><![CDATA[".$attend->attendance_date."]]></attendance_date>";
                                 $xml.= "<diagnosis><![CDATA[".$attend->diagnosis."]]></diagnosis>";
-                                $xml.= "<file_no><![CDATA[".$attend->file_no."]]></file_no>";
+                                $xml.= "<Client>";
+                                        $xml.= "<file_number><![CDATA[".$client->file_number."]]></file_number>";
+                                        $xml.= "<full_name><![CDATA[".$client->full_name."]]></full_name>";
+                                        $xml.= "<age><![CDATA[".$client->age."]]></age>";
+                                        $xml.= "<sex><![CDATA[".$client->sex."]]></sex>";
+                                        $xml.= "<address><![CDATA[".$client->address."]]></address>";
+                                        $xml.= "<nationality><![CDATA[".$client->nationality."]]></nationality>";
+                                        $xml.= "<zone><![CDATA[".$client->zone."]]></zone>";
+                                        $xml.= "<status><![CDATA[".$client->status."]]></status>";
+                                        $xml.= "<date_registered><![CDATA[".$client->date_registered."]]></date_registered>";
+                                            
+                                        $xml.= "</Client>";
                             $xml.= "</Rehabilitation>";
                         }
-                    $xml.= "</Rehabilitations>";
-                $xml.= "</Client>";
-            }
-            $xml.= "</Clients>";
+            $xml.= "</Rehabilitations>";
             $xml.= "</ApplicationData>";
 
             File::put(storage_path().'/RehabilitationsRegister.xml', $xml);
@@ -710,29 +706,28 @@ class BackupExportController extends Controller
         }
         elseif($request->module_choice =="6")
         {
-            $clients=Client::all();
+           
             $xml= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             $xml.= "<ApplicationData>";
-            $xml.= "<Clients>";
-            foreach($clients as $client)
-            {
-                $xml.= "<Client>";
-                $xml.= "<file_number><![CDATA[".$client->file_number."]]></file_number>";
-                $xml.= "<full_name><![CDATA[".$client->full_name."]]></full_name>";
-                $xml.= "<age><![CDATA[".$client->age."]]></age>";
-                $xml.= "<sex><![CDATA[".$client->sex."]]></sex>";
-                $xml.= "<address><![CDATA[".$client->address."]]></address>";
-                $xml.= "<nationality><![CDATA[".$client->nationality."]]></nationality>";
-                $xml.= "<zone><![CDATA[".$client->zone."]]></zone>";
-                $xml.= "<status><![CDATA[".$client->status."]]></status>";
-                $xml.= "<date_registered><![CDATA[".$client->date_registered."]]></date_registered>";
-                $xml.= "<OrthopedicServices>";
-                    $attendances=OrthopedicServices::where('file_no','=',$client->file_number)->get();
+             $xml.= "<OrthopedicServices>";
+                    $attendances=OrthopedicServices::all();
                     foreach ($attendances as $attend) {
+                        $client=Client::find($attend->client_id);
                         $xml.= "<OrthopedicService>";
                             $xml.= "<attendance_date><![CDATA[".$attend->attendance_date."]]></attendance_date>";
                             $xml.= "<diagnosis><![CDATA[".$attend->diagnosis."]]></diagnosis>";
-                            $xml.= "<file_no><![CDATA[".$attend->file_no."]]></file_no>";
+                            $xml.= "<Client>";
+                                        $xml.= "<file_number><![CDATA[".$client->file_number."]]></file_number>";
+                                        $xml.= "<full_name><![CDATA[".$client->full_name."]]></full_name>";
+                                        $xml.= "<age><![CDATA[".$client->age."]]></age>";
+                                        $xml.= "<sex><![CDATA[".$client->sex."]]></sex>";
+                                        $xml.= "<address><![CDATA[".$client->address."]]></address>";
+                                        $xml.= "<nationality><![CDATA[".$client->nationality."]]></nationality>";
+                                        $xml.= "<zone><![CDATA[".$client->zone."]]></zone>";
+                                        $xml.= "<status><![CDATA[".$client->status."]]></status>";
+                                        $xml.= "<date_registered><![CDATA[".$client->date_registered."]]></date_registered>";
+                                            
+                                        $xml.= "</Client>";
                             $xml.= "<OrthopedicServicesItems>";
                                   $items=OrthopedicServicesItems::where('ors_id','=',$attend->id)->get();
                                   foreach ($items as $item)
@@ -747,9 +742,6 @@ class BackupExportController extends Controller
                         $xml.= "</OrthopedicService>";
                     }
                 $xml.= "</OrthopedicServices>";
-                $xml.= "</Client>";
-            }
-            $xml.= "</Clients>";
             $xml.= "</ApplicationData>";
 
             File::put(storage_path().'/OrthopedicServices.xml', $xml);

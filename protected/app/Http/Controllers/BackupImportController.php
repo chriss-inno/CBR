@@ -301,102 +301,86 @@ class BackupImportController extends Controller
             }
             elseif($request->module_choice =="5")
             {
-                foreach ($xml->Clients as $clients)
-                {
-                    foreach ($clients as $clnt) {
-                        if (!count(Client::where('file_number', '=', $clnt->file_number)->get()) > 0) {
-                            $client = new Client;
-                            $client->file_number = $clnt->file_number;
-                            $client->full_name = $clnt->full_name;
-                            $client->age = $clnt->age;
-                            $client->sex = $clnt->sex;
-                            $client->address = $clnt->address;
-                            $client->nationality = $clnt->nationality;
-                            $client->zone = $clnt->zone;
-                            $client->status = $clnt->status;
-                            $client->date_registered = $clnt->date_registered;
-                            $client->save();
 
-                            foreach ($clnt->Rehabilitations as $rehabilitations) {
-                                foreach ($rehabilitations as $reb) {
-                                    if(!count(RehabilitationRegister::where('file_no','=',$client->file_number)->where('diagnosis','=',$reb->diagnosis)->where('attendance_date','=',$reb->attendance_date)->get())>0) {
+                foreach ($xml->Rehabilitations as $rehabilitations) {
+                    foreach ($rehabilitations as $reb) {
+                            $client_id="";
+                            $clnt=$reb->Client;
+                            
+                            if (!count(Client::where('file_number', '=', $clnt->file_number)->get()) > 0) {
+                                $client = new Client;
+                                $client->file_number = $clnt->file_number;
+                                $client->full_name = $clnt->full_name;
+                                $client->age = $clnt->age;
+                                $client->sex = $clnt->sex;
+                                $client->address = $clnt->address;
+                                $client->nationality = $clnt->nationality;
+                                $client->zone = $clnt->zone;
+                                $client->status = $clnt->status;
+                                $client->date_registered = $clnt->date_registered;
+                                $client->save();
+
+                            }
+                            else
+                            {
+                                $client =Client::where('file_number', '=', $clnt->file_number)->get()->first();
+                                $client_id=$client->id;
+
+                            }
+                                    if(!count(RehabilitationRegister::where('client_id','=',$client_id)->where('diagnosis','=',$reb->diagnosis)->where('attendance_date','=',$reb->attendance_date)->get())>0) {
                                         $attendances=new RehabilitationRegister;
                                         $attendances->attendance_date=$reb->attendance_date;
                                         $attendances->diagnosis=$reb->diagnosis;
-                                        $attendances->file_no= $client->file_number;
+                                        $attendances->client_id= $client_id;
                                         $attendances->save();
                                     }
                                 }
                             }
-                        } else {
-                            $client = Client::where('file_number', '=', $clnt->file_number)->get()->first();
-                            foreach ($clnt->Rehabilitations as $rehabilitations) {
-                                foreach ($rehabilitations as $reb) {
-                                    if(!count(RehabilitationRegister::where('file_no','=',$client->file_number)->where('diagnosis','=',$reb->diagnosis)->where('attendance_date','=',$reb->attendance_date)->get())>0) {
-                                        $attendances=new RehabilitationRegister;
-                                        $attendances->attendance_date=$reb->attendance_date;
-                                        $attendances->diagnosis=$reb->diagnosis;
-                                        $attendances->file_no=$client->file_number;
-                                        $attendances->save();
-                                    }
-                                }}
 
-                        }
-                    }
-                }
+            
                 return redirect('rehabilitation/services');
             }
             elseif($request->module_choice =="6")
             {
-                foreach ($xml->Clients as $clients)
-                {
-                    foreach ($clients as $clnt) {
-                        if (!count(Client::where('file_number', '=', $clnt->file_number)->get()) > 0) {
-                            $client = new Client;
-                            $client->file_number = $clnt->file_number;
-                            $client->full_name = $clnt->full_name;
-                            $client->age = $clnt->age;
-                            $client->sex = $clnt->sex;
-                            $client->address = $clnt->address;
-                            $client->nationality = $clnt->nationality;
-                            $client->zone = $clnt->zone;
-                            $client->status = $clnt->status;
-                            $client->date_registered = $clnt->date_registered;
-                            $client->save();
+               foreach ($xml->OrthopedicServices as $orthopedicServices) 
+               {
+                  foreach ($orthopedicServices as $reb) 
+                  {
+                     $client_id="";
+                            $clnt=$reb->Client;
+                            
+                            if (!count(Client::where('file_number', '=', $clnt->file_number)->get()) > 0) {
+                                $client = new Client;
+                                $client->file_number = $clnt->file_number;
+                                $client->full_name = $clnt->full_name;
+                                $client->age = $clnt->age;
+                                $client->sex = $clnt->sex;
+                                $client->address = $clnt->address;
+                                $client->nationality = $clnt->nationality;
+                                $client->zone = $clnt->zone;
+                                $client->status = $clnt->status;
+                                $client->date_registered = $clnt->date_registered;
+                                $client->save();
 
-                            foreach ($clnt->OrthopedicServices as $orthopedicServices) {
-                                foreach ($orthopedicServices as $reb) {
-                                    if(!count(OrthopedicServices::where('file_no','=',$client->file_number)->where('diagnosis','=',$reb->diagnosis)->where('attendance_date','=',$reb->attendance_date)->get())>0) {
-                                        $attendances = new OrthopedicServices;
-                                        $attendances->attendance_date = $reb->attendance_date;
-                                        $attendances->file_no = $reb->file_no;
-                                        $attendances->diagnosis = $reb->diagnosis;
-                                        $attendances->save();
-                                        foreach ($reb->OrthopedicServicesItems as $items) {
-                                            foreach ($items as $itm) {
-                                                $items = new OrthopedicServicesItems;
-                                                $items->service_received = $itm->service_received;
-                                                $items->item_serviced = $itm->item_serviced;
-                                                $items->quantity = $itm->quantity;
-                                                $items->ors_id = $attendances->id;
-                                                $items->save();
-                                            }
-                                        }
-                                    }
-                                }
                             }
-                        } else {
-                            $client = Client::where('file_number', '=', $clnt->file_number)->get()->first();
-                            foreach ($clnt->OrthopedicServices as $orthopedicServices) {
-                                foreach ($orthopedicServices as $reb) {
-                                    if(!count(OrthopedicServices::where('file_no','=',$client->file_number)->where('diagnosis','=',$reb->diagnosis)->where('attendance_date','=',$reb->attendance_date)->get())>0) {
+                            else
+                            {
+                                $client =Client::where('file_number', '=', $clnt->file_number)->get()->first();
+                                $client_id=$client->id;
+
+                            }
+
+                                    if(!count(OrthopedicServices::where('client_id','=',$client_id)->where('diagnosis','=',$reb->diagnosis)->where('attendance_date','=',$reb->attendance_date)->get())>0) 
+                                      {
                                         $attendances = new OrthopedicServices;
                                         $attendances->attendance_date = $reb->attendance_date;
-                                        $attendances->file_no = $reb->file_no;
+                                        $attendances->client_id = $client_id;
                                         $attendances->diagnosis = $reb->diagnosis;
                                         $attendances->save();
-                                        foreach ($reb->OrthopedicServicesItems as $items) {
-                                            foreach ($items as $itm) {
+                                        foreach ($reb->OrthopedicServicesItems as $items)
+                                         {
+                                            foreach ($items as $itm) 
+                                            {
                                                 $items = new OrthopedicServicesItems;
                                                 $items->service_received = $itm->service_received;
                                                 $items->item_serviced = $itm->item_serviced;
@@ -404,13 +388,11 @@ class BackupImportController extends Controller
                                                 $items->ors_id = $attendances->id;
                                                 $items->save();
                                             }
-                                        }
+                                          }
                                     }
-                                }}
-
-                        }
                     }
                 }
+
                 return redirect('orthopedic/services');
             }
             elseif($request->module_choice =="7")
