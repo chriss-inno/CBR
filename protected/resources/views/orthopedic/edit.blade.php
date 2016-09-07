@@ -26,7 +26,9 @@
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
                             <label>File Number</label>
-                            <input type="text" class="form-control" name="file_no" id="file_no" value="{{$attendance->file_no}}" readonly>
+                            <input type="text" class="form-control" name="file_no" id="file_no" 
+                            @if(is_object($attendance->client) && $attendance->client != null)
+                            value="{{$attendance->client->file_number}}" @endif readonly>
                         </div>
 
                     </div>

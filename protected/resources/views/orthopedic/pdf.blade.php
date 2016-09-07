@@ -45,7 +45,9 @@
                 <tbody>
                 <tr>
                     <td>
-                        <?php echo $attendances->file_no; ?>
+                        @if(is_object($attendances->client) && $attendances->client != null)
+                            {{$attendances->client->file_number}}
+                        @endif
                     </td>
                     <td>
                         @if(is_object($attendances->client) && $attendances->client != null)
