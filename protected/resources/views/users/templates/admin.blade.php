@@ -339,13 +339,13 @@
     @stop
 @section('custom-scripts')
     <script>
-
-        $('#container').highcharts({
+  
+        $('#containerBeneficiaries').highcharts({
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Monthly  Clients Registration for {{date("Y")}}'
+                text: 'Monthly  Beneficiaries Registration country wise for {{date("Y")}}'
             },
             credits: {
                 enabled: false
@@ -389,20 +389,101 @@
                 }
             },
             <?php
-                    $MonthCount="";
-                    $monthData="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount.=count(\App\Client::where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->get()).",";
-                    }
-                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                    $series="";
+                   foreach (\App\Country::orderBy('country_name','ASC')->get() as $country) {
+                       
+                       $series .="{";
+                        $series .=" name: '".$country->country_name."'";
+
+                        $MonthCount="";
+                        $monthData="";
+                        for($i=1; $i<= 12; $i++)
+                        {
+                            $MonthCount.=count(\App\Beneficiary::where('nationality','=',$country->country_name)->where(\DB::raw('Month(date_registration)'),'=',$i)->where(\DB::raw('Year(date_registration)'),'=',date('Y'))->get()).",";
+                        }
+                        $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                        $series .=" data:[".$monthData."]";
+                        $series .=" },";
+                      
+                   }
+                   $seriesdata=substr($series,0,strlen($series)-1);
+                   
                     ?>
 
-            series: [{
-                name: 'Clients ',
-                data:[<?php echo $monthData;?>]
+            series: [<?php echo $seriesdata;?>]
+        
+        });
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Monthly  Clients Registration country wise for {{date("Y")}}'
+            },
+            credits: {
+                enabled: false
+            },
 
-            }]
+            xAxis: {
+                categories: [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of clients'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            <?php
+                    $series1="";
+                   foreach (\App\Country::orderBy('country_name','ASC')->get() as $country) {
+                       
+                       $series1 .="{ ";
+                        $series1 .=" name: '".$country->country_name."'";
+
+                        $MonthCount="";
+                        $monthData="";
+                        for($i=1; $i<= 12; $i++)
+                        {
+                            $MonthCount.=count(\App\Client::where('nationality','=',$country->country_name)->where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->get()).",";
+                        }
+                        $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                        $series1 .=" data:[".$monthData."]";
+                        $series1 .="  },";
+                      
+                   }
+                   $seriesdata1=substr($series1,0,strlen($series1)-1);
+                   
+                    ?>
+
+            series: [<?php echo $seriesdata1;?>]
         });
         $('#containerPie').highcharts({
             chart: {
@@ -545,9 +626,16 @@
             <!-- END WIDGET THUMB -->
         </div>
     </div>
-    <div class="row widget-row">
-        <div class="col-md-7">
+    <hr/>
+     <div class="row widget-row" style="margin-top:10px;">
+        <div class="col-md-12">
             <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+    </div>
+    <hr/>
+     <div class="row widget-row" style="margin-top:10px;">
+        <div class="col-md-7">
+            <div id="containerBeneficiaries" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         </div>
         <div class="col-md-5">
             <div id="containerPie" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
