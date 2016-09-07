@@ -81,9 +81,10 @@ class RehabilitationServicesController extends Controller
 
                     if(count(Client::where('file_number','=',$row->file_number)->get()) >0 && Client::where('file_number','=',$row->file_number)->get() != null)
                     {
+                        
+                        $client=Client::where('file_number','=',$row->file_number)->get()->first();
 
-
-                        if(count(RehabilitationRegister::where('file_no','=',$row->file_number)->where('attendance_date','=',date("Y-m-d",strtotime($row->attending_date)))->get()) > 0 )
+                        if(count(RehabilitationRegister::where('client_id','=',$client->id)->where('attendance_date','=',date("Y-m-d",strtotime($row->attending_date)))->get()) > 0 )
                         {
                             $dump_rs=new DumpRSRegister;
                             $dump_rs->file_no=$row->file_number;
@@ -98,7 +99,7 @@ class RehabilitationServicesController extends Controller
                             $attendances=new RehabilitationRegister;
                             $attendances->attendance_date=date("Y-m-d",strtotime($row->attending_date));
                             $attendances->diagnosis=$row->diagnosis;
-                            $attendances->file_no=$row->file_number;
+                            $attendances->client_id=$client->id;
                             $attendances->save();
                         }
 
@@ -248,19 +249,15 @@ class RehabilitationServicesController extends Controller
     public function store(Request $request)
     {
         //
-        if(count(Client::where('file_number','=',$request->file_no)->get()) > 0 )
-        {
-            if(!count(RehabilitationRegister::where('file_no','=',$request->file_no)->where('diagnosis','=',$request->diagnosis)->where('attendance_date','=',$request->attendance_date)->get())>0) {
+        
+            if(!count(RehabilitationRegister::where('client_id','=',$request->client_id)->where('diagnosis','=',$request->diagnosis)->where('attendance_date','=',$request->attendance_date)->get())>0) {
                 $attendances = new RehabilitationRegister;
                 $attendances->attendance_date = $request->attendance_date;
                 $attendances->diagnosis = $request->diagnosis;
-                $attendances->file_no = $request->file_no;
+                $attendances->client_id = $request->client_id;
                 $attendances->save();
                 return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
-            }
-            else{
-                return "<span class='text-danger'><i class='fa-info'></i> Save failed, data exist</span>"; 
-            }
+            
 
             
         }
@@ -324,18 +321,14 @@ class RehabilitationServicesController extends Controller
     public function update(Request $request)
     {
         //
-        if(count(Client::where('file_number','=',$request->file_no)->get()) > 0 ) {
+        
             $attendances = RehabilitationRegister::find($request->id);
             $attendances->attendance_date = $request->attendance_date;
             $attendances->diagnosis = $request->diagnosis;
-            $attendances->file_no = $request->file_no;
+            $attendances->client_id = $request->client_id;
             $attendances->save();
             return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
-        }
-        else
-        {
-            return "<p><h3 class='text-danger'><i class='fa fa-spinner fa-spin'></i> Error in processing data: Client with file number [".$request->file_no."] is not registered<h3></p>";
-        }
+       
     }
 
     /**

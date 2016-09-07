@@ -14,7 +14,7 @@ class CreateOrthopedicServicesTable extends Migration
     {
         Schema::create('orthopedic_services', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('file_no');
+            $table->integer('client_id');
             $table->date('attendance_date');
             $table->text('diagnosis')->nullable();
             $table->timestamps();

@@ -489,7 +489,9 @@
                             <tr class="odd gradeX">
                                 <td> {{$count++}} </td>
                                 <td>
-                                    <?php echo $att->file_no; ?>
+                                    @if(is_object($att->client) && $att->client != null)
+                                        {{$att->client->file_number}}
+                                    @endif
                                 </td>
                                 <td>
                                     @if(is_object($att->client) && $att->client != null)

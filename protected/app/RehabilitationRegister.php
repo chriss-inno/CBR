@@ -9,6 +9,6 @@ class RehabilitationRegister extends Model
     //
     public function client()
     {
-        return $this::belongsTo('\App\Client','file_no','file_number');
+        return $this::belongsTo('\App\Client','client_id','id');
     }
 }

@@ -27,7 +27,9 @@
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
                             <label>File Number</label>
-                            <input type="text" class="form-control" name="file_no" id="file_no" value="{{$attendances->file_no}}">
+                            <input type="text" class="form-control" name="file_no" id="file_no"  @if(is_object($att->client) && $att->client != null)
+                                         value="{{$att->client->file_number}}"
+                                    @endif>
                         </div>
 
                     </div>

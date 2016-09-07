@@ -16,7 +16,7 @@ class CreateRehabilitationRegistersTable extends Migration
             $table->increments('id');
             $table->date('attendance_date');
             $table->text('diagnosis')->nullable();
-            $table->string('file_no')->nullable();
+            $table->integer('client_id');
             $table->timestamps();
         });
     }
