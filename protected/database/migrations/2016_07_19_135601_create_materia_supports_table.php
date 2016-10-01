@@ -15,9 +15,7 @@ class CreateMateriaSupportsTable extends Migration
         Schema::create('materia_supports', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('beneficiary_id');
-            $table->string('progress_number');
-            $table->string('item');
-            $table->string('category');
+            $table->string('item_id');
             $table->integer('quantity');
             $table->string('donor_type');
             $table->date('distributed_date');

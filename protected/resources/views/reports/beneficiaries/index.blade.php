@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-   Reports
+    Reports
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" ) !!}
@@ -248,7 +248,7 @@
                         <span class="title">Data Export</span>
                     </a>
                 </li>
-              </ul>
+            </ul>
         </li>
         <li class="heading">
             <h3 class="uppercase"> ADMINISTRATION</h3>
@@ -259,7 +259,7 @@
                 <span class="title"> Users</span>
                 <span class="arrow"></span>
             </a>
-             <ul class="sub-menu">
+            <ul class="sub-menu">
                 <li class="nav-item  ">
                     <a href="{{url('users')}}" class="nav-link ">
                         <span class="title">List All Users</span>
@@ -315,12 +315,12 @@
 @section('custom-scripts')
     <script>
 
-        $('#SoftInjureChart').highcharts({
+        $('#containerBeneficiaries').highcharts({
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Number of beneficiaries per category per month for year  {{date("Y")}}'
+                text: 'Monthly  Beneficiaries Registration country wise for {{date("Y")}}'
             },
             credits: {
                 enabled: false
@@ -346,7 +346,79 @@
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Number of cases received'
+                    text: 'Number of clients'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            <?php
+                    $series="";
+                    foreach (\App\Country::orderBy('country_name','ASC')->get() as $country) {
+
+                        $series .="{";
+                        $series .=" name: '".$country->country_name."',";
+
+                        $MonthCount="";
+                        $monthData="";
+                        for($i=1; $i<= 12; $i++)
+                        {
+                            $MonthCount.=count(\App\Beneficiary::where('nationality','=',$country->country_name)->where(\DB::raw('Month(date_registration)'),'=',$i)->where(\DB::raw('Year(date_registration)'),'=',date('Y'))->get()).",";
+                        }
+                        $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                        $series .=" data:[".$monthData."]";
+                        $series .=" },";
+
+                    }
+                    $seriesdata=substr($series,0,strlen($series)-1);
+
+                    ?>
+
+            series: [<?php echo $seriesdata;?>]
+        });
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Monthly  Clients Registration country wise for {{date("Y")}}'
+            },
+            credits: {
+                enabled: false
+            },
+
+            xAxis: {
+                categories: [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of beneficiaries'
                 }
             },
             tooltip: {
@@ -364,57 +436,79 @@
                 }
             },
             <?php
-                    $MonthCount="";
-                    $monthData="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount.=count(\App\OrthopedicServices::where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('service_received','=','Repairing')->get()).",";
-                    }
-                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
-                    ?>
-                    <?php
-                    $MonthCount2="";
-                    $monthData2="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount2.=count(\App\OrthopedicServices::where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('service_received','=','Fabrication')->get()).",";
-                    }
-                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
-                    ?>
-                    <?php
-                    $monthData3="";
+                    $series1="";
+                    foreach (\App\Country::orderBy('country_name','ASC')->get() as $country) {
 
-                    $categories=\App\Beneficiary::orderBy('category')->groupBy('category')->get();
-                    $series="";
-                    $seriesData="series: [ ";
+                        $series1 .="{ ";
+                        $series1 .=" name: '".$country->country_name."',";
 
-
-
-                        foreach ($categories as $cat)
+                        $MonthCount="";
+                        $monthData="";
+                        for($i=1; $i<= 12; $i++)
                         {
-                            $MonthCount3="";
-                            $data="";
-                            for($i=1; $i<= 12; $i++)
-                            {
-                                $data .=count(\App\Beneficiary::where(\DB::raw('Month(date_registration)'),'=',$i)->where(\DB::raw('Year(date_registration)'),'=',date('Y'))->where('category','=',$cat->category)->get()).",";
-
-                            }
-                            $MonthCount3.=substr($data,0,strlen($data)-1);
-
-                            $series .= "{
-                    name: '".$cat->category."',
-                    data:[".$MonthCount3."]
-
-                }," ;
-
+                            $MonthCount.=count(\App\Client::where('nationality','=',$country->country_name)->where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->get()).",";
                         }
+                        $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                        $series1 .=" data:[".$monthData."]";
+                        $series1 .="  },";
 
+                    }
+                    $seriesdata1=substr($series1,0,strlen($series1)-1);
 
-                    $monthData3.=substr($series,0,strlen($series)-1);
-                    $seriesData .=$monthData3;
-                    $seriesData .="]";
                     ?>
-            <?php echo $seriesData;?>
+
+            series: [<?php echo $seriesdata1;?>]
+        });
+        $('#containerPie').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Beneficiaries '
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            @if(count(\App\Beneficiary::all()) >0)
+            <?php
+                    $scollection="";
+                    $sdata="";
+                    foreach (\App\Country::all() as $count)
+                    {
+                        $seriesdata="{
+                    name: '$count->country_name',
+                    y: ".count(\App\Beneficiary::where('nationality','=',$count->country_name)->get())."
+                      }
+                      ";
+                        $scollection .= $seriesdata.",";
+                    }
+                    $sdata=substr($scollection,0,strlen($scollection)-1);
+                    ?>
+            series: [{
+                name: 'Beneficiaries',
+                colorByPoint: true,
+                data: [<?php echo $sdata;?>]
+            }],
+            @endif
         });
 
     </script>
@@ -426,7 +520,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('beneficiaries')}}">Beneficiaries</a>
+            <a href="{{url('assessment/roam')}}">Assessment Roam</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -439,17 +533,33 @@
         <div class="col-md-12 pull-right">
             <div class="btn-group pull-right">
                 <a href="{{url('reports/beneficiaries/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
-                <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Beneficiaries</a>
+                <a href="{{url('reports/beneficiaries')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Beneficiaries Reports</a>
             </div>
 
         </div>
 
     </div>
-    <div class="row widget-row">
+
+    <div class="row widget-row" style="margin-top: 20px">
         <div class="col-md-12">
+            <div id="containerBeneficiaries" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+    </div>
+    <div class="row widget-row" style="margin-top: 20px">
+        <div class="col-md-6">
+            <div id="disabilityChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+        <div class="col-md-6">
             <div id="SoftInjureChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         </div>
 
     </div>
-
+    <div class="row widget-row">
+        <div class="col-md-6">
+            <div id="BurundianChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+        <div class="col-md-6">
+            <div id="CongoleseChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+    </div>
 @stop

@@ -11,4 +11,8 @@ class ItemsInventory extends Model
     {
         return $this::belongsTo('\App\ItemsCategories','category_id');
     }
+    public function supports()
+    {
+        return $this::hasMany('\App\MateriaSupport','item_id','id');
+    }
 }

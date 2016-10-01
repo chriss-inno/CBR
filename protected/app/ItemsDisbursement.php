@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class ItemsDisbursement extends Model
 {
     //
-    public function item()
+    public function inventoryItem()
     {
-        return $this::belongsTo('\App\ItemsInventory','item_id');
+        return $this::belongsTo('\App\ItemsInventory','item_id','id');
     }
     public function client()
     {

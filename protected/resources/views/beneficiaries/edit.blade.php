@@ -99,8 +99,23 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Category</label>
-                    <input type="text" class="form-control" name="category" id="category" value="{{$beneficiary->category}}">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                            <label>Category</label>
+                            <input type="text" class="form-control" name="category" id="category" value="{{$beneficiary->category}}">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                            <label>Status</label>
+                            <select class="form-control" name="status" id="status">
+                                @if($beneficiary->status !="")
+                                    <option value="{{$beneficiary->status}}" selected>{{$beneficiary->status}}</option>
+                                    @endif
+                                    <option value="Active" selected>Active</option>
+                                    <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>

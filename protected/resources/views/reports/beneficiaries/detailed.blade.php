@@ -6,7 +6,6 @@
     </tr>
     <tr bgcolor="#cccccc">
         <th> Progress number </th>
-        <th> Date of registration </th>
         <th> Full Name</th>
         <th> Sex</th>
         <th> Age </th>
@@ -15,6 +14,9 @@
         <th> Number of females </th>
         <th> Number of males </th>
         <th> Category </th>
+		<th> Nationality </th>
+		<th> Status </th>
+		<th> Date of registration </th>
     </tr>
     </thead>
     <tbody >
@@ -24,9 +26,7 @@
                 <td>
                     <?php echo $beneficiary->progress_number; ?>
                 </td>
-                <td>
-                    <?php echo $beneficiary->date_registration; ?>
-                </td>
+              
                 <td>
                     <?php echo $beneficiary->full_name; ?>
                 </td>
@@ -51,6 +51,15 @@
                 </td>
                 <td>
                     <?php echo $beneficiary->category; ?>
+                </td>
+				<td>
+                    <?php echo $beneficiary->nationality; ?>
+                </td>
+				<td>
+                    <?php echo $beneficiary->status; ?>
+                </td>
+				 <td>
+                    <?php echo $beneficiary->date_registration; ?>
                 </td>
             </tr>
         @endforeach

@@ -102,7 +102,9 @@
                 </tr>
                 <tr>
                     <td class="col-md-2 col-sm-2 col-xs-2">1. </td>
-                    <td >{{ $disbursement->item}}</td>
+                    <td >@if(is_object($disbursement->item) && $disbursement->item != null )
+                            {{$disbursement->item->item_name}}
+                        @endif</td>
                     <td >{{ $disbursement->quantity}}</td>
                     <td >{{ $disbursement->donor_type}}</td>
                 </tr>

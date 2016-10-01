@@ -232,28 +232,7 @@
 
             </ul>
         </li>
-         <li class="heading">
-            <h3 class="uppercase">SYSTEM BACKUPS</h3>
-        </li>
-        <li class="nav-item  ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="fa fa-database fa-2x"></i>
-                <span class="title"> Data Import/Export</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="{{url('backup/imports')}}" class="nav-link ">
-                        <span class="title">Data Import</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="{{url('backup/exports')}}" class="nav-link ">
-                        <span class="title">Data Export</span>
-                    </a>
-                </li>
-              </ul>
-        </li><li class="heading">
+        <li class="heading">
             <h3 class="uppercase">SYSTEM BACKUPS</h3>
         </li>
         <li class="nav-item  ">

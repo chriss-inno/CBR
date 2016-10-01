@@ -566,13 +566,49 @@ class BackupImportController extends Controller
                             $ben_id = $beneficiary->id;
                         }
 
-                        if(!count(MateriaSupport::where('distributed_date','=',$itm->distributed_date)->where('quantity','=',$itm->quantity)->where('category','=',$itm->category)->where('item','=',$itm->item)->where('address','=',$itm->address)->where('donor_type','=',$itm->donor_type)->where('beneficiary_id','=',$ben_id)->where('progress_number','=',$itm->progress_number)->get()) > 0){
+                        $invItem=$itm->Item;
+                        $item_id="";
+
+                        $cate_id="";
+                        $cate=$invItem->ItemCategory;
+
+                        if(!count(ItemsCategories::where('category_name','=',$cate->category_name)->get()) > 0){
+                            $itmCat = new ItemsCategories;
+                            $itmCat->category_name = $cate->category_name;
+                            $itmCat->description = $cate->description;
+                            $itmCat->status = $cate->status;
+                            $itmCat->save();
+                            $cate_id=$itmCat->id;
+                        }
+                        else
+                        {
+                            $itmCat=ItemsCategories::where('category_name','=',$cate->category_name)->get()->first();
+                            $cate_id=$itmCat->id;
+                        }
+
+
+                        if(!count(ItemsInventory::where('category_id','=',$cate_id)->where('item_name','=',$invItem->item_name)->get()) > 0){
+                            $item=new ItemsInventory;
+                            $item->item_name=$invItem->item_name;
+                            $item->description=$invItem->description;
+                            $item->category_id= $cate_id;
+                            $item->quantity=$invItem->quantity;
+                            $item->remarks=$invItem->remarks;
+                            $item->status=$invItem->remarks;
+                            $item->save();
+                            $item_id=$item->id;
+                        }
+                        else
+                        {
+                            $item=ItemsInventory::where('category_id','=',$cate_id)
+                                               ->where('item_name','=',$invItem->item_name)->get()->first();
+                            $item_id=$item->id;
+                        }
+
+                        if(!count(MateriaSupport::where('distributed_date','=',$itm->distributed_date)->where('quantity','=',$itm->quantity)->where('item_id','=',$item_id)->where('donor_type','=',$itm->donor_type)->where('beneficiary_id','=',$ben_id)->get()) > 0){
                             $item=new MateriaSupport;
-                            $item->progress_number=$itm->progress_number;
                             $item->donor_type=$itm->donor_type;
-                            $item->address=$itm-> address;
-                            $item->item=$itm->item;
-                            $item->category=$itm->category;
+                            $item->item_id=$item_id;
                             $item->quantity=$itm->quantity;
                             $item->distributed_date=$itm->distributed_date;
                             $item->beneficiary_id=$ben_id;

@@ -572,6 +572,7 @@
                         <th> Code </th>
                         <th> Address </th>
                         <th> Nationality </th>
+                        <th> Status </th>
                         <th> Details </th>
                         <th class="text-center"> Action </th>
                     </tr>
@@ -605,6 +606,9 @@
                                 </td>
                                 <td>
                                     <?php echo $beneficiary->nationality; ?>
+                                </td>
+                                <td>
+                                    <?php echo $beneficiary->status; ?>
                                 </td>
                                 <td class="text-center" id="{{$beneficiary->id}}">
                                     <a href="#" class="showRecord " title="View details"> <i class="fa fa-eye "></i>  </a>

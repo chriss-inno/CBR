@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\ClientAssessment;
+use App\ClientDisability;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -204,7 +205,6 @@ class ClientAssessmentController extends Controller
         $assessment->treatment=$request->treatment;
         $assessment->examiner_name=$request->examiner_name;
         $assessment->examiner_title=$request->examiner_title;
-        $assessment->client_id=$request->client_id;
         $assessment->save();
 
         $client=Client::find($request->client_id);
@@ -212,7 +212,14 @@ class ClientAssessmentController extends Controller
         $client->save();
         if(strtolower($client->status) =="disabled")
         {
-            return redirect('disabilities/clients/show/'.$client->id);
+            if(count(ClientDisability::where('client_id','=',$client->id)->get()) >0 ) {
+                return redirect('assessment');
+            }
+            else
+            {
+                return redirect('disabilities/clients/show/'.$client->id);
+            }
+
         }
         else {
             return redirect('assessment');

@@ -140,7 +140,7 @@
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('reports/assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment roam</span>
                     </a>
@@ -155,7 +155,7 @@
                         <span class="title">Orthopedic services</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('reports/material/support')}}" class="nav-link ">
                         <span class="title">Material support</span>
                     </a>
@@ -314,108 +314,12 @@
 @stop
 @section('custom-scripts')
     <script>
-
-        $('#SoftInjureChart').highcharts({
+        $('#containerBeneficiaries').highcharts({
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Number of clients per service received per month for year  {{date("Y")}}'
-            },
-            credits: {
-                enabled: false
-            },
-
-            xAxis: {
-                categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Number of cases received'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.0f} </b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            <?php
-                    $MonthCount="";
-                    $monthData="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount.=count( \DB::table('orthopedic_services')->join('orthopedic_services_items','orthopedic_services.id','=','orthopedic_services_items.ors_id')
-                                         ->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))
-                                        ->where('service_received','=','Repairing')->get()).",";
-                    }
-                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
-                    ?>
-                    <?php
-                    $MonthCount2="";
-                    $monthData2="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount2.=count(\DB::table('orthopedic_services')->join('orthopedic_services_items','orthopedic_services.id','=','orthopedic_services_items.ors_id')
-                                        ->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))
-                                        ->where('service_received','=','Fabrication')->get()).",";
-                    }
-                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
-                    ?>
-                    <?php
-                    $MonthCount3="";
-                    $monthData3="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount3.=count(\DB::table('orthopedic_services')->join('orthopedic_services_items','orthopedic_services.id','=','orthopedic_services_items.ors_id')
-                                        ->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))
-                                        ->where('service_received','=','Item measurement')->get()).",";
-                    }
-                    $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
-                    ?>
-            series: [{
-                name: 'Repairing',
-                data:[<?php echo $monthData;?>]
-
-            },{
-                name: 'Fabrication services',
-                data:[<?php echo $monthData2;?>]
-
-            },{
-                name: 'Measurement services',
-                data:[<?php echo $monthData3;?>]
-
-            }]
-        });
-        $('#disabilityChart').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Total cases per sex per  month for year  {{date("Y")}}'
+                text: 'Monthly Material support for {{date("Y")}}'
             },
             credits: {
                 enabled: false
@@ -454,217 +358,35 @@
             },
             plotOptions: {
                 column: {
-                    pointPadding: 0.2,
+                    pointPadding: 0.0,
                     borderWidth: 0
                 }
             },
             <?php
-                    $MonthCount="";
-                    $monthData="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                       ;
-                        $MonthCount.=count( \DB::table('clients')->join('orthopedic_services','clients.id','=','orthopedic_services.client_id')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('sex','=','Male')->get()).",";
-                    }
-                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
-                    ?>
-                    <?php
-                    $MonthCount2="";
-                    $monthData2="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount2.=count( \DB::table('clients')->join('orthopedic_services','clients.id','=','orthopedic_services.client_id')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('sex','=','Female')->get()).",";
-                    }
-                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
-                    ?>
-                    <?php
-                    $MonthCount3="";
-                    $monthData3="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
-                    }
-                    $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
-                    ?>
-            series: [{
-                name: 'Males',
-                data:[<?php echo $monthData;?>]
+                    $series="";
+                    foreach (\App\ItemsInventory::orderBy('item_name','ASC')->get() as $item) {
 
-            }, {
-                name: 'Females',
-                data: [<?php echo $monthData2;?>]
+                        $series .="{";
+                        $series .=" name: '".$item->item_name."',";
 
-            }]
-        });
-        $('#BurundianChart').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Total Burundian cases per month for year  {{date("Y")}}'
-            },
-            credits: {
-                enabled: false
-            },
+                        $MonthCount="";
+                        $monthData="";
+                        for($i=1; $i<= 12; $i++)
+                        {
+                            $MonthCount.=count(\App\MateriaSupport::where('item_id','=',$item->id)
+                                            ->where(\DB::raw('Month(distributed_date)'),'=',$i)
+                                            ->where(\DB::raw('Year(distributed_date)'),'=',date('Y'))->get()).",";
+                        }
+                        $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                        $series .=" data:[".$monthData."]";
+                        $series .=" },";
 
-            xAxis: {
-                categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Number of clients'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.0f} </b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            <?php
-                    $MonthCount="";
-                    $monthData="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount.=count(\DB::table('clients')->join('orthopedic_services','clients.id','=','orthopedic_services.client_id')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('nationality','=','burundian')->where('sex','=','Male')->get()).",";
                     }
-                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
-                    ?>
-                    <?php
-                    $MonthCount2="";
-                    $monthData2="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount2.=count(\DB::table('clients')->join('orthopedic_services','clients.id','=','orthopedic_services.client_id')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('nationality','=','burundian')->where('sex','=','Female')->get()).",";
-                    }
-                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
-                    ?>
-                    <?php
-                    $MonthCount3="";
-                    $monthData3="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
-                    }
-                    $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
-                    ?>
-            series: [{
-                name: 'Males',
-                data:[<?php echo $monthData;?>]
+                    $seriesdata=substr($series,0,strlen($series)-1);
 
-            }, {
-                name: 'Females',
-                data: [<?php echo $monthData2;?>]
-
-            }]
-        });
-        $('#CongoleseChart').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Total Congolese cases per month for year  {{date("Y")}}'
-            },
-            credits: {
-                enabled: false
-            },
-
-            xAxis: {
-                categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Number of clients'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            <?php
-                    $MonthCount="";
-                    $monthData="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount.=count(\DB::table('clients')->join('orthopedic_services','clients.id','=','orthopedic_services.client_id')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('nationality','=','congolese')->where('sex','=','Male')->get()).",";
-                    }
-                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
-                    <?php
-                    $MonthCount2="";
-                    $monthData2="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount2.=count(\DB::table('clients')->join('orthopedic_services','clients.id','=','orthopedic_services.client_id')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('nationality','=','congolese')->where('sex','=','Female')->get()).",";
-                    }
-                    $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
-                    ?>
-                    <?php
-                    $MonthCount3="";
-                    $monthData3="";
-                    for($i=1; $i<= 12; $i++)
-                    {
-                        $MonthCount3.=count(\App\Client::where(\DB::raw('Month(created_at)'),'=',$i)->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
-                    }
-                    $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
-                    ?>
-            series: [{
-                name: 'Males',
-                data:[<?php echo $monthData;?>]
 
-            }, {
-                name: 'Females',
-                data: [<?php echo $monthData2;?>]
-
-            }]
+            series: [<?php echo $seriesdata;?>]
         });
 
     </script>
@@ -676,7 +398,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('orthopedic/services')}}">Orthopedic services</a>
+            <a href="#">Material support</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -688,8 +410,8 @@
     <div class="row widget-row">
         <div class="col-md-12 pull-right">
             <div class="btn-group pull-right">
-                <a href="{{url('reports/orthopedic/services/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
-                <a href="{{url('reports/orthopedic/services')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Orthopedic services Reports</a>
+                <a href="{{url('reports/material/support/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
+                <a href="{{url('reports/material/support')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Material support Reports</a>
             </div>
 
         </div>
@@ -697,7 +419,7 @@
     </div>
     <div class="row widget-row">
         <div class="col-md-12">
-            <div id="SoftInjureChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <div id="containerBeneficiaries" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         </div>
 
     </div>

@@ -398,9 +398,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('reports/orthopedic/services/generate','ReportsOrthopedicServicesController@showReportView');
     Route::post('reports/orthopedic/services/generate','ReportsOrthopedicServicesController@generateReportView');
 
-    Route::get('reports/material/support','ReportsOrthopedicServicesController@index');
-    Route::get('reports/material/support/generate','ReportsOrthopedicServicesController@showReportView');
-    Route::post('reports/material/support/generate','ReportsOrthopedicServicesController@generateReportView');
+    Route::get('reports/material/support','InventoryReportsController@index');
+    Route::get('reports/material/support/generate','InventoryReportsController@showReportView');
+    Route::post('reports/material/support/generate','InventoryReportsController@generateReportView');
 
     Route::get('reports/beneficiaries','BeneficiariesReportsController@index');
     Route::get('reports/beneficiaries/generate','BeneficiariesReportsController@showReportView');

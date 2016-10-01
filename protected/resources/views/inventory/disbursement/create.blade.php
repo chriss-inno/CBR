@@ -36,23 +36,14 @@
                     </div>
                 </div>
                 <div class="row">
-                 <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                 <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
                     <label> Item/materials distributed</label>
                      <select name="item[]" id="item" class="form-control" >
                          <option value="">--Select--</option>
                          @foreach(\App\ItemsInventory::orderBy('item_name','ASC')->get() as $itm)
-                             <option value="{{$itm->item_name}}">{{$itm->item_name}}</option>
+                             <option value="{{$itm->id}}">{{$itm->item_name}}</option>
                              @endforeach
                      </select>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
-                        <label> Category </label>
-                        <select name="category[]" id="category" class="form-control" >
-                            <option value="">--Select--</option>
-                            @foreach(\App\ItemsCategories::orderBy('category_name','ASC')->get() as $itm)
-                                <option value="{{$itm->category_name}}">{{$itm->category_name}}</option>
-                            @endforeach
-                        </select>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                         <label>Quantity</label>
@@ -168,21 +159,12 @@
 
         div.className = 'row';
 
-        div.innerHTML = '<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">\
+        div.innerHTML = '<div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">\
                <label> Item/materials distributed</label>\
                <select name="item[]" id="item" class="form-control" >\
                 <option value="">--Select--</option>\
                 @foreach(\App\ItemsInventory::orderBy('item_name','ASC')->get() as $itm)\
-                <option value="{{$itm->item_name}}">{{$itm->item_name}}</option>\
-                @endforeach\
-                </select>\
-                </div>\
-                 <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">\
-                <label> Category </label>\
-                <select name="category[]" id="category" class="form-control" >\
-                <option value="">--Select--</option>\
-                @foreach(\App\ItemsCategories::orderBy('category_name','ASC')->get() as $itm)\
-                <option value="{{$itm->category_name}}">{{$itm->category_name}}</option>\
+                <option value="{{$itm->id}}">{{$itm->item_name}}</option>\
                 @endforeach\
                 </select>\
                 </div>\

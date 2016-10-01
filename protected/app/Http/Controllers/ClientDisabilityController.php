@@ -89,7 +89,16 @@ class ClientDisabilityController extends Controller
     {
         //
         $client=Client::find($id);
-        return view('general.disabilities.clients.create',compact('client'));
+        if(count(ClientDisability::where('client_id','=',$client->id)->get()) >0)
+        {
+            $clds=ClientDisability::where('client_id','=',$client->id)->get()->first();
+            return view('general.disabilities.clients.edit',compact('clds'));
+
+        }else
+        {
+            return view('general.disabilities.clients.create',compact('client'));
+        }
+
     }
 
     /**
@@ -101,66 +110,75 @@ class ClientDisabilityController extends Controller
     public function store(Request $request)
     {
         //
-        $disability=new ClientDisability;
-        $disability->progress_number=$request->progress_number;
-        $disability->category_name=$request->category_name;
-        $disability->disability_diagnosis=$request->disability_diagnosis;
-        $disability->remarks=$request->remarks;
-        $disability->client_id=$request->client_id;
-        $disability->save();
+        if(count(ClientDisability::where('client_id','=',$request->client_id)->get()) >0) {
 
-        //Add details to beneficiaries
-        $client=Client::find($request->client_id);
-        if(count($client) > 0 && $client != null)
+            return "<span class='text-danger'><i class='fa-info'></i> Saved failed record exists</span>";
+        }
+        else
         {
-            if(!count(Beneficiary::where('progress_number','=',str_replace(".","",$request->progress_number))->where('full_name','=',ucwords(strtolower($client->full_name)))->get()) > 0 )
-            {
-                $beneficiary = new Beneficiary();
-                $beneficiary->progress_number = $request->progress_number;
-                $beneficiary->full_name = ucwords(strtolower($client->full_name));
-                $beneficiary->date_registration = date("Y-m-d");
-                $beneficiary->age = $client->age;
-                $beneficiary->sex = $client->sex;
-                $beneficiary->address = $client->address;
-                $beneficiary->nationality = ucwords(strtolower($client->nationality));
-                $beneficiary->save();
+            $disability = new ClientDisability;
+            $disability->progress_number = $request->progress_number;
+            $disability->category_name = $request->category_name;
+            $disability->disability_diagnosis = $request->disability_diagnosis;
+            $disability->remarks = $request->remarks;
+            $disability->client_id = $request->client_id;
+            $disability->save();
+
+            //Add details to beneficiaries
+            $client = Client::find($request->client_id);
+            if (count($client) > 0 && $client != null) {
+                if (!count(Beneficiary::where('progress_number', '=', str_replace(".", "", $request->progress_number))->where('full_name', '=', ucwords(strtolower($client->full_name)))->get()) > 0) {
+                    $beneficiary = new Beneficiary();
+                    $beneficiary->progress_number = $request->progress_number;
+                    $beneficiary->full_name = ucwords(strtolower($client->full_name));
+                    $beneficiary->date_registration = date("Y-m-d");
+                    $beneficiary->age = $client->age;
+                    $beneficiary->sex = $client->sex;
+                    $beneficiary->address = $client->address;
+                    $beneficiary->nationality = ucwords(strtolower($client->nationality));
+                    $beneficiary->save();
+                }
+
             }
 
+            return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
         }
-
-       return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
     }
     
     public function postRegister(Request $request)
     {
         //
-        $disability=new ClientDisability;
-        $disability->progress_number=$request->progress_number;
-        $disability->category_name=$request->category_name;
-        $disability->disability_diagnosis=$request->disability_diagnosis;
-        $disability->remarks=$request->remarks;
-        $disability->client_id=$request->client_id;
-        $disability->save();
-
-        //Add details to beneficiaries
-        $client=Client::find($request->client_id);
-        if(count($client) > 0 && $client != null)
-        {
-            if(!count(Beneficiary::where('progress_number','=',str_replace(".","",$request->progress_number))->where('full_name','=',ucwords(strtolower($client->full_name)))->get()) > 0 )
-            {
-                $beneficiary = new Beneficiary();
-                $beneficiary->progress_number = $request->progress_number;
-                $beneficiary->full_name = ucwords(strtolower($client->full_name));
-                $beneficiary->date_registration = date("Y-m-d");
-                $beneficiary->age = $client->age;
-                $beneficiary->sex = $client->sex;
-                $beneficiary->address = $client->address;
-                $beneficiary->nationality = ucwords(strtolower($client->nationality));
-                $beneficiary->save();
-            }
-
+        if(count(ClientDisability::where('client_id','=',$request->client_id)->get()) >0 ) {
+            return redirect('clients');
         }
-        return redirect('clients');
+        else{
+            $disability = new ClientDisability;
+            $disability->progress_number = $request->progress_number;
+            $disability->category_name = $request->category_name;
+            $disability->disability_diagnosis = $request->disability_diagnosis;
+            $disability->remarks = $request->remarks;
+            $disability->client_id = $request->client_id;
+            $disability->save();
+
+            //Add details to beneficiaries
+            $client = Client::find($request->client_id);
+            if (count($client) > 0 && $client != null) {
+                if (!count(Beneficiary::where('progress_number', '=', str_replace(".", "", $request->progress_number))->where('full_name', '=', ucwords(strtolower($client->full_name)))->get()) > 0) {
+                    $beneficiary = new Beneficiary();
+                    $beneficiary->progress_number = $request->progress_number;
+                    $beneficiary->full_name = ucwords(strtolower($client->full_name));
+                    $beneficiary->date_registration = date("Y-m-d");
+                    $beneficiary->age = $client->age;
+                    $beneficiary->sex = $client->sex;
+                    $beneficiary->address = $client->address;
+                    $beneficiary->nationality = ucwords(strtolower($client->nationality));
+                    $beneficiary->save();
+                }
+
+            }
+            return redirect('clients');
+        }
+
     }
 
     /**

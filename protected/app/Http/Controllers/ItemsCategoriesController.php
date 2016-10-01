@@ -105,6 +105,13 @@ class ItemsCategoriesController extends Controller
     {
         //
         $categories=ItemsCategories::find($id);
+        if(is_object($categories->items) && $categories->items != null)
+        {
+            foreach ($categories->items  as $items)
+            {
+                $items->delete();
+            }
+        }
         $categories->delete();
     }
 }

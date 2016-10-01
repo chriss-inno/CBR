@@ -1,10 +1,13 @@
 @extends('layout.main')
 @section('page-title')
-   Item inventories 
+   Reports
 @stop
 @section('page-style')
-    {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css") !!}
+    {!! Html::style("assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/clockface/css/clockface.css" ) !!}
 @stop
 @section('menu-sidebar')
     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
@@ -76,14 +79,14 @@
             </a>
 
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-list"></i>
                 <span class="title">Material support</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  active">
+                <li class="nav-item  ">
                     <a href="{{url('inventory')}}" class="nav-link ">
                         <span class="title">Inventory</span>
                     </a>
@@ -101,14 +104,14 @@
 
             </ul>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-users"></i>
                 <span class="title"> LiveliHoods Tracking</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('livelihood/clients')}}" class="nav-link ">
                         <span class="title">Clients</span>
                     </a>
@@ -131,14 +134,14 @@
 
             </ul>
         </li>
-        <li class="nav-item  ">
+        <li class="nav-item start active open  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-line-chart fa-2x"></i>
                 <span class="title"> Reports</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('reports/assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment roam</span>
                     </a>
@@ -177,7 +180,7 @@
         <li class="heading">
             <h3 class="uppercase">SYSTEM SETTINGS</h3>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title"> General Settings</span>
@@ -274,48 +277,55 @@
     </ul>
 @stop
 @section('page-scripts-level1')
-    {!! Html::script("assets/global/scripts/datatable.js" ) !!}
-    {!! Html::script("assets/global/plugins/datatables/datatables.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js") !!}
-    {!! Html::script("assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" ) !!}
+
 @stop
 @section('page-scripts-level2')
-    {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
-    {!! Html::script("assets/pages/scripts/ui-confirmations.min.js" ) !!}
-
+    {!! Html::script("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/clockface/js/clockface.js" ) !!}
+    {!! Html::script("assets/pages/scripts/components-date-time-pickers.min.js" ) !!}
 
 @stop
 @section('custom-scripts')
+    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
-        function closePrint () {
-            document.body.removeChild(this.__container__);
-        }
-
-        function setPrint () {
-            this.contentWindow.__container__ = this;
-            this.contentWindow.onbeforeunload = closePrint;
-            this.contentWindow.onafterprint = closePrint;
-            this.contentWindow.focus(); // Required for IE
-            this.contentWindow.print();
-        }
-
-        function printPage (sURL) {
-            var oHiddFrame = document.createElement("iframe");
-            oHiddFrame.onload = setPrint;
-            oHiddFrame.style.visibility = "hidden";
-            oHiddFrame.style.position = "fixed";
-            oHiddFrame.style.right = "0";
-            oHiddFrame.style.bottom = "0";
-            oHiddFrame.src = sURL;
-            document.body.appendChild(oHiddFrame);
-        }
-        $(".addRegion").click(function(){
+        $("#SearchForm").validate({
+            rules: {
+                searchKeyword: "required"
+            },
+            messages: {
+                searchKeyword: "Please enter search keyword "
+            },
+            submitHandler: function(form) {
+                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");
+                var postData = $('#SearchForm').serializeArray();
+                var formURL = $('#SearchForm').attr("action");
+                $.ajax(
+                        {
+                            url : formURL,
+                            type: "POST",
+                            data : postData,
+                            success:function(data)
+                            {
+                                console.log(data);
+                                //data: return data from server
+                                $("#clientsSearchResults").html(data);
+                            },
+                            error: function(data)
+                            {
+                                console.log(data.responseJSON);
+                            }
+                        });
+            }
+        });
+        $(".addRecord").click(function(){
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Distribute Item</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Rehabilitation register</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -326,7 +336,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/disbursement/create") ?>");
+            $(".modal-body").load("<?php echo url("rehabilitation/services/create") ?>");
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -340,7 +350,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item distribution</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update</span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -351,31 +361,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/disbursement/edit") ?>/"+id1);
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-        $(".showRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item distribution</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/disbursement/show") ?>/"+id1);
+            $(".modal-body").load("<?php echo url("rehabilitation/services/edit") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -393,119 +379,119 @@
             });
             $("#yes").click(function(){
                 $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('inventory/disbursement/remove') ?>/"+id1,function(data){
+                $.get("<?php echo url('rehabilitation/services/remove') ?>/"+id1,function(data){
                     btn.hide("slow").next("hr").hide("slow");
                 });
             });
         });
     </script>
+    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
+    <script>
+
+        $("#DepartmentFormUN").validate({
+            rules: {
+                date_from: "required",
+                date_to: "required",
+                quantity: "required"
+            },
+            messages: {
+                date_from: "Please Select file to upload",
+                date_to: "Please select status",
+                quantity: "Please enter quantity"
+            }
+        });
+        $("#DepartmentFormUN1").validate({
+            rules: {
+                clients_file: "required",
+                status: "required",
+                quantity: "required"
+            },
+            messages: {
+                clients_file: "Please Select file to upload",
+                status: "Please select status",
+                quantity: "Please enter quantity"
+            }
+        });
+
+    </script>
 @stop
 @section('breadcrumb')
-    <ul class="page-breadcrumb ">
+    <ul class="page-breadcrumb">
         <li>
             <a href="{{url('home')}}">Home</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#">Inventory</a>
+            <a href="#">Material support</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Items</span>
+            <span class="active">Reports</span>
         </li>
     </ul>
 @stop
 @section('contents')
     <div class="row">
         <div class="col-md-12">
+            <div class="row widget-row">
+                <div class="col-md-12 pull-right">
+                    <div class="btn-group pull-right">
+                        <a href="{{url('reports/material/support/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
+                        <a href="{{url('reports/material/support')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Material support Reports</a>
+                    </div>
+                </div>
+
+            </div>
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
-            <div class="portlet light bordered">
+            <div class="portlet light bordered" style="margin-top: 10px">
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Material support disbursements</span>
+                        <span class="caption-subject bold uppercase">Generate Report</span>
                     </div>
-                    <div class="table-toolbar">
-                        <div class="row">
-                            <div class="col-md-8 pull-right">
-                                <div class="btn-group pull-right">
-                                    <a href="{{url('inventory/disbursement/beneficiaries')}}" class=" btn blue-madison"> <i class="fa fa-search"></i> Search Beneficiaries</a>
-                                    <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All Records</a>
-                                    <a href="{{url('inventory/disbursement/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
+
+                </div>
+                <div class="portlet-body">
+                    <!-- BEGIN SAMPLE FORM PORTLET-->
+                    <div class="portlet light bordered">
+                        <div class="portlet-body form">
+                            {!! Form::open(array('url'=>'reports/material/support/generate','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <label>Date From</label>
+                                            <input type="text" class="form-control input-medium date-picker" readonly name="date_from" id="date_from" data-date-format="yyyy-mm-dd">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Date To</label>
+                                            <input type="text" class="form-control input-medium date-picker" readonly name="date_to" id="date_to" data-date-format="yyyy-mm-dd">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Select Item</label>
+                                             <select name="report_type" class="form-control">
+                                                 <option value="all">All</option>
+                                                @foreach(\App\ItemsInventory::all() as $item)
+                                                     <option value="{{$item->id}}">{{$item->item_name}}</option>
+                                                    @endforeach
+                                             </select>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="col-md-4 col-md-offset-4">
+                                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Generate </button>
+                                    </div>
+
+                                </div>
+
                             </div>
+
+                            {!! Form::close() !!}
 
                         </div>
                     </div>
-                </div>
-                <div class="portlet-body">
-
-                    <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
-                        <thead>
-                        <tr>
-                            <th> SNO </th>
-                            <th> Progress number </th>
-                            <th> Full Name </th>
-                            <th> Address</th>
-                            <th> Item/materials </th>
-                            <th> Quantity  </th>
-                            <th> Donor type </th>
-                            <th> Date</th>
-                            <th> </th>
-                            <th class="text-center"> Action </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php $count=1;?>
-                        @if(count($disbursements)>0)
-                            @foreach($disbursements as $disbursement)
-                                <tr class="odd gradeX">
-                                    <td> {{$count++}} </td>
-                                    <td>
-                                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null )
-                                        {{$disbursement->beneficiary->progress_number}}
-                                            @endif
-                                    </td>
-                                    <td>
-                                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null )
-                                            {{$disbursement->beneficiary->full_name}}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null )
-                                            {{$disbursement->beneficiary->address}}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if(is_object($disbursement->item) && $disbursement->item != null )
-                                            {{$disbursement->item->item_name}}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{$disbursement->quantity}}
-                                    </td>
-                                    <td>
-                                        {{$disbursement->donor_type}}
-                                    </td>
-                                    <td>
-                                        {{$disbursement->distributed_date}}
-                                    </td>
-                                    <td class="text-center" id="{{$disbursement->id}}">
-                                        <a href="#" class="showRecord "> <i class="fa fa-eye"></i> </a>
-                                        <a href="#" class="  "> <i class="fa fa-print green " onclick="printPage('{{url('inventory/disbursement/print')}}/{{$disbursement->id}}');" ></i> </a>
-                                        <a href="{{url('inventory/disbursement/pdf')}}/{{$disbursement->id}}" class=" " title="Download"> <i class="fa fa-download text-danger "></i> </a>
-                                    </td>
-                                    <td class="text-center" id="{{$disbursement->id}}">
-                                        <a href="#"  class="editRecord btn"> <i class="fa fa-edit"></i> </a>
-                                        <a href="#" class="deleteRecord btn"> <i class="fa fa-trash text-danger"></i> </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
-
-
-                        </tbody>
-                    </table>
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->

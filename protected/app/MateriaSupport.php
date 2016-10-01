@@ -11,6 +11,10 @@ class MateriaSupport extends Model
     {
         return $this::belongsTo('\App\Beneficiary','beneficiary_id');
     }
+    public function item()
+    {
+        return $this::belongsTo('\App\ItemsInventory','item_id');
+    }
     public function items()
     {
         return $this::hasMany('\App\MaterialSuportItems','support_id');

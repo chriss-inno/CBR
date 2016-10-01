@@ -55,6 +55,7 @@ class BeneficiaryController extends Controller
                 $beneficiary->code,
                 $beneficiary->address,
                 $beneficiary->nationality,
+                $beneficiary->status,
                 '<span id="'.$beneficiary->id.'"> <a href="#" class="showRecord " title="View details"> <i class="fa fa-eye "></i>  </a></span>',
                 '<span id="'.$beneficiary->id.'">  <a href="#" class="editRecord btn" title="Edit"> <i class="fa fa-edit "></i>  </a> <a href="#" class="deleteRecord btn" title="Delete"> <i class="fa fa-trash text-danger "></i> </a></span>',
             );

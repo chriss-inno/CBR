@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Beneficiary;
 use App\DumpMaterialSupport;
+use App\ItemsCategories;
 use App\ItemsDisbursement;
+use App\ItemsInventory;
 use App\MaterialSuportItems;
 use App\MateriaSupport;
 use Illuminate\Http\Request;
@@ -54,7 +56,7 @@ class ItemsDisbursementController extends Controller
     public function postImport(Request $request)
     {
         //
-        try {
+      //  try {
             $this->validate($request, [
                 'clients_file' => 'required|mimes:xls,xlsx',
             ]);
@@ -72,54 +74,45 @@ class ItemsDisbursementController extends Controller
                 \DB::table('dump_material_supports')->truncate();
                 $results->each(function($row) {
 
-
-
-                    if(count(Beneficiary::where('progress_number','=',$row->progress_number)->get()) > 0 )
+                    if(count(Beneficiary::where('progress_number','=',str_replace(".","",$row->progress_number))->where('full_name','=',ucwords(strtolower($row->full_name)))->get()) > 0 )
                     {
-                        if(count(MateriaSupport::where('progress_number','=',$row->progress_number)->where('item','=',$row->item)->where('distributed_date','=',date("Y-m-d",strtotime($row->distributed_date)))->get()) > 0)
-                        {
-                            $disbursement=new DumpMaterialSupport;
-                            $disbursement->progress_number=$row->progress_number;
-                            $disbursement->donor_type=$row->donor_type;
-                            $disbursement->address=$row->address;
-                            $disbursement->item=$row->item;
-                            $disbursement->quantity=$row->quantity;
-                            $disbursement->distributed_date=date("Y-m-d",strtotime($row->distributed_date));
-                            $disbursement->error_descriptions="Item details already exist";
-                            $disbursement->save();
-                            $this->error_found="Client already registered for service in the same date";
-                        }
-                        else
-                        {
-                            $disbursement=new MateriaSupport;
-                            $disbursement->progress_number=$row->progress_number;
-                            $disbursement->donor_type=$row->donor_type;
-                            $disbursement->address=$row->address;
-                            $disbursement->item=$row->item;
-                            $disbursement->category=$row->category;
-                            $disbursement->quantity=$row->quantity;
-                            $disbursement->distributed_date=date("Y-m-d",strtotime($row->distributed_date));
-
-                            $disbursement->save();
-                        }
-
-                    }
-                    elseif ($row->progress_number =="" )
-                    {
-                        $disbursement=new DumpMaterialSupport;
-                        $disbursement->progress_number=$row->progress_number;
-                        $disbursement->donor_type=$row->donor_type;
-                        $disbursement->address=$row->address;
-                        $disbursement->item=$row->item;
-                        $disbursement->quantity=$row->quantity;
-                        $disbursement->distributed_date=date("Y-m-d",strtotime($row->distributed_date));
-                        $disbursement->error_descriptions="Beneficiary progress number can not be empty";
-                        $disbursement->save();
-                        $this->error_found="Client already registered for service in the same date";
+                        $beneficiary=Beneficiary::where('progress_number','=',str_replace(".","",$row->progress_number))
+                                              ->where('full_name','=',ucwords(strtolower($row->full_name)))->get()->first();
                     }
                     else
                     {
+                        $beneficiary = new Beneficiary;
+                        $beneficiary->progress_number = str_replace(".","",$row->progress_number);
+                        $beneficiary->full_name = ucwords(strtolower($row->full_name));
+                        $beneficiary->address = $row->address;
+                        $beneficiary->save();
+                    }
 
+                    if(! count(ItemsCategories::where('category_name','=',ucwords(strtolower($row->category)))->get()) > 0)
+                    {
+                        $categories=new ItemsCategories;
+                        $categories->category_name=ucwords(strtolower($row->category));
+                        $categories->save();
+                    }
+                    else
+                    {
+                        $categories=ItemsCategories::where('category_name','=',ucwords(strtolower($row->category)))->get()->first();
+                    }
+
+                    if(! count(ItemsInventory::where('item_name','=',ucwords(strtolower($row->item)))->get()))
+                    {
+                        $item=new ItemsInventory;
+                        $item->item_name=ucwords(strtolower($row->item));
+                        $item->category_id= $categories->id;
+                        $item->status="Available";
+                        $item->save();
+                    }
+                    else
+                    {
+                        $item=ItemsInventory::where('item_name','=',ucwords(strtolower($row->item)))->get()->first();
+                    }
+                    if(count(MateriaSupport::where('beneficiary_id','=',$beneficiary->id)->where('item_id','=',$item->id)->where('distributed_date','=',date("Y-m-d",strtotime($row->distributed_date)))->get()) > 0)
+                    {
                         $disbursement=new DumpMaterialSupport;
                         $disbursement->progress_number=$row->progress_number;
                         $disbursement->donor_type=$row->donor_type;
@@ -127,9 +120,20 @@ class ItemsDisbursementController extends Controller
                         $disbursement->item=$row->item;
                         $disbursement->quantity=$row->quantity;
                         $disbursement->distributed_date=date("Y-m-d",strtotime($row->distributed_date));
-                        $disbursement->error_descriptions="progress_number not found in Beneficiary list ";
+                        $disbursement->error_descriptions="Item details already exist";
                         $disbursement->save();
-                        $this->error_found="progress_number not found in Beneficiary list";
+                        $this->error_found="Beneficiary already received the items";
+                    }
+                    else
+                    {
+                        $disbursement=new MateriaSupport;
+                        $disbursement->donor_type=$row->donor_type;
+                        $disbursement->beneficiary_id=$beneficiary->id;
+                        $disbursement->item_id=$item->id;
+                        $disbursement->quantity=$row->quantity;
+                        $disbursement->distributed_date=date("Y-m-d",strtotime($row->distributed_date));
+
+                        $disbursement->save();
                     }
                 });
 
@@ -145,11 +149,12 @@ class ItemsDisbursementController extends Controller
                 return  redirect('inventory/disbursement');
             }
 
-        } catch (\Exception $e) {
+      /*  } catch (\Exception $e) {
 
            // echo $e->getMessage();
              return  redirect()->back()->with('error',$e->getMessage());
         }
+      */
     }
     /**
      * Show the form for creating a new resource.
@@ -182,13 +187,12 @@ class ItemsDisbursementController extends Controller
                 {
                     if($items != "" && $items != null)
                     {
-                        if(!count(MateriaSupport::where('progress_number','=',$request->progress_number)->where('item','=',$items)->where('distributed_date','=',date("Y-m-d",strtotime($request->distributed_date)))->get()) > 0)
+                        if(!count(MateriaSupport::where('progress_number','=',$request->progress_number)->where('item_id','=',$items)->where('distributed_date','=',date("Y-m-d",strtotime($request->distributed_date)))->get()) > 0)
                         {
                             $disbursement = new MateriaSupport;
                             $disbursement->progress_number = $request->progress_number;
                             $disbursement->donor_type = $request->donor_type;
-                            $disbursement->item = $items;
-                            $disbursement->category = $request->category[$qcount];
+                            $disbursement->item_id = $items;
                             $disbursement->quantity = $request->quantity[$qcount];
                             $disbursement->distributed_date = $request->distributed_date;
                             $disbursement->beneficiary_id = $request->beneficiary_id;
@@ -196,7 +200,8 @@ class ItemsDisbursementController extends Controller
                         }
                         else
                         {
-                            $error .= "Beneficiary [".$request->progress_number."] Has already received Item [".$items."] for date [ $request->distributed_date] <br/>" ;
+                            $item=ItemsInventory::find($items);
+                            $error .= "Beneficiary [".$request->progress_number."] Has already received Item [".$item->item_name."] for date [ $request->distributed_date] <br/>" ;
                         }
                         
                         $qcount++;
@@ -273,8 +278,7 @@ class ItemsDisbursementController extends Controller
         //
         $disbursement=MateriaSupport::find($request->id);
         $disbursement->donor_type=$request->donor_type;
-        $disbursement->item=$request->item;
-        $disbursement->category=$request->category;
+        $disbursement->item_id=$request->item;
         $disbursement->quantity=$request->quantity;
         $disbursement->distributed_date=$request->distributed_date;
         $disbursement->save();

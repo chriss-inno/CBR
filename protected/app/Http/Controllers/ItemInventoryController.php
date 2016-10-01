@@ -195,6 +195,13 @@ class ItemInventoryController extends Controller
     {
         //
         $item=ItemsInventory::find($id);
+        if(is_object($item->supports) && $item->supports != null)
+        {
+            foreach ($item->supports as $support)
+            {
+                $support->delete();
+            }
+        }
         $item->delete();
     }
     

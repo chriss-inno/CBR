@@ -450,7 +450,7 @@
                     for($i=1; $i<= 12; $i++)
                     {
                        ;
-                        $MonthCount.=count( \DB::table('clients')->join('rehabilitation_registers','clients.file_number','=','rehabilitation_registers.file_no')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('sex','=','Male')->get()).",";
+                        $MonthCount.=count( \DB::table('clients')->join('rehabilitation_registers','clients.id','=','rehabilitation_registers.client_id')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('sex','=','Male')->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
@@ -459,7 +459,7 @@
                     $monthData2="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount2.=count( \DB::table('clients')->join('rehabilitation_registers','clients.file_number','=','rehabilitation_registers.file_no')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('sex','=','Female')->get()).",";
+                        $MonthCount2.=count( \DB::table('clients')->join('rehabilitation_registers','clients.id','=','rehabilitation_registers.client_id')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('sex','=','Female')->get()).",";
                     }
                     $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
                     ?>
@@ -535,7 +535,7 @@
                     $monthData="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount.=count(\DB::table('clients')->join('rehabilitation_registers','clients.file_number','=','rehabilitation_registers.file_no')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('nationality','=','burundian')->where('sex','=','Male')->get()).",";
+                        $MonthCount.=count(\DB::table('clients')->join('rehabilitation_registers','clients.id','=','rehabilitation_registers.client_id')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('nationality','=','burundian')->where('sex','=','Male')->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
@@ -544,7 +544,7 @@
                     $monthData2="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount2.=count(\DB::table('clients')->join('rehabilitation_registers','clients.file_number','=','rehabilitation_registers.file_no')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('nationality','=','burundian')->where('sex','=','Female')->get()).",";
+                        $MonthCount2.=count(\DB::table('clients')->join('rehabilitation_registers','clients.id','=','rehabilitation_registers.client_id')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('nationality','=','burundian')->where('sex','=','Female')->get()).",";
                     }
                     $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
                     ?>
@@ -620,7 +620,7 @@
                     $monthData="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount.=count(\DB::table('clients')->join('rehabilitation_registers','clients.file_number','=','rehabilitation_registers.file_no')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('nationality','=','congolese')->where('sex','=','Male')->get()).",";
+                        $MonthCount.=count(\DB::table('clients')->join('rehabilitation_registers','clients.id','=','rehabilitation_registers.client_id')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('nationality','=','congolese')->where('sex','=','Male')->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
@@ -629,7 +629,7 @@
                     $monthData2="";
                     for($i=1; $i<= 12; $i++)
                     {
-                        $MonthCount2.=count(\DB::table('clients')->join('rehabilitation_registers','clients.file_number','=','rehabilitation_registers.file_no')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('nationality','=','congolese')->where('sex','=','Female')->get()).",";
+                        $MonthCount2.=count(\DB::table('clients')->join('rehabilitation_registers','clients.id','=','rehabilitation_registers.client_id')->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))->where('nationality','=','congolese')->where('sex','=','Female')->get()).",";
                     }
                     $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
                     ?>
