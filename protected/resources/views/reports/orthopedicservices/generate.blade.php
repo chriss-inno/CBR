@@ -471,8 +471,7 @@
                                         <div class="col-md-4">
                                             <label>Report Type</label>
                                              <select name="report_type" class="form-control">
-                                                 <option value="1">Detailed</option>
-                                                 <option value="2">Aggregate</option>
+                                                 <option value="2">Detailed</option>
                                              </select>
                                         </div>
                                     </div>

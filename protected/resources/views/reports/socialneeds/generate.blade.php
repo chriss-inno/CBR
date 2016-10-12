@@ -388,16 +388,15 @@
     {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
 
-        $("#DepartmentFormUN").validate({
+        $("#GenerateFrm").validate({
             rules: {
                 date_from: "required",
-                date_to: "required",
-                quantity: "required"
+                date_to: "required"
+
             },
             messages: {
-                date_from: "Please Select file to upload",
-                date_to: "Please select status",
-                quantity: "Please enter quantity"
+                date_from: "Please enter start date",
+                date_to: "Please enter end date"
             }
         });
         $("#DepartmentFormUN1").validate({
@@ -422,7 +421,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('assessment/roam')}}">Assessment Roam</a>
+            <a href="{{url('social/needs')}}">Social Needs</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -436,11 +435,9 @@
             <div class="row widget-row">
                 <div class="col-md-12 pull-right">
                     <div class="btn-group pull-right">
-                        <a href="{{url('reports/assessment/roam/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
-                        <a href="{{url('excel/export/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Export Clients</a>
-                        <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
+                        <a href="{{url('reports/social/needs/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
+                        <a href="{{url('reports/social/needs')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Reports</a>
                     </div>
-
                 </div>
 
             </div>
@@ -457,7 +454,7 @@
                     <!-- BEGIN SAMPLE FORM PORTLET-->
                     <div class="portlet light bordered">
                         <div class="portlet-body form">
-                            {!! Form::open(array('url'=>'reports/assessment/roam/generate','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
+                            {!! Form::open(array('url'=>'reports/social/needs/generate','role'=>'form','id'=>'GenerateFrm','files'=>true)) !!}
                             <div class="form-body">
                                 <div class="form-group">
                                     <div class="row">
@@ -471,19 +468,12 @@
                                             <input type="text" class="form-control input-medium date-picker" readonly name="date_to" id="date_to" data-date-format="yyyy-mm-dd">
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Report Type</label>
-                                             <select name="report_type" class="form-control">
-                                                 <option value="2">Detailed</option>
-                                             </select>
+                                            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Generate </button>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-md-4 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Generate </button>
-                                    </div>
 
-                                </div>
 
                             </div>
 

@@ -370,7 +370,7 @@
                     {
                         $MonthCount.=count( \DB::table('orthopedic_services')->join('orthopedic_services_items','orthopedic_services.id','=','orthopedic_services_items.ors_id')
                                          ->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))
-                                        ->where('service_received','=','Repairing')->get()).",";
+                                        ->where('orthopedic_services_items.service_received','=','Repairing')->get()).",";
                     }
                     $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                     ?>
@@ -381,7 +381,7 @@
                     {
                         $MonthCount2.=count(\DB::table('orthopedic_services')->join('orthopedic_services_items','orthopedic_services.id','=','orthopedic_services_items.ors_id')
                                         ->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))
-                                        ->where('service_received','=','Fabrication')->get()).",";
+                                        ->where('orthopedic_services_items.service_received','=','Fabrication')->get()).",";
                     }
                     $monthData2.=substr($MonthCount2,0,strlen($MonthCount2)-1);
                     ?>
@@ -392,7 +392,7 @@
                     {
                         $MonthCount3.=count(\DB::table('orthopedic_services')->join('orthopedic_services_items','orthopedic_services.id','=','orthopedic_services_items.ors_id')
                                         ->where(\DB::raw('Month(attendance_date)'),'=',$i)->where(\DB::raw('Year(attendance_date)'),'=',date('Y'))
-                                        ->where('service_received','=','Item measurement')->get()).",";
+                                        ->where('orthopedic_services_items.service_received','=','Item measurement')->get()).",";
                     }
                     $monthData3.=substr($MonthCount3,0,strlen($MonthCount3)-1);
                     ?>

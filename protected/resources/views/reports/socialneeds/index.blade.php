@@ -1,13 +1,12 @@
 @extends('layout.main')
 @section('page-title')
-   Reports
+    Reports
 @stop
 @section('page-style')
-    {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css") !!}
-    {!! Html::style("assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" ) !!}
-    {!! Html::style("assets/global/plugins/clockface/css/clockface.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/morris/morris.css" ) !!}
+    {!! Html::style("assets/global/plugins/fullcalendar/fullcalendar.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/jqvmap/jqvmap/jqvmap.css" ) !!}
 @stop
 @section('menu-sidebar')
     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
@@ -249,7 +248,7 @@
                         <span class="title">Data Export</span>
                     </a>
                 </li>
-              </ul>
+            </ul>
         </li>
         <li class="heading">
             <h3 class="uppercase"> ADMINISTRATION</h3>
@@ -260,7 +259,7 @@
                 <span class="title"> Users</span>
                 <span class="arrow"></span>
             </a>
-             <ul class="sub-menu">
+            <ul class="sub-menu">
                 <li class="nav-item  ">
                     <a href="{{url('users')}}" class="nav-link ">
                         <span class="title">List All Users</span>
@@ -277,140 +276,116 @@
     </ul>
 @stop
 @section('page-scripts-level1')
-
+    {!! Html::script("assets/global/plugins/moment.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/morris/morris.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/morris/raphael-min.js" ) !!}
+    {!! Html::script("assets/global/plugins/counterup/jquery.waypoints.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/counterup/jquery.counterup.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/amcharts.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/serial.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/pie.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/radar.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/themes/light.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/themes/patterns.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amcharts/themes/chalk.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/ammap/ammap.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" ) !!}
+    {!! Html::script("assets/global/plugins/amcharts/amstockcharts/amstock.js" ) !!}
+    {!! Html::script("assets/global/plugins/fullcalendar/fullcalendar.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/horizontal-timeline/horozontal-timeline.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/flot/jquery.flot.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/flot/jquery.flot.resize.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/flot/jquery.flot.categories.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/jquery.sparkline.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" ) !!}
+    {!! Html::script("assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" ) !!}
 @stop
 @section('page-scripts-level2')
-    {!! Html::script("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" ) !!}
-    {!! Html::script("assets/global/plugins/clockface/js/clockface.js" ) !!}
-    {!! Html::script("assets/pages/scripts/components-date-time-pickers.min.js" ) !!}
-
+    {!! Html::script("assets/pages/scripts/dashboard.min.js" ) !!}
+    {!! Html::script("assets/highcharts/js/highcharts.js") !!}
+    {!! Html::script("assets/highcharts/js/modules/exporting.js") !!}
 @stop
 @section('custom-scripts')
-    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
-        $("#SearchForm").validate({
-            rules: {
-                searchKeyword: "required"
+
+        $('#graphsetion').highcharts({
+            chart: {
+                type: 'column'
             },
-            messages: {
-                searchKeyword: "Please enter search keyword "
+            title: {
+                text: 'Monthly  support for {{date("Y")}}'
             },
-            submitHandler: function(form) {
-                $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");
-                var postData = $('#SearchForm').serializeArray();
-                var formURL = $('#SearchForm').attr("action");
-                $.ajax(
+            credits: {
+                enabled: false
+            },
+
+            xAxis: {
+                categories: [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Beneficiaries'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            <?php
+                    $series="";
+
+                        $series .="{";
+                        $series .=" name: 'Social Need Support',";
+
+                        $MonthCount="";
+                        $monthData="";
+                        for($i=1; $i<= 12; $i++)
                         {
-                            url : formURL,
-                            type: "POST",
-                            data : postData,
-                            success:function(data)
-                            {
-                                console.log(data);
-                                //data: return data from server
-                                $("#clientsSearchResults").html(data);
-                            },
-                            error: function(data)
-                            {
-                                console.log(data.responseJSON);
-                            }
-                        });
-            }
-        });
-        $(".addRecord").click(function(){
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Rehabilitation register</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
+                            $MonthCount.=count(\App\SocialNeed::where(\DB::raw('Month(created_at)'),'=',$i)
+                                                               ->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
+                        }
+                        $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                        $series .=" data:[".$monthData."]";
+                        $series .=" },";
 
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("rehabilitation/services/create") ?>");
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
 
-        });
+                    $seriesdata=substr($series,0,strlen($series)-1);
 
-        $(".editRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
+                    ?>
 
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("rehabilitation/services/edit") ?>/"+id1);
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-
-        $(".deleteRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-            var btn = $(this).parent().parent();
-            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-            $("#no").click(function(){
-                $(this).parent().parent().find(".deleteRecord").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-            $("#yes").click(function(){
-                $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('rehabilitation/services/remove') ?>/"+id1,function(data){
-                    btn.hide("slow").next("hr").hide("slow");
-                });
-            });
-        });
-    </script>
-    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
-    <script>
-
-        $("#DepartmentFormUN").validate({
-            rules: {
-                date_from: "required",
-                date_to: "required",
-                quantity: "required"
-            },
-            messages: {
-                date_from: "Please Select file to upload",
-                date_to: "Please select status",
-                quantity: "Please enter quantity"
-            }
-        });
-        $("#DepartmentFormUN1").validate({
-            rules: {
-                clients_file: "required",
-                status: "required",
-                quantity: "required"
-            },
-            messages: {
-                clients_file: "Please Select file to upload",
-                status: "Please select status",
-                quantity: "Please enter quantity"
-            }
+            series: [<?php echo $seriesdata;?>]
         });
 
     </script>
@@ -422,7 +397,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('assessment/roam')}}">Assessment Roam</a>
+            <a href="{{url('social/needs')}}">Social Needs</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -431,69 +406,21 @@
     </ul>
 @stop
 @section('contents')
-    <div class="row">
+    <div class="row widget-row">
+        <div class="col-md-12 pull-right">
+            <div class="btn-group pull-right">
+                <a href="{{url('reports/social/needs/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
+                <a href="{{url('reports/social/needs')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Reports</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row widget-row" style="margin-top: 20px">
         <div class="col-md-12">
-            <div class="row widget-row">
-                <div class="col-md-12 pull-right">
-                    <div class="btn-group pull-right">
-                        <a href="{{url('reports/assessment/roam/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
-                        <a href="{{url('excel/export/clients')}}" class="btn blue-madison"><i class="fa fa-download"></i> Export Clients</a>
-                        <a href="{{url('reports/assessment/roam')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Assessment Reports</a>
-                    </div>
-
-                </div>
-
-            </div>
-            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-            <div class="portlet light bordered" style="margin-top: 10px">
-                <div class="portlet-title">
-                    <div class="caption font-dark">
-                        <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Generate Report</span>
-                    </div>
-
-                </div>
-                <div class="portlet-body">
-                    <!-- BEGIN SAMPLE FORM PORTLET-->
-                    <div class="portlet light bordered">
-                        <div class="portlet-body form">
-                            {!! Form::open(array('url'=>'reports/assessment/roam/generate','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <div class="row">
-
-                                        <div class="col-md-4">
-                                            <label>Date From</label>
-                                            <input type="text" class="form-control input-medium date-picker" readonly name="date_from" id="date_from" data-date-format="yyyy-mm-dd">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Date To</label>
-                                            <input type="text" class="form-control input-medium date-picker" readonly name="date_to" id="date_to" data-date-format="yyyy-mm-dd">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Report Type</label>
-                                             <select name="report_type" class="form-control">
-                                                 <option value="2">Detailed</option>
-                                             </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-4 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Generate </button>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            {!! Form::close() !!}
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
+            <div id="graphsetion" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         </div>
     </div>
+
 @stop

@@ -520,7 +520,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('assessment/roam')}}">Assessment Roam</a>
+            <a href="{{url('beneficiaries')}}">Beneficiaries</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
