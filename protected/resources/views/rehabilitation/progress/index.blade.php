@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Clients Referral request
+   Progress Monitoring
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -287,6 +287,28 @@
 @section('custom-scripts')
     {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
     <script>
+        function closePrint () {
+            document.body.removeChild(this.__container__);
+        }
+
+        function setPrint () {
+            this.contentWindow.__container__ = this;
+            this.contentWindow.onbeforeunload = closePrint;
+            this.contentWindow.onafterprint = closePrint;
+            this.contentWindow.focus(); // Required for IE
+            this.contentWindow.print();
+        }
+
+        function printPage (sURL) {
+            var oHiddFrame = document.createElement("iframe");
+            oHiddFrame.onload = setPrint;
+            oHiddFrame.style.visibility = "hidden";
+            oHiddFrame.style.position = "fixed";
+            oHiddFrame.style.right = "0";
+            oHiddFrame.style.bottom = "0";
+            oHiddFrame.src = sURL;
+            document.body.appendChild(oHiddFrame);
+        }
         $("#SearchForm").validate({
             rules: {
                 searchKeyword: "required"
@@ -317,6 +339,7 @@
             }
         });
         $(".addRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
@@ -333,7 +356,7 @@
             $("body").append(modaldis);
             $("#myModal").modal("show");
             $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("rehabilitation/services/progress/create") ?>");
+            $(".modal-body").load("<?php echo url("rehabilitation/services/progress/create") ?>/"+id1);
             $("#myModal").on('hidden.bs.modal',function(){
                 $("#myModal").remove();
             })
@@ -408,25 +431,83 @@
                         <i class="icon-users font-dark"></i>
                         <span class="caption-subject bold uppercase">Rehabilitation progress </span>
                     </div>
-                <div class="table-toolbar">
-                    <div class="row">
-                        <div class="col-md-8 pull-right">
-                            <div class="btn-group pull-right">
-                                <a href="#" class="addRecord btn blue-madison"><i class="fa fa-file"></i> Add new record</a>
-                                <a href="{{url('rehabilitation/services/progress')}}" class="btn blue-madison"><i class="fa fa-server"></i> Progress list</a>
-                                <a href="{{url('excel/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
             </div>
             <div class="portlet-body" >
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">Clients Details</legend>
+                    <table class="table table-striped table-bordered " >
+                        <thead>
+                        <tr>
+                            <th> SNO </th>
+                            <th> File Number</th>
+                            <th> Full Name </th>
+                            <th> Sex </th>
+                            <th> Age </th>
+                            <th> Attending date </th>
+                            <th> Diagnosis </th>
+                        </tr>
+                        </thead>
+                        <tbody id="clientsSearchResults">
+                        <?php $count=1;?>
+                        @if(count($att )>0)
+                                <tr class="odd gradeX">
+                                    <td> {{$count++}} </td>
+                                    <td>
+                                        @if(is_object($att->client) && $att->client != null)
+                                            {{$att->client->file_number}}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if(is_object($att->client) && $att->client != null)
+                                            {{$att->client->full_name}}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if(is_object($att->client) && $att->client != null)
+                                            {{$att->client->sex}}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if(is_object($att->client) && $att->client != null)
+                                            {{$att->client->age}}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <?php echo $att->attendance_date; ?>
+                                    </td>
+                                    </td>
+                                    <td class="text-center" id="{{$att->id}}">
+                                        <a href="#" class="showRecord btn" title="View"> <i class="fa fa-eye "></i>  </a>
+                                        <a href="#" class=" btn "> <i class="fa fa-print green " onclick="printPage('{{url('rehabilitation/services/print')}}/{{$att->id}}');" ></i> </a>
+                                        <a href="{{url('rehabilitation/services/pdf')}}/{{$att->id}}" class=" btn" title="Delete"> <i class="fa fa-download text-danger "></i> </a>
+                                    </td>
+                                </tr>
+                        @endif
+
+
+                        </tbody>
+                    </table>
+                </fieldset>
+
+                <fieldset class="scheduler-border" style="margin-top: 10px">
+                    <legend class="scheduler-border">Rehabilitation Progress Monitoring</legend>
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-8 pull-right">
+                                <div class="btn-group pull-right" id="{{$att->id}}">
+                                    <a href="#" class="addRecord btn blue-madison"><i class="fa fa-file"></i> Add new record</a>
+                                    <a href="{{url('rehabilitation/services/client/progress')}}/{{$att->id}}" class="btn blue-madison"><i class="fa fa-server"></i> Progress list</a>
+                                    <a href="{{url('excel/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
                     <thead>
                     <tr>
                         <th> SNO </th>
-                        <th> File Number</th>
                         <th> Date </th>
                         <th> Treatment/ assistance provided  </th>
                         <th> Progress </th>
@@ -440,9 +521,6 @@
                         @foreach($attendances as $att)
                             <tr class="odd gradeX">
                                 <td> {{$count++}} </td>
-                                <td>
-                                    <?php echo $att->file_no; ?>
-                                </td>
                                 <td>
                                     <?php echo $att->attendance_date; ?>
                                 </td>
@@ -466,6 +544,7 @@
 
                     </tbody>
                 </table>
+                </fieldset>
             </div>
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->

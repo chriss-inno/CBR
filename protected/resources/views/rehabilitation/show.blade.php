@@ -52,6 +52,44 @@
 
                 </tbody>
             </table>
+            <table class="table  table-bordered">
+                <thead>
+                <tr>
+                    <th colspan="5" align="center" class="text-center">Rehabilitation Progress Monitoring</th>
+                </tr>
+                <tr>
+                    <th> SNO </th>
+                    <th> Date </th>
+                    <th> Treatment/ assistance provided  </th>
+                    <th> Progress </th>
+                    <th> Remarks </th>
+                </tr>
+                </thead>
+                <tbody id="clientsSearchResults">
+                <?php $count=1;?>
+                @if(is_object($attendances->progress) && count($attendances->progress )>0)
+                    @foreach($attendances->progress as $att)
+                        <tr class="odd gradeX">
+                            <td> {{$count++}} </td>
+                            <td>
+                                <?php echo $att->attendance_date; ?>
+                            </td>
+                            <td>
+                                <?php echo $att->assistance_provided; ?>
+                            </td>
+                            <td>
+                                <?php echo $att->progress; ?>
+                            </td>
+                            <td>
+                                <?php echo $att->remarks; ?>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+
+
+                </tbody>
+            </table>
         </div>
         <div class="form-actions">
             <div class="row">

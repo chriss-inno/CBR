@@ -27,7 +27,9 @@
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
                             <label>File Number</label>
-                            <input type="text" class="form-control" name="file_no" id="file_no">
+                            <input type="text" class="form-control" name="file_no" id="file_no"  @if(is_object($att->client) && $att->client != null)
+                                value="{{$att->client->file_number}}"
+                                @endif readonly>
                         </div>
 
                     </div>
@@ -42,7 +44,7 @@
                 </div>
                 <div class="form-group">
                     <label>Remarks</label>
-                    <textarea class="wysihtml5 form-control" rows="5" name="remarks" id="remarks"></textarea>
+                    <input type="text" class="form-control" name="remarks" id="remarks">
                 </div>
             </div>
         </div>
@@ -52,6 +54,7 @@
 
             </div>
             <div class="col-md-4 col-sm-4 pull-right text-right">
+                <input type="hidden" name="rehabilitation_id" value="{{$att->id}}" id="rehabilitation_id">
                 <button type="button" class="btn btn-danger "  data-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save </button>
             </div>

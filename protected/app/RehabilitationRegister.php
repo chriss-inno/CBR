@@ -11,4 +11,8 @@ class RehabilitationRegister extends Model
     {
         return $this::belongsTo('\App\Client','client_id','id');
     }
+    public function progress()
+    {
+        return $this::hasMany('\App\RehabilitationProgress','rehabilitation_id','id');
+    }
 }

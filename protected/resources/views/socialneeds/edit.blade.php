@@ -12,8 +12,25 @@
         <div class="form-body">
             <div class="form-group" id="itemsdispatch">
                 <div class="form-group">
-                    <label>Progress number</label>
-                    <input type="text" class="form-control" name="progress_number" id="progress_number" value="{{$need->progress_number}}" readonly>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                            <label>Attending date</label>
+                            <div class="input-group input-medium date date-picker" data-date="" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                <input type="text" class="form-control" name="attendance_date" id="attendance_date" value="{{$need->date_attended}}" readonly>
+                                <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
+                            <label>Progress number</label>
+                            <input type="text" class="form-control" name="progress_number" id="progress_number" value="{{$need->progress_number}}" readonly>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <label>Assistance he/she needs</label>
@@ -76,11 +93,13 @@
     $("#DepartmentFormUN").validate({
         rules: {
             progress_number: "required",
+            attendance_date: "required",
             status: "required",
             assistance: "required"
         },
         messages: {
             progress_number: "Please field is required",
+            attendance_date: "Please field is required",
             status: "Please field is required",
             assistance: "Please field is required"
         },

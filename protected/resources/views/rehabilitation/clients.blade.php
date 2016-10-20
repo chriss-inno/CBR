@@ -454,7 +454,7 @@
                     <div class="table-toolbar">
 
                         <div class="btn-group pull-right">
-                            <a href="#" class="addRecord btn blue-madison"><i class="fa fa-file"></i> Register New</a>
+                            < <a href="{{url('rehabilitation/services/clients')}}" class=" btn blue-madison"><i class="fa fa-file"></i> Register New</a>
                             <a href="{{url('rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All </a>
                             <a href="{{url('excel/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
                         </div>

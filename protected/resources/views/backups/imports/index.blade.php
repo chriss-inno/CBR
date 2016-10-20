@@ -431,7 +431,7 @@
                                         <div class="col-md-8 col-xs-8 col-lg-8">
                                             <label>Module</label>
                                             <select name="module_choice" id="module_choice" class="form-control">
-                                                <option value="all" >--All--</option>
+                                                <option value="" >--Select--</option>
                                                 <option value="1" >Clients Only</option>
                                                 <option value="2" >Assessments</option>
                                                 <option value="3" >Disabilities</option>

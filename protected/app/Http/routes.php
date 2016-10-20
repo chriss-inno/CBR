@@ -43,8 +43,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('assessment/roam','ClientAssessmentController@index');
 
     //rehabilitation services progress
+    Route::get('rehabilitation/services/client/progress/{id}','RehabilitationProgressController@getProgress');
     Route::get('rehabilitation/services/progress','RehabilitationProgressController@index');
-    Route::get('rehabilitation/services/progress/create','RehabilitationProgressController@create');
+    Route::get('rehabilitation/services/progress/create/{id}','RehabilitationProgressController@create');
     Route::post('rehabilitation/services/progress/create','RehabilitationProgressController@store');
     Route::get('rehabilitation/services/progress/edit/{id}','RehabilitationProgressController@edit');
     Route::post('rehabilitation/services/progress/edit','RehabilitationProgressController@update');

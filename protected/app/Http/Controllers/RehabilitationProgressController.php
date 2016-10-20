@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\RehabilitationProgress;
+use App\RehabilitationRegister;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -28,16 +29,25 @@ class RehabilitationProgressController extends Controller
         $attendances=RehabilitationProgress::all();
         return view('rehabilitation.progress.index',compact('attendances'));
     }
+    public function getProgress($id)
+    {
+        //
+        $att=RehabilitationRegister::find($id);
+        $attendances=RehabilitationProgress::where('rehabilitation_id','=',$id)->get();
+        return view('rehabilitation.progress.index',compact('attendances','att'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
-        return view('rehabilitation.progress.create');
+        $att=RehabilitationRegister::find($id);
+        return view('rehabilitation.progress.create',compact('att'));
     }
 
     /**
@@ -57,6 +67,7 @@ class RehabilitationProgressController extends Controller
             $attendances->progress = $request->progress;
             $attendances->remarks = $request->remarks;
             $attendances->file_no = $request->file_no;
+            $attendances->rehabilitation_id = $request->rehabilitation_id;
             $attendances->save();
 
             return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";

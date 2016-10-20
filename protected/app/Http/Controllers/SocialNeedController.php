@@ -114,6 +114,7 @@ class SocialNeedController extends Controller
                         $beneficiary->beneficiary_id=$ben->id;
                         $beneficiary->assistance = $row->assistance_needs;
                         $beneficiary->status = $row->status;
+                        $beneficiary->date_attended = $row->date_attended;
                         $beneficiary->save();
                     }
                     elseif ($row->progress_number =="" )
@@ -187,6 +188,7 @@ class SocialNeedController extends Controller
             $need->beneficiary_id=$request->beneficiary_id;
             $need->assistance=$request->assistance;
             $need->status=$request->status;
+            $need->date_attended = $request->attendance_date;
             $need->save();
             return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
         }
@@ -256,6 +258,7 @@ class SocialNeedController extends Controller
             $need->progress_number=$request->progress_number;
             $need->assistance=$request->assistance;
             $need->status=$request->status;
+            $need->date_attended = $request->attendance_date;
             $need->save();
             return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
         }

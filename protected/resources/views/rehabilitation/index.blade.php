@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('page-title')
-    Clients Referral request
+   Rehabilitation Service Register
 @stop
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
@@ -479,6 +479,7 @@
                         <th> Age </th>
                         <th> Attending date </th>
                         <th> Diagnosis </th>
+                        <th> Progress </th>
                         <th class="text-center"> Action </th>
                     </tr>
                     </thead>
@@ -516,6 +517,9 @@
                                     <a href="#" class="showRecord btn" title="View"> <i class="fa fa-eye "></i>  </a>
                                     <a href="#" class=" btn "> <i class="fa fa-print green " onclick="printPage('{{url('rehabilitation/services/print')}}/{{$att->id}}');" ></i> </a>
                                     <a href="{{url('rehabilitation/services/pdf')}}/{{$att->id}}" class=" btn" title="Delete"> <i class="fa fa-download text-danger "></i> </a>
+                                </td>
+                                <td>
+                                    <a href="{{url('rehabilitation/services/client/progress')}}/{{$att->id}}" class=" btn" title="Delete"> <i class="fa fa-list"></i> View</a>
                                 </td>
                                 <td class="text-center" id="{{$att->id}}">
                                     <a href="#" class="editRecord btn" title="Edit"> <i class="fa fa-edit "></i>  </a>

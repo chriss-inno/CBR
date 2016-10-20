@@ -40,7 +40,7 @@ class ReportSocialNeedController extends Controller
         $range = [date("Y-m-d H:i",strtotime($startDate)), date("Y-m-d H:i",strtotime($endDate))];
         if($startDate != "" && $endDate != "" )
         {
-                $needs=SocialNeed::whereBetween('created_at', $range)->get();
+                $needs=SocialNeed::whereBetween('date_attended', $range)->get();
 
                 Excel::create("social_needs_report", function ($excel) use ($needs,$startDate,$endDate) {
                     $excel->sheet('sheet', function ($sheet) use ($needs,$startDate,$endDate) {

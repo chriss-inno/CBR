@@ -100,6 +100,10 @@
                     <th >Status </th>
                     <td ><?php echo $need->status; ?></td>
                 </tr>
+                <tr>
+                    <th class="col-md-2 col-sm-2 col-xs-2">Date </th>
+                    <td ><?php echo $need->date_attended; ?></td>
+                </tr>
                 </tbody>
             </table>
 

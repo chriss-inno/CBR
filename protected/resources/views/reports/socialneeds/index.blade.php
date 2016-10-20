@@ -373,8 +373,8 @@
                         $monthData="";
                         for($i=1; $i<= 12; $i++)
                         {
-                            $MonthCount.=count(\App\SocialNeed::where(\DB::raw('Month(created_at)'),'=',$i)
-                                                               ->where(\DB::raw('Year(created_at)'),'=',date('Y'))->get()).",";
+                            $MonthCount.=count(\App\SocialNeed::where(\DB::raw('Month(date_attended)'),'=',$i)
+                                                               ->where(\DB::raw('Year(date_attended)'),'=',date('Y'))->get()).",";
                         }
                         $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
                         $series .=" data:[".$monthData."]";

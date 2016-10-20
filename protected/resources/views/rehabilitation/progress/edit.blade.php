@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
                             <label>File Number</label>
-                            <input type="text" class="form-control" name="file_no" id="file_no" value="{{$attendances->file_no}}">
+                            <input type="text" class="form-control" name="file_no" id="file_no" value="{{$attendances->file_no}}" readonly>
                         </div>
 
                     </div>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group">
                     <label>Remarks</label>
-                    <textarea class="wysihtml5 form-control" rows="5" name="remarks" id="remarks">{{$attendances->remarks}}</textarea>
+                    <input type="text" class="form-control" name="remarks" id="remarks" value="{{$attendances->remarks}}">
                 </div>
             </div>
         </div>

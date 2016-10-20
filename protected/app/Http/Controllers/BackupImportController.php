@@ -22,6 +22,7 @@ use App\MateriaSupport;
 use App\OrthopedicServices;
 use App\OrthopedicServicesItems;
 use App\Region;
+use App\RehabilitationProgress;
 use App\RehabilitationRegister;
 use App\SiteSetup;
 use App\SocialNeed;
@@ -305,7 +306,10 @@ class BackupImportController extends Controller
                 foreach ($xml->Rehabilitations as $rehabilitations) {
                     foreach ($rehabilitations as $reb) {
                             $client_id="";
+                            $file_no ="";
                             $clnt=$reb->Client;
+
+
                             
                             if (!count(Client::where('file_number', '=', $clnt->file_number)->get()) > 0) {
                                 $client = new Client;
@@ -319,21 +323,47 @@ class BackupImportController extends Controller
                                 $client->status = $clnt->status;
                                 $client->date_registered = $clnt->date_registered;
                                 $client->save();
+                                $client_id=$client->id;
+                                $file_no = $client->file_number;
 
                             }
                             else
                             {
                                 $client =Client::where('file_number', '=', $clnt->file_number)->get()->first();
                                 $client_id=$client->id;
+                                $file_no = $client->file_number;
 
                             }
+                                   $rehabilitation_id="";
                                     if(!count(RehabilitationRegister::where('client_id','=',$client_id)->where('diagnosis','=',$reb->diagnosis)->where('attendance_date','=',$reb->attendance_date)->get())>0) {
                                         $attendances=new RehabilitationRegister;
                                         $attendances->attendance_date=$reb->attendance_date;
                                         $attendances->diagnosis=$reb->diagnosis;
                                         $attendances->client_id= $client_id;
                                         $attendances->save();
+                                        $rehabilitation_id=$attendances->id;
                                     }
+                                    else
+                                    {
+                                        $reha=RehabilitationRegister::where('client_id','=',$client_id)->where('diagnosis','=',$reb->diagnosis)->where('attendance_date','=',$reb->attendance_date)->get()->first();
+                                        $rehabilitation_id=$reha->id;
+                                    }
+                        ///Inset progress
+                        foreach ($reb->Progresses->Progress as $progres) {
+                            if (!count(RehabilitationProgress::where('attendance_date', '=', $progres->attendance_date)
+                                ->where('assistance_provided', '=', $progres->attendance_date)
+                                ->where('rehabilitation_id', '=', $rehabilitation_id)
+                                ->get())) {
+                                $rprogress = new RehabilitationProgress();
+                                $rprogress->attendance_date = $progres->attendance_date;
+                                $rprogress->assistance_provided = $progres->assistance_provided;
+                                $rprogress->progress = $progres->progress;
+                                $rprogress->remarks = $progres->remarks;
+                                $rprogress->file_no =  $file_no;
+                                $rprogress->rehabilitation_id =$rehabilitation_id;
+                                $rprogress->save();
+                            }
+                        }
                                 }
                             }
 
@@ -459,6 +489,7 @@ class BackupImportController extends Controller
                             $need->beneficiary_id = $ben_id;
                             $need->assistance = $son->assistance;
                             $need->status = $son->status;
+                            $need->date_attended = $son->date_attended;
                             $need->save();
                         }
                     }

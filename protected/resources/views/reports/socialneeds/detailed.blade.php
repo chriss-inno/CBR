@@ -12,6 +12,7 @@
         <th> Age </th>
         <th> Status </th>
         <th> Assistance needs </th>
+        <th> Date </th>
     </tr>
     </thead>
     <tbody id="clientsSearchResults">
@@ -43,6 +44,9 @@
                 </td>
                 <td>
                     <?php echo $need->assistance; ?>
+                </td>
+                <td>
+                    <?php echo $need->date_attended; ?>
                 </td>
             </tr>
         @endforeach

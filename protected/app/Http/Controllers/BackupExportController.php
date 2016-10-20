@@ -704,6 +704,20 @@ class BackupExportController extends Controller
                                         $xml.= "<date_registered><![CDATA[".$client->date_registered."]]></date_registered>";
                                             
                                         $xml.= "</Client>";
+                            $xml.= "<Progresses>";
+                            if(is_object($attend->progress) && count($attend->progress )>0)
+                            {
+                                foreach ($attend->progress as $att) {
+                                    $xml.= "<Progress>";
+                                        $xml.= "<attendance_date><![CDATA[".$att->attendance_date."]]></attendance_date>";
+                                        $xml.= "<assistance_provided><![CDATA[".$att->assistance_provided."]]></assistance_provided>";
+                                        $xml.= "<progress><![CDATA[".$att->progress."]]></progress>";
+                                        $xml.= "<remarks><![CDATA[".$att->remarks."]]></remarks>";
+                                    $xml.= "</Progress>";
+                                }
+                            }
+
+                            $xml.= "</Progresses>";
                             $xml.= "</Rehabilitation>";
                         }
             $xml.= "</Rehabilitations>";
@@ -797,6 +811,7 @@ class BackupExportController extends Controller
                     $xml.= "<progress_number><![CDATA[".$need->progress_number."]]></progress_number>";
                     $xml.= "<assistance><![CDATA[".$need->assistance."]]></assistance>";
                     $xml.= "<status><![CDATA[".$need->status."]]></status>";
+                    $xml.= "<date_attended><![CDATA[".$need->date_attended."]]></date_attended>";
                     $xml.= "<Beneficiary>";
                         $xml.= "<progress_number><![CDATA[".$beneficiary->progress_number."]]></progress_number>";
                         $xml.= "<full_name><![CDATA[".$beneficiary->full_name."]]></full_name>";

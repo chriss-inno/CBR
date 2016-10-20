@@ -478,6 +478,7 @@
                         <th> Age </th>
                         <th> Status </th>
                         <th> Assistance needs </th>
+                        <th> Date </th>
                         <th class="text-center"> Action </th>
                     </tr>
                     </thead>
@@ -512,6 +513,9 @@
                                     <a href="#" class="showRecord btn"> <i class="fa fa-eye"></i> </a>
                                     <a href="#" class=" btn "> <i class="fa fa-print green " onclick="printPage('{{url('social/needs/print')}}/{{$need->id}}');" ></i> </a>
                                     <a href="{{url('social/needs/pdf')}}/{{$need->id}}" class=" btn" title="Delete"> <i class="fa fa-download text-danger "></i> </a>
+                                </td>
+                                <td>
+                                    <?php echo $need->date_attended; ?>
                                 </td>
                                 <td class="text-center" id="{{$need->id}}">
                                     <a href="#" class="editRecord"> <i class="fa fa-edit "></i> </a>
