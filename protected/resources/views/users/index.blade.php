@@ -401,7 +401,7 @@
                             <th> Last Name </th>
                             <th> Username </th>
                             <th> Email </th>
-                            <th> User Level </th>
+                            <th> User Role </th>
                             <th> Status </th>
                             <th> Profile </th>
                             <th class="text-center"> Action </th>
@@ -420,7 +420,7 @@
                                         {{$user->last_name}}
                                     </td>
                                     <td>
-                                        {{$user->username}}
+                                        {{$user->user_name}}
                                     </td>
                                     <td>
                                         {{$user->email}}
@@ -434,10 +434,17 @@
                                     <td>
                                         <a href="#"  class="btn btn-icon-only blue editRecord"> <i class="fa fa-eye"></i> </a>
                                     </td>
+                                    @if($user->id==Auth::user()->id)
+                                        <td class="text-center">
+                                            <a href="#"  class="btn btn-icon-only blue "> <i class="fa fa-edit"></i> </a>
+                                            <a href="#" class="btn btn-icon-only red "> <i class="fa fa-trash"></i> </a>
+                                        </td>
+                                        @else
                                     <td class="text-center" id="{{$user->id}}">
                                         <a href="#"  class="btn btn-icon-only blue editRecord"> <i class="fa fa-edit"></i> </a>
                                         <a href="#" class="btn btn-icon-only red deleteRecord"> <i class="fa fa-trash"></i> </a>
                                     </td>
+                                        @endif
                                 </tr>
                             @endforeach
                         @endif

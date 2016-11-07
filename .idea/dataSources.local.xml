@@ -9,7 +9,6 @@
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <secret-storage>master_key</secret-storage>
       <user-name>cbr</user-name>
-      <introspection-scope>cbr:*</introspection-scope>
       <resolve-scope>cbr:*</resolve-scope>
     </data-source>
   </component>

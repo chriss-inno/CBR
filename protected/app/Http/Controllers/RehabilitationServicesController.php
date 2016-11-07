@@ -325,7 +325,6 @@ class RehabilitationServicesController extends Controller
             $attendances = RehabilitationRegister::find($request->id);
             $attendances->attendance_date = $request->attendance_date;
             $attendances->diagnosis = $request->diagnosis;
-            $attendances->client_id = $request->client_id;
             $attendances->save();
             return "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>";
        

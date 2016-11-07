@@ -38,6 +38,15 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6 col-sm-6 ">
+                        <label> User Role</label>
+                        <select class="form-control" name="user_role" id="user_role">
+                            <option value="">---Select--</option>
+                            @foreach(\App\Role::all() as $role)
+                                <option value="{{$role->id}}">{{$role->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6 col-sm-6 ">
                         <label> Status</label>
                         <select class="form-control" name="status" id="status">
                             @if($user->status != "")
@@ -76,15 +85,28 @@
             first_name: "required",
             last_name: "required",
             user_name: "required",
-            pass: "required",
+            user_role: "required",
+            pass: {
+                minlength : 8
+            },
+            cpass : {
+                minlength : 8,
+                equalTo : "#pass"
+            },
             status: "required"
         },
         messages: {
             first_name: "Please enter first_name",
             last_name: "Please enterlast_name",
             user_name: "Please enter user_name",
-            pass: "Please enter password",
-            department_name: "Please enter department name",
+            user_role: "Please enter user role",
+            pass : {
+                minlength : "Password should not be less than 8 character"
+            },
+            cpass : {
+                minlength : "Password should not be less than 8 character",
+                equalTo : "Password don't match"
+            },
             status: "Please select status"
         },
         submitHandler: function(form) {

@@ -23,8 +23,15 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users=User::all();
-        return view('users.index',compact('users'));
+        $user=User::find(Auth::user()->id);
+        if($user->hasRole('administrator')) {
+            $users = User::all();
+            return view('users.index', compact('users'));
+        }
+        else
+        {
+            return redirect('home');
+        }
     }
     public function forgotPassword(Request $requests)
     {
@@ -142,6 +149,7 @@ class UserController extends Controller
         $user->email=$request->email;
         $user->status=$request->status;
         $user->save();
+        $user->roles()->attach($request->id);
     }
 
     /**
@@ -182,10 +190,14 @@ class UserController extends Controller
         $user->first_name=$request->first_name;
         $user->last_name=$request->last_name;
         $user->user_name=$request->user_name;
-        $user->password=bcrypt($request->pass);
+        if($request->pass != "")
+        {
+            $user->password=bcrypt($request->pass);
+        }
         $user->email=$request->email;
         $user->status=$request->status;
         $user->save();
+        $user->roles()->attach($request->id);
     }
 
     /**
