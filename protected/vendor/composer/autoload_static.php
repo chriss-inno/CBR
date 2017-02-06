@@ -400,6 +400,7 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'AddDiagnosisitoBeneficiaries' => __DIR__ . '/../..' . '/database/migrations/2017_02_06_085437_addDiagnosisitoBeneficiaries.php',
         'AddRehabilitationId' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_081624_addRehabilitationId.php',
         'AddSocialNeedDates' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_084257_addSocialNeedDates.php',
+        'AddStatustoOrthopedic' => __DIR__ . '/../..' . '/database/migrations/2017_02_06_093730_addStatustoOrthopedic.php',
         'Addprogressnumber2clientdisability' => __DIR__ . '/../..' . '/database/migrations/2016_08_28_214945_addprogressnumber2clientdisability.php',
         'Adobe_Font_Metrics' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Adobe_Font_Metrics.php',
         'Attribute_Translator' => __DIR__ . '/..' . '/dompdf/dompdf/include/attribute_translator.cls.php',

@@ -102,6 +102,14 @@
                 @endif
                 </tbody>
             </table>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>{{$attendances->status}}</td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

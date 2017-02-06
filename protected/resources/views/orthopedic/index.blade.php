@@ -477,6 +477,7 @@
                         <th> Sex </th>
                         <th> Age </th>
                         <th> Date Attended</th>
+                        <th> Status </th>
                         <th> Details </th>
                         <th class="text-center"> Action </th>
                     </tr>
@@ -510,6 +511,9 @@
                                 </td>
                                 <td>
                                     <?php echo $att->attendance_date; ?>
+                                </td>
+                                <td>
+                                    <?php echo $att->status; ?>
                                 </td>
                                 <td class="text-center" id="{{$att->id}}">
                                     <a href="#" class="showRecord btn" title="view"> <i class="fa fa-eye "></i>  </a>

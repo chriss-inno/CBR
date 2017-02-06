@@ -157,6 +157,7 @@ class BackupExportController extends Controller
                     $xml.= "<OrthopedicService>";
                     $xml.= "<attendance_date><![CDATA[".$attend->attendance_date."]]></attendance_date>";
                     $xml.= "<diagnosis><![CDATA[".$attend->diagnosis."]]></diagnosis>";
+                    $xml.= "<status><![CDATA[".$attend->status."]]></status>";
                     $xml.= "<file_no><![CDATA[".$attend->file_no."]]></file_no>";
                     $xml.= "<OrthopedicServicesItems>";
                     $items=OrthopedicServicesItems::where('ors_id','=',$attend->id)->get();
@@ -741,6 +742,7 @@ class BackupExportController extends Controller
                         $xml.= "<OrthopedicService>";
                             $xml.= "<attendance_date><![CDATA[".$attend->attendance_date."]]></attendance_date>";
                             $xml.= "<diagnosis><![CDATA[".$attend->diagnosis."]]></diagnosis>";
+                            $xml.= "<status><![CDATA[".$attend->status."]]></status>";
                             $xml.= "<Client>";
                                         $xml.= "<file_number><![CDATA[".$client->file_number."]]></file_number>";
                                         $xml.= "<full_name><![CDATA[".$client->full_name."]]></full_name>";

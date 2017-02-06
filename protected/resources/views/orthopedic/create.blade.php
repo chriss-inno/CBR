@@ -39,7 +39,7 @@
                 <div class="form-group" id="itemsdispatch">
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
-                            <label>Service receive</label>
+                            <label>Required services </label>
                             <select name="service_received[]" id="service_received" class="form-control">
                                 <option value="">--Select--</option>
                                 <option value="Repairing">Repairing</option>
@@ -63,6 +63,17 @@
                 </div>
 
             </div>
+			<div class="form-group">
+                    <label>Status</label>
+                     <select name="status" id="status" class="form-control">
+                                <option value="">--Select--</option>
+                                <option value="Received">Received</option>
+                                <option value="Not received ">Not received </option>
+                              
+                            </select>
+                </div>
+		
+                           
         </div>
         <div class="form-actions">
         <div class="row">
@@ -166,7 +177,7 @@
         div.className = 'row';
 
         div.innerHTML = '<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">\
-               <label>Service receive</label>\
+               <label>Required services </label>\
                <select name="service_received[]" id="service_received" class="form-control">\
                 <option value="">--Select--</option>\
                 <option value="Repairing">Repairing</option>\
