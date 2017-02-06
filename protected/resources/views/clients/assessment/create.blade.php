@@ -555,6 +555,7 @@
                                     @endif
                                     <option value="Disabled">Disabled</option>
                                     <option value="Soft injury">Soft injury</option>
+                                    <option value="Chronic ill">Chronic ill</option>
                                 </select>
                                 @if($errors->first('status') !="")
                                     <span class="help-block help-block-error">{{ $errors->first('status') }}</span>
