@@ -406,6 +406,7 @@ class BackupImportController extends Controller
                                         $attendances->attendance_date = $reb->attendance_date;
                                         $attendances->client_id = $client_id;
                                         $attendances->diagnosis = $reb->diagnosis;
+                                        $attendances->status = $reb->status;
                                         $attendances->save();
                                         foreach ($reb->OrthopedicServicesItems as $items)
                                          {

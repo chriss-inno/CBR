@@ -104,14 +104,32 @@ class OrthopedicServicesController extends Controller
                         }
                         else
                         {
-                            $attendances=new OrthopedicServices;
-                            $attendances->attendance_date=date("Y-m-d",strtotime($row->attending_date));
-                            $attendances->diagnosis=$row->diagnosis;
-                            $attendances->client_id=$client->id;
-                            $attendances->service_received=$row->service_received;
-                            $attendances->item_serviced=$row->item_serviced;
-                            $attendances->quantity=$row->quantity_of_items;
-                            $attendances->save();
+                            $ors_id="";
+                            if(count(OrthopedicServices::where('attendance_date','=',date("Y-m-d",strtotime($row->attending_date))
+                                                        ->where('client_id','=',$client->id))
+                                                        ->where('status','=',$row->status)->get()) > 0)
+                            {
+                                $attendances=OrthopedicServices::where('attendance_date','=',date("Y-m-d",strtotime($row->attending_date))
+                                    ->where('client_id','=',$client->id))
+                                    ->where('status','=',$row->status)->get()->first();
+                                $ors_id=$attendances->id;
+                            }
+                            else {
+                                $attendances = new OrthopedicServices;
+                                $attendances->attendance_date = date("Y-m-d", strtotime($row->attending_date));
+                                $attendances->diagnosis = $row->diagnosis;
+                                $attendances->client_id = $client->id;
+                                $attendances->status = $row->status;
+                                $attendances->save();
+                                $ors_id=$attendances->id;
+                            }
+
+                            $items = new OrthopedicServicesItems;
+                            $items->service_received = $row->required_services;
+                            $items->item_serviced = $row->item_serviced;
+                            $items->quantity = $row->quantity;
+                            $items->ors_id = $ors_id;
+                            $items->save();
                         }
 
 
@@ -176,6 +194,7 @@ class OrthopedicServicesController extends Controller
                 $attendances->attendance_date = $request->attendance_date;
                 $attendances->client_id = $request->client_id;
                 $attendances->diagnosis = $request->diagnosis;
+                $attendances->status = $request->status;
                 $attendances->save();
 
                 if (count($request->service_received) > 0 && $request->service_received != null) {
@@ -252,6 +271,7 @@ class OrthopedicServicesController extends Controller
              $attendance=OrthopedicServices::find($request->id);
              $attendance->attendance_date = $request->attendance_date;
              $attendance->diagnosis = $request->diagnosis;
+             $attendance->status = $request->status;
              $attendance->save();
 
             if(is_object($attendance->items) && count($attendance->items) >0 && $attendance->items != null)

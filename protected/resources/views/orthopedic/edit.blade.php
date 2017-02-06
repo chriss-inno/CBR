@@ -60,7 +60,7 @@
                         @foreach($attendance->items as $item)
                          <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
-                            <label>Service receive</label>
+                            <label>Required services</label>
                             <select name="service_received[]" id="service_received" class="form-control">
                                 @if($item->service_received != "" )
                                     <option value="{{$item->service_received}}" selected>{{$item->service_received}}</option>
@@ -90,7 +90,7 @@
                         @else
                         <div class="row">
                             <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
-                                <label>Service receive</label>
+                                <label>Required services</label>
                                 <select name="service_received[]" id="service_received" class="form-control">
                                     <option value="">--Select--</option>
                                     <option value="Repairing">Repairing</option>
@@ -112,6 +112,18 @@
 
                         </div>
                     @endif
+                </div>
+				<div class="form-group">
+                    <label>Status</label>
+                     <select name="status" id="status" class="form-control">
+					 @if($attendance->status != "" )
+                                    <option value="{{$attendance->status}}" selected>{{$attendance->status}}</option>
+                                @endif
+                                <option value="">--Select--</option>
+                                <option value="Received">Received</option>
+                                <option value="Not received ">Not received </option>
+                              
+                            </select>
                 </div>
         </div>
         <div class="form-actions">
@@ -216,7 +228,7 @@
         div.className = 'row';
 
         div.innerHTML = '<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">\
-               <label>Service receive</label>\
+               <label>Required services</label>\
                <select name="service_received[]" id="service_received" class="form-control">\
                 <option value="">--Select--</option>\
                 <option value="Repairing">Repairing</option>\
