@@ -92,6 +92,10 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label>Diagnosis</label>
+                    <textarea  class="form-control" name="diagnosis" id="diagnosis"></textarea>
+                </div>
+                <div class="form-group">
                     <div class="row">
                         <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                             <label>Category</label>

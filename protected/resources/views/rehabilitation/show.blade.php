@@ -5,7 +5,7 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th colspan="5" align="center" class="text-center"> Rehabilitation Register </th>
+                    <th colspan="5" align="center" class="text-center"> Physiotherapy treatment  </th>
                 </tr>
                 <tr>
                     <th>File Number</th>

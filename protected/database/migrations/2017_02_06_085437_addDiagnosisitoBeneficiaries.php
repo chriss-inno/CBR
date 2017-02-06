@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddSocialNeedDates extends Migration
+class AddDiagnosisitoBeneficiaries extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddSocialNeedDates extends Migration
     public function up()
     {
         //
-        Schema::table('social_needs', function(Blueprint $table)
+        Schema::table('beneficiaries', function(Blueprint $table)
         {
-            $table->date('date_attended')->nullable();
+            $table->text('diagnosis')->nullable();
         });
     }
 
@@ -27,9 +27,9 @@ class AddSocialNeedDates extends Migration
     public function down()
     {
         //
-        Schema::table('social_needs', function(Blueprint $table)
+        Schema::table('beneficiaries', function(Blueprint $table)
         {
-            $table->dropColumn('date_attended');
+            $table->dropColumn('diagnosis');
         });
     }
 }

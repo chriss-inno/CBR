@@ -26,7 +26,7 @@
                     COMMUNITY BASED REHABILITATION PROGRAMME (CBR)<br/>
                     PROGRAMME DE REHABILITATION SUR BASE COMMUNAUTAIRE (PRBC)<br/>
                     <br/>
-                   REHABILITATION REGISTER
+                   Physiotherapy treatment 
                 </strong></h4>
         </div>
     </div>

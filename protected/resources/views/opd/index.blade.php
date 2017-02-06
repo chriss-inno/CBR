@@ -47,7 +47,7 @@
         <li class="nav-item ">
             <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
                 <i class="fa fa-cogs fa-2x"></i>
-                <span class="title">Rehabilitation services</span>
+                <span class="title">Physiotherapy treatment </span>
             </a>
 
         </li>
@@ -144,7 +144,7 @@
                 </li>
                 <li class="nav-item  ">
                     <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
-                        <span class="title">Rehabilitation services</span>
+                        <span class="title">Physiotherapy treatment </span>
                     </a>
                 </li>
                 <li class="nav-item  ">

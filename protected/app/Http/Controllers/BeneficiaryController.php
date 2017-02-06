@@ -165,6 +165,7 @@ class BeneficiaryController extends Controller
                             $beneficiary->code = $row->code;
                             $beneficiary->age = $row->age;
                             $beneficiary->sex =$sex;
+                            $beneficiary->diagnosis = $row->diagnosis;
                             $beneficiary->family_size = $row->family_size;
                             $beneficiary->number_females = $row->number_of_females;
                             $beneficiary->number_male = $row->number_of_males;
@@ -230,6 +231,7 @@ class BeneficiaryController extends Controller
             $beneficiary->code = $request->code;
             $beneficiary->age = $request->age;
             $beneficiary->sex = $request->sex;
+            $beneficiary->diagnosis = $request->diagnosis;
             $beneficiary->family_size = $request->family_size;
             $beneficiary->number_females = $request->number_females;
             $beneficiary->number_male = $request->number_male;
@@ -284,6 +286,7 @@ class BeneficiaryController extends Controller
         $beneficiary->code=$request->code;
         $beneficiary->age=$request->age;
         $beneficiary->sex=$request->sex;
+        $beneficiary->diagnosis = $request->diagnosis;
         $beneficiary->family_size=$request->family_size;
         $beneficiary->number_females=$request->number_females;
         $beneficiary->number_male=$request->number_male;

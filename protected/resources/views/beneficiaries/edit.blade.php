@@ -120,6 +120,10 @@
 
             </div>
         </div>
+        <div class="form-group">
+            <label>Diagnosis</label>
+            <textarea  class="form-control" name="diagnosis" id="diagnosis">{{$beneficiary->diagnosis}}</textarea>
+        </div>
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-8 col-sm-8 pull-left" id="output">

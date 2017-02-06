@@ -48,7 +48,7 @@
         <li class="nav-item ">
             <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
                 <i class="fa fa-cogs fa-2x"></i>
-                <span class="title">Rehabilitation services</span>
+                <span class="title">Physiotherapy treatment </span>
             </a>
 
         </li>
@@ -145,7 +145,7 @@
                 </li>
                 <li class="nav-item  ">
                     <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
-                        <span class="title">Rehabilitation services</span>
+                        <span class="title">Physiotherapy treatment </span>
                     </a>
                 </li>
                 <li class="nav-item  ">
@@ -436,7 +436,7 @@
                                                 <option value="2" >Assessments</option>
                                                 <option value="3" >Disabilities</option>
                                                 <option value="4" >Referral</option>
-                                                <option value="5" >Rehabilitation register</option>
+                                                <option value="5" >Physiotherapy treatment </option>
                                                 <option value="6" >Orthopedic register</option>
                                                 <option value="7" >Beneficiaries</option>
                                                 <option value="8" > Social needs/Support</option>

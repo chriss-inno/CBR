@@ -189,6 +189,7 @@ class BackupExportController extends Controller
                 $xml.= "<family_size><![CDATA[".$beneficiary->family_size."]]></family_size>";
                 $xml.= "<number_females><![CDATA[".$beneficiary->number_females."]]></number_females>";
                 $xml.= "<number_male><![CDATA[".$beneficiary->number_male."]]></number_male>";
+                $xml.= "<diagnosis><![CDATA[".$beneficiary->diagnosis."]]></diagnosis>";
                 $xml.= "<address><![CDATA[".$beneficiary->address."]]></address>";
                 $xml.= "<nationality><![CDATA[".$beneficiary->nationality."]]></nationality>";
                 $xml.= "</Beneficiary>";
@@ -213,6 +214,7 @@ class BackupExportController extends Controller
                 $xml.= "<family_size><![CDATA[".$beneficiary->family_size."]]></family_size>";
                 $xml.= "<number_females><![CDATA[".$beneficiary->number_females."]]></number_females>";
                 $xml.= "<number_male><![CDATA[".$beneficiary->number_male."]]></number_male>";
+				$xml.= "<diagnosis><![CDATA[".$beneficiary->diagnosis."]]></diagnosis>";
                 $xml.= "<address><![CDATA[".$beneficiary->address."]]></address>";
                 $xml.= "<nationality><![CDATA[".$beneficiary->nationality."]]></nationality>";
                 $xml.= "</Beneficiary>";
@@ -294,6 +296,7 @@ class BackupExportController extends Controller
                 $xml.= "<family_size><![CDATA[".$beneficiary->family_size."]]></family_size>";
                 $xml.= "<number_females><![CDATA[".$beneficiary->number_females."]]></number_females>";
                 $xml.= "<number_male><![CDATA[".$beneficiary->number_male."]]></number_male>";
+				$xml.= "<diagnosis><![CDATA[".$beneficiary->diagnosis."]]></diagnosis>";
                 $xml.= "<address><![CDATA[".$beneficiary->address."]]></address>";
                 $xml.= "<nationality><![CDATA[".$beneficiary->nationality."]]></nationality>";
                 $xml.= "</Beneficiary>";
@@ -788,6 +791,7 @@ class BackupExportController extends Controller
                     $xml.= "<family_size><![CDATA[".$beneficiary->family_size."]]></family_size>";
                     $xml.= "<number_females><![CDATA[".$beneficiary->number_females."]]></number_females>";
                     $xml.= "<number_male><![CDATA[".$beneficiary->number_male."]]></number_male>";
+					$xml.= "<diagnosis><![CDATA[".$beneficiary->diagnosis."]]></diagnosis>";
                     $xml.= "<address><![CDATA[".$beneficiary->address."]]></address>";
                     $xml.= "<nationality><![CDATA[".$beneficiary->nationality."]]></nationality>";
                 $xml.= "</Beneficiary>";
@@ -823,6 +827,7 @@ class BackupExportController extends Controller
                         $xml.= "<family_size><![CDATA[".$beneficiary->family_size."]]></family_size>";
                         $xml.= "<number_females><![CDATA[".$beneficiary->number_females."]]></number_females>";
                         $xml.= "<number_male><![CDATA[".$beneficiary->number_male."]]></number_male>";
+						$xml.= "<diagnosis><![CDATA[".$beneficiary->diagnosis."]]></diagnosis>";
                         $xml.= "<address><![CDATA[".$beneficiary->address."]]></address>";
                         $xml.= "<nationality><![CDATA[".$beneficiary->nationality."]]></nationality>";
                     $xml.= "</Beneficiary>";
@@ -913,6 +918,7 @@ class BackupExportController extends Controller
                             $xml.= "<family_size><![CDATA[".$beneficiary->family_size."]]></family_size>";
                             $xml.= "<number_females><![CDATA[".$beneficiary->number_females."]]></number_females>";
                             $xml.= "<number_male><![CDATA[".$beneficiary->number_male."]]></number_male>";
+							$xml.= "<diagnosis><![CDATA[".$beneficiary->diagnosis."]]></diagnosis>";
                             $xml.= "<address><![CDATA[".$beneficiary->address."]]></address>";
                             $xml.= "<nationality><![CDATA[".$beneficiary->nationality."]]></nationality>";
                         $xml.= "</Beneficiary>";

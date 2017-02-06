@@ -48,7 +48,7 @@
         <li class="nav-item start active open ">
             <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
                 <i class="fa fa-cogs fa-2x"></i>
-                <span class="title">Rehabilitation services</span>
+                <span class="title">Physiotherapy treatment </span>
             </a>
 
         </li>
@@ -145,7 +145,7 @@
                 </li>
                 <li class="nav-item  ">
                     <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
-                        <span class="title">Rehabilitation services</span>
+                        <span class="title">Physiotherapy treatment </span>
                     </a>
                 </li>
                 <li class="nav-item  ">
@@ -402,7 +402,7 @@
                     <div class="row">
                         <div class="col-md-12 pull-right">
                             <div class="btn-group pull-right">
-                                <a href="{{url('rehabilitation/services')}}" class=" btn blue-madison"><i class="fa fa-users"></i> Rehabilitation Register</a>
+                                <a href="{{url('rehabilitation/services')}}" class=" btn blue-madison"><i class="fa fa-users"></i> Physiotherapy treatment </a>
                                 <a href="{{url('rehabilitation/services/progress')}}" class="btn blue-madison"><i class="fa fa-refresh"></i> Rehabilitation progress</a>
                                 <a href="{{url('excel/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
                             </div>

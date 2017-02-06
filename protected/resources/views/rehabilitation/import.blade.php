@@ -48,7 +48,7 @@
         <li class="nav-item start active open ">
             <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
                 <i class="fa fa-cogs fa-2x"></i>
-                <span class="title">Rehabilitation services</span>
+                <span class="title">Physiotherapy treatment </span>
             </a>
 
         </li>
@@ -145,7 +145,7 @@
                 </li>
                 <li class="nav-item  ">
                     <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
-                        <span class="title">Rehabilitation services</span>
+                        <span class="title">Physiotherapy treatment </span>
                     </a>
                 </li>
                 <li class="nav-item  ">
@@ -322,7 +322,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Rehabilitation register</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Physiotherapy treatment </span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -419,11 +419,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('rehabilitation/services')}}">Rehabilitation services </a>
+            <a href="{{url('rehabilitation/services')}}">Physiotherapy treatment  </a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Rehabilitation register </span>
+            <span class="active">Physiotherapy treatment  </span>
         </li>
     </ul>
 @stop
@@ -441,7 +441,7 @@
                         <div class="row">
                             <div class="col-md-12 pull-right">
                                 <div class="btn-group pull-right">
-                                    <a href="{{url('rehabilitation/services')}}" class=" btn blue-madison"><i class="fa fa-users"></i> Rehabilitation Register</a>
+                                    <a href="{{url('rehabilitation/services')}}" class=" btn blue-madison"><i class="fa fa-users"></i> Physiotherapy treatment </a>
                                     <a href="{{url('rehabilitation/services/progress')}}" class="btn blue-madison"><i class="fa fa-refresh"></i> Rehabilitation progress</a>
                                     <a href="{{url('excel/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
                                 </div>
@@ -457,7 +457,7 @@
                             {!! Form::open(array('url'=>'excel/rehabilitation/services','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
                             <div class="form-body">
                                 <div class="form-group">
-                                    <label>Import rehabilitation register details from MS Excel <a href={{asset("assets/templates/rehabilitation_register_template.xls")}}>Download template here</a> </label>
+                                    <label>Import Physiotherapy treatment  details from MS Excel <a href={{asset("assets/templates/rehabilitation_register_template.xls")}}>Download template here</a> </label>
                                     <input TYPE="file" class="form-control" name="clients_file" id="clients_file">
                                     @if($errors->first('clients_file') !="")
                                         <span class=" error">{{ $errors->first('clients_file') }}</span>
@@ -466,7 +466,7 @@
                                 <hr/>
                                 <div class="row text-center">
                                     <div class="col-md-4 col-sm-4">
-                                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Import rehabilitation register details </button>
+                                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Import Physiotherapy treatment  details </button>
                                     </div>
 
                                 </div>

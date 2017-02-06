@@ -27,14 +27,14 @@
         <li class="nav-item ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-puzzle"></i>
-                <span class="title"> Rehabilitation services </span>
+                <span class="title"> Physiotherapy treatment  </span>
                 <span class="arrow"></span>
                 <span class="selected"></span>
             </a>
             <ul class="sub-menu">
                 <li class="nav-item  ">
                     <a href="{{url('rehabilitation/services')}}" class="nav-link ">
-                        <span class="title">Rehabilitation register </span>
+                        <span class="title">Physiotherapy treatment  </span>
                     </a>
                 </li>
                 <li class="nav-item  ">
@@ -88,7 +88,7 @@
                 </li>
                 <li class="nav-item  ">
                     <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
-                        <span class="title">Rehabilitation services</span>
+                        <span class="title">Physiotherapy treatment </span>
                     </a>
                 </li>
                 <li class="nav-item  ">
@@ -265,7 +265,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Rehabilitation register</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Physiotherapy treatment </span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';

@@ -440,6 +440,7 @@ class BackupImportController extends Controller
                             $beneficiary->code = $ben->code;
                             $beneficiary->age = $ben->age;
                             $beneficiary->sex = $ben->sex;
+                            $beneficiary->diagnosis = $ben->diagnosis;
                             $beneficiary->family_size = $ben->family_size;
                             $beneficiary->number_females = $ben->number_females;
                             $beneficiary->number_male = $ben->number_male;
@@ -470,6 +471,7 @@ class BackupImportController extends Controller
                                 $beneficiary->code = $ben->code;
                                 $beneficiary->age = $ben->age;
                                 $beneficiary->sex = $ben->sex;
+                                $beneficiary->diagnosis = $ben->diagnosis;
                                 $beneficiary->family_size = $ben->family_size;
                                 $beneficiary->number_females = $ben->number_females;
                                 $beneficiary->number_male = $ben->number_male;
@@ -583,6 +585,7 @@ class BackupImportController extends Controller
                             $beneficiary->code = $ben->code;
                             $beneficiary->age = $ben->age;
                             $beneficiary->sex = $ben->sex;
+                            $beneficiary->diagnosis = $ben->diagnosis;
                             $beneficiary->family_size = $ben->family_size;
                             $beneficiary->number_females = $ben->number_females;
                             $beneficiary->number_male = $ben->number_male;

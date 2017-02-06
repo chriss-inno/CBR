@@ -12,6 +12,7 @@ return array(
     'AddBeneficiaryId' => $baseDir . '/database/migrations/2016_07_18_133122_addBeneficiaryId.php',
     'AddClientDisabilityFields' => $baseDir . '/database/migrations/2016_07_21_065338_add_client_disability_fields.php',
     'AddClientRegisteredDate' => $baseDir . '/database/migrations/2016_07_20_093411_add_client_registered_date.php',
+    'AddDiagnosisitoBeneficiaries' => $baseDir . '/database/migrations/2017_02_06_085437_addDiagnosisitoBeneficiaries.php',
     'AddRehabilitationId' => $baseDir . '/database/migrations/2016_10_20_081624_addRehabilitationId.php',
     'AddSocialNeedDates' => $baseDir . '/database/migrations/2016_10_20_084257_addSocialNeedDates.php',
     'Addprogressnumber2clientdisability' => $baseDir . '/database/migrations/2016_08_28_214945_addprogressnumber2clientdisability.php',

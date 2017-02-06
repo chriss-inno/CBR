@@ -51,7 +51,7 @@
         <li class="nav-item ">
             <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">
                 <i class="fa fa-cogs fa-2x"></i>
-                <span class="title">Rehabilitation services</span>
+                <span class="title">Physiotherapy treatment </span>
             </a>
 
         </li>
@@ -148,7 +148,7 @@
                 </li>
                 <li class="nav-item  ">
                     <a href="{{url('reports/rehabilitation/services')}}" class="nav-link ">
-                        <span class="title">Rehabilitation services</span>
+                        <span class="title">Physiotherapy treatment </span>
                     </a>
                 </li>
                 <li class="nav-item  ">
@@ -325,7 +325,7 @@
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
             modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Rehabilitation register</span>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Physiotherapy treatment </span>';
             modaldis+= '</div>';
             modaldis+= '<div class="modal-body">';
             modaldis+= ' </div>';
@@ -422,7 +422,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('rehabilitation/services')}}">Rehabilitation services</a>
+            <a href="{{url('rehabilitation/services')}}">Physiotherapy treatment </a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -437,7 +437,7 @@
                 <div class="col-md-12 pull-right">
                     <div class="btn-group pull-right">
                         <a href="{{url('reports/rehabilitation/services/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
-                        <a href="{{url('reports/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i>  Rehabilitation services Reports</a>
+                        <a href="{{url('reports/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i>  Physiotherapy treatment  Reports</a>
                     </div>
                 </div>
 

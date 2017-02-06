@@ -82,6 +82,10 @@
                     <label>Category</label>
                     <input type="text" class="form-control" name="category" id="category" value="{{$beneficiary->category}}" disabled>
                 </div>
+                <div class="form-group">
+                    <label>Diagnosis</label>
+                    <textarea  class="form-control" name="diagnosis" id="diagnosis">{{$beneficiary->diagnosis}}</textarea>
+                </div>
 
             </div>
         </div>
