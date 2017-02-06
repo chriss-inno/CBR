@@ -1,2 +1,3 @@
-git
-.idea/workspace.xml
+.idea/
+.idea/*
+
