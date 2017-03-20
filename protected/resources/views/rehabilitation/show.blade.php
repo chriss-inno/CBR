@@ -91,6 +91,28 @@
                 </tbody>
             </table>
         </div>
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-12 col-xs-12 col-lg-12">
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="col-md-3 col-xs-3 col-lg-3">Name</th>
+                        <th class="col-md-9 col-xs-9 col-lg-9"></th>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 col-xs-3 col-lg-3">Title</th>
+                        <th class="col-md-9 col-xs-9 col-lg-9"></th>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 col-xs-3 col-lg-3">Date</th>
+                        <th class="col-md-9 col-xs-9 col-lg-9"></th>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 col-xs-3 col-lg-3">Signature</th>
+                        <th class="col-md-9 col-xs-9 col-lg-9"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-8 col-sm-8 pull-left" id="output">

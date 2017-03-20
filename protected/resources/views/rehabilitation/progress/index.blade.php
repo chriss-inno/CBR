@@ -343,6 +343,7 @@
                         });
             }
         });
+
         $(".addRecord").click(function(){
             var id1 = $(this).parent().attr('id');
             var modaldis = '<div class="modal fade"   data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
@@ -392,6 +393,30 @@
             })
 
         });
+        $(".showRecord").click(function(){
+            var id1 = $(this).parent().attr('id');
+            var modaldis = '<div class="modal fade"   data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Details</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow-y','scroll');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("rehabilitation/services/show") ?>/"+id1);
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
 
         $(".deleteRecord").click(function(){
             var id1 = $(this).parent().attr('id');
@@ -422,7 +447,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span class="active">Rehabilitation progress </span>
+            <span class="active">Client Progress  </span>
         </li>
     </ul>
 @stop
@@ -434,10 +459,21 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase">Rehabilitation progress </span>
+                        <span class="caption-subject bold uppercase">Physiotherapy treatment Client Progress </span>
                     </div>
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-8 pull-right">
+                                <div class="btn-group pull-right">
+                                    <a href="{{url('rehabilitation/services/clients')}}" class=" btn blue-madison"><i class="fa fa-file"></i> Register New</a>
+                                    <a href="{{url('rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All</a>
+                                    <a href="{{url('excel/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
+                                </div>
+                            </div>
 
-            </div>
+                        </div>
+                    </div>
+                </div>
             <div class="portlet-body" >
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">Clients Details</legend>
@@ -450,7 +486,7 @@
                             <th> Sex </th>
                             <th> Age </th>
                             <th> Attending date </th>
-                            <th> Diagnosis </th>
+                            <th class="text-center"> Action </th>
                         </tr>
                         </thead>
                         <tbody id="clientsSearchResults">
@@ -503,7 +539,6 @@
                                 <div class="btn-group pull-right" id="{{$att->id}}">
                                     <a href="#" class="addRecord btn blue-madison"><i class="fa fa-file"></i> Add new record</a>
                                     <a href="{{url('rehabilitation/services/client/progress')}}/{{$att->id}}" class="btn blue-madison"><i class="fa fa-server"></i> Progress list</a>
-                                    <a href="{{url('excel/rehabilitation/services')}}" class="btn blue-madison"><i class="fa fa-database"></i> Import data</a>
                                 </div>
                             </div>
 
