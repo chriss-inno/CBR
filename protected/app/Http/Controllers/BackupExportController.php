@@ -18,7 +18,7 @@ use App\ItemsInventory;
 use App\LiveliHoodsClient;
 use App\LiveliHoodsGroup;
 use App\LiveliHoodsMaterial;
-use App\MateriaSupport;
+use App\MaterialSupport;
 use App\OrthopedicServices;
 use App\OrthopedicServicesItems;
 use App\Region;
@@ -267,7 +267,7 @@ class BackupExportController extends Controller
             }
             $xml.= "</ReceivedItems>";
             $xml.= "<MaterialSupports>";
-            foreach (MateriaSupport::all() as $disbursement)
+            foreach (MaterialSupport::all() as $disbursement)
             {
                 $beneficiary=Beneficiary::find($disbursement->beneficiary_id);
                 $xml.= "<MaterialSupport>";
@@ -890,7 +890,7 @@ class BackupExportController extends Controller
                   }
             $xml.= "</ReceivedItems>";
             $xml.= "<MaterialSupports>";
-                foreach (MateriaSupport::all() as $disbursement)
+                foreach (MaterialSupport::all() as $disbursement)
                 {
                     $beneficiary=Beneficiary::find($disbursement->beneficiary_id);
                     $xml.= "<MaterialSupport>";

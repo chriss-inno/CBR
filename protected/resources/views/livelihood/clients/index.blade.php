@@ -34,6 +34,11 @@
                     </a>
                 </li>
                 <li class="nav-item  ">
+                    <a href="{{url('protection/assessment')}}" class="nav-link ">
+                        <span class="title">Protection Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
                     <a href="{{url('disabilities')}}" class="nav-link ">
                         <span class="title">Disabilities</span>
                     </a>
@@ -318,7 +323,7 @@
         });
         $(".showRecord").click(function(){
             var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            var modaldis = '<div class="modal fade"   data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
@@ -329,7 +334,7 @@
             modaldis+= ' </div>';
             modaldis+= '</div>';
             modaldis+= '</div>';
-            $('body').css('overflow','hidden');
+            $('body').css('overflow-y','scroll');
 
             $("body").append(modaldis);
             $("#myModal").modal("show");
@@ -341,7 +346,7 @@
 
         });
         $(".addRecord").click(function(){
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            var modaldis = '<div class="modal fade"   data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
@@ -352,7 +357,7 @@
             modaldis+= ' </div>';
             modaldis+= '</div>';
             modaldis+= '</div>';
-            $('body').css('overflow','hidden');
+            $('body').css('overflow-y','scroll');
 
             $("body").append(modaldis);
             $("#myModal").modal("show");
@@ -366,7 +371,7 @@
 
         $(".editRecord").click(function(){
             var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            var modaldis = '<div class="modal fade"   data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
@@ -377,7 +382,7 @@
             modaldis+= ' </div>';
             modaldis+= '</div>';
             modaldis+= '</div>';
-            $('body').css('overflow','hidden');
+            $('body').css('overflow-y','scroll');
 
             $("body").append(modaldis);
             $("#myModal").modal("show");

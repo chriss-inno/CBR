@@ -42,6 +42,13 @@ Route::group(['middleware' => ['web']], function () {
     //Assessment roam
     Route::get('assessment/roam','ClientAssessmentController@index');
 
+    //Protection Assessments
+    Route::resource('protection/assessment','ProtectionAssessmentController');
+    Route::get('getpasprofile/{id}','ProtectionAssessmentController@getClientDetails');
+    Route::get('print/protection/assessment/{id}','ProtectionAssessmentController@printForm');
+    Route::get('download/protection/assessment/{id}','ProtectionAssessmentController@downloadForm');
+
+
     //rehabilitation services progress
     Route::get('rehabilitation/services/client/progress/{id}','RehabilitationProgressController@getProgress');
     Route::get('rehabilitation/services/progress','RehabilitationProgressController@index');
@@ -96,6 +103,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('beneficiaries/edit','BeneficiaryController@update');
     Route::get('beneficiaries/remove/{id}','BeneficiaryController@destroy');
     Route::get('beneficiaries/json','BeneficiaryController@getJSonData');
+
+    Route::post('advanced/search/beneficiaries','BeneficiaryController@advancedSearchClient');
    
     //Import 
     Route::get('excel/beneficiaries/errors','BeneficiaryController@showImportErrors');
@@ -154,7 +163,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('progress/assessment','ClientController@index');
     Route::get('getallclients','ClientController@getJSonData');
     Route::get('searchclients','ClientController@getJSonDataSearch');
-    
+    Route::post('advanced/search/clients','ClientController@advancedSearchClient');
+
     //LiveliHood
     
      //Clients
@@ -326,7 +336,7 @@ Route::group(['middleware' => ['web']], function () {
     //ItemsDisbursementController
     Route::get('inventory/disbursement','ItemsDisbursementController@index');
     Route::get('inventory/disbursement/beneficiaries','ItemsDisbursementController@showBeneficiaries');
-    Route::get('inventory/disbursement/create/{id}','ItemsDisbursementController@create');
+    Route::get('inventory/disbursement/create','ItemsDisbursementController@create');
     Route::post('inventory/disbursement/create','ItemsDisbursementController@store');
     Route::get('inventory/disbursement/edit/{id}','ItemsDisbursementController@edit');
     Route::get('inventory/disbursement/print/{id}','ItemsDisbursementController@show');
@@ -401,7 +411,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('reports/material/support','InventoryReportsController@index');
     Route::get('reports/material/support/generate','InventoryReportsController@showReportView');
-    Route::post('reports/material/support/generate','InventoryReportsController@generateReportView');
+    Route::post('reports/material/support','InventoryReportsController@store');
 
     Route::get('reports/beneficiaries','BeneficiariesReportsController@index');
     Route::get('reports/beneficiaries/generate','BeneficiariesReportsController@showReportView');

@@ -15,9 +15,10 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
-        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
+        '5c8eae4562a5728f8222149a2ee99619' => __DIR__ . '/../..' . '/app/Http/Helpers/ProtectionAssessmentsHelper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -28,6 +29,9 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'Z' => 
         array (
             'Zizaco\\Entrust\\' => 15,
+            'Zend\\Validator\\' => 15,
+            'Zend\\Stdlib\\' => 12,
+            'Zend\\Escaper\\' => 13,
         ),
         'X' => 
         array (
@@ -68,9 +72,11 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'P' => 
         array (
             'Psy\\' => 4,
+            'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'PhpParser\\' => 10,
             'PhpOffice\\PhpWord\\' => 18,
+            'PhpOffice\\Common\\' => 17,
             'Patchwork\\' => 10,
         ),
         'O' => 
@@ -104,9 +110,11 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
             'Dotenv\\' => 7,
             'Doctrine\\Instantiator\\' => 22,
             'Doctrine\\Common\\Cache\\' => 22,
+            'Doctrine\\Common\\Annotations\\' => 28,
         ),
         'C' => 
         array (
+            'Cron\\' => 5,
             'Collective\\Html\\' => 16,
             'ClassPreloader\\' => 15,
             'Carbon\\' => 7,
@@ -114,7 +122,6 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'B' => 
         array (
             'Barryvdh\\Snappy\\' => 16,
-            'Barryvdh\\DomPDF\\' => 16,
         ),
         'A' => 
         array (
@@ -132,6 +139,18 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'Zizaco\\Entrust\\' => 
         array (
             0 => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust',
+        ),
+        'Zend\\Validator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-validator/src',
+        ),
+        'Zend\\Stdlib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-stdlib/src',
+        ),
+        'Zend\\Escaper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-escaper/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -222,6 +241,10 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         array (
             0 => __DIR__ . '/..' . '/psy/psysh/src/Psy',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
@@ -233,6 +256,10 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'PhpOffice\\PhpWord\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpword/src/PhpWord',
+        ),
+        'PhpOffice\\Common\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/common/src/Common',
         ),
         'Patchwork\\' => 
         array (
@@ -256,8 +283,8 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         ),
         'Intervention\\Image\\' => 
         array (
-            0 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
-            1 => __DIR__ . '/..' . '/intervention/imagecache/src/Intervention/Image',
+            0 => __DIR__ . '/..' . '/intervention/imagecache/src/Intervention/Image',
+            1 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
         ),
         'Illuminate\\' => 
         array (
@@ -283,6 +310,14 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         array (
             0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
         ),
+        'Doctrine\\Common\\Annotations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations',
+        ),
+        'Cron\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
+        ),
         'Collective\\Html\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravelcollective/html/src',
@@ -299,10 +334,6 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-snappy/src',
         ),
-        'Barryvdh\\DomPDF\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
-        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -312,10 +343,6 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
     public static $prefixesPsr0 = array (
         'P' => 
         array (
-            'Psr\\Log\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/psr/log',
-            ),
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
@@ -372,27 +399,14 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
             array (
                 0 => __DIR__ . '/..' . '/doctrine/collections/lib',
             ),
-            'Doctrine\\Common\\Annotations\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/annotations/lib',
-            ),
             'Doctrine\\Common\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/common/lib',
             ),
         ),
-        'C' => 
-        array (
-            'Cron' => 
-            array (
-                0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src',
-            ),
-        ),
     );
 
     public static $classMap = array (
-        'Absolute_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/absolute_positioner.cls.php',
-        'Abstract_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/abstract_renderer.cls.php',
         'AddAddressAndNationality2Beneficiaries' => __DIR__ . '/../..' . '/database/migrations/2016_08_26_155203_addAddressAndNationality2Beneficiaries.php',
         'AddBeneficiaryId' => __DIR__ . '/../..' . '/database/migrations/2016_07_18_133122_addBeneficiaryId.php',
         'AddClientDisabilityFields' => __DIR__ . '/../..' . '/database/migrations/2016_07_21_065338_add_client_disability_fields.php',
@@ -402,18 +416,6 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'AddSocialNeedDates' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_084257_addSocialNeedDates.php',
         'AddStatustoOrthopedic' => __DIR__ . '/../..' . '/database/migrations/2017_02_06_093730_addStatustoOrthopedic.php',
         'Addprogressnumber2clientdisability' => __DIR__ . '/../..' . '/database/migrations/2016_08_28_214945_addprogressnumber2clientdisability.php',
-        'Adobe_Font_Metrics' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Adobe_Font_Metrics.php',
-        'Attribute_Translator' => __DIR__ . '/..' . '/dompdf/dompdf/include/attribute_translator.cls.php',
-        'Block_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/block_frame_decorator.cls.php',
-        'Block_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/block_frame_reflower.cls.php',
-        'Block_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/block_positioner.cls.php',
-        'Block_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/block_renderer.cls.php',
-        'CPDF_Adapter' => __DIR__ . '/..' . '/dompdf/dompdf/include/cpdf_adapter.cls.php',
-        'CSS_Color' => __DIR__ . '/..' . '/dompdf/dompdf/include/css_color.cls.php',
-        'Cached_PDF_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/cached_pdf_decorator.cls.php',
-        'Canvas' => __DIR__ . '/..' . '/dompdf/dompdf/include/canvas.cls.php',
-        'Canvas_Factory' => __DIR__ . '/..' . '/dompdf/dompdf/include/canvas_factory.cls.php',
-        'Cellmap' => __DIR__ . '/..' . '/dompdf/dompdf/include/cellmap.cls.php',
         'CreateBeneficiariesTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_07_183335_create_beneficiaries_table.php',
         'CreateCampsTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_16_070425_create_camps_table.php',
         'CreateCentresTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_16_070540_create_centres_table.php',
@@ -454,65 +456,19 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'CreatePSNCasesTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_26_224855_create_p_s_n_cases_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePhysiotherapyRegistersTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_24_092433_create_physiotherapy_registers_table.php',
+        'CreateProtectionAssessmentNeedsTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_10_164418_create_protection_assessment_needs_table.php',
+        'CreateProtectionAssessmentsTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_10_163301_create_protection_assessments_table.php',
         'CreateRegionsTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_16_070550_create_regions_table.php',
         'CreateRehabilitationProgressesTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_07_082116_create_rehabilitation_progresses_table.php',
         'CreateRehabilitationRegistersTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_07_062341_create_rehabilitation_registers_table.php',
         'CreateSiteSetupsTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_16_080559_create_site_setups_table.php',
         'CreateSocialNeedsTable' => __DIR__ . '/../..' . '/database/migrations/2016_07_07_203644_create_social_needs_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
-        'DOMPDF' => __DIR__ . '/..' . '/dompdf/dompdf/include/dompdf.cls.php',
-        'DOMPDF_Exception' => __DIR__ . '/..' . '/dompdf/dompdf/include/dompdf_exception.cls.php',
-        'DOMPDF_Image_Exception' => __DIR__ . '/..' . '/dompdf/dompdf/include/dompdf_image_exception.cls.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
-        'Encoding_Map' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Encoding_Map.php',
         'EntrustSetupTables' => __DIR__ . '/../..' . '/database/migrations/2016_06_12_051433_entrust_setup_tables.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
-        'Fixed_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/fixed_positioner.cls.php',
-        'Font' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font.php',
-        'Font_Binary_Stream' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Binary_Stream.php',
-        'Font_EOT' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_EOT.php',
-        'Font_EOT_Header' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_EOT_Header.php',
-        'Font_Glyph_Outline' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Glyph_Outline.php',
-        'Font_Glyph_Outline_Component' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Glyph_Outline_Component.php',
-        'Font_Glyph_Outline_Composite' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Glyph_Outline_Composite.php',
-        'Font_Glyph_Outline_Simple' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Glyph_Outline_Simple.php',
-        'Font_Header' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Header.php',
-        'Font_Metrics' => __DIR__ . '/..' . '/dompdf/dompdf/include/font_metrics.cls.php',
-        'Font_OpenType' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_OpenType.php',
-        'Font_OpenType_Table_Directory_Entry' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_OpenType_Table_Directory_Entry.php',
-        'Font_Table' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table.php',
-        'Font_Table_Directory_Entry' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_Directory_Entry.php',
-        'Font_Table_cmap' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_cmap.php',
-        'Font_Table_glyf' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_glyf.php',
-        'Font_Table_head' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_head.php',
-        'Font_Table_hhea' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_hhea.php',
-        'Font_Table_hmtx' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_hmtx.php',
-        'Font_Table_kern' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_kern.php',
-        'Font_Table_loca' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_loca.php',
-        'Font_Table_maxp' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_maxp.php',
-        'Font_Table_name' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_name.php',
-        'Font_Table_name_Record' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_name_Record.php',
-        'Font_Table_os2' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_os2.php',
-        'Font_Table_post' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_Table_post.php',
-        'Font_TrueType' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_TrueType.php',
-        'Font_TrueType_Collection' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_TrueType_Collection.php',
-        'Font_TrueType_Header' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_TrueType_Header.php',
-        'Font_TrueType_Table_Directory_Entry' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_TrueType_Table_Directory_Entry.php',
-        'Font_WOFF' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_WOFF.php',
-        'Font_WOFF_Header' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_WOFF_Header.php',
-        'Font_WOFF_Table_Directory_Entry' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Font_WOFF_Table_Directory_Entry.php',
-        'Frame' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame.cls.php',
-        'FrameList' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame.cls.php',
-        'FrameListIterator' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame.cls.php',
-        'FrameTreeIterator' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame.cls.php',
-        'FrameTreeList' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame.cls.php',
-        'Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame_decorator.cls.php',
-        'Frame_Factory' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame_factory.cls.php',
-        'Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame_reflower.cls.php',
-        'Frame_Tree' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame_tree.cls.php',
-        'GD_Adapter' => __DIR__ . '/..' . '/dompdf/dompdf/include/gd_adapter.cls.php',
         'Hamcrest\\Arrays\\IsArray' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php',
         'Hamcrest\\Arrays\\IsArrayContaining' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php',
         'Hamcrest\\Arrays\\IsArrayContainingInAnyOrder' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInAnyOrder.php',
@@ -582,21 +538,6 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'Hamcrest\\Util' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
         'Hamcrest\\Xml\\HasXPath' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
         'IlluminateQueueClosure' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
-        'Image_Cache' => __DIR__ . '/..' . '/dompdf/dompdf/include/image_cache.cls.php',
-        'Image_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/image_frame_decorator.cls.php',
-        'Image_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/image_frame_reflower.cls.php',
-        'Image_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/image_renderer.cls.php',
-        'Inline_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/inline_frame_decorator.cls.php',
-        'Inline_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/inline_frame_reflower.cls.php',
-        'Inline_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/inline_positioner.cls.php',
-        'Inline_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/inline_renderer.cls.php',
-        'Javascript_Embedder' => __DIR__ . '/..' . '/dompdf/dompdf/include/javascript_embedder.cls.php',
-        'Line_Box' => __DIR__ . '/..' . '/dompdf/dompdf/include/line_box.cls.php',
-        'List_Bullet_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/list_bullet_frame_decorator.cls.php',
-        'List_Bullet_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/list_bullet_frame_reflower.cls.php',
-        'List_Bullet_Image_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/list_bullet_image_frame_decorator.cls.php',
-        'List_Bullet_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/list_bullet_positioner.cls.php',
-        'List_Bullet_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/list_bullet_renderer.cls.php',
         'Maatwebsite\\Excel\\Classes\\Cache' => __DIR__ . '/..' . '/maatwebsite/excel/src/Maatwebsite/Excel/Classes/Cache.php',
         'Maatwebsite\\Excel\\Classes\\FormatIdentifier' => __DIR__ . '/..' . '/maatwebsite/excel/src/Maatwebsite/Excel/Classes/FormatIdentifier.php',
         'Maatwebsite\\Excel\\Classes\\LaravelExcelWorksheet' => __DIR__ . '/..' . '/maatwebsite/excel/src/Maatwebsite/Excel/Classes/LaravelExcelWorksheet.php',
@@ -650,6 +591,8 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'Nette\\NotSupportedException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Object' => __DIR__ . '/..' . '/nette/utils/src/Utils/Object.php',
         'Nette\\OutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
+        'Nette\\SmartObject' => __DIR__ . '/..' . '/nette/utils/src/Utils/SmartObject.php',
+        'Nette\\StaticClass' => __DIR__ . '/..' . '/nette/utils/src/Utils/StaticClass.php',
         'Nette\\StaticClassException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\UnexpectedValueException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\ArrayHash' => __DIR__ . '/..' . '/nette/utils/src/Utils/ArrayHash.php',
@@ -668,15 +611,16 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'Nette\\Utils\\ObjectMixin' => __DIR__ . '/..' . '/nette/utils/src/Utils/ObjectMixin.php',
         'Nette\\Utils\\Paginator' => __DIR__ . '/..' . '/nette/utils/src/Utils/Paginator.php',
         'Nette\\Utils\\Random' => __DIR__ . '/..' . '/nette/utils/src/Utils/Random.php',
+        'Nette\\Utils\\Reflection' => __DIR__ . '/..' . '/nette/utils/src/Utils/Reflection.php',
         'Nette\\Utils\\RegexpException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\Strings' => __DIR__ . '/..' . '/nette/utils/src/Utils/Strings.php',
         'Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
         'Normalizer' => __DIR__ . '/..' . '/patchwork/utf8/src/Normalizer.php',
-        'Null_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/null_frame_decorator.cls.php',
-        'Null_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/null_frame_reflower.cls.php',
-        'Null_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/null_positioner.cls.php',
-        'PDFLib_Adapter' => __DIR__ . '/..' . '/dompdf/dompdf/include/pdflib_adapter.cls.php',
+        'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
+        'PHPUnit\\Framework\\BaseTestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',
+        'PHPUnit\\Framework\\TestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestCase.php',
+        'PHPUnit\\Framework\\TestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestListener.php',
         'PHPUnit_Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit_Extensions_GroupTestSuite' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
         'PHPUnit_Extensions_PhptTestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',
@@ -875,7 +819,6 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'PHP_CodeCoverage_Report_XML_Totals' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage/Report/XML/Totals.php',
         'PHP_CodeCoverage_Util' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage/Util.php',
         'PHP_CodeCoverage_Util_InvalidArgumentHelper' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage/Util/InvalidArgumentHelper.php',
-        'PHP_Evaluator' => __DIR__ . '/..' . '/dompdf/dompdf/include/php_evaluator.cls.php',
         'PHP_Timer' => __DIR__ . '/..' . '/phpunit/php-timer/src/Timer.php',
         'PHP_Token' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_TokenWithScope' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
@@ -1005,6 +948,7 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'PHP_Token_NEW' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NS_C' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NS_SEPARATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'PHP_Token_NULLSAFE_OBJECT_OPERATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NUM_STRING' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_OBJECT_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_OBJECT_OPERATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
@@ -1042,6 +986,7 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'PHP_Token_STRING' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_STRING_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_STRING_VARNAME' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'PHP_Token_SUPER' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_SWITCH' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_Stream' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token/Stream.php',
         'PHP_Token_Stream_CachingFactory' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token/Stream/CachingFactory.php',
@@ -1056,6 +1001,7 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'PHP_Token_UNSET' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_UNSET_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_USE' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'PHP_Token_USE_FUNCTION' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_VAR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_VARIABLE' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_WHERE' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
@@ -1073,11 +1019,7 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'PHP_Token_XOR_EQUAL' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
-        'Page_Cache' => __DIR__ . '/..' . '/dompdf/dompdf/include/page_cache.cls.php',
-        'Page_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/page_frame_decorator.cls.php',
-        'Page_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/page_frame_reflower.cls.php',
-        'Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/positioner.cls.php',
-        'Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/renderer.cls.php',
+        'PclZip' => __DIR__ . '/..' . '/pclzip/pclzip/pclzip.lib.php',
         'SebastianBergmann\\Comparator\\ArrayComparator' => __DIR__ . '/..' . '/sebastian/comparator/src/ArrayComparator.php',
         'SebastianBergmann\\Comparator\\Comparator' => __DIR__ . '/..' . '/sebastian/comparator/src/Comparator.php',
         'SebastianBergmann\\Comparator\\ComparisonFailure' => __DIR__ . '/..' . '/sebastian/comparator/src/ComparisonFailure.php',
@@ -1114,25 +1056,7 @@ class ComposerStaticInit86ddc83eab99c8f84d6391c4b65b692e
         'SebastianBergmann\\RecursionContext\\Exception' => __DIR__ . '/..' . '/sebastian/recursion-context/src/Exception.php',
         'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/recursion-context/src/InvalidArgumentException.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
-        'Style' => __DIR__ . '/..' . '/dompdf/dompdf/include/style.cls.php',
-        'Stylesheet' => __DIR__ . '/..' . '/dompdf/dompdf/include/stylesheet.cls.php',
-        'TCPDF_Adapter' => __DIR__ . '/..' . '/dompdf/dompdf/include/tcpdf_adapter.cls.php',
-        'Table_Cell_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_cell_frame_decorator.cls.php',
-        'Table_Cell_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_cell_frame_reflower.cls.php',
-        'Table_Cell_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_cell_positioner.cls.php',
-        'Table_Cell_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_cell_renderer.cls.php',
-        'Table_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_frame_decorator.cls.php',
-        'Table_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_frame_reflower.cls.php',
-        'Table_Row_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_row_frame_decorator.cls.php',
-        'Table_Row_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_row_frame_reflower.cls.php',
-        'Table_Row_Group_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_row_group_frame_decorator.cls.php',
-        'Table_Row_Group_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_row_group_frame_reflower.cls.php',
-        'Table_Row_Group_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_row_group_renderer.cls.php',
-        'Table_Row_Positioner' => __DIR__ . '/..' . '/dompdf/dompdf/include/table_row_positioner.cls.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
-        'Text_Frame_Decorator' => __DIR__ . '/..' . '/dompdf/dompdf/include/text_frame_decorator.cls.php',
-        'Text_Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/text_frame_reflower.cls.php',
-        'Text_Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/include/text_renderer.cls.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'UsersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UsersTableSeeder.php',
         'Zizaco\\Entrust\\MigrationCommand' => __DIR__ . '/..' . '/zizaco/entrust/src/commands/MigrationCommand.php',

@@ -5,7 +5,6 @@
 {!! Html::style("assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" ) !!}
 {!! Html::style("assets/global/plugins/clockface/css/clockface.css" ) !!}
 {!! Html::script("assets/tinymce/js/tinymce/tinymce.min.js") !!}
-<script>tinymce.init({ selector:'textarea' });</script>
 <div class="portlet light bordered">
     <div class="portlet-body form">
         {!! Form::open(array('url'=>'beneficiaries/create','role'=>'form','id'=>'DepartmentFormUN')) !!}

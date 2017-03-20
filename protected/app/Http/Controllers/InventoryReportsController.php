@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\MateriaSupport;
+use App\MaterialSupport;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -41,7 +41,7 @@ class InventoryReportsController extends Controller
 
         if($startDate != "" && $endDate != "" ) {
             if ($request->report_type == "all") {
-                $items = MateriaSupport::whereBetween('distributed_date', $range)->get();
+                $items = MaterialSupport::whereBetween('distributed_date', $range)->get();
                     Excel::create("material_support_report", function ($excel) use ($items,$startDate,$endDate) {
                         $excel->sheet('sheet', function ($sheet) use ($items,$startDate,$endDate) {
                             $sheet->loadView('reports.inventory.detailed',compact('items','startDate','endDate'));
@@ -76,7 +76,7 @@ class InventoryReportsController extends Controller
                     })->download('xlsx');
 
             } else {
-                $items = MateriaSupport::whereBetween('distributed_date', $range)->where('item_id','=',$request->report_type)->get();
+                $items = MaterialSupport::whereBetween('distributed_date', $range)->where('item_id','=',$request->report_type)->get();
                 Excel::create("material_support_report", function ($excel) use ($items,$startDate,$endDate) {
                     $excel->sheet('sheet', function ($sheet) use ($items,$startDate,$endDate) {
                         $sheet->loadView('reports.inventory.detailed',compact('items','startDate','endDate'));
@@ -133,6 +133,156 @@ class InventoryReportsController extends Controller
     public function store(Request $request)
     {
         //
+
+        $query=\DB::table('beneficiaries');
+        $end_time ="";
+        $start_time="";
+        if($request->start_date != ""){
+            $start_time = date("Y-m-d", strtotime($request->start_date));
+        }
+        if($request->end_date != ""){
+            $end_time = date("Y-m-d", strtotime($request->end_date));
+        }
+
+        if ($request->progress_number != ""){
+
+            $query->where('progress_number','LIKE',"%{$request->progress_number}%");
+        }
+        if ($request->full_name != ""){
+
+            $query->where('full_name','LIKE',"%{$request->full_name}%");
+        }
+        if ($request->sex != "All" && $request->sex !=""){
+
+            $query->where('sex','=',$request->sex);
+        }
+        if ($request->nationality != "All" && $request->nationality !=""){
+
+            $query->where('nationality','=',$request->nationality);
+        }
+
+        if($start_time != "" && $end_time !=""){
+            $range = [$start_time, $end_time];
+            $query->whereBetween('date_registration', $range);
+        }
+        elseif($start_time != "" && $end_time ==""){
+            $query->where('date_registration', $start_time);
+        }
+        elseif($start_time == "" && $end_time !=""){
+            $query->where('date_registration', $end_time);
+        }
+        else{
+            $query->where('date_registration', null);
+        }
+
+
+
+        //Export now
+        switch ($request->report_type)
+        {
+            case 1:
+                    $query->leftjoin('material_support_items', 'beneficiaries.id', '=', 'material_support_items.beneficiary_id')
+                        ->where('material_support_items.beneficiary_id','=', null)
+                        ->select('beneficiaries.*');
+
+                    $beneficiaries = $query->get();
+
+                    if ($request->export_type == 1){
+                        return view('reports.inventory.html.distributionlist', compact('beneficiaries'));
+                    }
+                    else {
+                        \Excel::create("list_of_beneficiaries", function ($excel) use ($beneficiaries) {
+                            $excel->sheet('sheet', function ($sheet) use ($beneficiaries) {
+                                $sheet->loadView('reports.inventory.excel.distributionlist', compact('beneficiaries'));
+                                // $sheet->setAutoFilter('E2:F2');
+                            });
+                        })->download('xlsx');
+                    }
+
+                break;
+            case 2:
+                if ($request->item != "All" && $request->item !="") {
+                    $query->leftjoin('material_support_items', 'beneficiaries.id', '=', 'material_support_items.beneficiary_id')
+                        ->where('material_support_items.beneficiary_id', '=', null)
+                        ->where('material_support_items.item_id', $request->item)
+                        ->select('beneficiaries.*');
+
+                    $beneficiaries = $query->get();
+
+                    if ($request->export_type == 1) {
+                        return view('reports.inventory.html.distributionlist', compact('beneficiaries'));
+                    } else {
+                        \Excel::create("list_of_beneficiaries", function ($excel) use ($beneficiaries) {
+                            $excel->sheet('sheet', function ($sheet) use ($beneficiaries) {
+                                $sheet->loadView('reports.inventory.excel.distributionlist', compact('beneficiaries'));
+                                // $sheet->setAutoFilter('E2:F2');
+                            });
+                        })->download('xlsx');
+                    }
+                }
+                else
+                {
+                    return redirect()->back()->with("message","Please select Item");
+                }
+
+                break;
+            case 3:
+
+                $beneficiaries = $query->get();
+
+                if ($request->export_type == 1){
+                    return view('reports.inventory.html.lists', compact('beneficiaries'));
+                }
+                else {
+                    \Excel::create("list_of_beneficiaries", function ($excel) use ($beneficiaries) {
+                        $excel->sheet('sheet', function ($sheet) use ($beneficiaries) {
+                            $sheet->loadView('reports.inventory.excel.lists', compact('beneficiaries'));
+                            // $sheet->setAutoFilter('E2:F2');
+                        });
+                    })->download('xlsx');
+                }
+
+                break;
+            case 4:
+                if ($request->item != "All" && $request->item !="") {
+                    $query=\DB::table('material_support_items');
+                    if($start_time != "" && $end_time !=""){
+                        $range = [$start_time, $end_time];
+                        $query->whereBetween('distributed_date', $range);
+                    }
+                    elseif($start_time != "" && $end_time ==""){
+                        $query->where('distributed_date', $start_time);
+                    }
+                    elseif($start_time == "" && $end_time !=""){
+                        $query->where('distributed_date', $end_time);
+                    }
+                    else{
+                        $query->where('distributed_date', null);
+                    }
+                    $query->where('item_id', $request->item);
+
+                    $items = $query->get();
+
+                    if ($request->export_type == 1) {
+                        return view('reports.inventory.html.beneficiaries', compact('items'));
+                    } else {
+                        \Excel::create("list_of_beneficiaries", function ($excel) use ($items) {
+                            $excel->sheet('sheet', function ($sheet) use ($items) {
+                                $sheet->loadView('reports.inventory.excel.beneficiaries', compact('items'));
+                                // $sheet->setAutoFilter('E2:F2');
+                            });
+                        })->download('xlsx');
+                    }
+                }
+                else
+                {
+                    return redirect()->back()->with("message","Please select Item");
+                }
+                break;
+            default:
+                return redirect()->back();
+
+        }
     }
 
 

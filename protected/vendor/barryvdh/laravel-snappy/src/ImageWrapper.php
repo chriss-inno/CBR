@@ -114,16 +114,16 @@ class ImageWrapper {
      * @param $filename
      * @return static
      */
-    public function save($filename)
+    public function save($filename, $overwrite = false)
     {
 
         if ($this->html)
         {
-            $this->snappy->generateFromHtml($this->html, $filename, $this->options);
+            $this->snappy->generateFromHtml($this->html, $filename, $this->options, $overwrite);
         }
         elseif ($this->file)
         {
-            $this->snappy->generate($this->file, $filename, $this->options);
+            $this->snappy->generate($this->file, $filename, $this->options, $overwrite);
         }
 
         return $this;
@@ -146,6 +146,21 @@ class ImageWrapper {
     /**
      * Return a response with the image to show in the browser
      *
+     * @param string $filename
+     * @return \Illuminate\Http\Response
+     */
+    public function inline($filename = 'image.jpg')
+    {
+        return new Response($this->output(), 200, array(
+            'Content-Type' => 'image/jpeg',
+            'Content-Disposition' => 'inline; filename="'.$filename.'"',
+        ));
+    }
+    
+    /**
+     * Return a response with the image to show in the browser
+     *
+     * @deprecated Use inline() instead
      * @param string $filename
      * @return \Symfony\Component\HttpFoundation\Response
      */

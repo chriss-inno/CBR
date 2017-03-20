@@ -34,6 +34,11 @@
                     </a>
                 </li>
                 <li class="nav-item  ">
+                    <a href="{{url('protection/assessment')}}" class="nav-link ">
+                        <span class="title">Protection Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
                     <a href="{{url('disabilities')}}" class="nav-link ">
                         <span class="title">Disabilities</span>
                     </a>
@@ -274,19 +279,215 @@
     </ul>
 @stop
 @section('page-scripts-level1')
-    {!! Html::script("assets/global/scripts/datatable.js" ) !!}
     {!! Html::script("assets/global/plugins/datatables/datatables.min.js" ) !!}
     {!! Html::script("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js") !!}
-    {!! Html::script("assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.js" ) !!}
 @stop
 @section('page-scripts-level2')
-    {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
-    {!! Html::script("assets/pages/scripts/ui-confirmations.min.js" ) !!}
-
-
+    {!! Html::script("assets/pages/scripts/ui-confirmations.js" ) !!}
 @stop
 @section('custom-scripts')
     <script>
+        var TableDatatablesManaged = function () {
+
+            var initTable1 = function () {
+
+                var table = $('#sample_1');
+
+                // begin first table
+                table.dataTable({
+
+                    // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+                    "language": {
+                        "aria": {
+                            "sortAscending": ": activate to sort column ascending",
+                            "sortDescending": ": activate to sort column descending"
+                        },
+                        "emptyTable": "No data available in table",
+                        "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                        "infoEmpty": "No records found",
+                        "infoFiltered": "(filtered1 from _MAX_ total records)",
+                        "lengthMenu": "Show _MENU_",
+                        "search": "Search:",
+                        "zeroRecords": "No matching records found",
+                        "paginate": {
+                            "previous":"Prev",
+                            "next": "Next",
+                            "last": "Last",
+                            "first": "First"
+                        }
+                    },
+
+                    // Or you can use remote translation file
+                    //"language": {
+                    //   url: '//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Portuguese.json'
+                    //},
+
+                    // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+                    // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+                    // So when dropdowns used the scrollable div should be removed.
+                    //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+
+                    "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+                    "columnDefs": [ {
+                        "targets": 0,
+                        "orderable": false,
+                        "searchable": false
+                    }],
+
+                    "lengthMenu": [
+                        [5, 15, 20, -1],
+                        [5, 15, 20, "All"] // change per page values here
+                    ],
+                    // set the initial value
+                    "pageLength": 5,
+                    "pagingType": "bootstrap_full_number",
+                    "columnDefs": [{  // set default column settings
+                        'orderable': false,
+                        'targets': [0]
+                    }, {
+                        "searchable": false,
+                        "targets": [0]
+                    }],
+
+                    "order":false
+                    // set first column as a default sort by asc
+                    ,
+                    "fnDrawCallback": function (oSettings) {
+                        $(".editRecord").click(function(){
+                            var id1 = $(this).parent().attr('id');
+                            var modaldis = '<div class="modal fade"   data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+                            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+                            modaldis+= '<div class="modal-content">';
+                            modaldis+= '<div class="modal-header">';
+                            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+                            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item distribution</span>';
+                            modaldis+= '</div>';
+                            modaldis+= '<div class="modal-body">';
+                            modaldis+= ' </div>';
+                            modaldis+= '</div>';
+                            modaldis+= '</div>';
+                            $('body').css('overflow-y','scroll');
+
+                            $("body").append(modaldis);
+                            $("#myModal").modal("show");
+                            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+                            $(".modal-body").load("<?php echo url("inventory/disbursement/edit") ?>/"+id1);
+                            $("#myModal").on('hidden.bs.modal',function(){
+                                $("#myModal").remove();
+                            })
+
+                        });
+                        $(".showRecord").click(function(){
+                            var id1 = $(this).parent().attr('id');
+                            var modaldis = '<div class="modal fade"   data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+                            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
+                            modaldis+= '<div class="modal-content">';
+                            modaldis+= '<div class="modal-header">';
+                            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+                            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item distribution</span>';
+                            modaldis+= '</div>';
+                            modaldis+= '<div class="modal-body">';
+                            modaldis+= ' </div>';
+                            modaldis+= '</div>';
+                            modaldis+= '</div>';
+                            $('body').css('overflow-y','scroll');
+
+                            $("body").append(modaldis);
+                            $("#myModal").modal("show");
+                            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+                            $(".modal-body").load("<?php echo url("inventory/disbursement/show") ?>/"+id1);
+                            $("#myModal").on('hidden.bs.modal',function(){
+                                $("#myModal").remove();
+                            })
+
+                        });
+
+                        $(".deleteRecord").click(function(){
+                            var id1 = $(this).parent().attr('id');
+                            $(".deleteModule").show("slow").parent().parent().find("span").remove();
+                            var btn = $(this).parent().parent();
+                            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
+                            $("#no").click(function(){
+                                $(this).parent().parent().find(".deleteRecord").show("slow");
+                                $(this).parent().parent().find("span").remove();
+                            });
+                            $("#yes").click(function(){
+                                $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
+                                $.get("<?php echo url('inventory/disbursement/remove') ?>/"+id1,function(data){
+                                    btn.hide("slow").next("hr").hide("slow");
+                                });
+                            });
+                        });
+                    }
+                });
+
+                var tableWrapper = jQuery('#sample_1_wrapper');
+
+                table.find('.group-checkable').change(function () {
+                    var set = jQuery(this).attr("data-set");
+                    var checked = jQuery(this).is(":checked");
+                    jQuery(set).each(function () {
+                        if (checked) {
+                            $(this).prop("checked", true);
+                            $(this).parents('tr').addClass("active");
+                        } else {
+                            $(this).prop("checked", false);
+                            $(this).parents('tr').removeClass("active");
+                        }
+                    });
+                });
+
+                table.on('change', 'tbody tr .checkboxes', function () {
+                    $(this).parents('tr').toggleClass("active");
+                });
+            }
+
+            return {
+
+                //main function to initiate the module
+                init: function () {
+                    if (!jQuery().dataTable) {
+                        return;
+                    }
+
+                    initTable1();
+                }
+
+            };
+
+        }();
+
+        if (App.isAngularJsApp() === false) {
+            jQuery(document).ready(function() {
+                TableDatatablesManaged.init();
+            });
+        }
+        $(".addRecord").click(function(){
+            var modaldis = '<div class="modal fade"   data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
+            modaldis+= '<div class="modal-content">';
+            modaldis+= '<div class="modal-header">';
+            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Distribute Item</span>';
+            modaldis+= '</div>';
+            modaldis+= '<div class="modal-body">';
+            modaldis+= ' </div>';
+            modaldis+= '</div>';
+            modaldis+= '</div>';
+            $('body').css('overflow-y','scroll');
+
+            $("body").append(modaldis);
+            $("#myModal").modal("show");
+            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
+            $(".modal-body").load("<?php echo url("inventory/disbursement/create") ?>");
+            $("#myModal").on('hidden.bs.modal',function(){
+                $("#myModal").remove();
+            })
+
+        });
+
         function closePrint () {
             document.body.removeChild(this.__container__);
         }
@@ -309,95 +510,6 @@
             oHiddFrame.src = sURL;
             document.body.appendChild(oHiddFrame);
         }
-        $(".addRegion").click(function(){
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-plus font-blue-sharp"></i>Distribute Item</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/disbursement/create") ?>");
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-
-        $(".editRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item distribution</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/disbursement/edit") ?>/"+id1);
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-        $(".showRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-            modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
-            modaldis+= '<div class="modal-content">';
-            modaldis+= '<div class="modal-header">';
-            modaldis+= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
-            modaldis+= '<span id="myModalLabel" class="caption caption-subject font-blue-sharp bold uppercase" style="text-align: center"><i class="fa fa-edit font-blue-sharp"></i> Update item distribution</span>';
-            modaldis+= '</div>';
-            modaldis+= '<div class="modal-body">';
-            modaldis+= ' </div>';
-            modaldis+= '</div>';
-            modaldis+= '</div>';
-            $('body').css('overflow','hidden');
-
-            $("body").append(modaldis);
-            $("#myModal").modal("show");
-            $(".modal-body").html("<h3><i class='fa fa-spin fa-spinner '></i><span>loading...</span><h3>");
-            $(".modal-body").load("<?php echo url("inventory/disbursement/show") ?>/"+id1);
-            $("#myModal").on('hidden.bs.modal',function(){
-                $("#myModal").remove();
-            })
-
-        });
-
-        $(".deleteRecord").click(function(){
-            var id1 = $(this).parent().attr('id');
-            $(".deleteModule").show("slow").parent().parent().find("span").remove();
-            var btn = $(this).parent().parent();
-            $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
-            $("#no").click(function(){
-                $(this).parent().parent().find(".deleteRecord").show("slow");
-                $(this).parent().parent().find("span").remove();
-            });
-            $("#yes").click(function(){
-                $(this).parent().html("<br><i class='fa fa-spinner fa-spin'></i>deleting...");
-                $.get("<?php echo url('inventory/disbursement/remove') ?>/"+id1,function(data){
-                    btn.hide("slow").next("hr").hide("slow");
-                });
-            });
-        });
     </script>
 @stop
 @section('breadcrumb')
@@ -429,7 +541,7 @@
                         <div class="row">
                             <div class="col-md-8 pull-right">
                                 <div class="btn-group pull-right">
-                                    <a href="{{url('inventory/disbursement/beneficiaries')}}" class=" btn blue-madison"> <i class="fa fa-search"></i> Search Beneficiaries</a>
+                                    <a href="#" class="addRecord btn blue-madison"> <i class="fa fa-plus"></i> Distribute Material</a>
                                     <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All Records</a>
                                     <a href="{{url('inventory/disbursement/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
                                 </div>
@@ -444,14 +556,10 @@
                         <thead>
                         <tr>
                             <th> SNO </th>
-                            <th> Progress number </th>
-                            <th> Full Name </th>
-                            <th> Address</th>
-                            <th> Item/materials </th>
-                            <th> Quantity  </th>
-                            <th> Donor type </th>
-                            <th> Date</th>
-                            <th> </th>
+                            <th> Distribution Date</th>
+                            <th> Donor </th>
+                            <th> Distributed By</th>
+                            <th class="text-center"> Distribution details</th>
                             <th class="text-center"> Action </th>
                         </tr>
                         </thead>
@@ -462,49 +570,37 @@
                                 <tr class="odd gradeX">
                                     <td> {{$count++}} </td>
                                     <td>
-                                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null )
-                                        {{$disbursement->beneficiary->progress_number}}
-                                            @endif
-                                    </td>
-                                    <td>
-                                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null )
-                                            {{$disbursement->beneficiary->full_name}}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null )
-                                            {{$disbursement->beneficiary->address}}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if(is_object($disbursement->item) && $disbursement->item != null )
-                                            {{$disbursement->item->item_name}}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{$disbursement->quantity}}
+                                        {{$disbursement->distributed_date}}
                                     </td>
                                     <td>
                                         {{$disbursement->donor_type}}
                                     </td>
                                     <td>
-                                        {{$disbursement->distributed_date}}
+                                        {{$disbursement->distributed_by}}
                                     </td>
                                     <td class="text-center" id="{{$disbursement->id}}">
-                                        <a href="#" class="showRecord "> <i class="fa fa-eye"></i> </a>
-                                        <a href="#" class="  "> <i class="fa fa-print green " onclick="printPage('{{url('inventory/disbursement/print')}}/{{$disbursement->id}}');" ></i> </a>
-                                        <a href="{{url('inventory/disbursement/pdf')}}/{{$disbursement->id}}" class=" " title="Download"> <i class="fa fa-download text-danger "></i> </a>
+                                        <a href="#" class="showRecord btn"> <i class="fa fa-eye"></i> View</a>
+                                        <a href="#" class=" btn " onclick="printPage('{{url('inventory/disbursement/print')}}/{{$disbursement->id}}');" > <i class="fa fa-print green " ></i> Print </a>
+                                        <a href="{{url('inventory/disbursement/pdf')}}/{{$disbursement->id}}" class=" " title="Download"> <i class="fa fa-download text-danger "></i> Download</a>
                                     </td>
                                     <td class="text-center" id="{{$disbursement->id}}">
-                                        <a href="#"  class="editRecord btn"> <i class="fa fa-edit"></i> </a>
-                                        <a href="#" class="deleteRecord btn"> <i class="fa fa-trash text-danger"></i> </a>
+                                        <a href="#" class="deleteRecord btn"> <i class="fa fa-trash text-danger"></i> Delete</a>
                                     </td>
                                 </tr>
                             @endforeach
                         @endif
 
-
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <th> SNO </th>
+                            <th> Distribution Date</th>
+                            <th> Donor </th>
+                            <th> Distributed By</th>
+                            <th class="text-center"> Distribution details</th>
+                            <th class="text-center"> Action </th>
+                        </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

@@ -34,6 +34,11 @@
                     </a>
                 </li>
                 <li class="nav-item  ">
+                    <a href="{{url('protection/assessment')}}" class="nav-link ">
+                        <span class="title">Protection Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
                     <a href="{{url('disabilities')}}" class="nav-link ">
                         <span class="title">Disabilities</span>
                     </a>

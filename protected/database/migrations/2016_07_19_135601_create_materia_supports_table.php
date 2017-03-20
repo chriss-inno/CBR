@@ -12,13 +12,11 @@ class CreateMateriaSupportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('materia_supports', function (Blueprint $table) {
+        Schema::create('material_supports', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('beneficiary_id');
-            $table->string('item_id');
-            $table->integer('quantity');
-            $table->string('donor_type');
-            $table->date('distributed_date');
+            $table->string('donor_type')->nullable();
+            $table->date('distributed_date')->nullable();
+            $table->string('distributed_by')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateMateriaSupportsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('materia_supports');
+        Schema::drop('material_supports');
     }
 }

@@ -26,7 +26,7 @@
                     COMMUNITY BASED REHABILITATION PROGRAMME (CBR)<br/>
                     PROGRAMME DE REHABILITATION SUR BASE COMMUNAUTAIRE (PRBC)<br/>
                     <br/>
-                    Material Supports Form
+                    Material Supports distribution
                 </strong></h4>
         </div>
     </div>
@@ -37,77 +37,68 @@
                 <tbody>
                 <tr>
                     <th class="col-md-2 col-sm-2 col-xs-2">Date</th>
-                    <td class="col-md-10 col-sm-10 col-xs-10">
+                    <td class="col-md-3 col-sm-3 col-xs-3">
                         {{$disbursement->distributed_date}}
                     </td>
-                </tr>
-                <tr>
-                    <th class="col-md-2 col-sm-2 col-xs-2">Progress Number</th>
-                    <td class="col-md-10 col-sm-10 col-xs-10">
-                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null)
-                            {{$disbursement->beneficiary->progress_number}}
-                        @endif
+                    <th class="col-md-2 col-sm-2 col-xs-2">Donor</th>
+                    <td class="col-md-3 col-sm-3 col-xs-3">
+                        {{$disbursement->donor_type}}
+                    </td>
+                    <th class="col-md-2 col-sm-2 col-xs-2">Distributed By</th>
+                    <td class="col-md-3 col-sm-3 col-xs-3">
+                        {{$disbursement->distributed_by}}
                     </td>
                 </tr>
-                <tr>
-                    <th class="col-md-2 col-sm-2 col-xs-2">Name:</th>
-                    <td class="col-md-10 col-sm-10 col-xs-10">
-                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null)
-                            {{$disbursement->beneficiary->full_name}}
-                        @endif
-                    </td>
-                </tr>
-                <tr>
-                    <th class="col-md-2 col-sm-2 col-xs-2">Sex</th>
-                    <td class="col-md-10 col-sm-10 col-xs-10">
-                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null)
-                            {{$disbursement->beneficiary->sex}}
-                        @endif
-
-                    </td>
-                </tr>
-                <tr>
-                    <th class="col-md-2 col-sm-2 col-xs-2">Age</th>
-                    <td class="col-md-10 col-sm-10 col-xs-10">
-                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null)
-                            {{$disbursement->beneficiary->age}}
-                        @endif
-
-                    </td>
-                </tr>
-                <tr>
-                    <th class="col-md-2 col-sm-2 col-xs-2">Location/Address: </th>
-                    <td class="col-md-10 col-sm-10 col-xs-10">
-                        @if(is_object($disbursement->beneficiary) && $disbursement->beneficiary != null)
-                            {{$disbursement->beneficiary->address}}
-                        @endif
-                    </td>
-                </tr>
-
-
-                </tbody>
+             </tbody>
             </table>
 
             <table class="table table-bordered">
 
                 <tbody>
                 <tr>
-                    <th colspan="4" class="col-md-12 col-sm-12 col-xs-12 text-center">Material Supported</th>
+                    <th colspan="4" class="col-md-12 col-sm-12 col-xs-12 text-center">List of Beneficiaries Supported</th>
                 </tr>
                 <tr>
-                    <th class="col-md-2 col-sm-2 col-xs-2">SNO </th>
+                    <th>SNO </th>
+                    <th> Progress number </th>
+                    <th> Full Name</th>
+                    <th> Sex </th>
+                    <th> Age (Year)</th>
                     <th >Item/materials distributed</th>
                     <th >Quantity</th>
-                    <th >Donor type</th>
                 </tr>
+                @if(is_object($disbursement->distributions) && count($disbursement->distributions) >0)
+                    <?php $co=1;?>
+                @foreach($disbursement->distributions as $distribution)
                 <tr>
-                    <td class="col-md-2 col-sm-2 col-xs-2">1. </td>
-                    <td >@if(is_object($disbursement->item) && $disbursement->item != null )
-                            {{$disbursement->item->item_name}}
+                    <td >{{$co++}} </td>
+                    <td>
+                        @if(is_object($distribution->beneficiary) && $distribution->beneficiary != null)
+                        {{ $distribution->beneficiary->progress_number}}
+                            @endif
+                    </td>
+                    <td>
+                        @if(is_object($distribution->beneficiary) && $distribution->beneficiary != null)
+                            {{ $distribution->beneficiary->full_name}}
+                        @endif
+                    </td>
+                    <td>
+                        @if(is_object($distribution->beneficiary) && $distribution->beneficiary != null)
+                            {{ $distribution->beneficiary->sex}}
+                        @endif
+                    </td>
+                    <td>
+                        @if(is_object($distribution->beneficiary) && $distribution->beneficiary != null)
+                            {{ $distribution->beneficiary->age}}
+                        @endif
+                    </td>
+                    <td >@if(is_object($distribution->item) && $distribution->item != null )
+                            {{$distribution->item->item_name}}
                         @endif</td>
-                    <td >{{ $disbursement->quantity}}</td>
-                    <td >{{ $disbursement->donor_type}}</td>
+                    <td >{{ $distribution->quantity}}</td>
                 </tr>
+                    @endforeach
+                    @endif
 
                 </tbody>
             </table>

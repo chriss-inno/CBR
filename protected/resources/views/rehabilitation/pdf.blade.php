@@ -83,7 +83,7 @@
             <table class="table  table-bordered">
                 <thead>
                 <tr>
-                    <th colspan="5" align="center" class="text-center">Rehabilitation Progress Monitoring</th>
+                    <th colspan="5" align="center" class="text-center">Client Progress</th>
                 </tr>
                 <tr>
                     <th> SNO </th>

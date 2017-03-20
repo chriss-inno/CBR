@@ -5,6 +5,12 @@
 @section('page-style')
     {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
     {!! Html::style("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css") !!}
+    {!! Html::style("assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/clockface/css/clockface.css" ) !!}
+    {!! Html::script("assets/tinymce/js/tinymce/tinymce.min.js") !!}
 @stop
 @section('menu-sidebar')
     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
@@ -31,6 +37,11 @@
                 </li> <li class="nav-item  ">
                     <a href="{{url('assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('protection/assessment')}}" class="nav-link ">
+                        <span class="title">Protection Assessment</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
@@ -283,9 +294,15 @@
     {!! Html::script("assets/pages/scripts/table-datatables-managed.min.js" ) !!}
     {!! Html::script("assets/pages/scripts/ui-confirmations.min.js" ) !!}
 
+
 @stop
 @section('custom-scripts')
     {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/clockface/js/clockface.js" ) !!}
+    {!! Html::script("assets/pages/scripts/components-date-time-pickers.min.js" ) !!}
     <script>
         $("#SearchForm").validate({
             rules: {
@@ -317,7 +334,7 @@
             }
         });
         $(".addRecord").click(function(){
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            var modaldis = '<div class="modal fade"   data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:70%;margin-right: 15% ;margin-left: 15%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
@@ -328,7 +345,7 @@
             modaldis+= ' </div>';
             modaldis+= '</div>';
             modaldis+= '</div>';
-            $('body').css('overflow','hidden');
+            $('body').css('overflow-y','scroll');
 
             $("body").append(modaldis);
             $("#myModal").modal("show");
@@ -342,7 +359,7 @@
 
         $(".editRecord").click(function(){
             var id1 = $(this).parent().attr('id');
-            var modaldis = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+            var modaldis = '<div class="modal fade"   data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
             modaldis+= '<div class="modal-dialog" style="width:60%;margin-right: 20% ;margin-left: 20%">';
             modaldis+= '<div class="modal-content">';
             modaldis+= '<div class="modal-header">';
@@ -353,7 +370,7 @@
             modaldis+= ' </div>';
             modaldis+= '</div>';
             modaldis+= '</div>';
-            $('body').css('overflow','hidden');
+            $('body').css('overflow-y','scroll');
 
             $("body").append(modaldis);
             $("#myModal").modal("show");
@@ -442,7 +459,6 @@
                             <div class="col-md-12 pull-right">
                                 <div class="col-md-8 pull-right">
                                     <div class="btn-group pull-right">
-                                        <a href="{{url('inventory/disbursement/beneficiaries')}}" class=" btn blue-madison"> <i class="fa fa-search"></i> Search Beneficiaries</a>
                                         <a href="{{url('inventory/disbursement')}}" class="btn blue-madison"><i class="fa fa-server"></i> List All Records</a>
                                         <a href="{{url('inventory/disbursement/import')}}" class="btn blue-madison"><i class="fa fa-download"></i> Import data</a>
                                     </div>
@@ -458,6 +474,26 @@
                         <div class="portlet-body form">
                             {!! Form::open(array('url'=>'inventory/disbursement/import','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
                             <div class="form-body">
+                                <fieldset class="scheduler-border">
+                                    <legend class="text-bold"><h3 class="text-center text-bold">Distribution Details</h3></legend>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+                                                <label>Date</label>
+                                                <input type="text" class="form-control date-picker" readonly  name="distributed_date" id="distributed_date" data-date-format="yyyy-mm-dd" data-date-viewmode="years" data-date-end-date="+0d">
+                                            </div>
+                                            <div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
+                                                <label>Distributed by</label>
+                                                <input type="text" class="form-control" name="distributed_by" id="distributed_by">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Donor</label>
+                                        <input type="text" class="form-control" name="donor_type" id="donor_type">
+                                    </div>
+                                </fieldset>
                                 <div class="form-group">
                                     <label>Import material support distribution details from MS Excel <a href={{asset("assets/templates/material_support_template.xls")}}> Download template here</a> </label>
                                     <input TYPE="file" class="form-control" name="clients_file" id="clients_file">
@@ -467,8 +503,11 @@
                                 </div>
                                 <hr/>
                                 <div class="row text-center">
-                                    <div class="col-md-4 col-sm-4">
+                                    <div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
                                         <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Import </button>
+                                    </div>
+                                    <div class="col-md-2 col-sm-2">
+                                        <button type="reset" class="btn btn-default btn-block"><i class="fa fa-refresh"></i> Reset </button>
                                     </div>
 
                                 </div>

@@ -165,12 +165,7 @@
                    <tr>
                        <td><?php echo $assessment->treatment; ?></td>
                    </tr>
-                   <tr>
-                       <th>Functional assessment:</th>
-                   </tr>
-                   <tr>
-                       <td><?php echo $assessment->functional_assessment; ?></td>
-                   </tr>
+
                 </tbody>
             </table>
             <table class="table table-bordered">

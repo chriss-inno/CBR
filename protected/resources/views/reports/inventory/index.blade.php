@@ -7,6 +7,14 @@
     {!! Html::style("assets/global/plugins/morris/morris.css" ) !!}
     {!! Html::style("assets/global/plugins/fullcalendar/fullcalendar.min.css" ) !!}
     {!! Html::style("assets/global/plugins/jqvmap/jqvmap/jqvmap.css" ) !!}
+    {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css") !!}
+    {!! Html::style("assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/clockface/css/clockface.css" ) !!}
+    {!! Html::script("assets/tinymce/js/tinymce/tinymce.min.js") !!}
 @stop
 @section('menu-sidebar')
     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
@@ -33,6 +41,11 @@
                 </li> <li class="nav-item  ">
                     <a href="{{url('assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="{{url('protection/assessment')}}" class="nav-link ">
+                        <span class="title">Protection Assessment</span>
                     </a>
                 </li>
                 <li class="nav-item  ">
@@ -313,6 +326,13 @@
     {!! Html::script("assets/highcharts/js/modules/exporting.js") !!}
 @stop
 @section('custom-scripts')
+    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/clockface/js/clockface.js" ) !!}
+    {!! Html::script("assets/pages/scripts/components-date-time-pickers.min.js" ) !!}
+
     <script>
         $('#containerBeneficiaries').highcharts({
             chart: {
@@ -373,7 +393,7 @@
                         $monthData="";
                         for($i=1; $i<= 12; $i++)
                         {
-                            $MonthCount.=count(\App\MateriaSupport::where('item_id','=',$item->id)
+                            $MonthCount.=count(\App\MaterialSupportItem::where('item_id','=',$item->id)
                                             ->where(\DB::raw('Month(distributed_date)'),'=',$i)
                                             ->where(\DB::raw('Year(distributed_date)'),'=',date('Y'))->get()).",";
                         }
@@ -388,7 +408,18 @@
 
             series: [<?php echo $seriesdata;?>]
         });
-
+        $("#formItemsDistributionReport").validate({
+            rules: {
+                start_date: "required",
+                report_type: "required",
+                export_type: "required"
+            },
+            messages: {
+                start_date: "Please field is required",
+                report_type: "Please field is required",
+                export_type: "Please field is required"
+            }
+        });
     </script>
 @stop
 @section('breadcrumb')
@@ -410,13 +441,14 @@
     <div class="row widget-row">
         <div class="col-md-12 pull-right">
             <div class="btn-group pull-right">
-                <a href="{{url('reports/material/support/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
+                <a href="{{url('reports/material/support')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
                 <a href="{{url('reports/material/support')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Material support Reports</a>
             </div>
 
         </div>
 
     </div>
+@include('reports.inventory.searchForm')
     <div class="row widget-row">
         <div class="col-md-12">
             <div id="containerBeneficiaries" style="min-width: 310px; height: 400px; margin: 0 auto"></div>

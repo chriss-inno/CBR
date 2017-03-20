@@ -29,6 +29,78 @@ class BeneficiaryController extends Controller
         $beneficiaries=Beneficiary::all()->take(10);
         return view('beneficiaries.index',compact('beneficiaries'));
     }
+    public function advancedSearchClient(Request $request)
+    {
+        try {
+            $query=\DB::table('beneficiaries');
+            $end_time ="";
+            $start_time="";
+            if($request->start_date != ""){
+                $start_time = date("Y-m-d", strtotime($request->start_date));
+            }
+            if($request->end_date != ""){
+                $end_time = date("Y-m-d", strtotime($request->end_date));
+            }
+            if($request->progress_number != ""){
+                $query->where('progress_number','LIKE',"%{$request->progress_number}%");
+            }
+            if($request->full_name != ""){
+                $query->where('full_name','LIKE',"%{$request->full_name}%");
+            }
+            if($request->sex != "" && $request->sex != "All"){
+                $query->where('sex','=',"$request->sex");
+            }
+            if($request->nationality != "" && $request->nationality != "All"){
+                $query->where('nationality','LIKE',"%{$request->nationality}%");
+            }
+            if($request->address != ""){
+                $query->where('address','LIKE',"%{$request->address}%");
+            }
+            if($request->category != ""){
+                $query->where('category','LIKE',"%{$request->category}%");
+            }
+            if($start_time != "" && $end_time !=""){
+                $range = [$start_time, $end_time];
+                $query->whereBetween('date_registration', $range);
+            }
+            elseif($start_time != "" && $end_time ==""){
+                $query->where('date_registration', $start_time);
+            }
+            elseif($start_time == "" && $end_time !=""){
+                $query->where('date_registration', $end_time);
+            }
+
+            $beneficiaries = $query->get();
+
+            $records = array();
+
+            $count = 1;
+            foreach ($beneficiaries as $beneficiary) {
+                $camp = "";
+                $records[] = array(
+                    $count++,
+                    $beneficiary->progress_number,
+                    $beneficiary->full_name,
+                    $beneficiary->sex,
+                    $beneficiary->age,
+                    $beneficiary->nationality,
+                    $beneficiary->address,
+                    '<label><input type="radio" name="beneficiary_id" value="' . $beneficiary->id . ' " onclick="getPSNProfile(this.value);"></label>',
+                );
+            }
+
+            echo json_encode($records);
+        }
+        catch (\Exception $ex)
+        {
+            return Response::json(array(
+                'success' => false,
+                'errors' => 1,
+                'messagge' => $ex->getMessage()
+            ), 402); // 400 being the HTTP code for an invalid request.
+        }
+
+    }
 
     //
     public function getJSonData()
@@ -47,11 +119,12 @@ class BeneficiaryController extends Controller
 
             $records["data"][] = array(
                 $count++,
+                $beneficiary->date_registration,
                 $beneficiary->progress_number,
                 $beneficiary->full_name,
                 $beneficiary->age,
                 $beneficiary->sex,
-                $beneficiary->category,
+                $beneficiary->diagnosis,
                 $beneficiary->code,
                 $beneficiary->address,
                 $beneficiary->nationality,

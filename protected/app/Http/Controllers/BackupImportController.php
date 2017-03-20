@@ -18,7 +18,7 @@ use App\ItemsInventory;
 use App\LiveliHoodsClient;
 use App\LiveliHoodsGroup;
 use App\LiveliHoodsMaterial;
-use App\MateriaSupport;
+use App\MaterialSupport;
 use App\OrthopedicServices;
 use App\OrthopedicServicesItems;
 use App\Region;
@@ -640,8 +640,8 @@ class BackupImportController extends Controller
                             $item_id=$item->id;
                         }
 
-                        if(!count(MateriaSupport::where('distributed_date','=',$itm->distributed_date)->where('quantity','=',$itm->quantity)->where('item_id','=',$item_id)->where('donor_type','=',$itm->donor_type)->where('beneficiary_id','=',$ben_id)->get()) > 0){
-                            $item=new MateriaSupport;
+                        if(!count(MaterialSupport::where('distributed_date','=',$itm->distributed_date)->where('quantity','=',$itm->quantity)->where('item_id','=',$item_id)->where('donor_type','=',$itm->donor_type)->where('beneficiary_id','=',$ben_id)->get()) > 0){
+                            $item=new MaterialSupport;
                             $item->donor_type=$itm->donor_type;
                             $item->item_id=$item_id;
                             $item->quantity=$itm->quantity;

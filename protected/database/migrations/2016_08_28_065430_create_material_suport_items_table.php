@@ -12,12 +12,18 @@ class CreateMaterialSuportItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('material_suport_items', function (Blueprint $table) {
+        Schema::create('material_support_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('support_id');
-            $table->string('item');
+            $table->integer('support_id')->unsigned()->nullable();
+            $table->integer('beneficiary_id')->unsigned()->nullable();
+            $table->integer('item_id')->unsigned()->nullable();
             $table->integer('quantity');
+            $table->date('distributed_date')->nullable();
             $table->timestamps();
+            $table->foreign('support_id')->references('id')->on('material_supports')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('beneficiary_id')->references('id')->on('beneficiaries')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -28,6 +34,6 @@ class CreateMaterialSuportItemsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('material_suport_items');
+        Schema::drop('material_support_items');
     }
 }

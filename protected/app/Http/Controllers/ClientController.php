@@ -18,6 +18,7 @@ use App\Http\Requests;
 use App\Http\Requests\ClientRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ClientController extends Controller
@@ -38,6 +39,82 @@ class ClientController extends Controller
         //
         $clients=Client::orderBy('first_name','ASC')->get()->take(10);
         return view('clients.index',compact('clients'));
+    }
+    public function advancedSearchClient(Request $request)
+    {
+        try {
+            $query=\DB::table('clients');
+            $end_time ="";
+            $start_time="";
+            if($request->start_date != ""){
+                $start_time = date("Y-m-d", strtotime($request->start_date));
+            }
+            if($request->end_date != ""){
+                $end_time = date("Y-m-d", strtotime($request->end_date));
+            }
+            if($request->file_number != ""){
+                $query->where('file_number','LIKE',"%{$request->file_number}%");
+            }
+            if($request->full_name != ""){
+                $query->where('full_name','LIKE',"%{$request->full_name}%");
+            }
+            if($request->sex != "" && $request->sex != "All"){
+                $query->where('sex','=',"$request->sex");
+            }
+            if($request->nationality != "" && $request->nationality != "All"){
+                $query->where('nationality','LIKE',"%{$request->nationality}%");
+            }
+            if($request->address != ""){
+                $query->where('address','LIKE',"%{$request->address}%");
+            }
+            if($request->camp_id != "" && $request->camp_id !="All"){
+                $query->where('camp_id','=',"$request->camp_id");
+            }
+            if($start_time != "" && $end_time !=""){
+                $range = [$start_time, $end_time];
+                $query->whereBetween('date_registered', $range);
+            }
+            elseif($start_time != "" && $end_time ==""){
+                $query->where('date_registered', $start_time);
+            }
+            elseif($start_time == "" && $end_time !=""){
+                $query->where('date_registered', $end_time);
+            }
+
+            $clients = $query->get();
+
+            $records = array();
+
+            $count = 1;
+            foreach ($clients as $client) {
+                $camp = "";
+                if (is_object(Client::find($client->id)->camp) && Client::find($client->id)->camp != null) {
+                    $camp = Client::find($client->id)->camp->camp_name;
+                }
+                $records[] = array(
+                    $count++,
+                    $client->file_number,
+                    $client->full_name,
+                    $client->sex,
+                    $client->age,
+                    $client->nationality,
+                    $client->address,
+                    $camp,
+                    '<label><input type="radio" name="client_id" value="' . $client->id . ' " onclick="getPSNProfile(this.value);"></label>',
+                );
+            }
+
+            echo json_encode($records);
+        }
+        catch (\Exception $ex)
+        {
+            return Response::json(array(
+                'success' => false,
+                'errors' => 1,
+                'messagge' => $ex->getMessage()
+            ), 402); // 400 being the HTTP code for an invalid request.
+        }
+
     }
     public function getJSonData()
     {
