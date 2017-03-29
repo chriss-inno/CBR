@@ -160,6 +160,10 @@ class InventoryReportsController extends Controller
 
             $query->where('nationality','=',$request->nationality);
         }
+        if ($request->diagnosis != ""){
+
+            $query->where('diagnosis','LIKE',"%{$request->diagnosis}%");
+        }
 
         if($start_time != "" && $end_time !=""){
             $range = [$start_time, $end_time];
@@ -171,9 +175,7 @@ class InventoryReportsController extends Controller
         elseif($start_time == "" && $end_time !=""){
             $query->where('date_registration', $end_time);
         }
-        else{
-            $query->where('date_registration', null);
-        }
+
 
 
 

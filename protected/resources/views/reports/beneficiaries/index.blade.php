@@ -7,6 +7,14 @@
     {!! Html::style("assets/global/plugins/morris/morris.css" ) !!}
     {!! Html::style("assets/global/plugins/fullcalendar/fullcalendar.min.css" ) !!}
     {!! Html::style("assets/global/plugins/jqvmap/jqvmap/jqvmap.css" ) !!}
+    {!! Html::style("assets/global/plugins/datatables/datatables.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css") !!}
+    {!! Html::style("assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" ) !!}
+    {!! Html::style("assets/global/plugins/clockface/css/clockface.css" ) !!}
+    {!! Html::script("assets/tinymce/js/tinymce/tinymce.min.js") !!}
 @stop
 @section('menu-sidebar')
     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
@@ -145,7 +153,7 @@
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('reports/assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment roam</span>
                     </a>
@@ -160,7 +168,7 @@
                         <span class="title">Orthopedic services</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item active ">
                     <a href="{{url('reports/material/support')}}" class="nav-link ">
                         <span class="title">Material support</span>
                     </a>
@@ -318,14 +326,20 @@
     {!! Html::script("assets/highcharts/js/modules/exporting.js") !!}
 @stop
 @section('custom-scripts')
-    <script>
+    {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/clockface/js/clockface.js" ) !!}
+    {!! Html::script("assets/pages/scripts/components-date-time-pickers.min.js" ) !!}
 
+    <script>
         $('#containerBeneficiaries').highcharts({
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Monthly  Beneficiaries Registration country wise for {{date("Y")}}'
+                text: 'Monthly Beneficiaries registration {{date("Y")}}'
             },
             credits: {
                 enabled: false
@@ -351,79 +365,7 @@
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Number of clients'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            <?php
-                    $series="";
-                    foreach (\App\Country::orderBy('country_name','ASC')->get() as $country) {
-
-                        $series .="{";
-                        $series .=" name: '".$country->country_name."',";
-
-                        $MonthCount="";
-                        $monthData="";
-                        for($i=1; $i<= 12; $i++)
-                        {
-                            $MonthCount.=count(\App\Beneficiary::where('nationality','=',$country->country_name)->where(\DB::raw('Month(date_registration)'),'=',$i)->where(\DB::raw('Year(date_registration)'),'=',date('Y'))->get()).",";
-                        }
-                        $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
-                        $series .=" data:[".$monthData."]";
-                        $series .=" },";
-
-                    }
-                    $seriesdata=substr($series,0,strlen($series)-1);
-
-                    ?>
-
-            series: [<?php echo $seriesdata;?>]
-        });
-        $('#container').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Monthly  Clients Registration country wise for {{date("Y")}}'
-            },
-            credits: {
-                enabled: false
-            },
-
-            xAxis: {
-                categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Number of beneficiaries'
+                    text: 'Number of Beneficiaries'
                 }
             },
             tooltip: {
@@ -436,86 +378,45 @@
             },
             plotOptions: {
                 column: {
-                    pointPadding: 0.2,
+                    pointPadding: 0.0,
                     borderWidth: 0
                 }
             },
             <?php
-                    $series1="";
-                    foreach (\App\Country::orderBy('country_name','ASC')->get() as $country) {
+                $series="";
 
-                        $series1 .="{ ";
-                        $series1 .=" name: '".$country->country_name."',";
 
-                        $MonthCount="";
-                        $monthData="";
-                        for($i=1; $i<= 12; $i++)
-                        {
-                            $MonthCount.=count(\App\Client::where('nationality','=',$country->country_name)->where(\DB::raw('Month(date_registered)'),'=',$i)->where(\DB::raw('Year(date_registered)'),'=',date('Y'))->get()).",";
-                        }
-                        $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
-                        $series1 .=" data:[".$monthData."]";
-                        $series1 .="  },";
+                    $series .="{";
+                    $series .=" name: 'Beneficiaries',";
 
-                    }
-                    $seriesdata1=substr($series1,0,strlen($series1)-1);
-
-                    ?>
-
-            series: [<?php echo $seriesdata1;?>]
-        });
-        $('#containerPie').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: 'Beneficiaries '
-            },
-            credits: {
-                enabled: false
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                        style: {
-                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                        }
-                    }
-                }
-            },
-            @if(count(\App\Beneficiary::all()) >0)
-            <?php
-                    $scollection="";
-                    $sdata="";
-                    foreach (\App\Country::all() as $count)
+                    $MonthCount="";
+                    $monthData="";
+                    for($i=1; $i<= 12; $i++)
                     {
-                        $seriesdata="{
-                    name: '$count->country_name',
-                    y: ".count(\App\Beneficiary::where('nationality','=',$count->country_name)->get())."
-                      }
-                      ";
-                        $scollection .= $seriesdata.",";
+                        $MonthCount.=count(\App\Beneficiary::where(\DB::raw('Month(date_registration)'),'=',$i)
+                                ->where(\DB::raw('Year(date_registration)'),'=',date('Y'))->get()).",";
                     }
-                    $sdata=substr($scollection,0,strlen($scollection)-1);
-                    ?>
-            series: [{
-                name: 'Beneficiaries',
-                colorByPoint: true,
-                data: [<?php echo $sdata;?>]
-            }],
-            @endif
-        });
+                    $monthData.=substr($MonthCount,0,strlen($MonthCount)-1);
+                    $series .=" data:[".$monthData."]";
+                    $series .=" },";
 
+
+                $seriesdata=substr($series,0,strlen($series)-1);
+
+                ?>
+
+            series: [<?php echo $seriesdata;?>]
+        });
+        $("#formItemsDistributionReport").validate({
+            rules: {
+                report_type: "required",
+                export_type: "required"
+            },
+            messages: {
+                report_type: "Please field is required",
+                export_type: "Please field is required"
+            }
+        });
     </script>
 @stop
 @section('breadcrumb')
@@ -525,7 +426,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{url('beneficiaries')}}">Beneficiaries</a>
+            <a href="#">Material support</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -537,34 +438,20 @@
     <div class="row widget-row">
         <div class="col-md-12 pull-right">
             <div class="btn-group pull-right">
-                <a href="{{url('reports/beneficiaries/generate')}}" class="btn blue-madison"><i class="fa fa-bar-chart"></i> Generate Reports</a>
-                <a href="{{url('reports/beneficiaries')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i> Beneficiaries Reports</a>
+                <a href="{{url('beneficiaries')}}" class="btn blue-madison"><i class="fa fa-users"></i> Go to Beneficiaries</a>
+                <a href="{{url('reports/beneficiaries')}}" class="btn blue-madison"><i class="fa fa-line-chart"></i>Beneficiaries Reports</a>
             </div>
 
         </div>
 
     </div>
-
-    <div class="row widget-row" style="margin-top: 20px">
+    @include('reports.beneficiaries.searchForm')
+    <div class="row widget-row">
         <div class="col-md-12">
             <div id="containerBeneficiaries" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         </div>
-    </div>
-    <div class="row widget-row" style="margin-top: 20px">
-        <div class="col-md-6">
-            <div id="disabilityChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-        <div class="col-md-6">
-            <div id="SoftInjureChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
 
     </div>
-    <div class="row widget-row">
-        <div class="col-md-6">
-            <div id="BurundianChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-        <div class="col-md-6">
-            <div id="CongoleseChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        </div>
-    </div>
+
 @stop
+

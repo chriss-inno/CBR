@@ -120,7 +120,6 @@
                                                 <option></option>
                                                 <option value="1">List of beneficiaries who have not supported by any items</option>
                                                 <option value="2">List beneficiaries  who haven’t  supported with the selected items</option>
-                                                <option value="3">List  beneficiaries of particular diagnosis</option>
                                                 <option value="4">List of beneficiaries supplied with particular items</option>
                                             </optgroup>
                                         </select>
@@ -141,7 +140,7 @@
                         </fieldset>
                         <div class="row">
                             <div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
-                                <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-search"></i> Search Client </button>
+                                <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-cogs"></i> Generate Report </button>
                             </div>
                             <div class="col-md-2 col-sm-2 ">
                                 <button type="reset" class="btn btn-block btn-default"><i class="fa fa-refresh"></i> Reset </button>

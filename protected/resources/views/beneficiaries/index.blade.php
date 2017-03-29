@@ -437,7 +437,7 @@
                         $(".deleteRecord").click(function(){
                             var id1 = $(this).parent().attr('id');
                             $(".deleteModule").show("slow").parent().parent().find("span").remove();
-                            var btn = $(this).parent().parent();
+                            var btn = $(this).parent().parent().parent();
                             $(this).hide("slow").parent().append("<span><br>Are You Sure <br /> <a href='#s' id='yes' class='btn btn-success btn-xs'><i class='fa fa-check'></i> Yes</a> <a href='#s' id='no' class='btn btn-danger btn-xs'> <i class='fa fa-times'></i> No</a></span>");
                             $("#no").click(function(){
                                 $(this).parent().parent().find(".deleteRecord").show("slow");

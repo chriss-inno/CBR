@@ -13,6 +13,6 @@ class Beneficiary extends Model
     }
     public function supports()
     {
-        return $this::hasMany('\App\MateriaSupport','beneficiary_id','id');
+        return $this::hasMany('\App\MaterialSupportItem','beneficiary_id','id');
     }
 }

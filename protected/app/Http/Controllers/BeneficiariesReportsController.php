@@ -290,6 +290,77 @@ class BeneficiariesReportsController extends Controller
     public function store(Request $request)
     {
         //
+
+        $query=\DB::table('beneficiaries');
+        $end_time ="";
+        $start_time="";
+        if($request->start_date != ""){
+            $start_time = date("Y-m-d", strtotime($request->start_date));
+        }
+        if($request->end_date != ""){
+            $end_time = date("Y-m-d", strtotime($request->end_date));
+        }
+
+        if ($request->progress_number != ""){
+
+            $query->where('progress_number','LIKE',"%{$request->progress_number}%");
+        }
+        if ($request->diagnosis != ""){
+
+            $query->where('diagnosis','LIKE',"%{$request->diagnosis}%");
+        }
+        if ($request->full_name != ""){
+
+            $query->where('full_name','LIKE',"%{$request->full_name}%");
+        }
+        if ($request->sex != "All" && $request->sex !=""){
+
+            $query->where('sex','=',$request->sex);
+        }
+        if ($request->nationality != "All" && $request->nationality !=""){
+
+            $query->where('nationality','=',$request->nationality);
+        }
+
+        if($start_time != "" && $end_time !=""){
+            $range = [$start_time, $end_time];
+            $query->whereBetween('date_registration', $range);
+        }
+        elseif($start_time != "" && $end_time ==""){
+            $query->where('date_registration', $start_time);
+        }
+        elseif($start_time == "" && $end_time !=""){
+            $query->where('date_registration', $end_time);
+        }
+
+
+
+
+        //Export now
+        switch ($request->report_type)
+        {
+            case 1:
+
+                $beneficiaries = $query->get();
+
+                if ($request->export_type == 1){
+                    return view('reports.beneficiaries.html.lists', compact('beneficiaries'));
+                }
+                else {
+                    \Excel::create("list_of_beneficiaries", function ($excel) use ($beneficiaries) {
+                        $excel->sheet('sheet', function ($sheet) use ($beneficiaries) {
+                            $sheet->loadView('reports.beneficiaries.excel.lists', compact('beneficiaries'));
+                            // $sheet->setAutoFilter('E2:F2');
+                        });
+                    })->download('xlsx');
+                }
+
+                break;
+
+            default:
+                return redirect()->back();
+
+        }
     }
 
     /**

@@ -414,8 +414,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('reports/material/support','InventoryReportsController@store');
 
     Route::get('reports/beneficiaries','BeneficiariesReportsController@index');
-    Route::get('reports/beneficiaries/generate','BeneficiariesReportsController@showReportView');
-    Route::post('reports/beneficiaries/generate','BeneficiariesReportsController@generateReportView');
+    Route::get('reports/beneficiaries/generate','BeneficiariesReportsController@index');
+    Route::post('reports/beneficiaries/generate','BeneficiariesReportsController@store');
 
     Route::get('reports/social/needs','ReportSocialNeedController@index');
     Route::get('reports/social/needs/generate','ReportSocialNeedController@showReportView');

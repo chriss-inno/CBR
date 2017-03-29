@@ -34,7 +34,7 @@
             </a>
             <ul class="sub-menu">
 
-                <li class="nav-item active ">
+                <li class="nav-item ">
                     <a href="{{url('clients')}}" class="nav-link ">
                         <span class="title">Clients</span>
                     </a>
@@ -168,12 +168,12 @@
                         <span class="title">Orthopedic services</span>
                     </a>
                 </li>
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('reports/material/support')}}" class="nav-link ">
                         <span class="title">Material support</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item  active">
                     <a href="{{url('reports/beneficiaries')}}" class="nav-link ">
                         <span class="title">Beneficiaries  Identification/Registration</span>
                     </a>
@@ -410,12 +410,10 @@
         });
         $("#formItemsDistributionReport").validate({
             rules: {
-                start_date: "required",
                 report_type: "required",
                 export_type: "required"
             },
             messages: {
-                start_date: "Please field is required",
                 report_type: "Please field is required",
                 export_type: "Please field is required"
             }
