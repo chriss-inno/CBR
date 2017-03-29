@@ -236,14 +236,22 @@
     <div class="row">
         <div class="col-md-12 col-xs-12 col-lg-12">
             <table class="table table-bordered">
-                <th class="col-md-1">NAME:</th>
-                <th class="col-md-2"></th>
-                <th class="col-md-1">TITLE:</th>
-                <th class="col-md-2"></th>
-                <th class="col-md-1">SIGNATURE:</th>
-                <th class="col-md-2"></th>
-                <th class="col-md-1">DATE:</th>
-                <th class="col-md-2"></th>
+                <tr>
+                    <th class="col-md-1">NAME:</th>
+                    <th class="col-md-2"></th>
+                </tr>
+                <tr>
+                    <th class="col-md-1">TITLE:</th>
+                    <th class="col-md-2"></th>
+                </tr>
+                <tr>
+                    <th class="col-md-1">SIGNATURE:</th>
+                    <th class="col-md-2"></th>
+                </tr>
+                <tr>
+                    <th class="col-md-1">DATE:</th>
+                    <th class="col-md-2"></th>
+                </tr>
             </table>
         </div>
     </div>

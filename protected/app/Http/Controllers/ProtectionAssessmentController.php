@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Beneficiary;
 use App\Client;
 use App\ProtectionAssessment;
 use App\ProtectionAssessmentNeed;
@@ -31,8 +32,8 @@ class ProtectionAssessmentController extends Controller
     public function getClientDetails($id)
     {
         //
-        $client=Client::find($id);
-        return view('protection.clientprofile',compact('client'));
+        $beneficiary=Beneficiary::find($id);
+        return view('protection.clientprofile',compact('beneficiary'));
     }
     public function printForm($id)
     {
@@ -71,7 +72,7 @@ class ProtectionAssessmentController extends Controller
         //
         try {
             $validator = Validator::make($request->all(), [
-                'client_id' => 'required',
+                'beneficiary_id' => 'required',
                 'progress_number' => 'required',
                 'assessment_date' => 'required|before:tomorrow',
                 'name' => 'required',
@@ -87,7 +88,7 @@ class ProtectionAssessmentController extends Controller
             } else {
 
                 $assessment=new ProtectionAssessment;
-                $assessment->client_id =$request->client_id;
+                $assessment->beneficiary_id =$request->beneficiary_id;
                 $assessment->progress_number =$request->progress_number;
                 $assessment->fs =$request->fs;
                 $assessment->code =$request->code;

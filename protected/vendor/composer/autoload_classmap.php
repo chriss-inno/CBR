@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddAddressAndNationality2Beneficiaries' => $baseDir . '/database/migrations/2016_08_26_155203_addAddressAndNationality2Beneficiaries.php',
     'AddBeneficiaryId' => $baseDir . '/database/migrations/2016_07_18_133122_addBeneficiaryId.php',
+    'AddBeneficiaryIdToProtection' => $baseDir . '/database/migrations/2017_03_29_182449_add_beneficiary_id_to_protection.php',
     'AddClientDisabilityFields' => $baseDir . '/database/migrations/2016_07_21_065338_add_client_disability_fields.php',
     'AddClientRegisteredDate' => $baseDir . '/database/migrations/2016_07_20_093411_add_client_registered_date.php',
     'AddDiagnosisitoBeneficiaries' => $baseDir . '/database/migrations/2017_02_06_085437_addDiagnosisitoBeneficiaries.php',

@@ -254,7 +254,7 @@
 
         <div class="form-body">
             <fieldset class="scheduler-border">
-                <legend class="text-bold"><h3 class="text-center text-bold">Select client for assessment</h3></legend>
+                <legend class="text-bold"><h3 class="text-center text-bold">Select Beneficiary for assessment</h3></legend>
                 <div class="form-group">
                     <div class="row clearfix">
                         <div class="col-md-12 column">
@@ -266,9 +266,9 @@
                                     <th> Full Name </th>
                                     <th> Sex </th>
                                     <th> Age </th>
-                                    <th>Nationality </th>
+                                    <th> Nationality </th>
                                     <th> Address </th>
-                                    <th class="text-center"> Select Client </th>
+                                    <th class="text-center"> Select Beneficiary </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -282,7 +282,7 @@
                                     <th> Age </th>
                                     <th>Nationality </th>
                                     <th> Address </th>
-                                    <th class="text-center"> Select Client </th>
+                                    <th class="text-center"> Select Beneficiary </th>
                                 </tr>
                                 </tfoot>
                             </table>

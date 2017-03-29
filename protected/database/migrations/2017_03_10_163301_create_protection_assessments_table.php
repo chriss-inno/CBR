@@ -14,7 +14,7 @@ class CreateProtectionAssessmentsTable extends Migration
     {
         Schema::create('protection_assessments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('client_id')->unsigned();
+            $table->integer('beneficiary_id')->unsigned();
             $table->string('progress_number')->nullable();
             $table->string('fs')->nullable();
             $table->string('code')->nullable();
@@ -32,7 +32,7 @@ class CreateProtectionAssessmentsTable extends Migration
             $table->text('history')->nullable();
             $table->text('action_plan')->nullable();
             $table->timestamps();
-            $table->foreign('client_id')->references('id')->on('clients')
+			$table->foreign('beneficiary_id')->references('id')->on('beneficiaries')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
     }

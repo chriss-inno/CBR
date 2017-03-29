@@ -149,7 +149,7 @@
 <script>
     $("#formAssessmentProtections").validate({
         rules: {
-            client_id: "required",
+            beneficiary_id: "required",
             progress_number: "required",
             fs: "required",
             name: "required",
@@ -158,7 +158,7 @@
             assessment_place: "required"
         },
         messages: {
-            client_id: "Field is required",
+            beneficiary_id: "Field is required",
             progress_number: "Field is required",
             fs: "Field is required",
             name: "Field is required",
@@ -211,7 +211,7 @@
         }
     });
 </script>
-@include('clients.findclient')
+@include('beneficiaries.searchBeneficiary')
 <div class="portlet light bordered">
     <div class="portlet-body form">
         {!! Form::open(array('url'=>'protection/assessment','role'=>'form','id'=>'formAssessmentProtections')) !!}
@@ -219,7 +219,7 @@
 
             <div class="panel-body">
                 <fieldset class="scheduler-border">
-                    <legend class="text-bold"><h3 class="text-center text-bold">Select client for assessment</h3></legend>
+                    <legend class="text-bold"><h3 class="text-center text-bold">Select Beneficiary for assessment</h3></legend>
                     <div class="form-group">
                         <div class="row clearfix">
                             <div class="col-md-12 column">
@@ -227,14 +227,13 @@
                                     <thead>
                                     <tr>
                                         <th> SNO </th>
-                                        <th> File number  </th>
+                                        <th> Progress number  </th>
                                         <th> Full Name </th>
                                         <th> Sex </th>
                                         <th> Age </th>
-                                        <th>Nationality </th>
+                                        <th> Nationality </th>
                                         <th> Address </th>
-                                        <th> Camp </th>
-                                        <th class="text-center"> Select Client </th>
+                                        <th class="text-center"> Select Beneficiary </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -242,14 +241,13 @@
                                     <tfoot>
                                     <tr>
                                         <th> SNO </th>
-                                        <th> File number  </th>
+                                        <th> Progress number  </th>
                                         <th> Full Name </th>
                                         <th> Sex </th>
                                         <th> Age </th>
                                         <th>Nationality </th>
                                         <th> Address </th>
-                                        <th> Camp </th>
-                                        <th class="text-center"> Select Client </th>
+                                        <th class="text-center"> Select Beneficiary </th>
                                     </tr>
                                     </tfoot>
                                 </table>

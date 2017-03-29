@@ -4,14 +4,14 @@
  </script>
 <div class="form-group ">
     <label class="control-label">Name:</label>
-    <input type="text" class="form-control" name="name" id="name"  value="{{$client->full_name}}" readonly="">
+    <input type="text" class="form-control" name="name" id="name"  value="{{$beneficiary->full_name}}" readonly="">
 </div>
 <div class="row">
     <div class="col-md-4">
         <div class="form-group ">
             <label class="control-label">Sex:</label>
             <select class="form-control" name="sex" id="sex" data-placeholder="Choose an option..." readonly="">
-                <option value="{{$client->sex}}">{{$client->sex}}</option>
+                <option value="{{$beneficiary->sex}}">{{$beneficiary->sex}}</option>
             </select>
         </div>
     </div>
@@ -42,7 +42,7 @@
     <div class="col-md-4">
         <div class="form-group ">
             <label class="control-label">Address:</label>
-            <input type="text" class="form-control" name="address" id="address"  value="{{$client->address}}" readonly>
+            <input type="text" class="form-control" name="address" id="address"  value="{{$beneficiary->address}}" readonly>
         </div>
     </div>
     <div class="col-md-4">

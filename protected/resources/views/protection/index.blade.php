@@ -16,7 +16,7 @@
             </a>
 
         </li>
-        <li class="nav-item start active open">
+        <li class="nav-item start ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-users fa-2x"></i>
                 <span class="title">Clients</span>
@@ -24,21 +24,17 @@
             </a>
             <ul class="sub-menu">
 
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a href="{{url('clients')}}" class="nav-link ">
                         <span class="title">Clients</span>
                     </a>
                 </li>
-                <li class="nav-item  active">
+                <li class="nav-item  ">
                     <a href="{{url('assessment/roam')}}" class="nav-link ">
                         <span class="title">Assessment</span>
                     </a>
                 </li>
-                <li class="nav-item  ">
-                    <a href="{{url('protection/assessment')}}" class="nav-link ">
-                        <span class="title">Protection Assessment</span>
-                    </a>
-                </li>
+                
                 <li class="nav-item  ">
                     <a href="{{url('disabilities')}}" class="nav-link ">
                         <span class="title">Disabilities</span>
@@ -50,6 +46,13 @@
                     </a>
                 </li>
             </ul>
+        </li>
+        <li class="nav-item active open">
+            <a href="{{url('protection/assessment')}}" class="nav-link nav-toggle">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="title">Protection Assessment </span>
+            </a>
+
         </li>
         <li class="nav-item ">
             <a href="{{url('rehabilitation/services')}}" class="nav-link nav-toggle">

@@ -8,7 +8,7 @@
 
                     <div class="panel-body">
                         <fieldset class="scheduler-border">
-                            <legend class="text-bold">Client Advance Search</legend>
+                            <legend class="text-bold">Beneficiary Advance Search</legend>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group ">
@@ -85,7 +85,7 @@
                         </fieldset>
                         <div class="row">
                             <div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
-                                <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-search"></i> Search Client </button>
+                                <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-search"></i> Search Beneficiary </button>
                             </div>
                             <div class="col-md-2 col-sm-2 ">
                                 <button type="reset" class="btn btn-block btn-default"><i class="fa fa-refresh"></i> Reset </button>

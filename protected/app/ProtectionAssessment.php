@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class ProtectionAssessment extends Model
 {
     //
-    public function client()
+   
+	public function beneficiary()
     {
-        return $this::belongsTo('\App\Client','client_id','id');
+        return $this::belongsTo('\App\Beneficiary','beneficiary_id','id');
     }
     public function needs()
     {
