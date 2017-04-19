@@ -481,6 +481,11 @@
                         <div class="portlet-body form">
                             {!! Form::open(array('url'=>'inventory/disbursement/import','role'=>'form','id'=>'DepartmentFormUN','files'=>true)) !!}
                             <div class="form-body">
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                                 <fieldset class="scheduler-border">
                                     <legend class="text-bold"><h3 class="text-center text-bold">Distribution Details</h3></legend>
                                     <div class="form-group">

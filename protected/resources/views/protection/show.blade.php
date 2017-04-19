@@ -225,7 +225,7 @@
             </table>
             <table class="table table-bordered">
                 <tr>
-                    <th style="background-color: #000"><span style="color: #fff;" class="col-md-8 col-md-offset-2 text-center">HISTORY OF CLIENT </span></th>
+                    <th style="background-color: #000"><span style="color: #fff;" class="col-md-8 col-md-offset-2 text-center">ACTION PLAN </span></th>
                 </tr>
                 <tr>
                     <td class="col-md-12"> <?php echo $assessment->action_plan;?></td>

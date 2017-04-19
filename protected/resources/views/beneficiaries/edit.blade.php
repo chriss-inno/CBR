@@ -196,68 +196,48 @@
                         success:function(data)
                         {
                             console.log(data);
-                            if(data =="<span class='text-success'><i class='fa-info'></i> Saved successfully</span>")
-                            {
-                                //data: return data from server
-                                $("#output").html(data);
-                                setTimeout(function() {
-                                    location.reload();
-                                    $("#output").html("");
-                                }, 2000);
+                            //data: return data from server
+                            $("#output").html(data.messages);
+                            setTimeout(function() {
+                                location.reload();
+                                $("#output").html("");
+                            }, 2000);
+
+                        },
+                        error: function(jqXhr)
+                        {
+                            console.log(jqXhr);
+                            if( jqXhr.status === 401 ) {
+                                location.replace('{{url('login')}}');
+                            }
+                            if( jqXhr.status === 400 ) {
+                                if(jqXhr.responseJSON.errors === 1)
+                                {
+                                    var messages = jqXhr.responseJSON.messages;
+                                    errorsHtml = '<div class="alert alert-danger"><p class="text-uppercase text-bold">There are errors kindly check</p>>';
+                                    errorsHtml +='<p>'+messages+'</p></div>';
+                                    $('#output').html(errorsHtml);
+                                }
+								else
+								{
+									   var errors = jqXhr.responseJSON.errors;
+										errorsHtml = '<div class="alert alert-danger"><p class="text-uppercase text-bold">There are errors kindly check</p><ul>';
+										$.each(errors, function (key, value) {
+											errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
+										});
+										errorsHtml += '</ul></di>';
+										$('#output').html(errorsHtml);
+								}
+
                             }
                             else
                             {
-                                $("#output").html(data);
-
+                                $('#output').html(jqXhr.message);
                             }
-
-                        },
-                        error: function(data)
-                        {
-                            console.log(data.responseJSON);
-                            //in the responseJSON you get the form validation back.
-                            $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Error in processing data try again...</span><h3>");
-
-                            setTimeout(function() {
-                                $("#output").html("");
-                            }, 2000);
                         }
                     });
         }
     });
 
-    $(".addRow").click(function(){
 
-        var div = document.createElement('div');
-
-        div.className = 'row';
-
-        div.innerHTML = '<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">\
-               <label>Service receive</label>\
-               <select name="service_received[]" id="service_received" class="form-control">\
-                <option value="">--Select--</option>\
-                <option value="Repairing">Repairing</option>\
-                <option value="Fabrication">Fabrication</option>\
-                <option value="Item measurement">Item measurement</option>\
-        </select>\
-        </div>\
-                <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">\
-                <label>Item serviced</label>\
-        <input type="text" class="form-control" name="item_serviced[]" id="item_serviced">\
-                </div>\
-                <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">\
-                <label>Quantity</label>\
-                <input type="text" class="form-control" name="quantity[]" id="quantity">\
-                </div>\
-                <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1">\
-                </div>\
-       ';
-
-        document.getElementById('itemsdispatch').appendChild(div);
-    });
-    $(".removeRow").click(function(){
-
-        alert('hhh');
-        // document.getElementById('itemsdispatch').removeChild( this.parent().parent() );
-    });
 </script>

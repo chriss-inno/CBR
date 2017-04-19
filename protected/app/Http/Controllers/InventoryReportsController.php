@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MaterialSupport;
+use App\MaterialSupportItem;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -204,10 +205,14 @@ class InventoryReportsController extends Controller
                 break;
             case 2:
                 if ($request->item != "All" && $request->item !="") {
-                    $query->leftjoin('material_support_items', 'beneficiaries.id', '=', 'material_support_items.beneficiary_id')
-                        ->where('material_support_items.beneficiary_id', '=', null)
-                        ->where('material_support_items.item_id', $request->item)
-                        ->select('beneficiaries.*');
+
+
+                    $query->whereNotIn('id',function ($query) use ($request){
+
+                        $query->from('material_support_items')
+                            ->select('beneficiary_id')
+                            ->where('item_id', $request->item);
+                    });
 
                     $beneficiaries = $query->get();
 
@@ -229,25 +234,9 @@ class InventoryReportsController extends Controller
 
                 break;
             case 3:
+                if ( $request->item !="") {
+                    $query->join('material_support_items', 'beneficiaries.id', '=', 'material_support_items.beneficiary_id');
 
-                $beneficiaries = $query->get();
-
-                if ($request->export_type == 1){
-                    return view('reports.inventory.html.lists', compact('beneficiaries'));
-                }
-                else {
-                    \Excel::create("list_of_beneficiaries", function ($excel) use ($beneficiaries) {
-                        $excel->sheet('sheet', function ($sheet) use ($beneficiaries) {
-                            $sheet->loadView('reports.inventory.excel.lists', compact('beneficiaries'));
-                            // $sheet->setAutoFilter('E2:F2');
-                        });
-                    })->download('xlsx');
-                }
-
-                break;
-            case 4:
-                if ($request->item != "All" && $request->item !="") {
-                    $query=\DB::table('material_support_items');
                     if($start_time != "" && $end_time !=""){
                         $range = [$start_time, $end_time];
                         $query->whereBetween('distributed_date', $range);
@@ -258,10 +247,10 @@ class InventoryReportsController extends Controller
                     elseif($start_time == "" && $end_time !=""){
                         $query->where('distributed_date', $end_time);
                     }
-                    else{
-                        $query->where('distributed_date', null);
+                    if ($request->item != "All") {
+                        $query->where('item_id', $request->item);
                     }
-                    $query->where('item_id', $request->item);
+                    $query->select('material_support_items.*');
 
                     $items = $query->get();
 

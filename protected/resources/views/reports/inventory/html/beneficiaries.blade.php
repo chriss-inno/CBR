@@ -298,6 +298,11 @@
 @stop
 @section('custom-scripts')
     {!! Html::script("assets/pages/scripts/jquery.validate.min.js") !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" ) !!}
+    {!! Html::script("assets/global/plugins/clockface/js/clockface.js" ) !!}
+    {!! Html::script("assets/pages/scripts/components-date-time-pickers.min.js" ) !!}
     <script>
         var TableDatatablesManaged = function () {
 
@@ -552,8 +557,8 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <i class="icon-users font-dark"></i>
-                        <span class="caption-subject bold uppercase"> Beneficiaries Management </span>
+                        <i class="icon-list font-dark"></i>
+                        <span class="caption-subject bold uppercase"> Material Distribution Report </span>
                     </div>
                     <div class="table-toolbar">
                         <div class="row">
@@ -568,6 +573,7 @@
                         </div>
                     </div>
                 </div>
+                @include('reports.inventory.searchForm')
                 <div class="portlet-body" >
                     <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
                         <thead>

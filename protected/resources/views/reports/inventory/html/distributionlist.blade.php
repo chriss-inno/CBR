@@ -568,11 +568,12 @@
                         </div>
                     </div>
                 </div>
+                @include('reports.inventory.searchForm')
                 <div class="portlet-body" >
                     <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
                         <thead>
                         <tr>
-                            <th colspan="8" align="center">List of Clients</th>
+                            <th colspan="8" align="center">List of Beneficiaries</th>
                         </tr>
                         <tr>
                             <th> SNO</th>

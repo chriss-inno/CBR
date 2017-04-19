@@ -120,7 +120,7 @@
                                                 <option></option>
                                                 <option value="1">List of beneficiaries who have not supported by any items</option>
                                                 <option value="2">List beneficiaries  who haven’t  supported with the selected items</option>
-                                                <option value="4">List of beneficiaries supplied with particular items</option>
+                                                <option value="3">List of beneficiaries supplied with particular items</option>
                                             </optgroup>
                                         </select>
                                     </div>
