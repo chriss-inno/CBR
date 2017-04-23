@@ -294,14 +294,10 @@ class BeneficiaryController extends Controller
         try{
             $validator = Validator::make($request->all(), [
                 'full_name' => 'required',
-                'id' => 'required',
+				'date_registration' => 'required|before:tomorrow',
                 'sex' => 'required',
                 'age' => 'required',
-                'progress_number' => 'required|unique:beneficiaries',
-                'family_size' => 'required',
-                'date_registration' => 'required|before:tomorrow',
-                'number_male' => 'required|numeric',
-                'number_females' => 'required|numeric',
+                'progress_number' => 'required',
                 'diagnosis'=> 'required',
             ]);
             if ($validator->fails()) {
@@ -313,27 +309,43 @@ class BeneficiaryController extends Controller
             else
             {
 
-                $beneficiary = new Beneficiary;
-                $beneficiary->progress_number = $request->progress_number;
-                $beneficiary->full_name = ucwords(strtolower($request->full_name));
-                $beneficiary->date_registration = $request->date_registration;
-                $beneficiary->category = $request->category;
-                $beneficiary->code = $request->code;
-                $beneficiary->age = $request->age;
-                $beneficiary->sex = $request->sex;
-                $beneficiary->diagnosis = $request->diagnosis;
-                $beneficiary->family_size = $request->family_size;
-                $beneficiary->number_females = $request->number_females;
-                $beneficiary->number_male = $request->number_male;
-                $beneficiary->address = $request->address;
-                $beneficiary->nationality = ucwords(strtolower($request->nationality));
-                $beneficiary->save();
+                if(count(Beneficiary::where('progress_number','=',$request->progress_number)
+                                     ->where('full_name','=',ucwords(strtolower($request->full_name)))
+                                     ->where('date_registration','=',$request->date_registration)
+                                     ->where('sex','=',$request->sex)
+                                     ->where('age','=',$request->age)->get()) >0) {
 
-                return Response::json(array(
-                    'success' => true,
-                    'errors' => 0,
-                    'messages' => "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>"
-                ), 200); // 400 being the HTTP code for an invalid request.
+                    return Response::json(array(
+                        'success' => true,
+                        'errors' => 1,
+                        'messages' => "<span class='text-danger'><i class='fa-info'></i> Saved failed!, Beneficiary already exist</span>"
+                    ), 200); // 400 being the HTTP code for an invalid request.
+
+                }
+                else
+                    {
+                    $beneficiary = new Beneficiary;
+                    $beneficiary->progress_number = $request->progress_number;
+                    $beneficiary->full_name = ucwords(strtolower($request->full_name));
+                    $beneficiary->date_registration = $request->date_registration;
+                    $beneficiary->category = $request->category;
+                    $beneficiary->code = $request->code;
+                    $beneficiary->age = $request->age;
+                    $beneficiary->sex = $request->sex;
+                    $beneficiary->diagnosis = $request->diagnosis;
+                    $beneficiary->family_size = $request->family_size;
+                    $beneficiary->number_females = $request->number_females;
+                    $beneficiary->number_male = $request->number_male;
+                    $beneficiary->address = $request->address;
+                    $beneficiary->nationality = ucwords(strtolower($request->nationality));
+                    $beneficiary->save();
+
+                    return Response::json(array(
+                        'success' => true,
+                        'errors' => 0,
+                        'messages' => "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>"
+                    ), 200); // 400 being the HTTP code for an invalid request.
+                }
 
             }
 
@@ -387,15 +399,11 @@ class BeneficiaryController extends Controller
         //
 		try{
 			$validator = Validator::make($request->all(), [
-                'full_name' => 'required',
-                'id' => 'required',
+				'full_name' => 'required',
+				'date_registration' => 'required|before:tomorrow',
                 'sex' => 'required',
                 'age' => 'required',
-                'progress_number' => 'required|unique:beneficiaries,id,'.$request->id,
-                'family_size' => 'required',
-                'date_registration' => 'required|before:tomorrow',
-                'number_male' => 'required|numeric',
-                'number_females' => 'required|numeric',
+                'progress_number' => 'required',
                 'diagnosis'=> 'required',
             ]);
             if ($validator->fails()) {
@@ -406,28 +414,44 @@ class BeneficiaryController extends Controller
             }
             else
             {
+                if(count(Beneficiary::where('id','<>',$request->id)
+                        ->where('progress_number','=',$request->progress_number)
+                        ->where('full_name','=',ucwords(strtolower($request->full_name)))
+                        ->where('date_registration','=',$request->date_registration)
+                        ->where('sex','=',$request->sex)
+                        ->where('age','=',$request->age)->get()) >0) {
 
-                $beneficiary = Beneficiary::find($request->id);
-                $beneficiary->progress_number = $request->progress_number;
-                $beneficiary->full_name = ucwords(strtolower($request->full_name));
-                $beneficiary->date_registration = $request->date_registration;
-                $beneficiary->category = $request->category;
-                $beneficiary->code = $request->code;
-                $beneficiary->age = $request->age;
-                $beneficiary->sex = $request->sex;
-                $beneficiary->diagnosis = $request->diagnosis;
-                $beneficiary->family_size = $request->family_size;
-                $beneficiary->number_females = $request->number_females;
-                $beneficiary->number_male = $request->number_male;
-                $beneficiary->address = $request->address;
-                $beneficiary->nationality = ucwords(strtolower($request->nationality));
-                $beneficiary->save();
+                    return Response::json(array(
+                        'success' => true,
+                        'errors' => 1,
+                        'messages' => "<span class='text-danger'><i class='fa-info'></i> Saved failed!, Beneficiary already exist</span>"
+                    ), 200); // 400 being the HTTP code for an invalid request.
 
-                return Response::json(array(
-                    'success' => true,
-                    'errors' => 0,
-                    'messages' => "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>"
-                ), 200); // 400 being the HTTP code for an invalid request.
+                }
+                else {
+
+                    $beneficiary = Beneficiary::find($request->id);
+                    $beneficiary->progress_number = $request->progress_number;
+                    $beneficiary->full_name = ucwords(strtolower($request->full_name));
+                    $beneficiary->date_registration = $request->date_registration;
+                    $beneficiary->category = $request->category;
+                    $beneficiary->code = $request->code;
+                    $beneficiary->age = $request->age;
+                    $beneficiary->sex = $request->sex;
+                    $beneficiary->diagnosis = $request->diagnosis;
+                    $beneficiary->family_size = $request->family_size;
+                    $beneficiary->number_females = $request->number_females;
+                    $beneficiary->number_male = $request->number_male;
+                    $beneficiary->address = $request->address;
+                    $beneficiary->nationality = ucwords(strtolower($request->nationality));
+                    $beneficiary->save();
+
+                    return Response::json(array(
+                        'success' => true,
+                        'errors' => 0,
+                        'messages' => "<span class='text-success'><i class='fa-info'></i> Saved successfully</span>"
+                    ), 200); // 400 being the HTTP code for an invalid request.
+                }
 
             }
 		

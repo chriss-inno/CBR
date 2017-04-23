@@ -168,10 +168,7 @@
             date_registration: "required",
             sex: "required",
             age: "required",
-            number_females: "required",
-            number_male: "required",
-            category: "required",
-            family_size: "required"
+            category: "required" 
         },
         messages: {
             attendance_date: "Please field is required",
@@ -179,10 +176,7 @@
             date_registration: "Please field is required",
             sex: "Please field is required",
             age: "Please field is required",
-            number_females: "Please field is required",
-            number_male: "Please field is required",
-            category: "Please field is required",
-            family_size: "Please field is required"
+            category: "Please field is required"
         },
         submitHandler: function(form) {
             $("#output").html("<h3><span class='text-info'><i class='fa fa-spinner fa-spin'></i> Making changes please wait...</span><h3>");
